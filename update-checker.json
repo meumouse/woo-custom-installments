@@ -3,10 +3,10 @@
 	"version": "1.2.0",
 	"download_url": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/woo-custom-installments.zip",
 
-	"homepage": "http://meumouse.com/",
+	"homepage": "https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/",
 	"requires": "5.0",
-	"tested": "6.0",
-	"last_updated": "2022-10-24 11:17:00",
+	"tested": "6.0.3",
+	"last_updated": "2022-10-25 11:17:00",
 	"upgrade_notice": "Here's why you should upgrade...",
 
 	"author": "MeuMouse.com",
@@ -16,7 +16,7 @@
 		"description": "Extensão que permite exibir o parcelamento e preço com desconto para lojas WooCommerce.",
 		"installation": "(Recommended) Installation instructions.",
 		"changelog": "(Recommended) Changelog. <p>This section will be displayed by default when the user clicks 'View version x.y.z details'.</p>",
-		"custom_section": "This is a custom section labeled 'Custom Section'."
+		"telas": "This is a custom section labeled 'Telas'."
 	},
 	
 	"icons" : {
@@ -28,19 +28,4 @@
 		"low": "http://w-shadow.com/files/external-update-example/assets/banner-772x250.png",
 		"high": "http://w-shadow.com/files/external-update-example/assets/banner-1544x500.png"
 	},
-
-	"translations": [
-		{
-			"language": "fr_FR",
-			"version": "4.0",
-			"updated": "2016-04-22 23:22:42",
-			"package": "http://example.com/updates/translations/french-language-pack.zip"
-		}
-	],
-
-	"rating": 90,
-	"num_ratings": 123,
-
-	"downloaded": 1234,
-	"active_installs": 12345
 }
