@@ -30,11 +30,17 @@
 	},
 
 	"translations": [
+		{
+			"language": "pt_BR",
+			"version": "1.0.0",
+			"updated": "2022-10-25 10:22:42",
+			"package": ""
+		}
 	],
 
 	"rating": 0,
 	"num_ratings": 0,
 
-	"downloaded": 83,
-	"active_installs": 78
+	"downloaded": 14,
+	"active_installs": 12
 }
