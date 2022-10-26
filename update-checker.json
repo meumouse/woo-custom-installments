@@ -13,7 +13,7 @@
 	"author_homepage": "https://meumouse.com/",
 
 	"sections": {
-		"description": "O plugin Parcelas Customizadas para WooCommerce permite informar aos seus clientes em quantas vezes podem parcelar suas compras, quantas parcelas sem juros, desconto no pagamento por Pix, Boleto, ou outra forma que você queira. A função deste plugin é apenas visual e informativa, não modifica valores no backend, é necessário que utilize outro plugin oferecer descontos por método de pagamento. Desenvolvido com o framework Bootstrap 5.2.2, oferece estilos nativamente ao plugin, mas caso seu tema ofereça esse recurso você poderá desabilitar o carregamento do CSS. Compatível com qualquer tema do WordPress. Integrado com o plugin PagSeguro (Cálculo de parcelas baseado em fator de multiplicação, veja nossa central de ajuda.)",
+		"description": "",
 		"installation": "",
 		"changelog": "",
 		"tela": ""
@@ -30,12 +30,6 @@
 	},
 
 	"translations": [
-		{
-			"language": "pt_FR",
-			"version": "4.0",
-			"updated": "2016-04-22 23:22:42",
-			"package": "http://example.com/updates/translations/french-language-pack.zip"
-		}
 	],
 
 	"rating": 0,
