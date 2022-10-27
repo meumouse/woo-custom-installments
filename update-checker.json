@@ -20,13 +20,13 @@
 	},
 	
 	"icons" : {
-		"1x" : "",
-		"2x" : ""
+		"1x" : "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/icon-128-woo-custom-installments.png",
+		"2x" : "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/icon-256-woo-custom-installments.png"
     },
 
 	"banners": {
-		"low": "",
-		"high": ""
+		"low": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/banner-low-woo-custom-installments.png",
+		"high": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/banner-high-woo-custom-installments.png"
 	},
 
 	"translations": [
