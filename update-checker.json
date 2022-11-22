@@ -1,6 +1,6 @@
 {
 	"name": "Parcelas Customizadas para WooCommerce",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"download_url": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/woo-custom-installments.zip",
 
 	"homepage": "https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/",
@@ -41,6 +41,6 @@
 	"rating": 0,
 	"num_ratings": 0,
 
-	"downloaded": 14,
-	"active_installs": 12
+	"downloaded": 80,
+	"active_installs": 76
 }
