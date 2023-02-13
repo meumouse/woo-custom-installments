@@ -13,9 +13,11 @@
 	"author_homepage": "https://meumouse.com/",
 
 	"sections": {
-		"description": "",
-		"installation": "",
-		"changelog": "",
+		"description": "Este plugin tem como objetivo a exibição das formas de pagamentos, boleto bancário, transferência imediata Pix e cartões de crédito nas informações do produto, na página de produto individual e ou arquivos de produtos do WooCommerce. Também informar aos clientes o desconto ou juros de acordo com o método de pagamento.
+
+",
+		"installation": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#install",
+		"changelog": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#changelogs",
 		"tela": ""
 	},
 	
@@ -38,9 +40,9 @@
 		}
 	],
 
-	"rating": 0,
+	"rating": 5,
 	"num_ratings": 0,
 
-	"downloaded": 240,
-	"active_installs": 229
+	"downloaded": 420,
+	"active_installs": 416
 }
