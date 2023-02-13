@@ -13,9 +13,9 @@
 	"author_homepage": "https://meumouse.com/",
 
 	"sections": {
-		"description": "",
-		"installation": "",
-		"changelog": "",
+		"description": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#description",
+		"installation": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#install",
+		"changelog": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#changelogs",
 		"tela": ""
 	},
 	
@@ -38,7 +38,7 @@
 		}
 	],
 
-	"rating": 4.7,
+	"rating": 4,7,
 	"num_ratings": 78,
 
 	"downloaded": 420,
