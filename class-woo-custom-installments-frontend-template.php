@@ -51,6 +51,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
      */
     if( get_option( 'license_status') == 'valid' ) {
       add_shortcode( 'woo_custom_installments_modal', array( $this, 'full_installment' ) );
+      add_shortcode( 'woo_custom_installments_card_info', array( $this, 'single_product_price' ) );
       add_shortcode( 'woo_custom_installments_pix_container', array( $this, 'woo_custom_installments_pix_flag' ) );
       add_shortcode( 'woo_custom_installments_ticket_container', array( $this, 'woo_custom_installments_ticket_flag' ) );
       add_shortcode( 'woo_custom_installments_credit_card_container', array( $this, 'woo_custom_installments_credit_card_flags' ) );
@@ -73,7 +74,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @return string
    *
   */
-  protected function set_values( $return, $price = false, $product = false, $echo = true ) {
+  public function set_values( $return, $price = false, $product = false, $echo = true ) {
     $installments_info = array();
 
     if ( !$price ) {
@@ -170,6 +171,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * Display installments on loop page
    * 
    * @return string
+   * @since 1.0.0
   */
   public function loop_price() {
     echo '<span class="woo-custom-installments-loop">';
@@ -201,10 +203,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     return false;
   }
 
-
+/*
   public static function clear_product_function() {
     self::$count++;
-  }
+  }*/
 
 
   /**
@@ -226,6 +228,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $html = '';
     $display_single_product = $this->get_single_page_view( $product );
     $woo_custom_installments_display_shop_page = $this->get_shop_page_view( $product );
+    $get_icon_best_installments = $this->getSetting( 'icon_best_installments' );
 
     if ( $original_price && apply_filters( 'woo_custom_installments_original_with_credit_card', false ) ) {
       $html .= apply_filters( 'woo_custom_installments_show_original_price_credit_card', $original_price, $product );
@@ -243,7 +246,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
     if ( '' != $price ) {
 
-      $html .= ' <span class="woo-custom-installments-info-container">';
+      $html .= ' <span class="woo-custom-installments-card-container">';
+        $html .= '<i id="wci-icon-best-installments" class="'. $get_icon_best_installments .'"></i>';
         $html .= $price;
       $html .= ' </span>';
 
@@ -575,9 +579,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
 
     // accordion content
-    $accordion .= '<div class="accordion">';
+    $accordion .= '<div id="accordion-installments" class="accordion">';
       $accordion .= '<div class="accordion-item">';
-        $accordion .= '<div class="accordion-header">'. $getTitleButton .'</div>';
+        $accordion .= '<button class="accordion-header">'. $getTitleButton .'</button>';
         $accordion .= '<div class="accordion-content">'. $table .'</div>';
       $accordion .= '</div>';
     $accordion .= '</div>';
@@ -628,7 +632,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
 
   /**
-   * Display discount in main price
+   * Display discount in main price and best installments
    * 
    * @return string
    * @since 2.0.0
@@ -645,10 +649,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     // Show original price before discount info
     $html = '<span class="original-price">' . $price . '</span>';
 
-    // PARCELAS NO PRODUTO (TESTE)
-    $html .= $this->single_product_price( $product, $price );
-
     $html .= '<span class="woo-custom-installments-offer">';
+
+    // Get icon class Font Awesome
+    $html .= '<i id="wci-icon-main-price" class="'. $this->getSetting( 'icon_main_price' ) .'"></i>';
 
     if ( !$product->is_purchasable() || $main_price_discount <= 0 || $disable_discount_main_price || $this->variable_has_same_price( $product ) ) {
         return $price;
@@ -670,6 +674,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $html .= '<span class="discounted-price">' . wc_price( $custom_price ) . '</span>';
     $html .= '<span class="discount-after-price">' . $this->get_text_after_price( $product ) . '</span>';
     $html .= '</span>';
+
+    // Display best installment with or without fee
+    $html .= $this->single_product_price( $product, $price );
 
     // Display discount in main price in loop and single product pages
     if ( $displayGlobal || ( $displayOnlySingleProduct && is_product() ) || ( $displayOnlyLoopProducts && is_archive() ) ) {
@@ -760,9 +767,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     if ( 'main_price' == $hook ) {
-      $text = $this->$display_text_formatted_main_price;
+      $text = $this->getSetting( 'text_display_installments_single_product' );
     } else {
-      $text = $this->$display_text_formatted_loop;
+      $text = $this->getSetting( 'text_display_installments_loop' );
     }
 
     $find = array_keys( $this->strings_to_replace( $best_no_fee ) );
@@ -788,9 +795,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     if ( 'main_price' == $hook ) {
-      $text = $this->$display_text_formatted_main_price;
+      $text = $this->getSetting( 'text_display_installments_single_product' );
     } else {
-      $text = $this->$display_text_formatted_loop;
+      $text = $this->getSetting( 'text_display_installments_loop' );
     }
 
     $find = array_keys( $this->strings_to_replace( $best_with_fee ) );
@@ -924,6 +931,17 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $unit_margin_bottom_main_price = $this->getSetting( 'unit_margin_bottom_discount_price' );
     $button_popup_color = $this->getSetting( 'button_popup_color' );
     $button_popup_size = $this->getSetting( 'button_popup_size' );
+    $margin_top_popup = $this->getSetting( 'margin_top_popup_installments' );
+    $unit_margin_top_popup = $this->getSetting( 'unit_margin_top_popup_installments' );
+    $margin_bottom_popup = $this->getSetting( 'margin_bottom_popup_installments' );
+    $unit_margin_bottom_popup = $this->getSetting( 'unit_margin_bottom_popup_installments' );
+    $best_installments_color = $this->getSetting( 'best_installments_color' );
+    $font_size_best_installments = $this->getSetting( 'font_size_best_installments' );
+    $unit_font_size_best_installments = $this->getSetting( 'unit_font_size_best_installments' );
+    $margin_top_best_installments = $this->getSetting( 'margin_top_best_installments' );
+    $unit_margin_top_best_installments = $this->getSetting( 'unit_margin_top_best_installments' );
+    $margin_bottom_best_installments = $this->getSetting( 'margin_bottom_best_installments' );
+    $unit_margin_bottom_best_installments = $this->getSetting( 'unit_margin_bottom_best_installments' );
   
     // color main price
     $css = '.woo-custom-installments-offer {';
@@ -964,6 +982,18 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         $css .= 'border-radius: 0.5rem;';
       $css .= '}';
     }
+
+    $css .= '#open-popup, #accordion-installments {';
+      $css .= 'margin-top:'. $margin_top_popup . $unit_margin_top_popup .';';
+      $css .= 'margin-bottom:'. $margin_bottom_popup . $unit_margin_bottom_popup .';';
+    $css .= '}';
+
+    $css .= '.woo-custom-installments-card-container {';
+      $css .= 'color:'. $best_installments_color .';';
+      $css .= 'font-size:'. $font_size_best_installments . $unit_font_size_best_installments .';';
+      $css .= 'margin-top:'. $margin_top_best_installments . $unit_margin_top_best_installments .';';
+      $css .= 'margin-bottom:'. $margin_bottom_best_installments . $unit_margin_bottom_best_installments .';';
+    $css .= '}';
 
     ?>
     <style type="text/css">
