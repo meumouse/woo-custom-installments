@@ -15,13 +15,7 @@ Extensão que permite exibir o parcelamento e preço com desconto para lojas Woo
 O plugin Parcelas Customizadas para WooCommerce permite informar aos seus clientes em quantas vezes podem parcelar suas compras,
 quantas parcelas sem juros, desconto no pagamento por Pix, Boleto, ou outra forma que você queira.
 
-A função deste plugin é apenas visual e informativa, não modifica valores no backend, é necessário que utilize outro plugin oferecer descontos por método de pagamento.
-
-Desenvolvido com o framework Bootstrap 5.2.2, oferece estilos nativamente ao plugin, mas caso seu tema ofereça esse recurso você poderá desabilitar o carregamento do CSS.
-
 Funciona com qualquer tema do WordPress.
-
-Integrado com o plugin PagSeguro (Cálculo de parcelas baseado em fator de multiplicação, veja nossa central de ajuda.)
 
 == Installation ==
 
