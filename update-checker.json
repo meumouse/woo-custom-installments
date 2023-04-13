@@ -4,9 +4,9 @@
 	"download_url": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/woo-custom-installments.zip",
 
 	"homepage": "https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/",
-	"requires": "5.0",
-	"tested": "6.1.1",
-	"last_updated": "2023-04-13 12:15:00",
+	"requires": "4.5",
+	"tested": "6.2",
+	"last_updated": "2023-04-13 00:15:00",
 	"upgrade_notice": "",
 
 	"author": "MeuMouse.com",
@@ -30,17 +30,11 @@
 	},
 
 	"translations": [
-		{
-			"language": "pt_BR",
-			"version": "1.0.0",
-			"updated": "2022-10-25 10:22:42",
-			"package": ""
-		}
 	],
 
-	"rating": 4,8,
-	"num_ratings": 78,
+	"rating": 5,
+	"num_ratings": 4,
 
-	"downloaded": 647,
-	"active_installs": 603
+	"downloaded": 687,
+	"active_installs": 661
 }
