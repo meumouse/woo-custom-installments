@@ -1,31 +1,46 @@
 {
 	"name": "Parcelas Customizadas para WooCommerce",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"download_url": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/woo-custom-installments.zip",
 
 	"homepage": "https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/",
 	"requires": "5.0",
-	"tested": "6.0.3",
-	"last_updated": "2022-10-25 11:17:00",
-	"upgrade_notice": "Here's why you should upgrade...",
+	"tested": "6.1.1",
+	"last_updated": "2023-04-13 12:15:00",
+	"upgrade_notice": "",
 
 	"author": "MeuMouse.com",
 	"author_homepage": "https://meumouse.com/",
 
 	"sections": {
-		"description": "Extensão que permite exibir o parcelamento e preço com desconto para lojas WooCommerce.",
-		"installation": "(Recommended) Installation instructions.",
-		"changelog": "(Recommended) Changelog. <p>This section will be displayed by default when the user clicks 'View version x.y.z details'.</p>",
-		"telas": "This is a custom section labeled 'Telas'."
+		"description": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#description",
+		"installation": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#install",
+		"changelog": "https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/#changelogs",
+		"tela": ""
 	},
 	
 	"icons" : {
-		"1x" : "http://w-shadow.com/files/external-update-example/assets/icon-128x128.png",
-		"2x" : "http://w-shadow.com/files/external-update-example/assets/icon-256x256.png"
+		"1x" : "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/icon-128-woo-custom-installments.png",
+		"2x" : "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/icon-256-woo-custom-installments.png"
     },
 
 	"banners": {
-		"low": "http://w-shadow.com/files/external-update-example/assets/banner-772x250.png",
-		"high": "http://w-shadow.com/files/external-update-example/assets/banner-1544x500.png"
+		"low": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/banner-low-woo-custom-installments.png",
+		"high": "https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/assets/banner-high-woo-custom-installments.png"
 	},
+
+	"translations": [
+		{
+			"language": "pt_BR",
+			"version": "1.0.0",
+			"updated": "2022-10-25 10:22:42",
+			"package": ""
+		}
+	],
+
+	"rating": 4,8,
+	"num_ratings": 78,
+
+	"downloaded": 647,
+	"active_installs": 603
 }
