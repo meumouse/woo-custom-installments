@@ -1,10 +1,10 @@
 === Parcelas Customizadas para WooCommerce ===
 Contributors: meumouse
 Tags: parcelas, parcelamento de produtos, parcelas avançadas, parcelas customizadas, woocommerce
-Requires at least: 5.0
-Tested up to: 6.0.3
-Stable tag: 6.0
-Requires PHP: 7.0
+Requires at least: 5.0.0
+Tested up to: 6.2
+Stable tag: 6.2
+Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,10 +12,7 @@ Extensão que permite exibir o parcelamento e preço com desconto para lojas Woo
 
 == Description ==
 
-O plugin Parcelas Customizadas para WooCommerce permite informar aos seus clientes em quantas vezes podem parcelar suas compras,
-quantas parcelas sem juros, desconto no pagamento por Pix, Boleto, ou outra forma que você queira.
-
-Funciona com qualquer tema do WordPress.
+Extensão que permite adicionar detalhes de parcelamento para lojas WooCommerce, fornecendo mais detalhes sobre parcelamento e descontos, tornando a experiência de compra mais flexível e conveniente.
 
 == Installation ==
 
@@ -29,6 +26,15 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Recurso adicionado: Arredondamento do preço com desconto
+* Recurso adicionado: Arredondamento do botão de parcelas
+* Recurso adicionado: Posição da melhor parcela
+* Recurso adicionado: Juros por parcela
+* Correção de bugs
+* Otimização de conexão com API
 
 =  2.0.0 =
 
