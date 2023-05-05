@@ -8,11 +8,9 @@ Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Extensão que permite exibir o parcelamento e preço com desconto para lojas WooCommerce.
-
 == Description ==
 
-Extensão que permite adicionar detalhes de parcelamento para lojas WooCommerce, fornecendo mais detalhes sobre parcelamento e descontos, tornando a experiência de compra mais flexível e conveniente.
+Extensão que permite adicionar detalhes de parcelamento, desconto e formas de pagamento aceitas em lojas WooCommerce, tornando a experiência de compra mais flexível e conveniente.
 
 == Installation ==
 
@@ -24,8 +22,15 @@ Ao ativar o plugin clique em "Configurar" nos links do plugin para seguir até a
 
 Defina os valores de taxas e descontos e salve para alterar as configurações padrão.
 
-
 == Changelog ==
+
+Versão 2.2.0 (05/05/2023)
+
+* Recurso adicionado: Centralizar melhor parcela e desconto na grade de produtos
+* Recurso adicionado: Centralizar melhor parcela e desconto no produto individual
+* Correção no cálculo de desconto na finalização de compra
+* Correção de bugs
+* Otimizações
 
 = 2.1.0 =
 
