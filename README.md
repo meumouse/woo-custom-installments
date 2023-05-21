@@ -24,6 +24,15 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 2.3.5 (18/05/2023)
+
+* Recurso adicionado: Desativar atualização de valores na finalização de compra
+* Recurso adicionado: Adicionar juros por método de pagamento
+* Correção de problema: Tabela de parcelas não atualiza valor quando seleciona variação de produto
+* Correção no cálculo de juros das parcelas com taxa de juros padrão 
+* Correção de bugs
+* Otimizações
+
 Versão 2.2.0 (05/05/2023)
 
 * Recurso adicionado: Centralizar melhor parcela e desconto na grade de produtos
