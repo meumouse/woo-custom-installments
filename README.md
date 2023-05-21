@@ -52,7 +52,6 @@ Versão 2.2.0 (05/05/2023)
 
 =  2.0.0 =
 
-* Recurso adicionado: Shortcode [woo_custom_installments_modal] - APENAS EM PRODUTOS
 * Recurso adicionado: Shortcode [woo_custom_installments_card_info] - APENAS EM PRODUTOS
 * Recurso adicionado: Shortcode [woo_custom_installments_discount_and_card] - APENAS EM PRODUTOS
 * Recurso adicionado: Shortcode [woo_custom_installments_table_installments] - APENAS EM PRODUTOS
