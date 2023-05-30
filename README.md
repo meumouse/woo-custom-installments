@@ -24,6 +24,16 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 2.4.0 (29/05/2023)
+
+* Correção na biblioteca de ícones Font Awesome
+* Novo recurso adicionado: Habilitar funções de descontos
+* Novo recurso adicionado: Habilitar funções de juros
+* Novo recurso adicionado: Incluir valor de frete no desconto do pedido
+* Novo recurso adicionado: Remover faixa de preço em produtos variáveis
+* Correção de bugs
+* Otimizações
+
 Versão 2.3.5 (18/05/2023)
 
 * Recurso adicionado: Desativar atualização de valores na finalização de compra
