@@ -62,16 +62,47 @@
 	/**
 	 * Add class for center element group in single product
 	 * 
-	 * @since 2.2.0
+	 * @since 2.4.0
 	 */
 	jQuery( function($) {
 		if ( $('body').hasClass('single-product') ) {
-			let $installmentsGroup = $('.product').find('.price').siblings('.woo-custom-installments-group');
-			$installmentsGroup.addClass('single-product');
+			// check if product title exists
+			let productTitle = $('h1.product_title');
+				
+			if (productTitle.length > 0) {
+				let installments = $('.woo-custom-installments-group');
+
+				installments.each(function() {
+					let installment = $(this);
+
+					// check if .woo-custom-installments-group is child of p.price
+					if (installment.parents('p.price').length > 0) {
+						installment.addClass('internal-single-product');
+					} else {
+						let price = installment.siblings('p.price');
+
+						if (price.length > 0) {
+							installment.addClass('single-product');
+						}
+					}
+				});
+			}
 		}
 	});
-	
-}( jQuery ));
+
+
+	/**
+	 * Check if theme Machic is active, for adjust in button popup
+	 * 
+	 * @since 2.4.0
+	 */
+	jQuery( function($) {
+		if ( $('body').hasClass('theme-machic') ) {
+			$('#open-popup, #accordion-installments').appendTo('.product-price');
+		}
+	});
+
+}(jQuery));
 
 
 /**

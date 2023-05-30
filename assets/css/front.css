@@ -1,5 +1,6 @@
 .woo-custom-installments-offer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     width: fit-content;
     padding: 0.65rem 0.85rem;
@@ -23,8 +24,8 @@
     justify-items: flex-start;
 }
 
-.summary .woo-custom-installments-group, .woocommerce-variation-price .woo-custom-installments-group, .single-product .woo-custom-installments-group {
-    justify-items: flex-start;
+.woocommerce-variation-price .price .woo-custom-installments-group, .product-type-variable .price .woo-custom-installments-group {
+    justify-items: flex-start !important;
 }
 
 .variation-price, .discount-before-price, .discounted-price, .discount-after-price {
@@ -44,8 +45,12 @@
     display: block;
 }
 
-.variation-price, .discount-before-price, .discounted-price, #wci-icon-main-price, .wci-icon-best-installments, .variation-text {
+.variation-price, .discount-before-price, .discounted-price, .wci-icon-main-price, .wci-icon-best-installments, .variation-text {
     margin-right: 0.25rem;
+}
+
+.woo-custom-installments-starting-from {
+    margin-right: 0.5rem;
 }
 
 .woo-custom-installments-offer:has(.variation-text) .discount-before-price {
@@ -305,7 +310,6 @@ h4.pix-method-title, h4.ticket-method-title, h4.credit-card-method-title, h4.deb
     border-radius: 0.35rem;
     overflow: hidden;
     height: 55px;
-    overflow: hidden;
     transition: height .35s ease;
 }
 
@@ -318,12 +322,14 @@ h4.pix-method-title, h4.ticket-method-title, h4.credit-card-method-title, h4.deb
     display: flex;
     align-items: center;
     width: 100%;
+    height: 55px;
     padding: 1rem 1.25rem !important;
     font-size: 1rem;
     font-weight: 500;
     color: #343A40;
     background-color: #fff;
     text-align: left;
+    text-transform: none;
     border: 0;
     border-radius: 0.25rem;
     overflow-anchor: none;
@@ -401,6 +407,11 @@ h4.pix-method-title, h4.ticket-method-title, h4.credit-card-method-title, h4.deb
     justify-content: space-between;
 }
 
+.fa-brands, .fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+}
+
 /**
  * Astra theme style tweak
  *
@@ -444,11 +455,28 @@ h4.pix-method-title, h4.ticket-method-title, h4.credit-card-method-title, h4.deb
     display: none;
 }
 
+.theme-woodmart .quick-shop-wrapper button#open-popup {
+    display: none;
+}
+
 /**
  * EpicJungle theme style tweak
  *
  * @since  2.1.0
  */
- .media-body .woo-custom-installments-group {
+.media-body .woo-custom-installments-group {
     display: none;
- }
+}
+
+/**
+ * Machic theme style tweak
+ *
+ * @since  2.4.0
+ */
+.theme-machic .single-product-container .product-price .woo-custom-installments-group {
+    justify-items: flex-start;
+}
+
+.theme-machic .single-product-container .product-price .price {
+    display: block;
+}

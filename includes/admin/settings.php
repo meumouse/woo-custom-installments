@@ -6,7 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-<h1 class="wp-heading-inline wci_main_title"><?php echo get_admin_page_title() ?></h1>
+<div class="d-flex">
+    <h1 class="wp-heading-inline wci_main_title"><?php echo get_admin_page_title() ?></h1>
+    <span class="badge bg-translucent-primary rounded-pill fs-sm <?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>" style="margin: 2rem 0.5rem 0;"><?php echo esc_html__( 'Pro' ) ?></span>
+</div>
+
 <div id="wci_section_title-description">
     <p><?php echo esc_html__( 'Configure abaixo o parcelamento e descontos de produtos. Se precisar de ajuda para configurar, acesse nossa', 'woo-custom-installments' ) ?>
         <a class="fancy-link" href="https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/" target="_blank"><?php echo esc_html__( 'Central de ajuda', 'woo-custom-installments' ) ?></a>
@@ -78,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <a href="#general-settings" class="nav-tab nav-tab-active"><?php echo esc_html__( 'Geral', 'woo-custom-installments' ) ?></a>
         <a href="#text-settings" class="nav-tab "><?php echo esc_html__( 'Textos', 'woo-custom-installments' ) ?></a>
         <a href="#discount-settings" class="nav-tab "><?php echo esc_html__( 'Descontos', 'woo-custom-installments' ) ?></a>
-        <a href="#interests-settings" class="nav-tab "><?php echo esc_html__( 'Acréscimos', 'woo-custom-installments' ) ?></a>
+        <a href="#interests-settings" class="nav-tab "><?php echo esc_html__( 'Juros', 'woo-custom-installments' ) ?></a>
         <a href="#payment-form-settings" class="nav-tab "><?php echo esc_html__( 'Formas de pagamento', 'woo-custom-installments' ) ?></a>
         <a href="#design-settings" class="nav-tab "><?php echo esc_html__( 'Personalizar', 'woo-custom-installments' ) ?></a>
         <a href="#about-settings" class="nav-tab "><?php echo esc_html__( 'Sobre', 'woo-custom-installments' ) ?></a>
@@ -99,4 +103,3 @@ if ( ! defined( 'ABSPATH' ) ) {
             <span class="span-inside-button-loader"><?php esc_attr_e( 'Salvar alterações', 'woo-custom-installments' ); ?></span>
         </button>
     </form>
-</div>

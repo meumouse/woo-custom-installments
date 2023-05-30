@@ -47,7 +47,12 @@ if ( ! defined( 'ABSPATH' ) ) {
       <td class="w-75">
 	  	<span id="insert-license-info" class="bg-translucent-danger rounded-2 p-2 mb-4 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Informe sua licença abaixo para desbloquear todos os recursos.', 'woo-custom-installments' ) ?></span>
         <span class="form-label d-block mt-2"><?php echo esc_html__( 'Código da licença', 'woo-custom-installments' ) ?></span>
-        <input class="form-control mt-2" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="license_key" name="license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
+        <div class="input-group" style="width: 550px;">
+			<input class="form-control" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="license_key" name="license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
+			<button id="active_license" name="active_license" class="btn btn-primary button-loading <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>" type="submit">
+				<span class="span-inside-button-loader"><?php esc_attr_e( 'Ativar licença', 'woo-custom-installments' ); ?></span>
+			</button>
+		</div>
       </td>
     </tr>
 	<tr class="d-none">
@@ -56,13 +61,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         <input class="form-control mt-2" type="email" placeholder="exemplo@email.com" id="license_email" name="license_email" value="<?php echo get_option( 'woo_custom_installments_license_email' ) ?>" />
       </td>
     </tr>
-	<tr class="<?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>">
-		<td>
-			<button id="active_license" name="active_license" class="btn btn-sm btn-primary button-loading" type="submit">
-				<span class="span-inside-button-loader"><?php esc_attr_e( 'Ativar licença', 'woo-custom-installments' ); ?></span>
-			</button>
-		</td>
-	</tr>
 	<tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>">
 		<td>
 			<button id="deactive_license" name="deactive_license" class="btn btn-sm btn-primary button-loading" type="submit">
@@ -133,6 +131,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="ms-2">
 					<span>
 						<?php if ( ! class_exists( 'DOMDocument' ) ) : ?>
+							<span class="badge bg-translucent-danger">
+								<?php esc_html_e( 'Não', 'woo-custom-installments' ); ?>
+							</span>
+						<?php else : ?>
+							<span class="badge bg-translucent-success">
+								<?php esc_html_e( 'Sim', 'woo-custom-installments' ); ?>
+							</span>
+						<?php endif; ?>
+					</span>
+				</span>
+			</div>
+			<div class="d-flex mb-2">
+				<span><?php esc_html_e( 'Extensão cURL:', 'woo-custom-installments' ); ?></span>
+				<span class="ms-2">
+					<span>
+						<?php if ( !extension_loaded('curl') ) : ?>
 							<span class="badge bg-translucent-danger">
 								<?php esc_html_e( 'Não', 'woo-custom-installments' ); ?>
 							</span>

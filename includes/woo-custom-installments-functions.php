@@ -23,7 +23,7 @@ function woo_custom_installments_wc_dynamic_pricing_and_discounts_integration( $
     foreach ( $product->get_available_variations() as $var ) {
       // Load variation
       $variation = wc_get_product( $var['variation_id'] );
-      $prices[]  = $variation->get_price();
+      $prices[] = $variation->get_price();
     }
 
     return $prices ? min( $prices ) : $price;

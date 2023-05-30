@@ -6,7 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="interests-settings" class="nav-content ">
     <table class="form-table">
-      <tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr>
+        <th>
+            <?php echo esc_html__( 'Habilitar funções de juros', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Ative esta opção para habilitar todas as opções relacionadas a juros.', 'woo-custom-installments' ) ?></span>
+        </th>
+        <td>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="toggle-switch" id="enable_all_interest_options" name="enable_all_interest_options" value="yes" <?php checked( isset( $options['enable_all_interest_options'] ) == 'yes' ); ?> />
+            </div>
+        </td>
+      </tr>
+      <tr class="display-enable-all-interest-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo esc_html__( 'Mostrar emblema de juros na finalização da compra', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir o emblema de juros na página de finalização de compra para a forma de desconto configurada.', 'woo-custom-installments' ) ?></span>
@@ -17,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
          </td>
       </tr>
-      <tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr class="display-enable-all-interest-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo esc_html__( 'Mostrar informação de juros na revisão do pedido', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir a informação de juros na página de finalização de compra para a forma de pagamento configurada.', 'woo-custom-installments' ) ?></span>
@@ -28,13 +39,13 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
          </td>
       </tr>
-      <tr class="mt-4 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr class="display-enable-all-interest-options mt-4 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th class="w-100">
             <?php echo esc_html__( 'Juros por método de pagamento', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Informe uma taxa de juros por método de pagamento para ser adicionado na finalização da compra.', 'woo-custom-installments' ) ?></span>
          </th>
       </tr>
-      <tr id="wci-interest-header" class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr id="wci-interest-header" class="display-enable-all-interest-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo __( 'Método de pagamento', 'woo-custom-installments' ); ?>
          </th>
@@ -54,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       foreach ( $payment_gateways as $gateway ) :
          $current = isset( $insterestSettings[ $gateway->id ]['amount'] ) ? $insterestSettings[ $gateway->id ]['amount'] : '0';
          ?>
-         <tr id="wci-interest-methods-<?php echo esc_attr( $gateway->id ); ?>" class="foreach-method-discount wci-interest-methods <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+         <tr id="wci-interest-methods-<?php echo esc_attr( $gateway->id ); ?>" class="display-enable-all-interest-options foreach-method-discount wci-interest-methods <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
             <th class="wci-title-method-interest-header">
                <label for="woo_custom_installments_payment_discounts_<?php echo esc_attr( $gateway->id ); ?>"><?php echo esc_attr( $gateway->title ); ?></label>
             </th>

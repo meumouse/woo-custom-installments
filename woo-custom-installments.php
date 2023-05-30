@@ -6,11 +6,11 @@
  * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				2.3.5
+ * Version: 				2.4.0
  * WC requires at least: 	5.0.0
  * WC tested up to: 		7.7.0
  * Requires PHP: 			7.2
- * Tested up to:      		6.2.1
+ * Tested up to:      		6.2.2
  * Text Domain: 			woo-custom-installments
  * Domain Path: 			/languages
  * License: 				GPL2
@@ -46,7 +46,7 @@ final class Woo_Custom_Installments {
 		private static $instance = null;
 
 		/**
-		 * The token.
+		 * The token
 		 *
 		 * @var string
 		 * @since 1.0.0
@@ -54,7 +54,7 @@ final class Woo_Custom_Installments {
 		public $token;
 
 		/**
-		 * The version number.
+		 * The version number
 		 *
 		 * @var string
 		 * @since 1.0.0
@@ -92,8 +92,8 @@ final class Woo_Custom_Installments {
 			if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 		
 				// add action and filters
-				$this->token   = 'woo-custom-installments';
-				$this->version = '2.3.5';
+				$this->token = 'woo-custom-installments';
+				$this->version = '2.4.0';
 		
 				add_action( 'init', array( $this, 'load_plugin_textdomain' ), -1 );
 				add_action( 'plugins_loaded', array( $this, 'woo_custom_installments_update_checker' ), 30 );
@@ -178,7 +178,7 @@ final class Woo_Custom_Installments {
 		/**
 		 * What type of request is this?
 		 *
-		 * @param  string $type admin, ajax, cron or woocustominstallmentsend.
+		 * @param  string $type admin, ajax, cron or wciend.
 		 * @return bool
 		 */
 		private function is_request( $type ) {
@@ -189,7 +189,7 @@ final class Woo_Custom_Installments {
 					return defined( 'DOING_AJAX' );
 				case 'cron':
 					return defined( 'DOING_CRON' );
-				case 'woocustominstallmentsend':
+				case 'wciend':
 					return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! $this->is_rest_api_request();
 			}
 		}
@@ -202,6 +202,8 @@ final class Woo_Custom_Installments {
 		 * @return void
 		 */
 		public function setup_includes() {
+			// get array settings in $options
+			$options = get_option( 'woo-custom-installments-setting' );
 
 			/**
 			 * Class init plugin
@@ -222,7 +224,7 @@ final class Woo_Custom_Installments {
 			 * 
 			 * @since 2.0.0
 			 */
-			if( get_option( 'license_status' ) == 'valid' ) {
+			if( get_option( 'license_status' ) == 'valid' && isset( $options['enable_all_discount_options'] ) == 'yes' ) {
 				include_once WOO_CUSTOM_INSTALLMENTS_DIR . 'includes/classes/class-woo-custom-installments-add-discounts.php';
 			}
 
@@ -231,7 +233,7 @@ final class Woo_Custom_Installments {
 			 * 
 			 * @since 2.3.5
 			 */
-			if( get_option( 'license_status' ) == 'valid' ) {
+			if( get_option( 'license_status' ) == 'valid' && isset( $options['enable_all_interest_options'] ) == 'yes' ) {
 				include_once WOO_CUSTOM_INSTALLMENTS_DIR . 'includes/classes/class-woo-custom-installments-add-interest.php';
 			}
 
@@ -261,7 +263,7 @@ final class Woo_Custom_Installments {
 			 * 
 			 * @since 2.0.0
 			 */
-			require_once WOO_CUSTOM_INSTALLMENTS_DIR . 'core/dependencies/class-woo-custom-installments-api.php';
+			require_once WOO_CUSTOM_INSTALLMENTS_DIR . 'includes/classes/class-woo-custom-installments-api.php';
 
 			/**
 			 * Custom design
@@ -286,7 +288,7 @@ final class Woo_Custom_Installments {
 		 * Notice if WooCommerce is deactivate
 		 */
 		public function woo_custom_installments_wc_deactivate_notice() {
-			if ( ! current_user_can( 'install_plugins' ) ) { return; }
+			if ( !current_user_can( 'install_plugins' ) ) { return; }
 
 			echo '<div class="notice is-dismissible error">
 					<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>WooCommerce</strong> esteja instalado e ativado.', 'woo-custom-installments' ) . '</p>
@@ -309,7 +311,7 @@ final class Woo_Custom_Installments {
 		 * @since 2.3.5
 		 */
 		public function woo_custom_installments_prevent_conflit() {
-			if ( ! current_user_can( 'install_plugins' ) ) { return; }
+			if ( !current_user_can( 'install_plugins' ) ) { return; }
 
 			echo '<div class="notice error">
 					<p>' . __( '<strong>Parcelas Customizadas para WooCommerce:</strong> Foram detectados outros plugins que tem funcionalidades de exibir parcelas e ou descontos. Desative-os para evitar conflitos.', 'woo-custom-installments' ) . '</p>
@@ -340,7 +342,7 @@ final class Woo_Custom_Installments {
 		 */
 		public static function get_pro_woo_custom_installments_link( $action_links ) {
 			$plugins_links = array(
-			'<a id="get-pro-woo-custom-installments" target="_blank" href="https://meumouse.com/plugins/woo-custom-installments/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci">' . __( 'Seja PRO', 'woo-custom-installments' ) . '</a>'
+			'<a id="get-pro-woo-custom-installments" target="_blank" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci">' . __( 'Seja PRO', 'woo-custom-installments' ) . '</a>'
 			);
 		
 			return array_merge( $plugins_links, $action_links );

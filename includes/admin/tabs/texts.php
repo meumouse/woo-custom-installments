@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                <input type="text" class="form-control input-control-wd-20" name="text_after_price" value="<?php echo $this->getSetting( 'text_after_price' ) ?>"/>
             </td>
         </tr>
-        <tr>
+        <tr id="starting-from">
             <th>
                 <?php echo esc_html__( 'Texto inicial em produtos variáveis (A partir de)', 'woo-custom-installments' ) ?>
                 <span class="woo-custom-installments-description"><?php echo esc_html__( 'Deixe em branco para não exibir.' ) ?></span>

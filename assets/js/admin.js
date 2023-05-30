@@ -266,11 +266,11 @@
 	 * @since 2.3.5
 	 */
 	jQuery( function($) {
-		var saveButton = $('#save_settings');
-		var settingsForm = $('form[name="woo-custom-installments"]');
+		let saveButton = $('#save_settings');
+		let settingsForm = $('form[name="woo-custom-installments"]');
 
 		// get original values of options in the data base wordpress
-		var originalValues = settingsForm.serialize();
+		let originalValues = settingsForm.serialize();
 
 		// disable button if options are not different
 		if (settingsForm.serialize() === originalValues) {
@@ -293,4 +293,74 @@
 	});
 
 
+	/**
+	 * Enable all discount options
+	 * 
+	 * @since 2.4.0
+	 */
+	jQuery( function($) {
+		// get visibility on data base
+		if( $('#enable_all_discount_options').prop('checked') ) {
+			$('.display-enable-all-discount-options').removeClass('d-none');
+		} else {
+			$('.display-enable-all-discount-options').addClass('d-none');
+		}
+
+		// change visibility on click
+		$('#enable_all_discount_options').click(function() {
+			if ($(this).prop('checked')) {
+				$('.display-enable-all-discount-options').removeClass('d-none');
+			} else {
+				$('.display-enable-all-discount-options').addClass('d-none');
+			}
+		});
+	});
+
+	
+	/**
+	 * Enable all interest options
+	 * 
+	 * @since 2.4.0
+	 */
+	jQuery( function($) {
+		// get visibility on data base
+		if( $('#enable_all_interest_options').prop('checked') ) {
+			$('.display-enable-all-interest-options').removeClass('d-none');
+		} else {
+			$('.display-enable-all-interest-options').addClass('d-none');
+		}
+
+		// change visibility on click
+		$('#enable_all_interest_options').click(function() {
+			if ($(this).prop('checked')) {
+				$('.display-enable-all-interest-options').removeClass('d-none');
+			} else {
+				$('.display-enable-all-interest-options').addClass('d-none');
+			}
+		});
+	});
+
+
+	/**
+	 * Hide input "Texto inicial em produtos variáveis (A partir de)"
+	 * 
+	 * @since 2.4.0
+	 */
+	jQuery( function($) {
+		// get visibility on data base
+		if( $('#remove_price_range').prop('checked') ) {
+			$('#starting-from').removeClass('d-none');
+		} else {
+			$('#starting-from').addClass('d-none');
+		}
+
+		// change visibility on click
+		$('#remove_price_range').click(function() {
+			if ($(this).prop('checked')) {
+				$('#starting-from').removeClass('d-none');
+			} else {
+				$('#starting-from').addClass('d-none');
+			}
+		});
+	});
 })(jQuery);

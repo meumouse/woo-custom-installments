@@ -72,12 +72,12 @@ class Woo_Custom_Installments_Init {
     }
 
     if( Woo_Custom_Installments_Api::CheckWPPlugin( $licenseKey, $licenseEmail, $this->licenseMessage, $this->responseObj, __FILE__ ) ) {
-      add_option( 'license_status', 'valid' );
+      update_option( 'license_status', 'valid' );
       $this->responseObj->is_valid = true;
       return;
     } else {
       if( !empty( $licenseKey ) && !empty( $this->licenseMessage ) ) {
-          add_option( 'license_status', 'invalid' );
+        update_option( 'license_status', 'invalid' );
           $this->responseObj->is_valid = false;
           $this->showMessage = true;
       }
@@ -201,7 +201,7 @@ class Woo_Custom_Installments_Init {
    * @since 1.0.0
    */
   public function enqueue_scripts() {
-    wp_enqueue_script( 'font-awesome-lib', 'https://kit.fontawesome.com/f6bf37e2e4.js' );
+    wp_enqueue_script( 'font-awesome-lib', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/js/font-awesome.min.js' );
     wp_enqueue_script( 'accounting-lib', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/js/accounting.min.js' );
     wp_enqueue_script( 'woo-custom-installments-front-scripts', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/js/front.js' );
     wp_enqueue_style( 'woo-custom-installments-front-styles', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/css/front.css' );
@@ -228,6 +228,17 @@ class Woo_Custom_Installments_Init {
       'without_fee_label'             => $this->getSetting( 'text_without_fee_installments' ),
       'with_fee_label'                => $this->getSetting( 'text_with_fee_installments' ),
     ) ) );
+
+    /**
+     * Remove price range in variable products
+     * 
+     * @since 2.4.0
+     */
+    wp_localize_script( 'woo-custom-installments-front-scripts', 'wci_public_object',
+      array( 
+          'changeVariationPrice' => $this->change_variation_price(),
+      )
+    );
   }
 
 
@@ -245,6 +256,20 @@ class Woo_Custom_Installments_Init {
     }
   }
 
+
+  /**
+   * Change variation price
+   * 
+   * @return
+   * @since 2.4.0
+   */
+  public function change_variation_price() {
+    $options = get_option( 'woo-custom-installments-setting' );
+
+    if( isset( $options['remove_price_range'] ) == 'yes' ) {
+      return true;
+    }
+  }
 
   /**
    * Get option interest of calc installments

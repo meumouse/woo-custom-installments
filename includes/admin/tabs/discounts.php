@@ -6,7 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="discount-settings" class="nav-content ">
     <table class="form-table" >
-    </tr>
+      <tr>
+        <th>
+            <?php echo esc_html__( 'Habilitar funções de descontos', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Ative esta opção para habilitar todas as opções relacionadas a desconto.', 'woo-custom-installments' ) ?></span>
+        </th>
+        <td>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="toggle-switch" id="enable_all_discount_options" name="enable_all_discount_options" value="yes" <?php checked( isset( $options['enable_all_discount_options'] ) == 'yes' ); ?> />
+            </div>
+        </td>
+      </tr>
+      <tr class="display-enable-all-discount-options">
         <th>
             <?php echo esc_html__( 'Exibir preço com desconto no carrinho', 'woo-custom-installments' ) ?>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir o valor do preço com desconto também no carrinho. (Recomendado)', 'woo-custom-installments' ) ?></span>
@@ -16,19 +27,30 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <input type="checkbox" class="toggle-switch" id="display_installments_cart" name="display_installments_cart" value="yes" <?php checked( isset( $options['display_installments_cart'] ) == 'yes' ); ?> />
             </div>
         </td>
-        </tr>
-        <tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
-            <th>
-                <?php echo esc_html__( 'Exibir preço com desconto no Schema', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
-                <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir o preço com desconto em serviços de comparação de preços que fazem leitura de schema. (Recomendado)', 'woo-custom-installments' ) ?></span>
-            </th>
-            <td>
-                <div class="form-check form-switch">
-                  <input type="checkbox" class="toggle-switch <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>" id="display_discount_price_schema" name="display_discount_price_schema" value="yes" <?php checked( isset( $options['display_discount_price_schema'] ) == 'yes' && $this->responseObj->is_valid ); ?> />
-                </div>
-            </td>
       </tr>
-      <tr>
+      <tr class="display-enable-all-discount-options">
+        <th>
+            <?php echo esc_html__( 'Incluir valor de frete no desconto do pedido', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá incluir o valor de frete no cálculo de desconto na finalização da compra. (Recomendado)', 'woo-custom-installments' ) ?></span>
+        </th>
+        <td>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="toggle-switch" id="include_shipping_value_in_discounts" name="include_shipping_value_in_discounts" value="yes" <?php checked( isset( $options['include_shipping_value_in_discounts'] ) == 'yes' ); ?> />
+            </div>
+        </td>
+      </tr>
+      <tr class="display-enable-all-discount-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+         <th>
+               <?php echo esc_html__( 'Exibir preço com desconto no Schema', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
+               <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir o preço com desconto em serviços de comparação de preços que fazem leitura de schema. (Recomendado)', 'woo-custom-installments' ) ?></span>
+         </th>
+         <td>
+               <div class="form-check form-switch">
+               <input type="checkbox" class="toggle-switch <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>" id="display_discount_price_schema" name="display_discount_price_schema" value="yes" <?php checked( isset( $options['display_discount_price_schema'] ) == 'yes' && $this->responseObj->is_valid ); ?> />
+               </div>
+         </td>
+      </tr>
+      <tr class="display-enable-all-discount-options">
          <th>
             <?php echo esc_html__( 'Método do desconto no preço principal', 'woo-custom-installments' ) ?>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Escolha qual método matemático fará o desconto no preço principal do preduto.', 'woo-custom-installments' ) ?></span>
@@ -40,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </select>
          </td>
       </tr>
-      <tr>
+      <tr class="display-enable-all-discount-options">
          <th>
             <?php echo esc_html__( 'Desconto no preço principal', 'woo-custom-installments' ) ?>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Define qual será o valor de desconto sobre o preço principal do produto. Deixe em branco para não exibir.', 'woo-custom-installments' ) ?></span>
@@ -61,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
          </td>
       </tr>
-      <tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr class="display-enable-all-discount-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo esc_html__( 'Mostrar emblema de desconto na finalização da compra', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir o emblema de desconto na página de finalização de compra para a forma de desconto configurada.', 'woo-custom-installments' ) ?></span>
@@ -72,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
          </td>
       </tr>
-      <tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr class="display-enable-all-discount-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo esc_html__( 'Mostrar informação de desconto na revisão do pedido', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Se ativo, irá exibir a informação de desconto na página de finalização de compra para a forma de desconto configurada.', 'woo-custom-installments' ) ?></span>
@@ -83,13 +105,13 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
          </td>
       </tr>
-      <tr class="mt-4 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr class="display-enable-all-discount-options mt-4 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th class="w-100">
             <?php echo esc_html__( 'Desconto por método de pagamento', 'woo-custom-installments' ) ?><span class="badge bg-primary rounded-pill ms-2 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Pro' ) ?></span>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Informe um desconto por método de pagamento para ser adicionado na finalização da compra.', 'woo-custom-installments' ) ?></span>
          </th>
       </tr>
-      <tr id="wci-discount-header" class="<?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+      <tr id="wci-discount-header" class="display-enable-all-discount-options <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
          <th>
             <?php echo __( 'Método de pagamento', 'woo-custom-installments' ); ?>
          </th>
@@ -109,7 +131,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       foreach ( $payment_gateways as $gateway ) :
          $current = isset( $discountSettings[ $gateway->id ]['amount'] ) ? $discountSettings[ $gateway->id ]['amount'] : '0';
          ?>
-         <tr id="wci-discount-methods-<?php echo esc_attr( $gateway->id ); ?>" class="foreach-method-discount wci-discount-methods <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
+         <tr id="wci-discount-methods-<?php echo esc_attr( $gateway->id ); ?>" class="display-enable-all-discount-options foreach-method-discount wci-discount-methods <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>">
             <th class="wci-title-method-discount-header">
                <label for="woo_custom_installments_payment_discounts_<?php echo esc_attr( $gateway->id ); ?>"><?php echo esc_attr( $gateway->title ); ?></label>
             </th>

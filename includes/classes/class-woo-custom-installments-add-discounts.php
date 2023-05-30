@@ -56,10 +56,6 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 	 * @access public
 	 */
 	public function woo_custom_installments_payment_method_title( $title, $id ) {
-		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return $title;
-		}
-
 		$discountSettings = get_option( 'woo_custom_installments_discounts_setting' );
 		$discountSettings = maybe_unserialize( $discountSettings );
 		$options = get_option( 'woo-custom-installments-setting' );
@@ -86,13 +82,11 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 	 * @access public
 	 */
 	public function woo_custom_installments_add_discount( $cart ) {
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
-			return;
-		}
-	
 		// Gets the discountSettings.
 		$gateways = get_option( 'woo_custom_installments_discounts_setting' );
 		$gateways = maybe_unserialize( $gateways );
+		$options = get_option('woo-custom-installments-setting');
+		
 		if ( isset( $gateways[ WC()->session->chosen_payment_method ] ) ) {
 			$value = $gateways[ WC()->session->chosen_payment_method ]['amount'];
 			$type = $gateways[ WC()->session->chosen_payment_method ]['type'];
@@ -103,9 +97,13 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 				$discount_name = $this->discount_name( $value, $gateway );
 	
 				// Add the shipping total to the cart total to calculate the discount.
-				$cart_total = $cart->cart_contents_total + $cart->get_shipping_total();
+				if ( isset( $options['include_shipping_value_in_discounts'] ) == 'yes' ) {
+					$cart_total = $cart->cart_contents_total + $cart->get_shipping_total();
+				} else {
+					$cart_total = $cart->cart_contents_total;
+				}
+				
 				$cart_discount = $this->calculate_discount( $type, $value, $cart_total ) * - 1;
-	
 				$cart->add_fee( $discount_name, $cart_discount, true );
 			}
 		}
@@ -119,7 +117,7 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 	 * @access public
 	 */
 	public function woo_custom_installments_update_order_data( $order_id ) {
-		$payment_method_title     = get_post_meta( $order_id, '_payment_method_title', true );
+		$payment_method_title = get_post_meta( $order_id, '_payment_method_title', true );
 		$new_payment_method_title = preg_replace( '/<small>.*<\/small>/', '', $payment_method_title );
 		// Save the new payment method title.
 		$new_payment_method_title = sanitize_text_field( $new_payment_method_title );

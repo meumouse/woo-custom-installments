@@ -60,6 +60,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     if( get_option( 'license_status') == 'valid' ) {
       add_shortcode( 'woo_custom_installments_modal', array( $this, 'render_full_installment_shortcode' ) );
       add_shortcode( 'woo_custom_installments_card_info', array( $this, 'best_installments_shortcode' ) );
+    //  add_shortcode( 'woo_custom_installments_discount_info', array( $this, 'best_installments_shortcode' ) );
       add_shortcode( 'woo_custom_installments_discount_and_card', array( $this, 'discount_main_price_shortcode' ) );
       add_shortcode( 'woo_custom_installments_table_installments', array( $this, 'installments_table_shortcode' ) );  
       add_shortcode( 'woo_custom_installments_pix_container', array( $this, 'woo_custom_installments_pix_flag' ) );
@@ -69,6 +70,12 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     add_action( 'woocommerce_single_product_summary', array( $this, 'clear_product_function' ), 9999 );
+    
+    if( isset( $options['remove_price_range'] ) == 'yes' ) {
+      add_action( 'woocommerce_variable_add_to_cart', array( $this, 'replace_range_price' ) );
+      add_filter( 'woocommerce_variable_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
+      add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
+    }
   }
 
 
@@ -477,6 +484,58 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
 
   /**
+   * Raplace range price with variation price selected
+   * 
+   * @return string
+   * @since 2.4.0
+   */
+  public function replace_range_price() {
+    global $product;
+    $price = $product->get_price_html();
+  
+    wc_enqueue_js( "      
+       jQuery(document).on('found_variation', 'form.variations_form', function( event, variation ) {   
+          if(variation.price_html) {
+             jQuery('.summary .price').html(variation.price_html);
+             jQuery('.woocommerce-variation-price').hide();
+             jQuery('.woo-custom-installments-group.single-product').hide();
+          }
+       });
+       jQuery(document).on('reset_data', 'form.variations_form', function( event ) {   
+          jQuery('.summary .price').html('" . $price . "');
+          jQuery('.woo-custom-installments-group.single-product').hide();
+       });
+    " );
+  }
+
+
+  /**
+   * Replace range price for "A partir de"
+   * 
+   * @return string
+   * @since 2.4.0
+   */
+  public function starting_from_variable_product_price( $price, $product ) {
+    if( $product->is_type( 'variable' ) && ! $this->variable_has_same_price( $product ) ) {
+        $min_price_regular = $product->get_variation_regular_price('min', true);
+        $min_price_sale = $product->get_variation_sale_price('min', true);
+  
+        if( $min_price_regular !== $min_price_sale ) {
+            $min_price = $min_price_sale;
+        } else {
+            $min_price = $min_price_regular;
+        }
+        
+        $price = !empty( $this->getSetting('text_initial_variables') ) ? '<span class="woo-custom-installments-starting-from">' . $this->getSetting('text_initial_variables') . '</span>' . wc_price($min_price) : wc_price($min_price);
+    } else {
+        $price = wc_price( $product->get_price() );
+    }
+  
+    return $price;
+  }
+
+
+  /**
    * Display discount in main price and best installments
    * 
    * @return string
@@ -494,6 +553,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $get_text_before_price = $this->getSetting( 'text_before_price' );
     $get_text_after_price = $this->getSetting( 'text_after_price' );
     $get_icon_pix = $this->getSetting( 'icon_main_price' );
+    $options = get_option('woo-custom-installments-setting');
     
     // Show original price before discount info
     $html = '<span class="original-price">' . $price . '</span>';
@@ -502,10 +562,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $html .= '<span class="woo-custom-installments-offer">';
 
     if( !empty( $get_icon_pix ) ) {
-      $html .= '<i id="wci-icon-main-price" class="'. $get_icon_pix .'"></i>';
+      $html .= '<i class="wci-icon-main-price '. $get_icon_pix .'"></i>';
     }
 
-    if ( !$product->is_purchasable() || $main_price_discount <= 0 ) {
+    if ( !$product->is_purchasable() || $main_price_discount <= 0 || isset( $options['enable_all_discount_options'] ) != 'yes' ) {
       $price .= $this->display_best_installments( $product, $price );
       return $price;
     }
@@ -522,13 +582,6 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     if ( $disable_discount_main_price || $disable_discount_in_parent ) {
         $price .= $this->display_best_installments( $product, $price );
         return $price;
-    }
-
-    // check if product is variable for display before variation text
-    if ( $product->is_type( 'variable' ) && ! $this->variable_has_same_price( $product ) ) {
-        $args = array();
-        $html .= '<span class="variation-text">' . apply_filters( 'woo_custom_installments_before_variation_text', $get_text_before_variation_text ) . '</span>';
-        $args['price'] = $product->get_variation_price( 'min' );
     }
 
     if ( $this->getSetting( 'product_price_discount_method' ) == 'percentage' ) {
@@ -562,7 +615,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       $html_2 = $price;
       $html_2 .= $this->display_best_installments( $product, $price );
       return $html_2;
-    } elseif( $displayOnlyLoopProducts && is_product()  ) {
+    } elseif( $displayOnlyLoopProducts && is_product() ) {
       // display best installments if discount main price is in only archive products and is single product
       $html_3 = $price;
       $html_3 .= $this->display_best_installments( $product, $price );
@@ -580,7 +633,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @return string
    * @since 2.0.0
    */
-  public function discount_main_price_shortcode( $atts ) {
+  public function discount_main_price_shortcode() {
     global $product;
 
     // check if local is product page for install shortcode
