@@ -23,6 +23,12 @@ Ao ativar o plugin clique em "Configurar" nos links do plugin para seguir até a
 Defina os valores de taxas e descontos e salve para alterar as configurações padrão.
 
 == Changelog ==
+
+Versão 2.6.0 (05/06/2023)
+* Recurso removido: Centralizar melhor parcela e desconto no produto individual
+* Correção de bugs
+* Otimizações
+
 Versão 2.4.0 (29/05/2023)
 
 * Correção na biblioteca de ícones Font Awesome
