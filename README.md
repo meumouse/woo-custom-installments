@@ -24,6 +24,13 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 2.7.2 (20/06/2023)
+
+* Recurso adicionado: Desconto por quantidade mínima
+* Recurso adicionado: Opção Ocultar no Tipo de exibição das parcelas
+* Correção de bugs
+* Otimizações
+
 Versão 2.4.0 (29/05/2023)
 
 * Correção na biblioteca de ícones Font Awesome
