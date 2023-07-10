@@ -24,6 +24,15 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 2.8.0 (10/07/2023)
+
+* Recurso adicionado: Emblema de desconto no boleto bancário
+* Recurso adicionado: Shortcode [woo_custom_installments_ticket_discount_badge]
+* Recurso adicionado: Adicionar texto personalizado após o preço do produto
+* Recurso adicionado: Ativar mensagem nos produtos elegíveis para desconto por quantidade
+* Correção de bugs
+* Otimizações
+
 Versão 2.7.2 (20/06/2023)
 
 * Recurso adicionado: Desconto por quantidade mínima
