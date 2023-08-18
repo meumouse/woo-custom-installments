@@ -24,6 +24,11 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 2.9.2 (18/08/2023)
+ 
+* Correção de bugs
+* Otimizações
+
 Versão 2.9.0 (24/07/2023)
  
 * Correção de bugs
