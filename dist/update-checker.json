@@ -14,7 +14,7 @@
 	"sections" : {
 		"description" : "Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.",
 		"installation" : "",
-		"changelog" : ""
+		"changelog" : "<p><strong>Versão 3.0.0 (27/09/2023)</strong></p><ul><li>Recurso adicionado: Novo estilo do botão de popup de parcelas</li><li>Recurso adicionado: Informar desconto para cada produto individualmente</li><li>Recurso alterado: Mostrar informação de preço no Pix, mesmo com juros zero</li><li>Opção removida: Mostrar informação de desconto na revisão do pedido</li><li>Opção removida: Mostrar informação de juros na revisão do pedido</li><li>Correção de bugs</li><li>Otimizações</li><li>Melhorias no painel administrativo</li></ul>"
 	},
 	"banners" : {
 		"low" : "https://github.com/meumouse/woo-custom-installments/blob/main/dist/images/banner-low-woo-custom-installments.png",
