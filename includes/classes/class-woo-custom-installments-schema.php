@@ -1,16 +1,14 @@
 <?php
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+defined( 'ABSPATH' ) || exit;
 
 class Woo_Custom_Installments_Schema extends Woo_Custom_Installments_Init {
 
   public function __construct() {
     parent::__construct();
-    $licenseValid = get_option( 'license_status' ) == 'valid';
-
-    if( $licenseValid ) {
+    
+    if( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
       add_filter( 'woocommerce_structured_data_product_offer', array( $this, 'woo_custom_installments_schema_data_product' ), 20, 2 );
     } else {
       remove_filter( 'woocommerce_structured_data_product_offer', array( $this, 'woo_custom_installments_schema_data_product' ), 20, 2 );
@@ -18,7 +16,7 @@ class Woo_Custom_Installments_Schema extends Woo_Custom_Installments_Init {
   }
 
   public function woo_custom_installments_schema_data_product( $markup, $product ) {
-    $discount = $this->get_main_price_discount( $product );
+    $discount = $this->getSetting( 'discount_main_price' );
 
     // Check if there is discount
     if ( 0 >= $discount ) {

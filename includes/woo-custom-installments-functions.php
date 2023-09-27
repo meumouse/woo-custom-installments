@@ -1,9 +1,7 @@
 <?php
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-  exit; }
-
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Integration with plugin wc-dynamic-pricing-and-discounts

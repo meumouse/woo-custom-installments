@@ -2,8 +2,8 @@
 Contributors: meumouse
 Tags: parcelas, parcelamento de produtos, parcelas avançadas, parcelas customizadas, woocommerce
 Requires at least: 5.0.0
-Tested up to: 6.2.1
-Stable tag: 6.2.1
+Tested up to: 6.2.2
+Stable tag: 6.2.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,27 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 3.0.0 (27/09/2023)
+
+- Recurso adicionado: Novo estilo do botão de popup de parcelas
+- Recurso adicionado: Informar desconto para cada produto individualmente
+- Recurso alterado: Mostrar informação de preço no Pix, mesmo com juros zero
+- Opção removida: Mostrar informação de desconto na revisão do pedido
+- Opção removida: Mostrar informação de juros na revisão do pedido
+- Correção de bugs
+- Otimizações
+- Melhorias no painel administrativo
+
+Versão 2.9.2 (18/08/2023)
+ 
+* Correção de bugs
+* Otimizações
+
+Versão 2.9.0 (24/07/2023)
+ 
+* Correção de bugs
+* Otimizações
+
 Versão 2.8.0 (10/07/2023)
 
 * Recurso adicionado: Emblema de desconto no boleto bancário
@@ -34,7 +55,6 @@ Versão 2.8.0 (10/07/2023)
 * Otimizações
 
 Versão 2.7.2 (20/06/2023)
-
 * Recurso adicionado: Desconto por quantidade mínima
 * Recurso adicionado: Opção Ocultar no Tipo de exibição das parcelas
 * Correção de bugs

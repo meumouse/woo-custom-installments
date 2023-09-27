@@ -1,8 +1,7 @@
 <?php
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+defined( 'ABSPATH' ) || exit;
 
 class Woo_Custom_Installments_Calculate_Values {
 
@@ -16,13 +15,13 @@ class Woo_Custom_Installments_Calculate_Values {
    * @return float (Value of installment)
    */
   public static function calculate_installment_with_fee( $value, $fee, $installments ) {
-    $percentage = wc_format_decimal( $fee ) / 100.00;
+    $percentage = floatval( wc_format_decimal( $fee ) ) / 100.00;
     $options = get_option( 'woo-custom-installments-setting' );
     
     if ( isset( $options['set_fee_per_installment'] ) == 'yes' ) {
-      $installment_price = ( $value * $percentage + $value ) / $installments;
+        $installment_price = ( $value * $percentage + $value ) / $installments;
     } else {
-      $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / ( ( ( 1 + $percentage ) ** $installments ) - 1 );
+        $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / ( ( ( 1 + $percentage ) ** $installments ) - 1 );
     }
 
     return apply_filters( 'woo_custom_installments_with_fee', $installment_price, $value, $fee, $installments );

@@ -1,15 +1,13 @@
 <?php
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
-
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Integration functions
+ * Change colors on front-end
  *
- * @package  MeuMouse.com
- * @since  2.1.0
+ * @package MeuMouse.com
+ * @since 2.1.0
  */
 
 class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init {
@@ -28,6 +26,7 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
    * @since 2.0.0
    */
   public function woo_custom_installments_custom_design() {
+    $options = get_option( 'woo-custom-installments-setting' );
     $main_price_color = $this->getSetting('discount_main_price_color');
     $main_price_bg = $this->hex2rgba( $main_price_color );
     $font_size_main_price = $this->getSetting( 'font_size_discount_price' );
@@ -54,10 +53,18 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
     $unit_border_radius_popup_installments = $this->getSetting( 'unit_border_radius_popup_installments' );
     $border_radius_discount_main_price = $this->getSetting( 'border_radius_discount_main_price' );
     $unit_border_radius_discount_main_price = $this->getSetting( 'unit_border_radius_discount_main_price' );
-    $options = get_option( 'woo-custom-installments-setting' );
-    $center_group_elements_loop = isset( $options['center_group_elements_loop'] ) == 'yes';
-    $center_group_elements_single_product = isset( $options['center_group_elements_single_product'] ) == 'yes';
-  
+    $center_group_elements_loop = isset( $options['center_group_elements_loop'] ) && $options['center_group_elements_loop'] == 'yes';
+    $discount_ticket_color = $this->getSetting( 'discount_ticket_color_badge' );
+    $discount_ticket_color_bg = $this->hex2rgba( $discount_ticket_color );
+    $font_size_discount_ticket = $this->getSetting( 'font_size_discount_ticket' );
+    $font_size_unit_discount_ticket = $this->getSetting( 'unit_font_size_discount_ticket' );
+    $margin_top_discount_ticket = $this->getSetting( 'margin_top_discount_ticket' );
+    $margin_top_unit_discount_ticket = $this->getSetting( 'unit_margin_top_discount_ticket' );
+    $margin_bottom_discount_ticket = $this->getSetting( 'margin_bottom_discount_ticket' );
+    $margin_bottom_unit_discount_ticket = $this->getSetting( 'unit_margin_bottom_discount_ticket' );
+    $border_radius_discount_ticket = $this->getSetting( 'border_radius_discount_ticket' );
+    $border_radius_unit_discount_ticket = $this->getSetting( 'unit_border_radius_discount_ticket' );
+
     // main price styles
     $css = '.woo-custom-installments-offer {';
       $css .= 'color:'. $main_price_color .';';
@@ -89,21 +96,68 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
     $css .= '}';
 
     // button popup size
-    if( $button_popup_size == 'small' ) {
+    if ( $button_popup_size == 'small' ) {
       $css .= '#open-popup {';
         $css .= 'padding: 0.475rem 1.25rem;';
         $css .= 'font-size: 0.75rem;';
       $css .= '}';
-    } elseif( $button_popup_size == 'normal' ) {
+    } elseif ( $button_popup_size == 'normal' ) {
       $css .= '#open-popup {';
         $css .= 'padding: 0.625rem 1.75rem;';
         $css .= 'font-size: 0.875rem;';
       $css .= '}';
-    } else {
+    } elseif ( $button_popup_size == 'large' ) {
       $css .= '#open-popup {';
         $css .= 'padding: 0.785rem 2rem;';
         $css .= 'font-size: 1rem;';
       $css .= '}';
+    } else {
+      $css .= '#open-popup {';
+        $css .= 'display: inline-block;';
+        $css .= 'position: relative;';
+        $css .= 'font-weight: 500;';
+        $css .= 'text-decoration: none;';
+        $css .= 'border: 0;';
+        $css .= 'padding: 0;';
+        $css .= 'color:'. $button_popup_color .';';
+      $css .= '}';
+      $css .= '#open-popup::after {';
+        $css .= 'content: "";';
+        $css .= 'position: absolute;';
+        $css .= 'bottom: 0;';
+        $css .= 'right: 0;';
+        $css .= 'width: 100%;';
+        $css .= 'height: 0.0625rem;';
+        $css .= 'background-color:'. $button_popup_color .';';
+      $css .= '}';
+      $css .= '#open-popup:hover {';
+        $css .= 'text-decoration: none;';
+        $css .= 'color:'. $button_popup_color .';';
+        $css .= 'background-color: transparent;';
+      $css .= '}';
+      $css .= '#open-popup:hover::after {';
+        $css .= '-webkit-animation: linkUnderline .6s ease-in-out;';
+        $css .= 'animation: linkUnderline .6s ease-in-out;';
+      $css .= '}';
+      $css .= '@-webkit-keyframes linkUnderline {
+        0% {
+            width: 100%; }
+        50% {
+            width: 0; }
+        100% {
+            left: 0;
+            width: 100%; }
+        }
+        
+        @keyframes linkUnderline {
+        0% {
+            width: 100%; }
+        50% {
+            width: 0; }
+        100% {
+            left: 0;
+            width: 100%; } 
+        }';
     }
 
     $css .= '#open-popup, #accordion-installments {';
@@ -132,7 +186,7 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
      * 
      * @since 2.1.0
      */
-    if( $get_position_best_installments == 'after_discount' ) {
+    if ( $get_position_best_installments == 'after_discount' ) {
       $css .= '.woo-custom-installments-offer {';
         $css .= 'order: 1;';
       $css .= '}';
@@ -153,15 +207,49 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
      * 
      * @since 2.2.0
      */
-    if( $center_group_elements_single_product ) {
-      $css .= '.woo-custom-installments-group.single-product {';
+    if ( $center_group_elements_loop ) {
+      $css .= '.archive .woo-custom-installments-group, .loop .woo-custom-installments-group {';
         $css .= 'justify-items: center;';
       $css .= '}';
     }
 
-    if( $center_group_elements_loop ) {
-      $css .= '.price .woo-custom-installments-group:not(.single-product) {';
-        $css .= 'justify-items: center;';
+    // discount ticket badge styles
+    $css .= '.woo-custom-installments-ticket-discount {';
+      $css .= 'color:'. $discount_ticket_color .';';
+      $css .= 'background-color:'. $discount_ticket_color_bg .';';
+      $css .= 'font-size:'. $font_size_discount_ticket . $font_size_unit_discount_ticket .';';
+      $css .= 'margin-top:'. $margin_top_discount_ticket . $margin_top_unit_discount_ticket .';';
+      $css .= 'margin-bottom:'. $margin_bottom_discount_ticket . $margin_bottom_unit_discount_ticket .';';
+      $css .= 'border-radius:'. $border_radius_discount_ticket . $border_radius_unit_discount_ticket .';';
+    $css .= '}';
+
+    $css .= '.woo-custom-installments-ticket-discount .amount {';
+      $css .= 'color:'. $discount_ticket_color .';';
+    $css .= '}';
+
+    // change order discounts badge (main price and ticket)
+    if ( $this->getSetting( 'hook_order_discount_ticket' ) == 'after_main_discount' ) {
+      $css .= '.woo-custom-installments-offer {';
+        $css .= 'order: 2;';
+      $css .= '}';
+
+      $css .= '.woo-custom-installments-ticket-discount {';
+        $css .= 'order: 3;';
+      $css .= '}';
+    } else {
+      $css .= '.woo-custom-installments-offer {';
+        $css .= 'order: 3;';
+      $css .= '}';
+
+      $css .= '.woo-custom-installments-ticket-discount {';
+        $css .= 'order: 2;';
+      $css .= '}';
+    }
+
+    // hide table variations if range price is activated
+    if ( isset( $options['remove_price_range'] ) && $options['remove_price_range'] == 'yes' ) {
+      $css .= '.woocommerce-variation-price {';
+        $css .= 'display: none !important;';
       $css .= '}';
     }
 
@@ -181,7 +269,7 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
   public function hex2rgba( $color, $opacity = 0.1 ) {
     $hex = str_replace('#', '', $color);
 
-    if( strlen( $hex ) === 3 ) {
+    if ( strlen( $hex ) === 3 ) {
         $hex = str_repeat(substr($hex, 0, 1), 2) . str_repeat( substr( $hex, 1, 1 ), 2 ) . str_repeat( substr( $hex, 2, 1 ), 2);
     }
 

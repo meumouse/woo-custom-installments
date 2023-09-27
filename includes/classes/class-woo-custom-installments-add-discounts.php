@@ -1,34 +1,50 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
+/**
+ * Class for add discounts in the cart
+ * 
+ * @package MeuMouse.com
+ * @since 2.0.0
+ */
 class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 
 	public function __construct() {
 		parent::__construct();
 		$options = get_option( 'woo-custom-installments-setting' );
-		$licenseValid = get_option( 'license_status' ) == 'valid';
 
-		if( $licenseValid ) {
+		// check if license exists
+		if ( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title' ), 10, 2 );
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data' ), 10 );
+			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_discount' ), 10 );
 
-			if( isset( $options['display_info_discount_order_review_checkout'] ) && $options['display_info_discount_order_review_checkout'] == 'yes' ) {
-				add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_discount' ), 10 );
-			}
 		} else {
 			remove_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_discount' ), 10 );
 			remove_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title' ), 10, 2 );
 			remove_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data' ), 10 );
 		}
-		
+
+		/**
+		 * Enable discount per quantity for all products
+		 * 
+		 * @since 2.7.2
+		 */
+		if ( isset( $options['set_discount_per_quantity_global'] ) && $options['set_discount_per_quantity_global'] == 'yes' || isset( $options['enable_functions_discount_per_quantity_single_product'] ) && $options['enable_functions_discount_per_quantity_single_product'] == 'yes' ) {
+			add_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
+		} else {
+			remove_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
+		}
 	}
 
 
 	/**
-	 * Calcule the discount amount.
+	 * Calcule the discount amount
+	 * 
+	 * @since 2.0.0
+	 * @return string
 	 */
 	protected function calculate_discount( $type, $value, $subtotal ) {
 		if ( $type == 'percentage' ) {
@@ -38,8 +54,12 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 		return $value;
 	}
 
+
 	/**
-	 * Generate the discount name.
+	 * Generate the discount name
+	 * 
+	 * @since 2.0.0
+	 * @return string
 	 */
 	protected function discount_name( $value, $gateway ) {
 		if ( strstr( $value, '%' ) ) {
@@ -49,81 +69,294 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 		return sprintf( __( 'Desconto para %s', 'woo-custom-installments' ), esc_attr( $gateway->title ) );
 	}
 
+
 	/**
 	 * Display the discount in payment method title
 	 * 
 	 * @since 2.0.0
-	 * @access public
+	 * @return string
 	 */
 	public function woo_custom_installments_payment_method_title( $title, $id ) {
+		if ( ! is_object( WC()->cart ) ) {
+			return $title;
+		}
+	
 		$discountSettings = get_option( 'woo_custom_installments_discounts_setting' );
 		$discountSettings = maybe_unserialize( $discountSettings );
 		$options = get_option( 'woo-custom-installments-setting' );
-		if ( isset( $discountSettings[ $id ]['amount'] ) && 0 < $discountSettings[ $id ]['amount'] ) {
+	
+		$product_discount = 0;
+		$product_discount_method = '';
+	
+		if ( isset( $options['display_tag_discount_price_checkout'] ) && $options['display_tag_discount_price_checkout'] != 'yes' ) {
+			return $title;
+		}
+	
+		// Defina inicialmente $is_discount_eligible_product_exists como falso.
+		$is_discount_eligible_product_exists = false;
+	
+		$current_payment_method = $id; // Obtém a forma de pagamento atual.
+	
+		// Verificar se há produtos no carrinho com a opção "enable_discount_per_unit" definida como 'yes'.
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			$product = $cart_item['data'];
+			$enable_discount = get_post_meta( $product->get_id(), 'enable_discount_per_unit', true ) == 'yes';
+			$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) == 'yes';
+			$discount_gateway = get_post_meta( $product->get_id(), 'discount_gateway', true ); // Obtém a forma de pagamento configurada no produto.
+	
+			if ( $enable_discount && ! $disable_discount ) {
+				if ( $discount_gateway === $current_payment_method ) {
+					// Se um produto elegível for encontrado com o mesmo desconto da forma de pagamento atual, exiba o desconto do produto e retorne.
+					$product_discount = get_post_meta( $product->get_id(), 'unit_discount_amount', true );
+					$product_discount_method = get_post_meta( $product->get_id(), 'discount_per_unit_method', true );
+	
+					// Verificar se o método de desconto é "percentage" em "discount_per_unit_method".
+					if ( $product_discount_method === 'percentage' ) {
+						$value = $product_discount . '%';
+					} else {
+						$value = wc_price( $product_discount );
+					}
+	
+					// Exiba o desconto específico do produto.
+					$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
+					
+					return $title; // Retorna o título com o desconto do produto.
+				}
+	
+				// Se não for a mesma forma de pagamento, defina $is_discount_eligible_product_exists como verdadeiro para indicar que há um desconto de produto elegível.
+				$is_discount_eligible_product_exists = true;
+			}
+		}
+	
+		// Verificar se $is_discount_eligible_product_exists é verdadeiro e exibir o desconto específico do produto.
+		if ( $is_discount_eligible_product_exists ) {
+			// Exibir o desconto global apenas se nenhum produto elegível com desconto específico for encontrado.
+			return $title;
+		}
+	
+		if ( isset( $discountSettings[ $id ]['amount'] ) && $discountSettings[ $id ]['amount'] > 0 ) {
 			$discount = $discountSettings[ $id ]['amount'];
+	
 			if ( $discountSettings[ $id ]['type'] == 'percentage' ) {
 				$value = $discount . '%';
 			} else {
 				$value = wc_price( $discount );
 			}
-			if( $options['display_tag_discount_price_checkout'] == 'yes' ) {
-				$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
-			} else {
-				$title .= '';
-			}
+	
+			// Exiba o desconto global apenas se nenhum produto elegível com desconto específico for encontrado.
+			$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
 		}
-			return $title;
+	
+		return $title;
 	}
+
 
 	/**
 	 * Add discount
 	 * 
-	 * @since 2.0.0
-	 * @access public
+	 * @since 2.6.0
+	 * @version 3.0.0
+	 * @return void
 	 */
-	public function woo_custom_installments_add_discount( $cart ) {
+	public function woo_custom_installments_add_discount($cart) {
+		if (is_admin() && !defined('DOING_AJAX') || is_cart()) {
+			return;
+		}
+	
 		// Gets the discountSettings.
-		$gateways = get_option( 'woo_custom_installments_discounts_setting' );
-		$gateways = maybe_unserialize( $gateways );
+		$gateways = get_option('woo_custom_installments_discounts_setting');
+		$gateways = maybe_unserialize($gateways);
 		$options = get_option('woo-custom-installments-setting');
-		
-		if ( isset( $gateways[ WC()->session->chosen_payment_method ] ) ) {
-			$value = $gateways[ WC()->session->chosen_payment_method ]['amount'];
-			$type = $gateways[ WC()->session->chosen_payment_method ]['type'];
 	
-			if ( apply_filters( 'woo_payment_discounts_apply_discount', 0 < $value, $cart ) ) {
+		$discount_applied = false; // Flag para verificar se um desconto já foi aplicado.
+	
+		// Verifica se um desconto personalizado está configurado em produtos individuais.
+		foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+			$product = $cart_item['data'];
+			$product_id = $product->get_id();
+			$product_discount = get_post_meta($product_id, 'unit_discount_amount', true);
+			$product_discount_method = get_post_meta($product_id, 'discount_per_unit_method', true);
+	
+			// Verifique se o desconto está configurado no produto, se o método de desconto é válido e se o gateway corresponde à configuração.
+			$discount_gateway = get_post_meta($product_id, 'discount_gateway', true);
+			$chosen_payment_method = WC()->session->chosen_payment_method;
+	
+			if (
+				$product_discount !== '' &&
+				($product_discount_method === 'percentage' || $product_discount_method === 'fixed') &&
+				$discount_gateway === $chosen_payment_method
+			) {
+				// Aplicar o desconto do produto individual aqui.
+				$cart_item_price = $product->get_price();
+				$quantity = $cart_item['quantity'];
 				$payment_gateways = WC()->payment_gateways->payment_gateways();
-				$gateway = $payment_gateways[ WC()->session->chosen_payment_method ];
-				$discount_name = $this->discount_name( $value, $gateway );
+				$gateway = $payment_gateways[WC()->session->chosen_payment_method];
 	
-				// Add the shipping total to the cart total to calculate the discount.
-				if ( isset( $options['include_shipping_value_in_discounts'] ) == 'yes' ) {
-					$cart_total = $cart->cart_contents_total + $cart->get_shipping_total();
-				} else {
-					$cart_total = $cart->cart_contents_total;
+				if ($product_discount_method === 'percentage') {
+					$discount_amount = ($cart_item_price * $product_discount / 100) * $quantity;
+				} elseif ($product_discount_method === 'fixed') {
+					$discount_amount = $product_discount * $quantity;
 				}
-				
-				$cart_discount = $this->calculate_discount( $type, $value, $cart_total ) * - 1;
-				$cart->add_fee( $discount_name, $cart_discount, true );
+
+				$discount_name = $this->discount_name($discount_amount, $gateway);
+	
+				if ($discount_amount > 0) {
+					$cart->add_fee( $discount_name, -$discount_amount );
+					$discount_applied = true; // Marque que um desconto foi aplicado.
+				}
 			}
 		}
-	}
 	
+		if (!$discount_applied) {
+			// Se nenhum desconto personalizado do produto foi aplicado, aplique o desconto com base na forma de pagamento.
+			if (isset($gateways[WC()->session->chosen_payment_method])) {
+				$value = $gateways[WC()->session->chosen_payment_method]['amount'];
+				$type = $gateways[WC()->session->chosen_payment_method]['type'];
+	
+				if (apply_filters('woo_custom_installments_apply_discount', 0 < $value, $cart)) {
+					$payment_gateways = WC()->payment_gateways->payment_gateways();
+					$gateway = $payment_gateways[WC()->session->chosen_payment_method];
+					$discount_name = $this->discount_name($value, $gateway);
+					$total_discount = 0;
+					$total_cart_value = 0;
+	
+					// iterate over cart items and calculate total cart value
+					foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+						$product = $cart_item['data'];
+						$disable_discount = get_post_meta($product->get_id(), '__disable_discount_main_price', true) == 'yes';
+						$parent_id = $product->get_parent_id();
+						$disable_discount_in_parent = get_post_meta($parent_id, '__disable_discount_main_price', true) == 'yes';
+	
+						// Check if the product or its parent has the discount disabled
+						if (!$disable_discount && !$disable_discount_in_parent) {
+							// Calculate discount based on the individual item price
+							$cart_item_total = $cart_item['data']->get_price() * $cart_item['quantity'];
+							$total_cart_value += $cart_item_total;
+						}
+					}
+	
+					// Add the shipping total to the cart value if the option is enabled
+					if (isset($options['include_shipping_value_in_discounts']) && $options['include_shipping_value_in_discounts'] == 'yes') {
+						$total_cart_value += $cart->get_shipping_total();
+					}
+	
+					// Calculate discount based on total cart value
+					if ($this->getSetting('product_price_discount_method') == 'percentage') {
+						$total_discount = $this->calculate_discount($type, $value, $total_cart_value) * -1;
+					} else {
+						$total_discount = $value * -1; // apply fixed discount to total order, not per item
+					}
+	
+					if ($total_discount !== 0) {
+						$cart->add_fee($discount_name, $total_discount, true);
+					}
+				}
+			}
+		}
+	}	
+
 
 	/**
 	 * Remove the discount in the payment method title
 	 * 
 	 * @since 2.0.0
-	 * @access public
+	 * @return void
 	 */
 	public function woo_custom_installments_update_order_data( $order_id ) {
 		$payment_method_title = get_post_meta( $order_id, '_payment_method_title', true );
 		$new_payment_method_title = preg_replace( '/<small>.*<\/small>/', '', $payment_method_title );
+
 		// Save the new payment method title.
 		$new_payment_method_title = sanitize_text_field( $new_payment_method_title );
 		update_post_meta( $order_id, '_payment_method_title', $new_payment_method_title );
 	}
 
+
+	/**
+	 * Set discount per quantity
+	 * 
+	 * @since 2.7.2
+	 * @return void
+	 */
+	public function set_discount_per_quantity( $cart ) {
+		if ( is_admin() && !defined('DOING_AJAX') ) {
+			return;
+		}
+	
+		$options = get_option('woo-custom-installments-setting');
+		$total_discount = 0;
+	
+		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+			$product = $cart_item['data'];
+			$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) == 'yes';
+			$parent_id = $product->get_parent_id();
+			$disable_discount_in_parent = get_post_meta( $parent_id, '__disable_discount_main_price', true ) == 'yes';
+	
+			// check if the product or its parent has the discount disabled
+			if ( !$disable_discount && !$disable_discount_in_parent ) {
+				$quantity = $cart_item['quantity'];
+	
+				// global discount options
+				$discount_method = $this->getSetting('discount_per_quantity_method');
+				$discount_value = $this->getSetting('value_for_discount_per_quantity');
+				$minimum_quantity = $this->getSetting('set_quantity_enable_discount');
+	
+				// single product discount options
+				$discount_method_single = get_post_meta( $product->get_id(), 'discount_per_quantity_method', true );
+				$discount_value_single = get_post_meta( $product->get_id(), 'quantity_discount_amount', true );
+				$minimum_quantity_single = get_post_meta( $product->get_id(), 'minimum_quantity_discount', true );
+	
+				if ( $quantity >= $minimum_quantity_single && $discount_value_single ) {
+					$price = $product->get_price();
+	
+					if ( $discount_method_single == 'percentage' ) {
+						$discounted_price = $price - ( $price * ( $discount_value_single / 100 ) );
+					} else {
+						$discounted_price = $price - $discount_value_single;
+					}
+	
+					$discount = $price - $discounted_price;
+					$cart_item_discount = $discount;
+	
+					if ( isset( $options['enable_discount_per_unit_discount_per_quantity'] ) && $options['enable_discount_per_unit_discount_per_quantity'] == 'yes' ) {
+						$cart_item_discount = $discount * $quantity;
+					}
+	
+					$total_discount += $cart_item_discount;
+				} elseif ( $quantity >= $minimum_quantity && $discount_value ) {
+					$price = $product->get_price();
+	
+					// check discount method
+					if ($discount_method == 'percentage') {
+						$discounted_price = $price - ($price * ($discount_value / 100));
+					} else {
+						$discounted_price = $price - $discount_value;
+					}
+	
+					$discount = $price - $discounted_price;
+					$cart_item_discount = $discount;
+	
+					// check if option discount per unit is activated
+					if (isset( $options['enable_discount_per_unit_discount_per_quantity'] ) && $options['enable_discount_per_unit_discount_per_quantity'] == 'yes') {
+						$cart_item_discount = $discount * $quantity;
+					}
+	
+					$total_discount += $cart_item_discount;
+				}
+			}
+		}
+	
+		if ( $total_discount > 0 ) {
+	
+			// Check if the option to disable discounts is active for the product
+			if ( $disable_discount || $disable_discount_in_parent ) {
+				wc()->cart->remove_fee( __('Desconto por quantidade', 'woo-custom-installments') );
+			} else {
+				wc()->cart->add_fee( __('Desconto por quantidade', 'woo-custom-installments'), - $total_discount );
+			}
+		}
+	}
+	
 }
 
 new Woo_Custom_Installments_Discounts();
