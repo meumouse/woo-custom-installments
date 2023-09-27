@@ -24,6 +24,17 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 3.0.0 (27/09/2023)
+
+- Recurso adicionado: Novo estilo do botão de popup de parcelas
+- Recurso adicionado: Informar desconto para cada produto individualmente
+- Recurso alterado: Mostrar informação de preço no Pix, mesmo com juros zero
+- Opção removida: Mostrar informação de desconto na revisão do pedido
+- Opção removida: Mostrar informação de juros na revisão do pedido
+- Correção de bugs
+- Otimizações
+- Melhorias no painel administrativo
+
 Versão 2.9.2 (18/08/2023)
  
 * Correção de bugs
