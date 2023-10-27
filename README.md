@@ -24,6 +24,11 @@ Defina os valores de taxas e descontos e salve para alterar as configurações p
 
 == Changelog ==
 
+Versão 3.2.5 (27/10/2023)
+
+- Correção de bugs
+- Otimizações
+
 Versão 3.2.0 (24/10/2023)
 
 - Compatibilidade com WooCommerce High-Performance Order Storage (HPOS)
