@@ -1,64 +1,64 @@
-=== Parcelas Customizadas para WooCommerce ===
-Contributors: meumouse
-Tags: parcelas, parcelamento de produtos, parcelas avançadas, parcelas customizadas, woocommerce
-Requires at least: 5.0.0
-Tested up to: 6.2
-Stable tag: 6.2
-Requires PHP: 7.2
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-== Description ==
+# Parcelas Customizadas para WooCommerce
 
 Extensão que permite adicionar detalhes de parcelamento, desconto e formas de pagamento aceitas em lojas WooCommerce, tornando a experiência de compra mais flexível e conveniente.
 
-== Installation ==
+O melhor plugin de parcelas e descontos para WooCommerce!
 
-Instale o Parcelas Customizadas para WooCommerce através do repositório de plugins WordPress.org ou fazendo upload dos arquivos para o seu servidor.
+### Instalação:
 
-Ative o plugin Parcelas Customizadas para WooCommerce.
+#### Instalação via painel de administração:
 
-Ao ativar o plugin clique em "Configurar" nos links do plugin para seguir até a seção de configurações do plugin.
+Você pode instalar um plugin WordPress de duas maneiras: via o painel de administração do WordPress ou via FTP. Aqui estão as etapas para ambos os métodos:
 
-Defina os valores de taxas e descontos e salve para alterar as configurações padrão.
+* Acesse o painel de administração do seu site WordPress.
+* Vá para “Plugins” e clique em “Adicionar Novo”.
+* Digite o nome do plugin que você deseja instalar na barra de pesquisa ou carregue o arquivo ZIP do plugin baixado.
+* Clique em “Instalar Agora” e espere até que o plugin seja instalado.
+* Clique em “Ativar Plugin”.
 
-== Changelog ==
+#### Instalação via FTP:
+
+* Baixe o arquivo ZIP do plugin que você deseja instalar.
+* Descompacte o arquivo ZIP em seu computador.
+* Conecte-se ao seu servidor via FTP.
+* Navegue até a pasta “wp-content/plugins”.
+* Envie a pasta do plugin descompactada para a pasta “plugins” no seu servidor.
+* Acesse o painel de administração do seu site WordPress.
+* Vá para “Plugins” e clique em “Plugins Instalados”.
+* Localize o plugin que você acabou de instalar e clique em “Ativar”.
+* Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.
+
+### Registro de alterações (Changelogs):
 
 Versão 3.2.5 (27/10/2023)
-
-- Correção de bugs
-- Otimizações
+* Correção de bugs
+* Otimizações
 
 Versão 3.2.0 (24/10/2023)
-
-- Compatibilidade com WooCommerce High-Performance Order Storage (HPOS)
-- Recurso alterado: Remover faixa de preço em produtos variáveis
-- Correção bugs
-- Otimizações
+* Compatibilidade com WooCommerce High-Performance Order Storage (HPOS)
+* Recurso alterado: Remover faixa de preço em produtos variáveis
+* Correção bugs
+* Otimizações
 
 Versão 3.0.0 (27/09/2023)
-
-- Recurso adicionado: Novo estilo do botão de popup de parcelas
-- Recurso adicionado: Informar desconto para cada produto individualmente
-- Recurso alterado: Mostrar informação de preço no Pix, mesmo com juros zero
-- Opção removida: Mostrar informação de desconto na revisão do pedido
-- Opção removida: Mostrar informação de juros na revisão do pedido
-- Correção de bugs
-- Otimizações
-- Melhorias no painel administrativo
+* Recurso adicionado: Novo estilo do botão de popup de parcelas
+* Recurso adicionado: Informar desconto para cada produto individualmente
+* Recurso alterado: Mostrar informação de preço no Pix, mesmo com juros zero
+* Opção removida: Mostrar informação de desconto na revisão do pedido
+* Opção removida: Mostrar informação de juros na revisão do pedido
+* Correção de bugs
+* Otimizações
+* Melhorias no painel administrativo
 
 Versão 2.9.2 (18/08/2023)
- 
 * Correção de bugs
 * Otimizações
 
 Versão 2.9.0 (24/07/2023)
- 
 * Correção de bugs
 * Otimizações
 
 Versão 2.8.0 (10/07/2023)
-
 * Recurso adicionado: Emblema de desconto no boleto bancário
 * Recurso adicionado: Shortcode [woo_custom_installments_ticket_discount_badge]
 * Recurso adicionado: Adicionar texto personalizado após o preço do produto
@@ -67,14 +67,12 @@ Versão 2.8.0 (10/07/2023)
 * Otimizações
 
 Versão 2.7.2 (20/06/2023)
-
 * Recurso adicionado: Desconto por quantidade mínima
 * Recurso adicionado: Opção Ocultar no Tipo de exibição das parcelas
 * Correção de bugs
 * Otimizações
 
 Versão 2.4.0 (29/05/2023)
-
 * Correção na biblioteca de ícones Font Awesome
 * Novo recurso adicionado: Habilitar funções de descontos
 * Novo recurso adicionado: Habilitar funções de juros
@@ -84,7 +82,6 @@ Versão 2.4.0 (29/05/2023)
 * Otimizações
 
 Versão 2.3.5 (18/05/2023)
-
 * Recurso adicionado: Desativar atualização de valores na finalização de compra
 * Recurso adicionado: Adicionar juros por método de pagamento
 * Correção de problema: Tabela de parcelas não atualiza valor quando seleciona variação de produto
@@ -93,15 +90,13 @@ Versão 2.3.5 (18/05/2023)
 * Otimizações
 
 Versão 2.2.0 (05/05/2023)
-
 * Recurso adicionado: Centralizar melhor parcela e desconto na grade de produtos
 * Recurso adicionado: Centralizar melhor parcela e desconto no produto individual
 * Correção no cálculo de desconto na finalização de compra
 * Correção de bugs
 * Otimizações
 
-= 2.1.0 =
-
+Versão 2.1.0 (24/04/2023)
 * Recurso adicionado: Arredondamento do preço com desconto
 * Recurso adicionado: Arredondamento do botão de parcelas
 * Recurso adicionado: Posição da melhor parcela
@@ -109,8 +104,7 @@ Versão 2.2.0 (05/05/2023)
 * Correção de bugs
 * Otimização de conexão com API
 
-=  2.0.0 =
-
+Versão 2.0.0 (13/04/2023)
 * Recurso adicionado: Shortcode [woo_custom_installments_card_info] - APENAS EM PRODUTOS
 * Recurso adicionado: Shortcode [woo_custom_installments_discount_and_card] - APENAS EM PRODUTOS
 * Recurso adicionado: Shortcode [woo_custom_installments_table_installments] - APENAS EM PRODUTOS
@@ -148,8 +142,7 @@ Versão 2.2.0 (05/05/2023)
 * Correção de bugs
 * Otimizações
 
-= 1.3.0 =
-
+Versão 1.3.0 (21/12/2022)
 * Recurso adicionado: Shortcode [woo_custom_installments_modal]
 * Recurso adicionado: Alterar texto padrão das parcelas no produto individual
 * Recurso adicionado: Alterar texto padrão das parcelas nos arquivos de produtos
@@ -159,15 +152,19 @@ Versão 2.2.0 (05/05/2023)
 * Correção de bugs
 * Otimizações
 
-= 1.1.2 =
+Versão 1.2.0 (22/11/2022)
+* Correção de bugs
+* Otimizações
+
+Versão 1.1.2 (31/10/2022)
 * Correção de bugs
 
-= 1.1.0 =
+Versão 1.1.0 (31/10/2022)
 * Correção de bugs
 * Remoção da opção "Sempre exibir o preço do boleto"
 
-= 1.0.5 =
+Versão 1.0.5 (05/09/2022)
 * Correção de bugs
 
-= 1.0.0 =
-* Initial version
+Versão 1.0.0 (18/08/2022)
+* Versão inicial
