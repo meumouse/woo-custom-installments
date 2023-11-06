@@ -1,8 +1,12 @@
-# Parcelas Customizadas para WooCommerce
+# Parcelas Customizadas para WooCommerce®
 
 Extensão que permite adicionar detalhes de parcelamento, desconto e formas de pagamento aceitas em lojas WooCommerce, tornando a experiência de compra mais flexível e conveniente.
 
 O melhor plugin de parcelas e descontos para WooCommerce!
+
+#### Propriedade intelectual:
+O software Parcelas Customizadas para WooCommerce ® é uma propriedade registrada da MEUMOUSE.COM® – SOLUÇÕES DIGITAIS LTDA, em conformidade com o §2°, art. 2° da Lei 9.609, de 19 de Fevereiro de 1998.
+É expressamente proibido a distribuição ou cópia ilegal deste software, sujeita a penalidades conforme as leis de direitos autorais vigentes.
 
 ### Instalação:
 
