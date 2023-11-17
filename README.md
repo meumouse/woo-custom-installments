@@ -33,7 +33,9 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 * Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.
 
 ### Registro de alterações (Changelogs):
-
+Versão 3.4.3 (16/11/2023)
+* Correção de problemas com verificação de licença
+  
 Versão 3.4.2 (16/11/2023)
 * Correção de bugs
 * Otimizações
