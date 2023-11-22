@@ -1,4 +1,4 @@
-![image](https://github.com/meumouse/woo-custom-installments/assets/95049087/4866f1ac-6a0d-4c9a-a244-1734ff11b631)# Parcelas Customizadas para WooCommerce®
+# Parcelas Customizadas para WooCommerce®
 
 Extensão que permite adicionar detalhes de parcelamento, desconto e formas de pagamento aceitas em lojas WooCommerce, tornando a experiência de compra mais flexível e conveniente.
 
