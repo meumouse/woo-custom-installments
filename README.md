@@ -34,6 +34,17 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 3.6.0 (28/11/2023)
+* Recurso removido: Desativar atualização de valores na finalização de compra
+* Recurso adicionado: Bandeiras de cartão para forma de pagamento Cartão de crédito
+* Recurso adicionado: Bandeiras de cartão para forma de pagamento Cartão de débito
+* Recurso adicionado: Emblema de economia no Pix
+* Recurso adicionado: Shortcode [woo_custom_installments_economy_pix_badge] - Apenas para produtos
+* Recurso alterado: Shortcode [woo_custom_installments_discount_and_card] para -> [woo_custom_installments_group] - Apenas para produtos
+* Recurso adicionado: Shortcode [woo_custom_installments_pix_info] - Apenas para produtos
+* Correção bugs
+* Otimizações
+
 Versão 3.4.8 (22/11/2023)
 * Correção de bugs
 
