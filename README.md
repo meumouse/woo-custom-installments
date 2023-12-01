@@ -34,6 +34,12 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 3.6.2 (01/12/2023)
+* Recurso adicionado: Opção "Ocultar" para Local de exibição do preço com desconto
+* Recurso adicionado: Local de exibição da informação de economia no Pix
+* Correção bugs
+* Otimizações
+
 Versão 3.6.0 (28/11/2023)
 * Recurso removido: Desativar atualização de valores na finalização de compra
 * Recurso adicionado: Bandeiras de cartão para forma de pagamento Cartão de crédito
