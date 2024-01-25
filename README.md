@@ -37,6 +37,9 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 Versão 3.6.5 (19/01/2024)
 * Correção de bugs
 
+Versão 3.6.5 (19/01/2024)
+* Correção de bugs
+
 Versão 3.6.2 (01/12/2023)
 * Recurso adicionado: Opção "Ocultar" para Local de exibição do preço com desconto
 * Recurso adicionado: Local de exibição da informação de economia no Pix
