@@ -34,6 +34,16 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 3.8.0 (29/02/2024)
+* Correção de bugs
+* Otimizações
+* Opção removida: Ordem do desconto no boleto bancário
+* Opção removida: Ordem da melhor parcela
+* Opção removida: Ocultar informação de desconto e parcelas sem variação selecionada
+* Opção removida: Texto informativo para seleção de variação
+* Opção removida: Informar juros desde a primeira parcela
+* Opção adicionada: Texto informativo para desconto por quantidade
+
 Versão 3.6.7 (25/01/2024)
 * Correção de bugs
 
