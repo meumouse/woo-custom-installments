@@ -6,12 +6,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Change colors on front-end
  *
- * @package MeuMouse.com
  * @since 2.1.0
+ * @version 3.8.0
+ * @package MeuMouse.com
  */
-
 class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init {
-
 
   public function __construct() {
     parent::__construct();
@@ -22,77 +21,81 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
   /**
    * Custom option design
    * 
-   * @return string
    * @since 2.0.0
+   * @version 3.8.0
+   * @return string
    */
   public function woo_custom_installments_custom_design() {
-    $options = get_option( 'woo-custom-installments-setting' );
-    $main_price_color = $this->getSetting('discount_main_price_color');
+    $main_price_color = self::get_setting('discount_main_price_color');
     $main_price_bg = $this->hex2rgba( $main_price_color );
-    $font_size_main_price = $this->getSetting( 'font_size_discount_price' );
-    $font_size_unit_main_price = $this->getSetting( 'unit_font_size_discount_price' );
-    $margin_top_main_price = $this->getSetting( 'margin_top_discount_price' );
-    $unit_margin_top_main_price = $this->getSetting( 'unit_margin_top_discount_price' );
-    $margin_bottom_main_price = $this->getSetting( 'margin_bottom_discount_price' );
-    $unit_margin_bottom_main_price = $this->getSetting( 'unit_margin_bottom_discount_price' );
-    $button_popup_color = $this->getSetting( 'button_popup_color' );
-    $button_popup_size = $this->getSetting( 'button_popup_size' );
-    $margin_top_popup = $this->getSetting( 'margin_top_popup_installments' );
-    $unit_margin_top_popup = $this->getSetting( 'unit_margin_top_popup_installments' );
-    $margin_bottom_popup = $this->getSetting( 'margin_bottom_popup_installments' );
-    $unit_margin_bottom_popup = $this->getSetting( 'unit_margin_bottom_popup_installments' );
-    $best_installments_color = $this->getSetting( 'best_installments_color' );
-    $font_size_best_installments = $this->getSetting( 'font_size_best_installments' );
-    $unit_font_size_best_installments = $this->getSetting( 'unit_font_size_best_installments' );
-    $margin_top_best_installments = $this->getSetting( 'margin_top_best_installments' );
-    $unit_margin_top_best_installments = $this->getSetting( 'unit_margin_top_best_installments' );
-    $margin_bottom_best_installments = $this->getSetting( 'margin_bottom_best_installments' );
-    $unit_margin_bottom_best_installments = $this->getSetting( 'unit_margin_bottom_best_installments' );
-    $get_position_best_installments = $this->getSetting( 'hook_display_best_installments_after_before_discount' );
-    $border_radius_popup_installments = $this->getSetting( 'border_radius_popup_installments' );
-    $unit_border_radius_popup_installments = $this->getSetting( 'unit_border_radius_popup_installments' );
-    $border_radius_discount_main_price = $this->getSetting( 'border_radius_discount_main_price' );
-    $unit_border_radius_discount_main_price = $this->getSetting( 'unit_border_radius_discount_main_price' );
-    $center_group_elements_loop = isset( $options['center_group_elements_loop'] ) && $options['center_group_elements_loop'] == 'yes';
-    $discount_ticket_color = $this->getSetting( 'discount_ticket_color_badge' );
+    $font_size_main_price = self::get_setting( 'font_size_discount_price' );
+    $font_size_unit_main_price = self::get_setting( 'unit_font_size_discount_price' );
+    $margin_top_main_price = self::get_setting( 'margin_top_discount_price' );
+    $unit_margin_top_main_price = self::get_setting( 'unit_margin_top_discount_price' );
+    $margin_bottom_main_price = self::get_setting( 'margin_bottom_discount_price' );
+    $unit_margin_bottom_main_price = self::get_setting( 'unit_margin_bottom_discount_price' );
+    $button_popup_color = self::get_setting( 'button_popup_color' );
+    $button_popup_size = self::get_setting( 'button_popup_size' );
+    $margin_top_popup = self::get_setting( 'margin_top_popup_installments' );
+    $unit_margin_top_popup = self::get_setting( 'unit_margin_top_popup_installments' );
+    $margin_bottom_popup = self::get_setting( 'margin_bottom_popup_installments' );
+    $unit_margin_bottom_popup = self::get_setting( 'unit_margin_bottom_popup_installments' );
+    $best_installments_color = self::get_setting( 'best_installments_color' );
+    $font_size_best_installments = self::get_setting( 'font_size_best_installments' );
+    $unit_font_size_best_installments = self::get_setting( 'unit_font_size_best_installments' );
+    $margin_top_best_installments = self::get_setting( 'margin_top_best_installments' );
+    $unit_margin_top_best_installments = self::get_setting( 'unit_margin_top_best_installments' );
+    $margin_bottom_best_installments = self::get_setting( 'margin_bottom_best_installments' );
+    $unit_margin_bottom_best_installments = self::get_setting( 'unit_margin_bottom_best_installments' );
+    $border_radius_popup_installments = self::get_setting( 'border_radius_popup_installments' );
+    $unit_border_radius_popup_installments = self::get_setting( 'unit_border_radius_popup_installments' );
+    $border_radius_discount_main_price = self::get_setting( 'border_radius_discount_main_price' );
+    $unit_border_radius_discount_main_price = self::get_setting( 'unit_border_radius_discount_main_price' );
+    $center_group_elements_loop = Woo_Custom_Installments_Init::get_setting('center_group_elements_loop') === 'yes';
+    $discount_ticket_color = self::get_setting( 'discount_ticket_color_badge' );
     $discount_ticket_color_bg = $this->hex2rgba( $discount_ticket_color );
-    $font_size_discount_ticket = $this->getSetting( 'font_size_discount_ticket' );
-    $font_size_unit_discount_ticket = $this->getSetting( 'unit_font_size_discount_ticket' );
-    $margin_top_discount_ticket = $this->getSetting( 'margin_top_discount_ticket' );
-    $margin_top_unit_discount_ticket = $this->getSetting( 'unit_margin_top_discount_ticket' );
-    $margin_bottom_discount_ticket = $this->getSetting( 'margin_bottom_discount_ticket' );
-    $margin_bottom_unit_discount_ticket = $this->getSetting( 'unit_margin_bottom_discount_ticket' );
-    $border_radius_discount_ticket = $this->getSetting( 'border_radius_discount_ticket' );
-    $border_radius_unit_discount_ticket = $this->getSetting( 'unit_border_radius_discount_ticket' );
+    $font_size_discount_ticket = self::get_setting( 'font_size_discount_ticket' );
+    $font_size_unit_discount_ticket = self::get_setting( 'unit_font_size_discount_ticket' );
+    $margin_top_discount_ticket = self::get_setting( 'margin_top_discount_ticket' );
+    $margin_top_unit_discount_ticket = self::get_setting( 'unit_margin_top_discount_ticket' );
+    $margin_bottom_discount_ticket = self::get_setting( 'margin_bottom_discount_ticket' );
+    $margin_bottom_unit_discount_ticket = self::get_setting( 'unit_margin_bottom_discount_ticket' );
+    $border_radius_discount_ticket = self::get_setting( 'border_radius_discount_ticket' );
+    $border_radius_unit_discount_ticket = self::get_setting( 'unit_border_radius_discount_ticket' );
 
     // main price styles
     $css = '.woo-custom-installments-offer {';
-      $css .= 'color:'. $main_price_color .';';
-      $css .= 'background-color:'. $main_price_bg .';';
-      $css .= 'font-size:'. $font_size_main_price . $font_size_unit_main_price .';';
-      $css .= 'margin-top:'. $margin_top_main_price . $unit_margin_top_main_price .';';
-      $css .= 'margin-bottom:'. $margin_bottom_main_price . $unit_margin_bottom_main_price .';';
-      $css .= 'border-radius:'. $border_radius_discount_main_price . $unit_border_radius_discount_main_price .';';
+      $css .= 'color:'. $main_price_color .' !important;';
+      $css .= 'background-color:'. $main_price_bg .' !important;';
+      $css .= 'font-size:'. $font_size_main_price . $font_size_unit_main_price .' !important;';
+      $css .= 'margin-top:'. $margin_top_main_price . $unit_margin_top_main_price .' !important;';
+      $css .= 'margin-bottom:'. $margin_bottom_main_price . $unit_margin_bottom_main_price .' !important;';
+      $css .= 'border-radius:'. $border_radius_discount_main_price . $unit_border_radius_discount_main_price .' !important;';
     $css .= '}';
 
     $css .= '.woo-custom-installments-offer .amount {';
-      $css .= 'color:'. $main_price_color .';';
+      $css .= 'font-size:'. $font_size_main_price . $font_size_unit_main_price .' !important;';
+      $css .= 'color:'. $main_price_color .' !important;';
     $css .= '}';
 
     $css .= '.instant-approval-badge, .badge-discount-checkout {';
-      $css .= 'color:'. $main_price_color .';';
-      $css .= 'background-color:'. $main_price_bg .';';
+      $css .= 'color:'. $main_price_color .' !important;';
+      $css .= 'background-color:'. $main_price_bg .' !important;';
+    $css .= '}';
+
+    $css .= '.woo-custom-installments-economy-pix-badge {';
+      $css .= 'background-color:'. $main_price_color .';';
     $css .= '}';
 
     // color and border button popup
     $css .= '#open-popup {';
       $css .= 'color:'. $button_popup_color .';';
-      $css .= 'border-color:'. $button_popup_color .';';
-      $css .= 'border-radius:'. $border_radius_popup_installments . $unit_border_radius_popup_installments .';';
+      $css .= 'border-color:'. $button_popup_color .' !important;';
+      $css .= 'border-radius:'. $border_radius_popup_installments . $unit_border_radius_popup_installments .' !important;';
     $css .= '}';
 
     $css .= '#open-popup:hover {';
-      $css .= 'background-color:'. $button_popup_color .';';
+      $css .= 'background-color:'. $button_popup_color .' !important;';
     $css .= '}';
 
     // button popup size
@@ -161,93 +164,88 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
     }
 
     $css .= '#open-popup, #accordion-installments {';
-      $css .= 'margin-top:'. $margin_top_popup . $unit_margin_top_popup .';';
-      $css .= 'margin-bottom:'. $margin_bottom_popup . $unit_margin_bottom_popup .';';
+      $css .= 'margin-top:'. $margin_top_popup . $unit_margin_top_popup .' !important;';
+      $css .= 'margin-bottom:'. $margin_bottom_popup . $unit_margin_bottom_popup .' !important;';
     $css .= '}';
 
     // card info styles
     $css .= '.woo-custom-installments-card-container {';
-      $css .= 'color:'. $best_installments_color .';';
-      $css .= 'font-size:'. $font_size_best_installments . $unit_font_size_best_installments .';';
-      $css .= 'margin-top:'. $margin_top_best_installments . $unit_margin_top_best_installments .';';
-      $css .= 'margin-bottom:'. $margin_bottom_best_installments . $unit_margin_bottom_best_installments .';';
+      $css .= 'color:'. $best_installments_color .' !important;';
+      $css .= 'font-size:'. $font_size_best_installments . $unit_font_size_best_installments .' !important;';
+      $css .= 'margin-top:'. $margin_top_best_installments . $unit_margin_top_best_installments .' !important;';
+      $css .= 'margin-bottom:'. $margin_bottom_best_installments . $unit_margin_bottom_best_installments .' !important;';
     $css .= '}';
 
     $css .= '.woo-custom-installments-card-container .amount {';
-      $css .= 'color:'. $best_installments_color .';';
+      $css .= 'font-size:'. $font_size_best_installments . $unit_font_size_best_installments .' !important;';
+      $css .= 'color:'. $best_installments_color .' !important;';
     $css .= '}';
 
     $css .= 'th.final-text .amount, th.final-price .amount {';
-      $css .= 'color:'. $best_installments_color .';';
+      $css .= 'font-size:'. $font_size_best_installments . $unit_font_size_best_installments .' !important;';
+      $css .= 'color:'. $best_installments_color .' !important;';
     $css .= '}';
-
-    /**
-     * Change order position discount and card info
-     * 
-     * @since 2.1.0
-     */
-    if ( $get_position_best_installments == 'after_discount' ) {
-      $css .= '.woo-custom-installments-offer {';
-        $css .= 'order: 1;';
-      $css .= '}';
-      $css .= '.woo-custom-installments-card-container {';
-        $css .= 'order: 2;';
-      $css .= '}';
-    } else {
-      $css .= '.woo-custom-installments-card-container {';
-        $css .= 'order: 1;';
-      $css .= '}';
-      $css .= '.woo-custom-installments-offer {';
-        $css .= 'order: 2;';
-      $css .= '}';
-    }
 
     /**
      * Center woo-custom-installments-group elements
      * 
      * @since 2.2.0
+     * @version 3.6.0
      */
     if ( $center_group_elements_loop ) {
-      $css .= '.archive .woo-custom-installments-group, .loop .woo-custom-installments-group {';
+      $css .= '.archive .woo-custom-installments-group,
+      .loop .woo-custom-installments-group,
+      li.product .woo-custom-installments-group,
+      li.wc-block-grid__product .woo-custom-installments-group,
+      .product-grid-item .woo-custom-installments-group,
+      .e-loop-item.product .woo-custom-installments-group,
+      .swiper-slide .type-product .woo-custom-installments-group,
+      .shopengine-single-product-item .woo-custom-installments-group,
+      .products-list.grid .item-product .woo-custom-installments-group,
+      .product-item.grid .woo-custom-installments-group,
+      .card-product .woo-custom-installments-group {';
         $css .= 'justify-items: center;';
+        $css .= 'align-items: center;';
+        $css .= 'justify-content: center;';
       $css .= '}';
     }
 
     // discount ticket badge styles
     $css .= '.woo-custom-installments-ticket-discount {';
-      $css .= 'color:'. $discount_ticket_color .';';
-      $css .= 'background-color:'. $discount_ticket_color_bg .';';
-      $css .= 'font-size:'. $font_size_discount_ticket . $font_size_unit_discount_ticket .';';
-      $css .= 'margin-top:'. $margin_top_discount_ticket . $margin_top_unit_discount_ticket .';';
-      $css .= 'margin-bottom:'. $margin_bottom_discount_ticket . $margin_bottom_unit_discount_ticket .';';
-      $css .= 'border-radius:'. $border_radius_discount_ticket . $border_radius_unit_discount_ticket .';';
+      $css .= 'color:'. $discount_ticket_color .' !important;';
+      $css .= 'background-color:'. $discount_ticket_color_bg .' !important;';
+      $css .= 'font-size:'. $font_size_discount_ticket . $font_size_unit_discount_ticket .' !important;';
+      $css .= 'margin-top:'. $margin_top_discount_ticket . $margin_top_unit_discount_ticket .' !important;';
+      $css .= 'margin-bottom:'. $margin_bottom_discount_ticket . $margin_bottom_unit_discount_ticket .' !important;';
+      $css .= 'border-radius:'. $border_radius_discount_ticket . $border_radius_unit_discount_ticket .' !important;';
     $css .= '}';
 
     $css .= '.woo-custom-installments-ticket-discount .amount {';
-      $css .= 'color:'. $discount_ticket_color .';';
+      $css .= 'color:'. $discount_ticket_color .' !important;';
     $css .= '}';
 
-    // change order discounts badge (main price and ticket)
-    if ( $this->getSetting( 'hook_order_discount_ticket' ) == 'after_main_discount' ) {
-      $css .= '.woo-custom-installments-offer {';
-        $css .= 'order: 2;';
-      $css .= '}';
+    // best installments order
+    $css .= '.woo-custom-installments-card-container {';
+      $css .= 'order: '. Woo_Custom_Installments_Init::get_setting('best_installments_order') .' !important;';
+    $css .= '}';
 
-      $css .= '.woo-custom-installments-ticket-discount {';
-        $css .= 'order: 3;';
-      $css .= '}';
-    } else {
-      $css .= '.woo-custom-installments-offer {';
-        $css .= 'order: 3;';
-      $css .= '}';
+    // discount pix order
+    $css .= '.woo-custom-installments-offer {';
+      $css .= 'order: '. Woo_Custom_Installments_Init::get_setting('discount_pix_order') .' !important;';
+    $css .= '}';
 
-      $css .= '.woo-custom-installments-ticket-discount {';
-        $css .= 'order: 2;';
-      $css .= '}';
-    }
+    // economy pix order
+    $css .= '.woo-custom-installments-economy-pix-badge {';
+      $css .= 'order: '. Woo_Custom_Installments_Init::get_setting('economy_pix_order') .' !important;';
+    $css .= '}';
+
+    // slip bank order
+    $css .= '.woo-custom-installments-ticket-discount {';
+      $css .= 'order: '. Woo_Custom_Installments_Init::get_setting('slip_bank_order') .' !important;';
+    $css .= '}';
 
     // hide table variations if range price is activated
-    if ( isset( $options['remove_price_range'] ) && $options['remove_price_range'] == 'yes' ) {
+    if ( Woo_Custom_Installments_Init::get_setting('remove_price_range') === 'yes' ) {
       $css .= '.woocommerce-variation-price {';
         $css .= 'display: none !important;';
       $css .= '}';

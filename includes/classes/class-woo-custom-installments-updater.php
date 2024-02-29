@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * Class to make requests to a remote server to get plugin versions and updates
  * 
  * @since 3.0.0
- * @version 3.0.0
+ * @version 3.6.0
  * @package MeuMouse.com
  */
 if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
@@ -21,13 +21,11 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
         public $time_cache;
         private static $instance;
 
-
         /**
          * Instance class
          * 
          * @since 3.0.0
          * @return self Woo_Custom_Installments_Updater
-         * @package MeuMouse.com
          */
         public static function run() {
             if ( null === self::$instance ) {
@@ -44,8 +42,8 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
                 add_filter( 'http_request_host_is_external', '__return_true' );
             }
 
-            $this->plugin_slug = Woo_Custom_Installments()->slug;
-            $this->version = Woo_Custom_Installments()->version;
+            $this->plugin_slug = WOO_CUSTOM_INSTALLMENTS_SLUG;
+            $this->version = WOO_CUSTOM_INSTALLMENTS_VERSION;
             $this->cache_key = 'woo_custom_installments_check_updates';
             $this->cache_data_base_key = 'woo_custom_installments_remote_data';
             $this->cache_allowed = true;
@@ -64,7 +62,6 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * 
          * @since 3.0.0
          * @return array
-         * @package MeuMouse.com
          */
         public function request() {
             $cached_data = wp_cache_get( $this->cache_key );
@@ -106,8 +103,10 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * Get plugin info
          * 
          * @since 3.0.0
+         * @param $response
+         * @param $action
+         * @param $args
          * @return array
-         * @package MeuMouse.com
          */
         public function plugin_info( $response, $action, $args ) {
             // do nothing if you're not getting plugin information right now
@@ -164,8 +163,8 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * Update plugin
          * 
          * @since 3.0.0
+         * @param $transient
          * @return string
-         * @package MeuMouse.com
          */
         public function update_plugin( $transient ) {
             if ( empty( $transient->checked ) ) {
@@ -194,11 +193,14 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * Purge cache on update plugin
          * 
          * @since 3.0.0
+         * @param $upgrader
+         * @param $options
          * @return void
-         * @package MeuMouse.com
          */
         public function purge_cache( $upgrader, $options ) {
             if ( $this->cache_allowed && 'update' === $options['action'] && 'plugin' === $options[ 'type' ] ) {
+                delete_transient('woo_custom_installments_api_request_cache');
+                delete_transient('woo_custom_installments_api_response_cache');
                 delete_transient( $this->cache_key );
             }
         }
@@ -208,8 +210,9 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * Add check updates link in the plugin_row_meta
          * 
          * @since 3.0.0
+         * @param $actions
+         * @param $plugin_file "woo-custom-installments.php"
          * @return string
-         * @package MeuMouse.com
          */
         public function add_check_updates_link( $actions, $plugin_file ) {
             if ( $plugin_file === $this->plugin_slug . '/' . $this->plugin_slug . '.php' ) {
@@ -225,13 +228,15 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
          * Check manual updates
          * 
          * @since 3.0.0
-         * @return void
-         * @package MeuMouse.com
+         * @param $plugins
+         * @return string
          */
         public function check_manual_update_query_arg( $plugins ) {
             if ( isset( $_GET['woo_custom_installments_check_updates'] ) && $_GET['woo_custom_installments_check_updates'] === '1' ) {
 
                 // purge cache before request on server
+                delete_transient('woo_custom_installments_api_request_cache');
+                delete_transient('woo_custom_installments_api_response_cache');
                 delete_transient( $this->cache_key );
                 delete_transient( $this->cache_data_base_key );
 
@@ -245,7 +250,15 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
                     if ( version_compare( $current_version, $latest_version, '<' ) ) {
                         $message = esc_html__('Uma nova versão do plugin Parcelas Customizadas para WooCommerce está disponível.', 'woo-custom-installments');
                         $class = 'notice-success';
-                    } elseif ( version_compare( $current_version, $latest_version, '==' ) ) {
+                        ?>
+                        <script type="text/javascript">
+                            if ( !sessionStorage.getItem('reload_woo_custom_installments_update') ) {
+                                sessionStorage.setItem('reload_woo_custom_installments_update', 'true');
+                                window.location.reload();
+                            }
+                        </script>
+                        <?php
+                    } elseif ( version_compare( $current_version, $latest_version, '>=' ) ) {
                         $message = esc_html__('A versão do plugin Parcelas Customizadas para WooCommerce é a mais recente.', 'woo-custom-installments');
                         $class = 'notice-success';
                     }
@@ -259,7 +272,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Updater' ) ) {
             }
         
             return $plugins;
-        }        
+        }   
         
     }
 }

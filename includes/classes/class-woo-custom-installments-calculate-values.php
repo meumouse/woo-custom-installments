@@ -16,9 +16,8 @@ class Woo_Custom_Installments_Calculate_Values {
    */
   public static function calculate_installment_with_fee( $value, $fee, $installments ) {
     $percentage = floatval( wc_format_decimal( $fee ) ) / 100.00;
-    $options = get_option( 'woo-custom-installments-setting' );
     
-    if ( isset( $options['set_fee_per_installment'] ) == 'yes' ) {
+    if ( Woo_Custom_Installments_Init::get_setting('set_fee_per_installment') === 'yes' ) {
         $installment_price = ( $value * $percentage + $value ) / $installments;
     } else {
         $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / ( ( ( 1 + $percentage ) ** $installments ) - 1 );

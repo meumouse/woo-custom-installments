@@ -24,8 +24,8 @@ defined( 'ABSPATH' ) || exit;
 						<span class="badge bg-translucent-warning rounded-pill"><?php _e(  'Grátis', 'woo-custom-installments' );?></span>
 					<?php endif; ?>
 				</span>
-				<a class="btn btn-primary my-4 pulsating-button <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci" target="_blank">
-					<i class="fa-solid fa-key me-1"></i>
+				<a class="btn btn-primary my-4 pulsating-button purchase-button <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci#buy-pro" target="_blank">
+					<svg class="me-2" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M7 17a5.007 5.007 0 0 0 4.898-4H14v2h2v-2h2v3h2v-3h1v-2h-9.102A5.007 5.007 0 0 0 7 7c-2.757 0-5 2.243-5 5s2.243 5 5 5zm0-8c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3z"></path></svg>
 					<span><?php _e(  'Comprar licença', 'woo-custom-installments' );?></span>
 				</a>
 				<span class="mb-2 <?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Tipo da licença:', 'woo-custom-installments' ) ?>
@@ -41,6 +41,11 @@ defined( 'ABSPATH' ) || exit;
 									echo esc_html__('Nunca expira', 'flexify-checkout-for-woocommerce');
 								} else {
 									echo date('d/m/Y', strtotime($expiryText));
+
+									if ( strtotime( $expiryText ) < time() ) {
+										update_option( 'woo_custom_installments_license_key', '' );
+										update_option( 'woo_custom_installments_license_status', 'invalid' );
+									}
 								}
 							}
 						?>
@@ -117,6 +122,14 @@ defined( 'ABSPATH' ) || exit;
 						<?php endif; ?>
 					</span>
 				</div>
+				<div class="d-flex mb-2">
+					<span><?php esc_html_e( 'Versão do Parcelas Customizadas para WooCommerce:', 'woo-custom-installments' ); ?></span>
+					<span class="ms-2">
+						<span class="badge bg-translucent-success">
+							<?php echo esc_html( WOO_CUSTOM_INSTALLMENTS_VERSION ); ?>
+						</span>
+					</span>
+				</div>
 
 				<h4><?php esc_html_e( 'Servidor', 'woo-custom-installments' ); ?></h4>
 				<div class="d-flex mb-2">
@@ -166,6 +179,9 @@ defined( 'ABSPATH' ) || exit;
 								<span class="badge bg-translucent-success">
 									<?php esc_html_e( 'Sim', 'woo-custom-installments' ); ?>
 								</span>
+								<span>
+									<?php echo sprintf( __( 'Versão %s', 'woo-custom-installments' ), curl_version()['version'] ) ?>
+								</span>
 							<?php endif; ?>
 						</span>
 					</span>
@@ -181,6 +197,9 @@ defined( 'ABSPATH' ) || exit;
 							<?php else : ?>
 								<span class="badge bg-translucent-success">
 									<?php esc_html_e( 'Sim', 'woo-custom-installments' ); ?>
+								</span>
+								<span>
+									<?php echo OPENSSL_VERSION_TEXT ?>
 								</span>
 							<?php endif; ?>
 						</span>
@@ -315,8 +334,9 @@ defined( 'ABSPATH' ) || exit;
 				<?php endif; ?>
 			</td>
 			<tr>
-				<td>
+				<td class="d-flex">
 					<a class="btn btn-sm btn-outline-danger" target="_blank" href="https://meumouse.com/reportar-problemas/"><?php esc_html_e( 'Reportar problemas', 'woo-custom-installments' ); ?></a>
+					<button class="btn btn-sm btn-outline-primary ms-2 button-loading" name="woo_custom_installments_clear_activation_cache"><?php esc_html_e( 'Limpar cache de ativação', 'woo-custom-installments' ); ?></button>
 				</td>
 			</tr>
 		</tr>

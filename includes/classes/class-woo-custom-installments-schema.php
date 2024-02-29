@@ -16,7 +16,7 @@ class Woo_Custom_Installments_Schema extends Woo_Custom_Installments_Init {
   }
 
   public function woo_custom_installments_schema_data_product( $markup, $product ) {
-    $discount = $this->getSetting( 'discount_main_price' );
+    $discount = self::get_setting( 'discount_main_price' );
 
     // Check if there is discount
     if ( 0 >= $discount ) {

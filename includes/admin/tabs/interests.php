@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
         </th>
         <td>
             <div class="form-check form-switch">
-                <input type="checkbox" class="toggle-switch" id="enable_all_interest_options" name="enable_all_interest_options" value="yes" <?php checked( $this->getSetting( 'enable_all_interest_options') == 'yes' ); ?> />
+                <input type="checkbox" class="toggle-switch" id="enable_all_interest_options" name="enable_all_interest_options" value="yes" <?php checked( self::get_setting( 'enable_all_interest_options') == 'yes' ); ?> />
             </div>
         </td>
       </tr>
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
          </th>
          <td>
             <div class="form-check form-switch <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version-notice';} ?>">
-               <input type="checkbox" class="toggle-switch <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>" id="display_tag_interest_checkout" name="display_tag_interest_checkout" value="yes" <?php checked( $this->getSetting( 'display_tag_interest_checkout') == 'yes' && $this->responseObj->is_valid ); ?> />
+               <input type="checkbox" class="toggle-switch <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version';} ?>" id="display_tag_interest_checkout" name="display_tag_interest_checkout" value="yes" <?php checked( self::get_setting( 'display_tag_interest_checkout') == 'yes' && $this->responseObj->is_valid ); ?> />
             </div>
          </td>
       </tr>
@@ -71,7 +71,7 @@ defined( 'ABSPATH' ) || exit;
                         }
                      ?>
                   </span>
-                  <input type="text" class="form-control allow-number-and-dots input-control-wd-5 border-right-0 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version-notice';} ?>" value="<?php echo esc_attr( $current ); ?>" id="woo_custom_installments_payment_discounts_<?php echo esc_attr( $gateway->id ); ?>" name="woo_custom_installments_interests[<?php echo esc_attr( $gateway->id ); ?>][amount]"/>
+                  <input type="text" class="form-control allow-number-and-dots input-control-wd-5 <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version-notice';} ?>" value="<?php echo esc_attr( $current ); ?>" id="woo_custom_installments_payment_discounts_<?php echo esc_attr( $gateway->id ); ?>" name="woo_custom_installments_interests[<?php echo esc_attr( $gateway->id ); ?>][amount]"/>
                   <select class="form-select get-interest-method-payment-method <?php if ( ! $this->responseObj->is_valid ) { echo 'pro-version-notice';} ?>" id="woo-custom-installments-payment-discounts-type-<?php echo esc_attr( $gateway->id ); ?>" name="woo_custom_installments_interests[<?php echo esc_attr( $gateway->id ); ?>][type]">
                      <option value="fixed" <?php if( isset( $insterestSettings[ $gateway->id ]['type'] ) && $insterestSettings[ $gateway->id ]['type'] == 'fixed' ) { echo 'selected="selected"'; } ?> ><?php echo esc_html__( 'Valor fixo (R$)', 'woo-custom-installments' ) ?></span></option>
                      <option value="percentage" <?php if( isset( $insterestSettings[ $gateway->id ]['type'] ) && $insterestSettings[ $gateway->id ]['type'] == 'percentage' ) { echo 'selected="selected"'; } ?> ><?php echo esc_html__( 'Percentual (%)', 'woo-custom-installments' ) ?></span></option>

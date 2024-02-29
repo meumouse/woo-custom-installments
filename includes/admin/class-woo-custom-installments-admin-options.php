@@ -9,11 +9,11 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Woo_Custom_Installments_Admin constructor.
    *
    * @since 2.0.0
-   * @access public
+   * @version 3.8.0
+   * @package MeuMouse.com
    */
   public function __construct() {
     parent::__construct();
-    $options = get_option( 'woo-custom-installments-setting' );
 
     add_action( 'admin_menu', array( $this, 'woo_custom_installments_admin_menu' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'woo_custom_installments_admin_scripts' ) );
@@ -27,16 +27,16 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     add_action( 'woocommerce_product_quick_edit_save', array( $this, 'woo_custom_installments_save_quick_edit_fields' ) );
     add_action( 'woocommerce_product_bulk_edit_end', array( $this, 'woo_custom_installments_output_bulk_edit_fields' ) );
     add_action( 'woocommerce_product_bulk_edit_save', array( $this, 'woo_custom_installments_save_bulk_edit_fields' ) );
+    add_action( 'admin_head', array( $this, 'inject_inline_js_product_edit_page' ) );
 
     /**
      * Enable functions for discount per quantity in product edit
      * 
      * @since 2.7.2
      */
-    if ( isset( $options['enable_functions_discount_per_quantity_single_product'] ) == 'yes' && get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
+    if ( self::get_setting( 'enable_discount_per_quantity_method' ) == 'product' && get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
       add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_quantity_fields' ) );
       add_action( 'woocommerce_process_product_meta', array( $this, 'save_options_discount_per_quantity_fields' ) );
-      add_action( 'admin_head', array( $this, 'inject_inline_js_product_edit_page' ) );
     }
   }
 
@@ -66,7 +66,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * @access public
    */
   public function woo_custom_installments_settings_page() {
-    include_once WOO_CUSTOM_INSTALLMENTS_DIR . 'includes/admin/settings.php';
+    include_once WOO_CUSTOM_INSTALLMENTS_INC . 'admin/settings.php';
   }
 
 
@@ -81,7 +81,9 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     $url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
     if ( false !== strpos( $url, 'admin.php?page=woo-custom-installments' ) ) {
-      wp_enqueue_script( 'woo-custom-installments-admin-scripts', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/js/woo-custom-installments-admin-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+      wp_enqueue_script( 'sortable-js', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/sortable.min.js', array(), '1.15.1' );
+      wp_enqueue_script( 'jquery-sortable', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/jquery-sortable-js.js', array('jquery'), null );
+      wp_enqueue_script( 'woo-custom-installments-admin-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/woo-custom-installments-admin-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
 
       // add currency symbol to JS var
       $currency_symbol = get_woocommerce_currency_symbol();
@@ -91,9 +93,9 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
       // add ajax_url parameter for AJAX callback
       wp_localize_script( 'woo-custom-installments-admin-scripts', 'wci_params', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),
-      ) );
+      ));
 
-      wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_URL . 'assets/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
+      wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
     }
   }
 
@@ -112,20 +114,16 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
       $options = get_option( 'woo-custom-installments-setting' );
       $options['enable_installments_all_products'] = isset( $form_data['enable_installments_all_products'] ) ? 'yes' : 'no';
-      $options['remove_price_range'] = isset( $form_data['remove_price_range'] ) ? 'yes' : 'no';
+      $options['remove_price_range'] = isset( $form_data['remove_price_range'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
       $options['custom_text_after_price'] = isset( $form_data['custom_text_after_price'] ) ? 'yes' : 'no';
-      $options['set_fee_per_installment'] = isset( $form_data['set_fee_per_installment'] ) ? 'yes' : 'no';
-      $options['set_fee_first_installment'] = isset( $form_data['set_fee_first_installment'] ) ? 'yes' : 'no';
-      $options['disable_update_checkout'] = isset( $form_data['disable_update_checkout'] ) ? 'yes' : 'no';
+      $options['set_fee_per_installment'] = isset( $form_data['set_fee_per_installment'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
       $options['disable_update_installments'] = isset( $form_data['disable_update_installments'] ) ? 'yes' : 'no';
       $options['enable_all_discount_options'] = isset( $form_data['enable_all_discount_options'] ) ? 'yes' : 'no';
       $options['display_installments_cart'] = isset( $form_data['display_installments_cart'] ) ? 'yes' : 'no';
       $options['include_shipping_value_in_discounts'] = isset( $form_data['include_shipping_value_in_discounts'] ) ? 'yes' : 'no';
       $options['display_tag_discount_price_checkout'] = isset( $form_data['display_tag_discount_price_checkout'] ) ? 'yes' : 'no';
-      $options['display_discount_price_schema'] = isset( $form_data['display_discount_price_schema'] ) ? 'yes' : 'no';
-      $options['enable_functions_discount_per_quantity'] = isset( $form_data['enable_functions_discount_per_quantity'] ) ? 'yes' : 'no';
-      $options['set_discount_per_quantity_global'] = isset( $form_data['set_discount_per_quantity_global'] ) ? 'yes' : 'no';
-      $options['enable_functions_discount_per_quantity_single_product'] = isset( $form_data['enable_functions_discount_per_quantity_single_product'] ) ? 'yes' : 'no';
+      $options['display_discount_price_schema'] = isset( $form_data['display_discount_price_schema'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
+      $options['enable_functions_discount_per_quantity'] = isset( $form_data['enable_functions_discount_per_quantity'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
       $options['enable_discount_per_unit_discount_per_quantity'] = isset( $form_data['enable_discount_per_unit_discount_per_quantity'] ) ? 'yes' : 'no';
       $options['message_discount_per_quantity'] = isset( $form_data['message_discount_per_quantity'] ) ? 'yes' : 'no';
       $options['enable_all_interest_options'] = isset( $form_data['enable_all_interest_options'] ) ? 'yes' : 'no';
@@ -136,20 +134,34 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
       $options['enable_ticket_discount_main_price'] = isset( $form_data['enable_ticket_discount_main_price'] ) ? 'yes' : 'no';
       $options['enable_credit_card_method_payment_form'] = isset( $form_data['enable_credit_card_method_payment_form'] ) ? 'yes' : 'no';
       $options['enable_debit_card_method_payment_form'] = isset( $form_data['enable_debit_card_method_payment_form'] ) ? 'yes' : 'no';
-      $options['enable_mastercard_flag'] = isset( $form_data['enable_mastercard_flag'] ) ? 'yes' : 'no';
-      $options['enable_visa_flag'] = isset( $form_data['enable_visa_flag'] ) ? 'yes' : 'no';
-      $options['enable_elo_flag'] = isset( $form_data['enable_elo_flag'] ) ? 'yes' : 'no';
-      $options['enable_hipercard_flag'] = isset( $form_data['enable_hipercard_flag'] ) ? 'yes' : 'no';
-      $options['enable_diners_club_flag'] = isset( $form_data['enable_diners_club_flag'] ) ? 'yes' : 'no';
-      $options['enable_discover_flag'] = isset( $form_data['enable_discover_flag'] ) ? 'yes' : 'no';
-      $options['enable_american_express_flag'] = isset( $form_data['enable_american_express_flag'] ) ? 'yes' : 'no';
-      $options['enable_paypal_flag'] = isset( $form_data['enable_paypal_flag'] ) ? 'yes' : 'no';
-      $options['enable_stripe_flag'] = isset( $form_data['enable_stripe_flag'] ) ? 'yes' : 'no';
-      $options['enable_mercado_pago_flag'] = isset( $form_data['enable_mercado_pago_flag'] ) ? 'yes' : 'no';
-      $options['enable_pagseguro_flag'] = isset( $form_data['enable_pagseguro_flag'] ) ? 'yes' : 'no';
-      $options['enable_pagarme_flag'] = isset( $form_data['enable_pagarme_flag'] ) ? 'yes' : 'no';
-      $options['enable_cielo_flag'] = isset( $form_data['enable_cielo_flag'] ) ? 'yes' : 'no';
+      $options['enable_mastercard_flag_credit'] = isset( $form_data['enable_mastercard_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_visa_flag_credit'] = isset( $form_data['enable_visa_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_elo_flag_credit'] = isset( $form_data['enable_elo_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_hipercard_flag_credit'] = isset( $form_data['enable_hipercard_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_diners_club_flag_credit'] = isset( $form_data['enable_diners_club_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_discover_flag_credit'] = isset( $form_data['enable_discover_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_american_express_flag_credit'] = isset( $form_data['enable_american_express_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_paypal_flag_credit'] = isset( $form_data['enable_paypal_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_stripe_flag_credit'] = isset( $form_data['enable_stripe_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_mercado_pago_flag_credit'] = isset( $form_data['enable_mercado_pago_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_pagseguro_flag_credit'] = isset( $form_data['enable_pagseguro_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_pagarme_flag_credit'] = isset( $form_data['enable_pagarme_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_cielo_flag_credit'] = isset( $form_data['enable_cielo_flag_credit'] ) ? 'yes' : 'no';
+      $options['enable_mastercard_flag_debit'] = isset( $form_data['enable_mastercard_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_visa_flag_debit'] = isset( $form_data['enable_visa_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_elo_flag_debit'] = isset( $form_data['enable_elo_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_hipercard_flag_debit'] = isset( $form_data['enable_hipercard_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_diners_club_flag_debit'] = isset( $form_data['enable_diners_club_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_discover_flag_debit'] = isset( $form_data['enable_discover_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_american_express_flag_debit'] = isset( $form_data['enable_american_express_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_paypal_flag_debit'] = isset( $form_data['enable_paypal_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_stripe_flag_debit'] = isset( $form_data['enable_stripe_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_mercado_pago_flag_debit'] = isset( $form_data['enable_mercado_pago_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_pagseguro_flag_debit'] = isset( $form_data['enable_pagseguro_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_pagarme_flag_debit'] = isset( $form_data['enable_pagarme_flag_debit'] ) ? 'yes' : 'no';
+      $options['enable_cielo_flag_debit'] = isset( $form_data['enable_cielo_flag_debit'] ) ? 'yes' : 'no';
       $options['center_group_elements_loop'] = isset( $form_data['center_group_elements_loop'] ) ? 'yes' : 'no';
+      $options['enable_economy_pix_badge'] = isset( $form_data['enable_economy_pix_badge'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
 
       $settings_array = array();
 
@@ -179,7 +191,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
       $response = array(
         'status' => 'success',
         'options' => $updated_options,
-        'customFeeInstallments' => $custom_fee_installments
+        'customFeeInstallments' => isset( $custom_fee_installments ) ? $custom_fee_installments : '',
       );
 
       echo wp_json_encode( $response ); // Send JSON response
@@ -384,23 +396,20 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     );
 
     // Adicione um título para o seletor de opção
-    echo '<p class="form-field"><label for="discount_gateway">' . __('Aplicar desconto para o gateway', 'woo-custom-installments') . '</label>';
+    echo '<p class="form-field discount_per_unit_method_field"><label for="discount_gateway">' . __('Aplicar desconto para o gateway', 'woo-custom-installments') . '</label>';
+      // Obtenha a opção atual do gateway (se existir)
+      $selected_gateway = get_post_meta($post->ID, 'discount_gateway', true);
 
-    // Obtenha a opção atual do gateway (se existir)
-    $selected_gateway = get_post_meta($post->ID, 'discount_gateway', true);
-
-    // Crie o seletor de opção com os gateways disponíveis
-    echo '<select id="discount_gateway" name="discount_gateway">';
-    echo '<option value="">' . __('Selecione um gateway', 'woo-custom-installments') . '</option>';
-    
-    // Obtenha a lista de gateways do WooCommerce
-    $available_gateways = WC()->payment_gateways->payment_gateways();
-    
-    foreach ($available_gateways as $gateway_id => $gateway) {
-        echo '<option value="' . esc_attr($gateway_id) . '" ' . selected($selected_gateway, $gateway_id, false) . '>' . esc_html($gateway->get_title()) . '</option>';
-    }
-    
-    echo '</select>';
+      // Crie o seletor de opção com os gateways disponíveis
+      echo '<select id="discount_gateway" name="discount_gateway">';
+      echo '<option value="">' . __('Selecione um gateway', 'woo-custom-installments') . '</option>';
+        // Obtenha a lista de gateways do WooCommerce
+        $available_gateways = WC()->payment_gateways->payment_gateways();
+        
+        foreach ($available_gateways as $gateway_id => $gateway) {
+            echo '<option value="' . esc_attr($gateway_id) . '" ' . selected($selected_gateway, $gateway_id, false) . '>' . esc_html($gateway->get_title()) . '</option>';
+        }
+      echo '</select>';
     echo '</p>';
 
     echo '</div>';

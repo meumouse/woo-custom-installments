@@ -8,7 +8,7 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 	public function __construct() {
 		parent::__construct();
 
-		if ( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
+		if ( get_option( 'woo_custom_installments_license_status' ) === 'valid' ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title_interest' ), 10, 2 );
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data_interests' ), 10 );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_interest' ), 10 );
@@ -61,7 +61,6 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 
 		$insterestSettings = get_option( 'woo_custom_installments_interests_setting' );
 		$insterestSettings = maybe_unserialize( $insterestSettings );
-		$options = get_option( 'woo-custom-installments-setting' );
 
 		if ( isset( $insterestSettings[ $id ]['amount'] ) && 0 < $insterestSettings[ $id ]['amount'] ) {
 			$discount = $insterestSettings[ $id ]['amount'];
@@ -72,7 +71,7 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 				$value = wc_price( $discount );
 			}
 
-			if ( $options['display_tag_interest_checkout'] == 'yes' ) {
+			if ( Woo_Custom_Installments_Init::get_setting('display_tag_interest_checkout') === 'yes' ) {
 				$title .= '<span class="badge-interest-checkout">' . sprintf( __( '%s juros', 'woo-custom-installments' ), $value ) . '</span>';
 			} else {
 				$title .= '';
