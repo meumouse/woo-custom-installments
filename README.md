@@ -34,6 +34,16 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 4.1.0 (28/03/2024)
+* Correção de bugs
+* Otimizações
+* Recurso adicionado: Gancho "woo_custom_installments_before_installments_container"
+* Recurso adicionado: Gancho "woo_custom_installments_after_installments_container"
+* Recurso adicionado: Gancho "woo_custom_installments_popup_header"
+* Recurso adicionado: Gancho "woo_custom_installments_popup_bottom"
+* Recurso adicionado: Gancho "woo_custom_installments_accordion_header"
+* Recurso adicionado: Gancho "woo_custom_installments_accordion_bottom"
+
 Versão 4.0.0 (28/03/2024)
 * Correção de bugs
 * Otimizações
