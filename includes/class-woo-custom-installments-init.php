@@ -1,30 +1,27 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 3.8.0
+ * @version 4.0.0
  * @package MeuMouse.com
  */
 class Woo_Custom_Installments_Init {
 
   public $responseObj;
   public $licenseMessage;
-  public $showMessage = false;
-  public $activateLicense = false;
-  public $deactivateLicense = false;
+  public $show_message = false;
+  public $active_license = false;
+  public $deactive_license = false;
+  public $clear_cache = false;
   
   public function __construct() {
-    add_action( 'plugins_loaded', array( $this, 'woo_custom_installments_set_default_options' ), 998 );
-    add_action( 'plugins_loaded', array( $this, 'woo_custom_installments_connect_api' ), 999 );
-    add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-    add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_update_table_installments' ) );
-    add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_update_checkout' ) );
-    add_action( 'wp_enqueue_scripts', array( $this, 'disable_update_installments' ) );
+    add_action( 'admin_init', array( $this, 'woo_custom_installments_set_default_options' ) );
+    add_action( 'admin_init', array( $this, 'woo_custom_installments_connect_api' ) );
   }
 
 
@@ -47,7 +44,7 @@ class Woo_Custom_Installments_Init {
         $options = $default_options;
 
         foreach ( $get_options as $key => $value ) {
-            if ( !isset( $options[$key] ) ) {
+            if ( ! isset( $options[$key] ) ) {
                 $options[$key] = $value;
             }
         }
@@ -176,7 +173,7 @@ class Woo_Custom_Installments_Init {
       'ticket_discount_icon' => 'fa-solid fa-barcode',
       'discount_method_ticket' => 'percentage',
       'discount_ticket' => '0',
-      'text_before_discount_ticket' => 'A vista',
+      'text_before_discount_ticket' => 'À vista',
       'text_after_discount_ticket' => 'no Boleto bancário',
       'discount_ticket_color_badge' => '#ffba08',
       'font_size_discount_ticket' => '1',
@@ -196,6 +193,7 @@ class Woo_Custom_Installments_Init {
       'economy_pix_order' => '3',
       'slip_bank_order' => '4',
       'text_discount_per_quantity_message' => 'Compre %d UN e ganhe %s de desconto',
+      'enable_post_meta_feed_xml_price' => 'no',
     );
 
     return $options;
@@ -223,119 +221,13 @@ class Woo_Custom_Installments_Init {
 
 
   /**
-   * Enqueue scripts and styles
-   *
-   * @since 1.0.0
-   * @version 3.8.0
-   * @return void
-   */
-  public function enqueue_scripts() {
-    if ( is_singular() ) {
-        global $post;
-
-        $params = array(
-            'enable_discount_per_unit' => get_post_meta( $post->ID, 'enable_discount_per_unit', true ),
-            'discount_per_unit_method' => get_post_meta( $post->ID, 'discount_per_unit_method', true ),
-            'unit_discount_amount' => get_post_meta( $post->ID, 'unit_discount_amount', true ),
-            'currency_symbol' => get_woocommerce_currency_symbol(),
-        );
-
-        wp_localize_script( 'woo-custom-installments-front-scripts', 'wci_front_params', $params );
-    }
-
-    wp_enqueue_script( 'woo-custom-installments-front-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-front-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    wp_enqueue_style( 'woo-custom-installments-front-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/css/woo-custom-installments-front-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    wp_enqueue_script( 'font-awesome-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/font-awesome.min.js', array(), '6.4.0' );
-
-    if ( self::get_setting('display_installment_type') == 'popup' ) {
-      wp_enqueue_script( 'woo-custom-installments-front-modal', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/modal.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    } elseif ( self::get_setting('display_installment_type') == 'accordion' ) {
-      wp_enqueue_script( 'woo-custom-installments-front-accordion', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accordion.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    }
-  }
-
-
-  /**
-   * Update table installments
-   * 
-   * @since 2.9.0
-   * @version 3.8.0
-   * @return void
-   */
-  public function enqueue_update_table_installments() {
-    // check if is product page
-    if ( is_product() ) {
-        $product_id = get_the_ID();
-        $product = wc_get_product( $product_id );
-
-        // check if product is variable
-        if ( $product && $product->is_type('variable') && self::get_setting( 'display_installment_type' ) != 'hide' ) {
-            wp_enqueue_script( 'woo-custom-installments-update-table-installments', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-update-table-installments.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-            wp_enqueue_script( 'accounting-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accounting.min.js', array(), '0.4.2' );
-
-            $interest = $this->get_fee();
-            $installments_fee = array();
-
-            foreach ( range( 1, self::get_setting( 'max_qtd_installments' ) ) as $i ) {
-                $installments_fee[ $i ] = $this->get_fee( false, $i );
-            }
-
-            wp_localize_script( 'woo-custom-installments-update-table-installments', 'Woo_Custom_Installments_Params', apply_filters( 'woo_custom_installments_dynamic_table_params', array(
-                'currency_format_num_decimals' => wc_get_price_decimals(),
-                'currency_format_symbol' => get_woocommerce_currency_symbol(),
-                'currency_format_decimal_sep' => esc_attr( wc_get_price_decimal_separator() ),
-                'currency_format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
-                'currency_format' => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ), // For accounting JS
-                'rounding_precision' => wc_get_rounding_precision(),
-                'max_installments' => self::get_setting( 'max_qtd_installments' ),
-                'max_installments_no_fee' => self::get_setting( 'max_qtd_installments_without_fee' ),
-                'min_installment' => self::get_setting( 'min_value_installments' ),
-                'fees' => $installments_fee,
-                'fee' => $interest,
-                'without_fee_label' => self::get_setting( 'text_without_fee_installments' ),
-                'with_fee_label' => self::get_setting( 'text_with_fee_installments' ),
-            ) ) );
-        }
-    }
-  }
-
-
-  /**
-   * Enqueue update checkout script
-   * 
-   * @since 3.6.0
-   * @version 3.8.0
-   * @return void
-   */
-  public function enqueue_update_checkout() {
-    if ( is_checkout() && self::get_setting('enable_all_discount_options') === 'yes' ) {
-      wp_enqueue_script( 'woo-custom-installments-update-table-installments', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/update-checkout.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    }
-  }
-
-
-  /**
-   * Disable update table installments
-   * 
-   * @since 2.9.0
-   * @version 3.8.0
-   * @return void
-   */
-  public function disable_update_installments() {
-    if ( self::get_setting('disable_update_installments') === 'yes' ) {
-      wp_dequeue_script('woo-custom-installments-update-table-installments');
-    }
-  }
-  
-
-  /**
    * Get option interest of calc installments
    * 
    * @since 2.3.5
    * @version 3.8.0
    * @return string
   */
-  public function get_fee( $product = false, $installments = 1 ) {
+  public static function get_fee( $product = false, $installments = 1 ) {
     $customFeeInstallments = array();
     $customFeeInstallments = get_option('woo_custom_installments_custom_fee_installments');
     $customFeeInstallments = maybe_unserialize( $customFeeInstallments );
@@ -367,63 +259,129 @@ class Woo_Custom_Installments_Init {
    * Load API settings
    * 
    * @since 2.0.0
-   * @version 3.8.0
+   * @version 4.0.0
+   * @return void
    */
   public function woo_custom_installments_connect_api() {
     if ( current_user_can('manage_woocommerce') ) {
       $this->responseObj = new stdClass();
-      $this->responseObj->is_valid = false;
-  
-      $licenseKey = get_option('woo_custom_installments_license_key', '');
+      $message = '';
+      $license_key = get_option('woo_custom_installments_license_key', '');
   
       // Save settings on active license
       if ( isset( $_POST['woo_custom_installments_active_license'] ) ) {
         delete_transient('woo_custom_installments_api_request_cache');
         delete_transient('woo_custom_installments_api_response_cache');
-        update_option( 'woo_custom_installments_license_key', $_POST );
-        $licenseKey = !empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
-        update_option( 'woo_custom_installments_license_key', $licenseKey ) || add_option('woo_custom_installments_license_key', $licenseKey );
-        update_option( '_site_transient_update_plugins', '' );
+        
+        $license_key = !empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
+        update_option( 'woo_custom_installments_license_key', $license_key ) || add_option('woo_custom_installments_license_key', $license_key );
       }
-  
-      if ( get_option( 'woo_custom_installments_license_status' ) !== 'valid' ) {
-        update_option( 'woo_custom_installments_license_key', '' );
-      }
-  
-      // Save settings on deactive license, or remove license status if it is invalid
-      if ( isset( $_POST['woo_custom_installments_deactive_license'] ) ) {
-        if ( Woo_Custom_Installments_Api::RemoveLicenseKey( __FILE__, $message ) ) {
-          update_option( 'woo_custom_installments_license_status', 'invalid' );
-          update_option( 'woo_custom_installments_license_key', '' );
-          update_option( '_site_transient_update_plugins', '' );
-  
-          $this->deactivateLicense = true;
-        }
-      }
-  
-      // Check on the server if the license is valid and update responses and options
-      if ( Woo_Custom_Installments_Api::CheckWPPlugin( $licenseKey, $this->licenseMessage, $this->responseObj, __FILE__ ) ) {
-        update_option( 'woo_custom_installments_license_status', 'valid' );
 
+      // Check on the server if the license is valid and update responses and options
+      if ( Woo_Custom_Installments_Api::check_purchase_key( $license_key, $this->licenseMessage, $this->responseObj, WOO_CUSTOM_INSTALLMENTS_FILE ) ) {
         if ( isset( $_POST['woo_custom_installments_active_license'] ) && $this->responseObj && $this->responseObj->is_valid ) {
-          $this->activateLicense = true;
+          $this->active_license = true;
         }
       } else {
-        if ( !empty( $licenseKey ) && !empty( $this->licenseMessage ) ) {
-          update_option( 'woo_custom_installments_license_status', 'invalid' );
-  
-          $this->showMessage = true;
+        if ( !empty( $license_key ) && !empty( $this->licenseMessage ) ) {
+          $this->show_message = true;
         }
+      }
+
+      if ( isset( $_POST['woo_custom_installments_deactive_license'] ) ) {
+        delete_transient('woo_custom_installments_api_request_cache');
+        delete_transient('woo_custom_installments_api_response_cache');
+        update_option( 'woo_custom_installments_license_status', 'invalid' );
+        update_option( 'woo_custom_installments_license_key', '' );
+        delete_option('woo_custom_installments_license_response_object');
+
+        $this->deactive_license = true;
       }
 
       // clear activation cache
       if ( isset( $_POST['woo_custom_installments_clear_activation_cache'] ) ) {
         delete_transient('woo_custom_installments_api_request_cache');
         delete_transient('woo_custom_installments_api_response_cache');
+
+        $this->clear_cache = true;
       }
     }
   }
-  
+
+
+  /**
+   * Check if license if valid
+   * 
+   * @since 3.8.5
+   * @version 4.0.0
+   * @return bool
+   */
+  public static function license_valid() {
+    $object_query = get_option('woo_custom_installments_license_response_object');
+
+    // clear api request and response cache if object is empty
+    if ( empty( $object_query ) ) {
+      delete_transient('woo_custom_installments_api_request_cache');
+      delete_transient('woo_custom_installments_api_response_cache');
+    }
+
+    if ( ! empty( $object_query ) && isset( $object_query->is_valid )  ) {
+      update_option( 'woo_custom_installments_license_status', 'valid' );
+
+      return true;
+    } else {
+        update_option( 'woo_custom_installments_license_key', '' );
+        update_option( 'woo_custom_installments_license_status', 'invalid' );
+
+        return false;
+    }
+  }
+
+
+  /**
+   * Get license title
+   * 
+   * @since 4.0.0
+   * @return string
+   */
+  public static function license_title() {
+    $object_query = get_option('woo_custom_installments_license_response_object');
+
+    if ( ! empty( $object_query ) && isset( $object_query->license_title ) ) {
+      return $object_query->license_title;
+    } else {
+      return esc_html__(  'Não disponível', 'woo-custom-installments' );
+    }
+  }
+
+
+  /**
+   * Get license expire date
+   * 
+   * @since 4.0.0
+   * @return string
+   */
+  public static function license_expire() {
+    $object_query = get_option('woo_custom_installments_license_response_object');
+
+    if ( ! empty( $object_query ) && isset( $object_query->expire_date ) ) {
+      if ( $object_query->expire_date === 'No expiry' ) {
+        return esc_html__( 'Nunca expira', 'woo-custom-installments' );
+      } else {
+        if ( strtotime( $object_query->expire_date ) < time() ) {
+          update_option( 'woo_custom_installments_license_status', 'invalid' );
+          delete_option('woo_custom_installments_license_response_object');
+
+          return esc_html__( 'Licença expirada', 'woo-custom-installments' );
+        }
+
+        // get wordpress date format setting
+        $date_format = get_option('date_format');
+
+        return date( $date_format, strtotime( $object_query->expire_date ) );
+      }
+    }
+  }
 }
 
 new Woo_Custom_Installments_Init();

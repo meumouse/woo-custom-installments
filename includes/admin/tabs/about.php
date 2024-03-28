@@ -1,94 +1,96 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit; ?>
 
-?>
-
-<div id="about-settings" class="nav-content ">
+<div id="about" class="nav-content">
 	<table class="form-table">
 		<tr>
 			<td class="d-grid">
 				<h3 class="mb-4"><?php esc_html_e( 'Informações sobre a licença:', 'woo-custom-installments' ); ?></h3>
+
 				<span class="mb-2"><?php echo esc_html__( 'Status da licença:', 'woo-custom-installments' ) ?>
-					<?php if ( $this->responseObj->is_valid ) : ?>
+					<?php if ( self::license_valid() ) : ?>
 						<span class="badge bg-translucent-success rounded-pill"><?php _e(  'Válida', 'woo-custom-installments' );?></span>
+					<?php elseif ( empty( get_option('woo_custom_installments_license_key') ) ) : ?>
+						<span class="fs-sm"><?php _e(  'Nenhuma licença informada', 'woo-custom-installments' );?></span>
 					<?php else : ?>
 						<span class="badge bg-translucent-danger rounded-pill"><?php _e(  'Inválida', 'woo-custom-installments' );?></span>
 					<?php endif; ?>
 				</span>
+
 				<span class="mb-2"><?php echo esc_html__( 'Recursos:', 'woo-custom-installments' ) ?>
-					<?php if ( $this->responseObj->is_valid ) : ?>
+					<?php if ( self::license_valid() ) : ?>
 						<span class="badge bg-translucent-primary rounded-pill"><?php _e(  'Pro', 'woo-custom-installments' );?></span>
 					<?php else : ?>
 						<span class="badge bg-translucent-warning rounded-pill"><?php _e(  'Grátis', 'woo-custom-installments' );?></span>
 					<?php endif; ?>
 				</span>
-				<a class="btn btn-primary my-4 pulsating-button purchase-button <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci#buy-pro" target="_blank">
-					<svg class="me-2" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M7 17a5.007 5.007 0 0 0 4.898-4H14v2h2v-2h2v3h2v-3h1v-2h-9.102A5.007 5.007 0 0 0 7 7c-2.757 0-5 2.243-5 5s2.243 5 5 5zm0-8c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3z"></path></svg>
-					<span><?php _e(  'Comprar licença', 'woo-custom-installments' );?></span>
-				</a>
-				<span class="mb-2 <?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Tipo da licença:', 'woo-custom-installments' ) ?>
-					<span><?php if (isset( $this->responseObj->license_title ) ) { echo $this->responseObj->license_title; } ?></span>
-				</span>
-				<span class="mb-2 <?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Licença expira em:', 'flexify-checkout-for-woocommerce' ) ?>
-					<span id="expire-date">
-						<?php
-							if ( isset( $this->responseObj->expire_date ) ) {
-								$expiryText = $this->responseObj->expire_date;
-						
-								if ($expiryText === "No expiry") {
-									echo esc_html__('Nunca expira', 'flexify-checkout-for-woocommerce');
-								} else {
-									echo date('d/m/Y', strtotime($expiryText));
 
-									if ( strtotime( $expiryText ) < time() ) {
-										update_option( 'woo_custom_installments_license_key', '' );
-										update_option( 'woo_custom_installments_license_status', 'invalid' );
-									}
-								}
-							}
-						?>
-					</span>
-				</span>
-				<span class="mb-2 <?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Sua chave de licença:', 'woo-custom-installments' ) ?>
-					<span>
+				<?php
+
+				if ( self::license_valid() ) {
+					?>
+					<span class="mb-2"><?php echo sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), self::license_title() ) ?></span>
+					<span class="mb-2"><?php echo sprintf( esc_html__( 'Licença expira em: %s', 'woo-custom-installments' ), self::license_expire() ) ?></span>
+					
+					<span class="mb-2"><?php echo esc_html__( 'Sua chave de licença:', 'woo-custom-installments' ) ?>
 						<?php 
-						if (isset( $this->responseObj->license_key ) ) {
-							echo esc_attr( substr( $this->responseObj->license_key, 0, 9). "XXXXXXXX-XXXXXXXX".substr( $this->responseObj->license_key,-9) );
+						if ( isset( $this->responseObj->license_key ) ) {
+							echo esc_attr( substr( $this->responseObj->license_key, 0, 9 ) . "XXXXXXXX-XXXXXXXX" . substr( $this->responseObj->license_key, -9 ) );
 						} else {
-							echo __(  'Chave da licença não disponível', 'woo-custom-installments' );
+							echo __(  'Não disponível', 'woo-custom-installments' );
 						}
 						?>
 					</span>
-				</span>
-			</td>
-		</tr>
-		
-		<tr class="<?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>">
-		<td class="w-75">
-			<span id="insert-license-info" class="bg-translucent-danger rounded-2 p-2 mb-4 <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>"><?php echo esc_html__( 'Informe sua licença abaixo para desbloquear todos os recursos.', 'woo-custom-installments' ) ?></span>
-			<span class="form-label d-block mt-2"><?php echo esc_html__( 'Código da licença', 'woo-custom-installments' ) ?></span>
-			<div class="input-group" style="width: 550px;">
-				<input class="form-control" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="woo_custom_installments_license_key" name="woo_custom_installments_license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
-				<button id="woo_custom_installments_active_license" name="woo_custom_installments_active_license" class="btn btn-primary button-loading <?php if ( $this->responseObj->is_valid ) { echo 'd-none';} ?>" type="submit">
-					<span class="span-inside-button-loader"><?php esc_attr_e( 'Ativar licença', 'woo-custom-installments' ); ?></span>
-				</button>
-			</div>
-		</td>
-		</tr>
-		<tr class="<?php if ( ! $this->responseObj->is_valid ) { echo 'd-none';} ?>">
-			<td>
-				<button id="woo_custom_installments_deactive_license" name="woo_custom_installments_deactive_license" class="btn btn-sm btn-primary button-loading" type="submit">
-					<span class="span-inside-button-loader"><?php esc_attr_e( 'Desativar licença', 'woo-custom-installments' ); ?></span>
-				</button>
+					<?php
+				}
+				?>
 			</td>
 		</tr>
 
+		<?php
+
+		if ( self::license_valid() ) {
+			?>
+			<tr>
+				<td>
+					<button type="submit" id="woo_custom_installments_deactive_license" class="btn btn-sm btn-primary" name="woo_custom_installments_deactive_license">
+						<span><?php echo esc_html__( 'Desativar licença', 'woo-custom-installments' ); ?></span>
+					</button>
+				</td>
+			</tr>
+			<?php
+		} else {
+			?>
+			<tr>
+				<td class="d-grid">
+					<a class="btn btn-primary my-4 d-inline-flex w-fit" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci" target="_blank">
+						<svg class="key-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><g> <path d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g></svg>
+						<span><?php _e(  'Comprar licença', 'woo-custom-installments' );?></span>
+					</a>
+					<span class="bg-translucent-success fw-medium rounded-2 px-3 py-2 mb-4 d-flex align-items-center w-fit">
+						<svg class="icon icon-success me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path></svg>
+						<?php echo esc_html__( 'Informe sua licença abaixo para desbloquear todos os recursos.', 'woo-custom-installments' ) ?>
+					</span>
+					<span class="form-label d-block mt-2"><?php echo esc_html__( 'Código da licença', 'woo-custom-installments' ) ?></span>
+					<div class="input-group" style="max-width: 550px;">
+						<input class="form-control" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="woo_custom_installments_license_key" name="woo_custom_installments_license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
+						<button type="submit" id="woo_custom_installments_active_license" class="btn btn-primary button-loading" name="woo_custom_installments_active_license">
+							<span class="span-inside-button-loader"><?php echo esc_html__( 'Ativar licença', 'woo-custom-installments' ); ?></span>
+						</button>
+					</div>
+				</td>
+			</tr>
+			<?php
+		}
+		?>
+		<tr class="container-separator"></tr>
+
 		<tr class="w-75 mt-5">
 			<td>
-				<h3 class="mt-0"><?php esc_html_e( 'Status do sistema:', 'woo-custom-installments' ); ?></h3>
-				<h4><?php esc_html_e( 'WordPress', 'woo-custom-installments' ); ?></h4>
+				<h3 class="h2 mt-0"><?php esc_html_e( 'Status do sistema:', 'woo-custom-installments' ); ?></h3>
+				<h4 class="mt-4"><?php esc_html_e( 'WordPress', 'woo-custom-installments' ); ?></h4>
 				<div class="d-flex mb-2">
 					<span><?php esc_html_e( 'Versão do WordPress:', 'woo-custom-installments' ); ?></span>
 					<span class="ms-2"><?php echo esc_html( get_bloginfo( 'version' ) ); ?></span>
@@ -102,7 +104,7 @@ defined( 'ABSPATH' ) || exit;
 					<span class="ms-2"><?php echo defined( 'WP_DEBUG' ) && WP_DEBUG ? esc_html__( 'Ativo', 'woo-custom-installments' ) : esc_html__( 'Desativado', 'woo-custom-installments' ); ?></span>
 				</div>
 
-				<h4><?php esc_html_e( 'WooCommerce', 'woo-custom-installments' ); ?></h4>
+				<h4 class="mt-4"><?php esc_html_e( 'WooCommerce', 'woo-custom-installments' ); ?></h4>
 				<div class="d-flex mb-2">
 					<span><?php esc_html_e( 'Versão do WooCommerce:', 'woo-custom-installments' ); ?></span>
 					<span class="ms-2">
@@ -122,16 +124,22 @@ defined( 'ABSPATH' ) || exit;
 						<?php endif; ?>
 					</span>
 				</div>
-				<div class="d-flex mb-2">
+				<div class="d-flex align-items-center mb-2">
 					<span><?php esc_html_e( 'Versão do Parcelas Customizadas para WooCommerce:', 'woo-custom-installments' ); ?></span>
 					<span class="ms-2">
 						<span class="badge bg-translucent-success">
-							<?php echo esc_html( WOO_CUSTOM_INSTALLMENTS_VERSION ); ?>
+							<?php
+							if ( self::license_valid() ) {
+								$get_pro = esc_html__( 'Pro', 'woo-custom-installments' );
+							} else {
+								$get_pro = '';
+							}
+							echo sprintf( esc_html( WOO_CUSTOM_INSTALLMENTS_VERSION . ' %s' ), $get_pro ); ?>
 						</span>
 					</span>
 				</div>
 
-				<h4><?php esc_html_e( 'Servidor', 'woo-custom-installments' ); ?></h4>
+				<h4 class="mt-4"><?php esc_html_e( 'Servidor', 'woo-custom-installments' ); ?></h4>
 				<div class="d-flex mb-2">
 					<span><?php esc_html_e( 'Versão do PHP:', 'woo-custom-installments' ); ?></span>
 					<span class="ms-2">

@@ -1,22 +1,20 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Display structures on front-end
+ * Display elements on front-end
  *
  * @since 1.0.0
- * @version 3.8.0
+ * @version 4.0.0
  * @package MeuMouse.com
  */
-class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_Init {
+class Woo_Custom_Installments_Frontend_Template {
 
   public static $count = 0;
 
   public function __construct() {
-    parent::__construct();
-
     // get boolean condition to display installments in all the products
     if ( Woo_Custom_Installments_Init::get_setting('enable_installments_all_products') === 'yes' && !is_admin() ) {
       add_filter( 'woocommerce_get_price_html', array( $this, 'woo_custom_installments_group' ), 999, 2 );
@@ -24,7 +22,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
     // get boolean condition to display installments in the cart
     if ( Woo_Custom_Installments_Init::get_setting('display_installments_cart') === 'yes' ) {
-      add_action( 'woocommerce_after_cart_totals', array( $this, 'display_discount_on_cart' ) );
+      add_action( 'woocommerce_cart_totals_before_order_total', array( $this, 'display_discount_on_cart' ) );
 
       // Integration with EpicJungle theme
       if ( class_exists( 'EpicJungle' ) ) {
@@ -35,13 +33,13 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
     // Include schema for product searchers
     if ( Woo_Custom_Installments_Init::get_setting('display_discount_price_schema') === 'yes' && !is_admin() ) {
-      require_once WOO_CUSTOM_INSTALLMENTS_INC . 'classes/class-woo-custom-installments-schema.php';
+      include_once WOO_CUSTOM_INSTALLMENTS_INC . 'classes/class-woo-custom-installments-schema.php';
     }
 
     // get hook to display accordion or popup payment form in single product page
-    if ( self::get_setting( 'hook_payment_form_single_product' ) == 'before_cart' ) {
+    if ( Woo_Custom_Installments_Init::get_setting( 'hook_payment_form_single_product' ) == 'before_cart' ) {
       add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'full_installment' ), 10 );
-    } elseif ( self::get_setting( 'hook_payment_form_single_product' ) == 'after_cart' ) {
+    } elseif ( Woo_Custom_Installments_Init::get_setting( 'hook_payment_form_single_product' ) == 'after_cart' ) {
       add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'full_installment' ), 10 );
     } else {
       remove_action( 'woocommerce_after_add_to_cart_form', array( $this, 'full_installment' ), 10 );
@@ -72,10 +70,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
      * 
      * @since 2.6.0
      */
-    if ( Woo_Custom_Installments_Init::get_setting('remove_price_range') === 'yes' && get_option( 'woo_custom_installments_license_status' ) == 'valid' && !is_admin() ) {
+    if ( Woo_Custom_Installments_Init::get_setting('remove_price_range') === 'yes' && Woo_Custom_Installments_Init::license_valid() && !is_admin() ) {
       add_filter( 'woocommerce_variable_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
       add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
-      add_action( 'wp_enqueue_scripts', array( $this, 'update_price_on_select_variation' ), 10 );
     }
 
     /**
@@ -91,6 +88,11 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     if ( Woo_Custom_Installments_Init::get_setting('enable_functions_discount_per_quantity') === 'yes' && Woo_Custom_Installments_Init::get_setting('message_discount_per_quantity') === 'yes' && !is_admin() ) {
       add_action( 'woocommerce_single_product_summary', array( $this, 'display_message_discount_per_quantity' ) );
       add_action( 'woocommerce_after_shop_loop_item_title', array( $this, 'display_message_discount_per_quantity' ) );
+    }
+
+    // add product post meta for xml feed
+    if ( Woo_Custom_Installments_Init::get_setting('enable_post_meta_feed_xml_price') === 'yes' && Woo_Custom_Installments_Init::license_valid() ) {
+      add_action( 'init', array( $this, 'product_price_for_xml_feed' ) );
     }
   }
   
@@ -154,7 +156,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     // get max quantity of installments
-    $installments_limit = self::get_setting('max_qtd_installments');
+    $installments_limit = Woo_Custom_Installments_Init::get_setting('max_qtd_installments');
 
     // get all installments options till the limit
     for ( $i = 1; $i <= $installments_limit; $i++ ) {
@@ -164,7 +166,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         if ( Woo_Custom_Installments_Init::get_setting('set_fee_per_installment') === 'yes' ) {
             $interest_rate = isset( $customFeeInstallments[$i]['amount'] ) ? floatval( $customFeeInstallments[$i]['amount'] ) : 0;
         } else {
-            $interest_rate = self::get_setting('fee_installments_global');
+            $interest_rate = Woo_Custom_Installments_Init::get_setting('fee_installments_global');
         }
 
         // If interest be zero, use one formula for all
@@ -174,7 +176,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         }
 
         // get max quantity of installments without fee
-        $max_installments_without_fee = self::get_setting('max_qtd_installments_without_fee');
+        $max_installments_without_fee = Woo_Custom_Installments_Init::get_setting('max_qtd_installments_without_fee');
 
         // set the installments without fee
         if ( $i <= $max_installments_without_fee ) {
@@ -186,7 +188,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     // get min value price of installment
-    $min_installment_value = self::get_setting('min_value_installments');
+    $min_installment_value = Woo_Custom_Installments_Init::get_setting('min_value_installments');
 
     foreach ($installments_info as $index => $installment) {
         if ( $installment['installment_price'] < $min_installment_value && 0 < $index ) {
@@ -256,7 +258,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->display_best_installments( $product, $price );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -297,10 +299,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         return;
     }
   
-    $display_single_product = self::get_setting( 'hook_display_best_installments' );
-    $display_best_installments_global = self::get_setting( 'hook_display_best_installments' ) == 'display_loop_and_single_product';
-    $display_best_installments_only_single_product = self::get_setting( 'hook_display_best_installments' ) == 'only_single_product';
-    $display_best_installments_only_loop = self::get_setting( 'hook_display_best_installments' ) == 'only_loop_products';
+    $display_single_product = Woo_Custom_Installments_Init::get_setting( 'hook_display_best_installments' );
+    $display_best_installments_global = Woo_Custom_Installments_Init::get_setting( 'hook_display_best_installments' ) == 'display_loop_and_single_product';
+    $display_best_installments_only_single_product = Woo_Custom_Installments_Init::get_setting( 'hook_display_best_installments' ) == 'only_single_product';
+    $display_best_installments_only_loop = Woo_Custom_Installments_Init::get_setting( 'hook_display_best_installments' ) == 'only_loop_products';
   
     $args = array();
   
@@ -311,7 +313,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $installments = $this->set_values( $display_single_product, wc_get_price_to_display( $product, $args ), $product, false );
   
     $best_installments = '';
-    $get_type_best_installments = self::get_setting( 'get_type_best_installments' );
+    $get_type_best_installments = Woo_Custom_Installments_Init::get_setting( 'get_type_best_installments' );
   
     if ($get_type_best_installments == 'best_installment_without_fee') {
         $best_installments = $this->best_without_interest( $installments, $product );
@@ -355,7 +357,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     
     if ( Woo_Custom_Installments_Init::get_setting('enable_pix_method_payment_form') === 'yes' ) {
       $pixFlag .= '<div class="woo-custom-installments-pix-section">';
-        $pixFlag .= '<h4 class="pix-method-title">'. self::get_setting( 'text_pix_container' ) .'</h4>';
+        $pixFlag .= '<h4 class="pix-method-title">'. Woo_Custom_Installments_Init::get_setting( 'text_pix_container' ) .'</h4>';
         $pixFlag .= '<div class="pix-method-container">';
           $pixFlag .= '<span class="pix-method-name">'. __( 'Pix', 'woo-custom-installments' ) .'</span>';
           
@@ -394,7 +396,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @package MeuMouse.com
    */
   public function pix_flag_shortcode() {
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->woo_custom_installments_pix_flag();
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -413,9 +415,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     
     if ( Woo_Custom_Installments_Init::get_setting('enable_ticket_method_payment_form') === 'yes' ) {
       $ticketFlag .= '<div class="woo-custom-installments-ticket-section">';
-        $ticketFlag .= '<h4 class="ticket-method-title">'. self::get_setting( 'text_ticket_container' ) .'</h4>';
+        $ticketFlag .= '<h4 class="ticket-method-title">'. Woo_Custom_Installments_Init::get_setting( 'text_ticket_container' ) .'</h4>';
         $ticketFlag .= '<div class="ticket-method-container">';
-          $ticketFlag .= '<span class="ticket-instructions">'. self::get_setting( 'text_instructions_ticket_container' ) .'</span>';
+          $ticketFlag .= '<span class="ticket-instructions">'. Woo_Custom_Installments_Init::get_setting( 'text_instructions_ticket_container' ) .'</span>';
         $ticketFlag .= '</div>';
         $ticketFlag .= '<div class="container-badge-icon ticket-flag">';
           $ticketFlag .= '<img class="size-badge-icon" src="'. WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/img/boleto-badge.svg"/>';
@@ -435,7 +437,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @package MeuMouse.com
    */
   public function ticket_flag_shortcode() {
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->woo_custom_installments_ticket_flag();
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -496,7 +498,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
       if ( Woo_Custom_Installments_Init::get_setting('enable_credit_card_method_payment_form') === 'yes' ) {
           $creditCardFlag .= '<div class="woo-custom-installments-credit-card-section">';
-          $creditCardFlag .= '<h4 class="credit-card-method-title">' . self::get_setting('text_credit_card_container') . '</h4>';
+          $creditCardFlag .= '<h4 class="credit-card-method-title">' . Woo_Custom_Installments_Init::get_setting('text_credit_card_container') . '</h4>';
           if ( isset( $options['enable_instant_approval_badge'] ) && $options['enable_instant_approval_badge'] == 'yes' ) {
               $creditCardFlag .= '<div class="credit-card-method-container">';
                 $creditCardFlag .= '<span class="instant-approval-badge">' . __('Aprovação imediata', 'woo-custom-installments') . '</span>';
@@ -522,7 +524,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @package MeuMouse.com
    */
   public function credit_card_flag_shortcode() {
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->woo_custom_installments_credit_card_flags();
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -543,7 +545,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
     if ( Woo_Custom_Installments_Init::get_setting('enable_debit_card_method_payment_form') === 'yes') {
         $debitCardFlag .= '<div class="woo-custom-installments-debit-card-section">';
-        $debitCardFlag .= '<h4 class="debit-card-method-title">' . self::get_setting('text_debit_card_container') . '</h4>';
+        $debitCardFlag .= '<h4 class="debit-card-method-title">' . Woo_Custom_Installments_Init::get_setting('text_debit_card_container') . '</h4>';
         if ( Woo_Custom_Installments_Init::get_setting('enable_instant_approval_badge') === 'yes' ) {
             $debitCardFlag .= '<div class="debit-card-method-container">';
               $debitCardFlag .= '<span class="instant-approval-badge">' . __('Aprovação imediata', 'woo-custom-installments') . '</span>';
@@ -569,7 +571,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @package MeuMouse.com
    */
   public function debit_card_flag_shortcode() {
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->woo_custom_installments_debit_card_flags();
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -607,7 +609,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         $max_price = $product->get_variation_price( 'max', true );
 
         if ( $min_price !== $max_price ) {
-            $text_initial = ! empty( self::get_setting( 'text_initial_variables' ) ) ? '<span class="woo-custom-installments-starting-from">' . self::get_setting( 'text_initial_variables' ) . '</span>' : '';
+            $text_initial = ! empty( Woo_Custom_Installments_Init::get_setting( 'text_initial_variables' ) ) ? '<span class="woo-custom-installments-starting-from">' . Woo_Custom_Installments_Init::get_setting( 'text_initial_variables' ) . '</span>' : '';
 
             $price = $text_initial . wc_price( $min_price );
         }
@@ -618,32 +620,13 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
 
   /**
-   * Enqueue script for update price on select variation
-   * 
-   * @since 2.9.0
-   * @version 3.2.5
-   * @return void
-   */
-  public function update_price_on_select_variation() {
-    $product_id = get_the_ID();
-    $product = wc_get_product( $product_id );
-
-    if ( $product && is_a( $product, 'WC_Product' ) ) {
-        if ( $product->is_type( 'variable' ) && $product->get_variation_price( 'min' ) !== $product->get_variation_price( 'max' ) ) {
-            wp_enqueue_script( 'woo-custom-installments-range-price', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-range-price.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-        }
-    }
-  }
-
-
-  /**
    * Add custom text after price
    * 
    * @since 2.8.0
    * @return string
    */
   public function add_custom_text_after_price( $price, $product ) {
-    $price .= '<span class="woo-custom-installments-text-after-price">'. self::get_setting( 'custom_text_after_price_front' ) .'</span>';
+    $price .= '<span class="woo-custom-installments-text-after-price">'. Woo_Custom_Installments_Init::get_setting( 'custom_text_after_price_front' ) .'</span>';
 
     return $price;
   }
@@ -659,10 +642,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * @return string $html|$price
   */
   public function woo_custom_installments_group( $price, $product ) {
-    $display_discount_price_hook = self::get_setting( 'display_discount_price_hook' );
-    $display_economy_pix_hook = self::get_setting( 'display_economy_pix_hook' );
-    $display_best_installments_hook = self::get_setting( 'hook_display_best_installments' );
-    $display_discount_ticket_hook = self::get_setting( 'display_discount_ticket_hook' );
+    $display_discount_price_hook = Woo_Custom_Installments_Init::get_setting( 'display_discount_price_hook' );
+    $display_economy_pix_hook = Woo_Custom_Installments_Init::get_setting( 'display_economy_pix_hook' );
+    $display_best_installments_hook = Woo_Custom_Installments_Init::get_setting( 'hook_display_best_installments' );
+    $display_discount_ticket_hook = Woo_Custom_Installments_Init::get_setting( 'display_discount_ticket_hook' );
 
     // Show original price before discount info
     $html = '<span class="original-price">' . $price . '</span>';
@@ -670,7 +653,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     if ( $product->is_type( 'simple' ) || $this->variable_has_same_price( $product ) ) {
       $html .= '<div class="woo-custom-installments-group">';
     } else {
-      $html .= '<div class="woo-custom-installments-group deprecated">';
+      $html .= '<div class="woo-custom-installments-group variable-range-price">';
     }
 
     // Check display conditions
@@ -734,12 +717,13 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   public function discount_main_price_single( $product, $price ) {
     $product_id = $product->get_id();
     $args = array();
-    $discount = self::get_setting( 'discount_main_price' );
-    $icon = self::get_setting('icon_main_price');
+    $discount = Woo_Custom_Installments_Init::get_setting('discount_main_price');
+    $icon = Woo_Custom_Installments_Init::get_setting('icon_main_price');
     $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
     $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
     $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
     $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+    $enabled_post_meta_feed_xml_price = Woo_Custom_Installments_Init::get_setting('enable_post_meta_feed_xml_price') === 'yes';
 
     if ( $disable_discount_main_price === true ) {
       return;
@@ -767,7 +751,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
           $custom_price = wc_get_price_to_display( $product, $args ) - $discount_per_product_value;
       }
     } else {
-        if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+        if ( Woo_Custom_Installments_Init::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
             $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( wc_get_price_to_display( $product, $args ), $discount, $product );
         } else {
             $custom_price = wc_get_price_to_display( $product, $args ) - $discount;
@@ -775,15 +759,15 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
     
     // check if exists text before price for display
-    if ( !empty( self::get_setting( 'text_before_price' ) ) ) {
-      $html .= '<span class="discount-before-price">'. self::get_setting( 'text_before_price' ) .'</span>';
+    if ( !empty( Woo_Custom_Installments_Init::get_setting( 'text_before_price' ) ) ) {
+      $html .= '<span class="discount-before-price">'. Woo_Custom_Installments_Init::get_setting( 'text_before_price' ) .'</span>';
     }
 
     $html .= '<span class="discounted-price">'. wc_price( $custom_price ) .'</span>';
 
     // check if exists text after price for display
-    if ( !empty( self::get_setting( 'text_after_price' ) ) ) {
-      $html .= '<span class="discount-after-price">'. self::get_setting( 'text_after_price' ) .'</span>';
+    if ( !empty( Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) ) ) {
+      $html .= '<span class="discount-after-price">'. Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) .'</span>';
     }
 
     // close 'woo-custom-installments-offer' span
@@ -792,6 +776,55 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     // check if product price is bigger then zero
     if ( $product->get_price() > 0 ) {
       return $html;
+    }
+  }
+
+
+  /**
+   * Generate post meta '_product_price_on_pix' for Feed XML
+   * 
+   * @since 4.0.0
+   * @return void
+   */
+  public function product_price_for_xml_feed() {
+    $args = array(
+      'post_type' => 'product',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+
+    $products = new WP_Query( $args );
+
+    if ( $products->have_posts() ) {
+        while ( $products->have_posts() ) {
+            $products->the_post();
+            $product_id = get_the_ID();
+            $product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
+            $product = wc_get_product( $product_id );
+
+            if ( $product && $product->get_price() > 0 ) {
+              $discount = Woo_Custom_Installments_Init::get_setting('discount_main_price');
+              $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
+              $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+              $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+
+              if ( $discount_per_product === 'yes' ) {
+                  if ( $discount_per_product_method === 'percentage' ) {
+                      $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+                  } else {
+                      $custom_price = $product->get_price() - $discount_per_product_value;
+                  }
+              } else {
+                  if ( Woo_Custom_Installments_Init::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+                      $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
+                  } else {
+                      $custom_price = $product->get_price() - $discount;
+                  }
+              }
+
+              update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
+            }
+        }
     }
   }
 
@@ -812,7 +845,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->discount_main_price_single( $price, $product );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -834,7 +867,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->woo_custom_installments_group( $price, $product );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -853,8 +886,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   public function discount_ticket_badge( $product, $price ) {
     $args = array();
     $price = wc_get_price_to_display( $product, $args );
-    $icon = self::get_setting( 'ticket_discount_icon' );
-    $ticket_discount_value = self::get_setting( 'discount_ticket' );
+    $icon = Woo_Custom_Installments_Init::get_setting( 'ticket_discount_icon' );
+    $ticket_discount_value = Woo_Custom_Installments_Init::get_setting( 'discount_ticket' );
     $product_id = $product->get_id();
     $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
 
@@ -869,11 +902,11 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       }
 
       // check if exists text before price for display
-      if ( !empty( self::get_setting( 'text_before_discount_ticket' ) ) ) {
-        $html .= '<span class="discount-before-discount-ticket">'. self::get_setting( 'text_before_discount_ticket' ) .'</span>';
+      if ( !empty( Woo_Custom_Installments_Init::get_setting( 'text_before_discount_ticket' ) ) ) {
+        $html .= '<span class="discount-before-discount-ticket">'. Woo_Custom_Installments_Init::get_setting( 'text_before_discount_ticket' ) .'</span>';
       }
 
-      if ( self::get_setting( 'discount_method_ticket' ) == 'percentage' ) {
+      if ( Woo_Custom_Installments_Init::get_setting( 'discount_method_ticket' ) == 'percentage' ) {
         $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $price, $ticket_discount_value, $product );
       } else {
           $custom_price = $price - $ticket_discount_value;
@@ -881,8 +914,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
       $html .= '<span class="discounted-price">'. wc_price( $custom_price ) .'</span>';
         // check if exists text after price for display
-        if ( !empty( self::get_setting( 'text_after_discount_ticket' ) ) ) {
-          $html .= '<span class="discount-after-discount-ticket">'. self::get_setting( 'text_after_discount_ticket' ) .'</span>';
+        if ( !empty( Woo_Custom_Installments_Init::get_setting( 'text_after_discount_ticket' ) ) ) {
+          $html .= '<span class="discount-after-discount-ticket">'. Woo_Custom_Installments_Init::get_setting( 'text_after_discount_ticket' ) .'</span>';
         }
     $html .= '</span>';
 
@@ -906,7 +939,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->discount_ticket_badge( $price, $product );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -926,7 +959,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $product_id = $product->get_id();
     $args = array();
     $price = wc_get_price_to_display( $product, $args );
-    $discount = self::get_setting( 'discount_main_price' );
+    $discount = Woo_Custom_Installments_Init::get_setting( 'discount_main_price' );
     $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
     $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
     $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
@@ -944,7 +977,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
           $custom_price = $price - $discount_per_product_value;
       }
     } else {
-        if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+        if ( Woo_Custom_Installments_Init::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
             $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $price, $discount, $product );
         } else {
             $custom_price = $price - $discount;
@@ -954,10 +987,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $get_discount = $price - $custom_price;
 
     // check if exists text before price for display
-    if ( !empty( self::get_setting( 'text_economy_pix_badge' ) ) ) {
+    if ( !empty( Woo_Custom_Installments_Init::get_setting( 'text_economy_pix_badge' ) ) ) {
       $html = '<span class="woo-custom-installments-economy-pix-badge">';
         $html .= '<i class="wci-icon-economy-pix fa-solid fa-circle-info"></i>';
-        $html .= '<span class="discount-before-economy-pix">'. sprintf( self::get_setting( 'text_economy_pix_badge' ), wc_price( $get_discount ) ) .'</span>';
+        $html .= '<span class="discount-before-economy-pix">'. sprintf( Woo_Custom_Installments_Init::get_setting( 'text_economy_pix_badge' ), wc_price( $get_discount ) ) .'</span>';
       $html .= '</span>';
     }
 
@@ -981,7 +1014,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->economy_pix_badge( $price, $product );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -1042,15 +1075,15 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     if ( 'main_price' == $hook ) {
-      $text = self::get_setting( 'text_display_installments_single_product' );
+      $text = Woo_Custom_Installments_Init::get_setting( 'text_display_installments_single_product' );
     } else {
-      $text = self::get_setting( 'text_display_installments_loop' );
+      $text = Woo_Custom_Installments_Init::get_setting( 'text_display_installments_loop' );
     }
 
     $find = array_keys( $this->strings_to_replace( $best_without_interest ) );
     $replace = array_values( $this->strings_to_replace( $best_without_interest ) );
     $text = str_replace( $find, $replace, $text );
-    $icon = self::get_setting( 'icon_best_installments' );
+    $icon = Woo_Custom_Installments_Init::get_setting( 'icon_best_installments' );
 
     $html = '<span class="woo-custom-installments-details-without-fee">';
       if ( ! empty( $icon ) ) {
@@ -1083,15 +1116,15 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     if ( 'main_price' == $hook ) {
-      $text = self::get_setting( 'text_display_installments_single_product' );
+      $text = Woo_Custom_Installments_Init::get_setting( 'text_display_installments_single_product' );
     } else {
-      $text = self::get_setting( 'text_display_installments_loop' );
+      $text = Woo_Custom_Installments_Init::get_setting( 'text_display_installments_loop' );
     }
 
     $find = array_keys( $this->strings_to_replace( $best_with_interest ) );
     $replace = array_values( $this->strings_to_replace( $best_with_interest ) );
     $text = str_replace( $find, $replace, $text );
-    $icon = self::get_setting( 'icon_best_installments' );
+    $icon = Woo_Custom_Installments_Init::get_setting( 'icon_best_installments' );
 
     $html = '<span class="woo-custom-installments-details-with-fee">';
       if ( ! empty( $icon ) ) {
@@ -1113,7 +1146,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   public function get_fee_info( $installment ) {
     $hook = self::hook();
 
-    $text = ( $installment['interest_fee'] ) ? '' . self::get_setting( 'text_with_fee_installments' ) : ' '. self::get_setting( 'text_without_fee_installments' );
+    $text = ( $installment['interest_fee'] ) ? '' . Woo_Custom_Installments_Init::get_setting( 'text_with_fee_installments' ) : ' '. Woo_Custom_Installments_Init::get_setting( 'text_without_fee_installments' );
     return apply_filters( 'woo_custom_installments_fee_label', $text, $installment['interest_fee'], $hook );
   }
 
@@ -1152,6 +1185,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * Calculate value of installment without interest
    * 
    * @since 1.0.0
+   * @param string $total | Product price
+   * @param string $i | Installments
    * @return string
   */
   public function get_installment_details_without_interest( $total, $i ) {
@@ -1169,6 +1204,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * Calculate value of installment with interest
    * 
    * @since 1.0.0
+   * @param string $total | Product price
+   * @param string $fee | Interest rate
+   * @param string $i | Installments
    * @return string
   */
   public function get_installment_details_with_interest( $total, $fee, $i ) {
@@ -1185,8 +1223,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   /**
    * Generate table of installments
    * 
-   * @return string
    * @since 2.0.0
+   * @return string
   */
   public function generate_installments_table( $installments, $product ) {
     if ( !$product ) {
@@ -1208,14 +1246,14 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     }
 
     // Installments table
-    $table = '<h4 class="installments-title">'. self::get_setting( 'text_table_installments' ) .'</h4>';
+    $table = '<h4 class="installments-title">'. Woo_Custom_Installments_Init::get_setting( 'text_table_installments' ) .'</h4>';
     $table .= '<div id="table-installments">';
       $table .= '<table class="table table-hover woo-custom-installments-table">';
-        $table .= '<tbody data-default-text="'. self::get_setting( 'text_display_installments_payment_forms' ) .'">';
+        $table .= '<tbody data-default-text="'. Woo_Custom_Installments_Init::get_setting( 'text_display_installments_payment_forms' ) .'">';
           foreach ( $all_installments as $installment ) {
               $find = array_keys( $this->strings_to_replace( $installment ) );
               $replace = array_values( $this->strings_to_replace( $installment ) );
-              $final_text = str_replace( $find, $replace, self::get_setting( 'text_display_installments_payment_forms' ) );
+              $final_text = str_replace( $find, $replace, Woo_Custom_Installments_Init::get_setting( 'text_display_installments_payment_forms' ) );
 
               $table .= '<tr class="'. $installment['class'] .'">';
               $table .= '<th class="final-text">'. $final_text .'</th>';
@@ -1233,8 +1271,8 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   /**
    * Create a shortcode installments table
    * 
-   * @since 2.0.0
    * @return string
+   * @since 2.0.0
    */
   public function installments_table_shortcode( $atts ) {
     $product = wc_get_product();
@@ -1244,7 +1282,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
       return __( 'O local do shortcode inserido é inválido. Insira em um modelo de página de produto individual, ou em um local onde consiga obter o ID de um produto.', 'woo-custom-installments' );
     }
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       return $this->generate_installments_table( null, $product );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -1257,6 +1295,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
    * 
    * @since 2.0.0
    * @version 3.8.0
+   * @param bool $product_id
    * @return string
   */
   public function full_installment( $product_id = false ) {
@@ -1273,7 +1312,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     // accordion content
     $accordion = '<div id="accordion-installments" class="accordion">';
       $accordion .= '<div class="accordion-item">';
-        $accordion .= '<button class="accordion-header">'. self::get_setting( 'text_button_installments' ) .'</button>';
+        $accordion .= '<button class="accordion-header">'. Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ) .'</button>';
         $accordion .= '<div class="accordion-content">';
 
           if ( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
@@ -1289,11 +1328,11 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     $accordion .= '</div>';
 
     // popup content
-    $popup = '<button id="open-popup"><span class="open-popup-text">'. self::get_setting( 'text_button_installments' ) .'</span></button>';
+    $popup = '<button id="open-popup"><span class="open-popup-text">'. Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ) .'</span></button>';
     $popup .= '<div id="popup-container">';
       $popup .= '<div id="popup-content">';
         $popup .= '<div id="popup-header">';
-          $popup .= '<h5 id="popup-title">'. self::get_setting( 'text_container_payment_forms' ) .'</h5>';
+          $popup .= '<h5 id="popup-title">'. Woo_Custom_Installments_Init::get_setting( 'text_container_payment_forms' ) .'</h5>';
           $popup .= '<button id="close-popup" aria-label="Fechar">.</button>';
         $popup .= '</div>';
 
@@ -1319,9 +1358,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
         return;
     }
     
-    if ( self::get_setting( 'display_installment_type' ) == 'accordion' ) {
+    if ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) == 'accordion' ) {
       echo apply_filters( 'woo_custom_installments_table', $accordion, $all_installments );
-    } elseif ( self::get_setting( 'display_installment_type' ) == 'popup' ) {
+    } elseif ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) == 'popup' ) {
       echo apply_filters( 'woo_custom_installments_table', $popup, $all_installments );
     } else {
       return;
@@ -1332,8 +1371,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
   /**
    * Create a shortcode for modal container
    * 
-   * @return string
    * @since 2.0.0
+   * @param array $atts | Shortcode attributes
+   * @return object
    */
   public function render_full_installment_shortcode( $atts = array() ) {
     $product = wc_get_product();
@@ -1349,7 +1389,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
     ob_start();
 
-    if ( get_option( 'woo_custom_installments_license_status') == 'valid' ) {
+    if ( Woo_Custom_Installments_Init::license_valid() ) {
       $this->full_installment( $atts['product_id'] );
     } else {
       return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
@@ -1376,9 +1416,9 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     
     if ( $enable_global_discount || $enable_product_discount ) {
       if ( $enable_global_discount ) {
-          $method = self::get_setting('discount_per_quantity_method');
-          $value = self::get_setting('value_for_discount_per_quantity');
-          $minimum_quantity = self::get_setting('set_quantity_enable_discount');
+          $method = Woo_Custom_Installments_Init::get_setting('discount_per_quantity_method');
+          $value = Woo_Custom_Installments_Init::get_setting('value_for_discount_per_quantity');
+          $minimum_quantity = Woo_Custom_Installments_Init::get_setting('set_quantity_enable_discount');
       } else {
           $method = get_post_meta( $product_id, 'discount_per_quantity_method', true );
           $value = get_post_meta( $product_id, 'quantity_discount_amount', true );
@@ -1393,7 +1433,7 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
 
       echo '<div class="woo-custom-installments-discount-per-quantity-message">';
         echo '<i class="fa-solid fa-circle-exclamation"></i>';
-        echo '<span>'. sprintf( self::get_setting('text_discount_per_quantity_message'), $minimum_quantity, $discount_message ) .'</span>';
+        echo '<span>'. sprintf( Woo_Custom_Installments_Init::get_setting('text_discount_per_quantity_message'), $minimum_quantity, $discount_message ) .'</span>';
       echo '</div>';
     }
   }
@@ -1443,10 +1483,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
                 }
             } else {
                 // Calculate discounted price for individual item using the default discount
-                if ( self::get_setting( 'product_price_discount_method' ) == 'percentage' ) {
-                    $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $cart_item_total, self::get_setting( 'discount_main_price' ) );
+                if ( Woo_Custom_Installments_Init::get_setting( 'product_price_discount_method' ) == 'percentage' ) {
+                    $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $cart_item_total, Woo_Custom_Installments_Init::get_setting( 'discount_main_price' ) );
                 } else {
-                    $custom_price = $cart_item_total - self::get_setting( 'discount_main_price' );
+                    $custom_price = $cart_item_total - Woo_Custom_Installments_Init::get_setting( 'discount_main_price' );
                 }
             }
 
@@ -1470,10 +1510,10 @@ class Woo_Custom_Installments_Frontend_Template extends Woo_Custom_Installments_
     <div class="woo-custom-installments-order-discount-cart">
         <tr>
             <span class="table-header-text">
-                <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), self::get_setting( 'text_after_price' ) ) ); ?></th>
+                <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) ) ); ?></th>
             </span>
             <span class="discount-price">
-                <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), self::get_setting( 'text_after_price' ) ) ) ); ?>"><?php echo wc_price( $total_discount_price ); ?></td>
+                <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) ) ) ); ?>"><?php echo wc_price( $total_discount_price ); ?></td>
             </span>
         </tr>
     </div>

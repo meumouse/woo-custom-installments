@@ -12,7 +12,7 @@
 
 		if (activeTabIndex === null) {
 			// If it is null, activate the general tab
-			$('.woo-custom-installments-wrapper a.nav-tab[href="#general-settings"]').click();
+			$('.woo-custom-installments-wrapper a.nav-tab[href="#general"]').click();
 		} else {
 			$('.woo-custom-installments-wrapper a.nav-tab').eq(activeTabIndex).click();
 		}
@@ -61,11 +61,11 @@
 	 */
 	jQuery( function($) {
 		$('.hide-toast').click( function() {
-			$('.update-notice-wci, .updated-option-success').fadeOut('fast');
+			$('.toast').fadeOut('fast');
 		});
 
 		setTimeout( function() {
-			$('.update-notice-wci').fadeOut('fast');
+			$('.toast').fadeOut('fast');
 		}, 3000);
 	});
 
@@ -198,21 +198,21 @@
 	 */
 	jQuery( function($) {
 		$('.button-loading').on('click', function() {
-			let $btn = $(this);
-			let originalText = $btn.text();
-			let btnWidth = $btn.width();
-			let btnHeight = $btn.height();
+			let btn = $(this);
+			let originalText = btn.text();
+			let btn_width = btn.width();
+			let btn_height = btn.height();
 
 			// keep original width and height
-			$btn.width(btnWidth);
-			$btn.height(btnHeight);
+			btn.width(btn_width);
+			btn.height(btn_height);
 
 			// Add spinner inside button
-			$btn.html('<span class="spinner-border spinner-border-sm"></span>');
+			btn.html('<span class="spinner-border spinner-border-sm"></span>');
 		
 			setTimeout(function() {
 			// Remove spinner
-			$btn.html(originalText);
+			btn.html(originalText);
 			
 			}, 5000);
 		});
@@ -259,12 +259,18 @@
 
 
 	/**
-	 * Check elements if has class pro-version
+	 * Before active license actions
 	 * 
 	 * @since 2.0.0
+	 * @version 4.0.0
 	 */
 	jQuery( function($) {
 		$('.pro-version').prop('disabled', true);
+
+		$('#active_license_form').on('click', function() {
+			$('#popup-pro-notice').removeClass('show');
+			$('.woo-custom-installments-wrapper a.nav-tab[href="#about"]').click();
+		});
 	});
 
 
@@ -777,5 +783,75 @@
 			}
 		});
 	});
+
+
+	/**
+	 * Deactive license process
+	 * 
+	 * @since 4.0.0
+	 */
+	jQuery(document).ready( function($) {
+		$('#woo_custom_installments_deactive_license').click( function(e) {
+			var btn = $(this);
+			var btn_text = btn.text();
+			var btn_width = btn.width();
+			var btn_height = btn.height();
+			var form = new FormData();
+
+			btn.width(btn_width);
+			btn.height(btn_height);
+			btn.html('<span class="spinner-border spinner-border-sm"></span>');
+
+			form.append('api_key', wci_params.api_key);
+			form.append('license_code', wci_params.license);
+			form.append('domain', wci_params.domain);
+	
+			var settings = {
+				"url": wci_params.api_endpoint + 'license/remove_domain',
+				"method": "POST",
+				"timeout": 0,
+				"processData": false,
+				"mimeType": "multipart/form-data",
+				"contentType": false,
+				"data": form,
+			};
+	
+			$.ajax(settings)
+				.done(function(response) {
+					console.log(response);
+					
+					if ( response.status === true && response.msg === "Domain successfully removed" ) {
+						reset_license_form();
+					} else {
+					//	$(btn).html(btn_text);
+					}
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+					console.error("Erro ao remover o domínio:", errorThrown);
+				//	$(this).html(btn_text);
+				});
+		});
+
+		function reset_license_form() {
+			$.ajax({
+				url: wci_params.ajax_url,
+				type: 'POST',
+				data: {
+					action: 'deactive_license_process',
+				},
+				success: function(response) {
+					if ( response.status === 'success' ) {
+					//	$(btn).html(btn_text);
+						window.location.reload();
+						console.log('Dominio removido', response);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error("Erro ao excluir opção no servidor:", error);
+				//	$(btn).html(btn_text);
+				}
+			});
+		}
+	});	
 
 })(jQuery);

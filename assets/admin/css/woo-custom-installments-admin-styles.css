@@ -1,11 +1,10 @@
 .woo-custom-installments-admin-section-tile {
     font-size: 1.4rem;
     font-weight: 400;
-    margin: 2rem 0.5rem 0;
 }
 
 .woo-custom-installments-admin-title-description {
-    margin: 1rem 0.5rem 0;
+    margin-left: 0.5rem;
 }
 
 .woo-custom-installments-wrapper {
@@ -178,11 +177,10 @@ table tr {
 }
 
 .container-separator {
-    margin-top: 1.125rem;
-    border: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
-    height: 1px;
-    width: calc(100% - 5rem);
+    margin: 2rem 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    width: 100%;
+    padding-left: 0;
 }
 
 .rounded {
@@ -209,6 +207,10 @@ table tr {
     border-radius: 50rem !important;
 }
 
+.rounded-circle {
+    border-radius: 100% !important;
+}
+
 .lead {
     font-size: calc(1.275rem + 0.3vw);
     font-weight: 400;
@@ -232,6 +234,19 @@ table tr {
     opacity: 0.8;
 }
 
+.icon-pro {
+    fill: #fff;
+    margin-right: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+.btn-icon > .icon-pro {
+    margin: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .locked {
     cursor: not-allowed;
     background-color: rgba(255, 230, 0, 0.2) !important;
@@ -245,9 +260,11 @@ table tr {
 }
 
 .badge {
-    display: inline-block;
-    padding: 0.35em 0.6em;
-    font-size: 0.8125em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     line-height: 1;
     color: #fff;
@@ -255,6 +272,12 @@ table tr {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
+}
+
+.badge.pro {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.7rem;
+    line-height: 0;
 }
 
 .bg-translucent-primary {
@@ -492,8 +515,16 @@ code {
     display: flex !important;
 }
 
+.d-inline-flex {
+    display: inline-flex !important;
+}
+
 .d-grid {
     display: grid !important;
+}
+
+.flex-collumn {
+    flex-direction: column !important;
 }
 
 .align-items-center {
@@ -552,6 +583,10 @@ h5, .h5 {
 
 .w-100 {
     width: 100% !important;
+}
+
+.w-fit {
+    width: fit-content !important;
 }
 
 .ms-2 {
@@ -687,33 +722,41 @@ input.toggle-switch:checked:hover {
     border: 1px solid transparent;
     padding: 0.625rem 1.75rem;
     font-size: 0.875rem;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm,
+.btn-group-sm > .btn {
     padding: 0.475rem 1.25rem;
     font-size: 0.75rem;
     border-radius: 0.25rem;
 }
 
-.btn:hover, .btn:disabled, .btn.disabled {
+.btn:hover,
+.btn:disabled,
+.btn.disabled {
     box-shadow: none !important;
 }
 
-.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+.btn:disabled,
+.btn.disabled,
+fieldset:disabled .btn {
     pointer-events: none;
     opacity: 0.65;
     box-shadow: none;
 }
 
-.btn-primary:disabled, .btn-primary.disabled {
+.btn-primary:disabled,
+.btn-primary.disabled {
     color: #fff;
     background-color: #008aff;
     border-color: #008aff;
 }
 
-a.btn-primary, a.btn-primary:hover, a.btn-primary:focus {
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-primary:focus {
     color:#fff;
 }
 
@@ -732,7 +775,8 @@ a.btn-primary, a.btn-primary:hover, a.btn-primary:focus {
     border-color: rgba(239, 68, 68, 0.35);
 }
 
-.btn-outline-danger:hover, .btn-outline-danger:focus {
+.btn-outline-danger:hover,
+.btn-outline-danger:focus {
     color: #fff;
     background-color: #ef4444;
     border-color: #ef4444;
@@ -743,7 +787,8 @@ a.btn-primary, a.btn-primary:hover, a.btn-primary:focus {
     border-color: rgba(0, 138, 255, 0.35);
 }
 
-.btn-outline-primary:hover, .btn-outline-primary:focus {
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
     color: #fff;
     background-color: #008aff;
     border-color: #008aff;
@@ -801,23 +846,29 @@ a.btn-primary, a.btn-primary:hover, a.btn-primary:focus {
 }
   
 @-webkit-keyframes linkUnderline {
-0% {
-    width: 100%; }
-50% {
-    width: 0; }
-100% {
-    left: 0;
-    width: 100%; }
+    0% {
+        width: 100%;
+    }
+    50% {
+        width: 0;
+    }
+    100% {
+        left: 0;
+        width: 100%;
+    }
 }
 
 @keyframes linkUnderline {
-0% {
-    width: 100%; }
-50% {
-    width: 0; }
-100% {
-    left: 0;
-    width: 100%; } 
+    0% {
+        width: 100%;
+    }
+    50% {
+        width: 0;
+    }
+    100% {
+        left: 0;
+        width: 100%;
+    }
 }
 
 #wci_section_title {
@@ -946,7 +997,8 @@ a.btn-primary, a.btn-primary:hover, a.btn-primary:focus {
     }
 }
 
-.woo-custom-installments-toast-check-icon {
+.woo-custom-installments-toast-check-icon,
+.key-icon {
     width: 1rem;
     margin-right: 0.5rem;
 }
@@ -1176,6 +1228,10 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     transition: transform .3s ease-out;
 }
 
+.popup-sm {
+    width: 600px !important;
+}
+
 .manage-credit-card-content,
 .manage-debit-card-content {
     max-height: 80vh;
@@ -1318,4 +1374,70 @@ table.popup-table tr {
 
 .popup-table th {
     width: 50% !important;
+}
+
+.icon {
+    width: 1.225rem;
+    height: 1.225rem;
+}
+
+.icon-primary {
+    fill: #008aff !important;
+}
+
+.icon-white {
+    fill: #fff !important;
+}
+
+.icon-warning {
+    fill: #ffba08 !important;
+}
+
+.icon-success {
+    fill: #22c55e !important;
+}
+
+.fw-medium {
+    font-weight: 600 !important;
+}
+
+.fw-semibold {
+    font-weight: 700 !important;
+}
+
+.py-1 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+}
+  
+.py-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+  
+.py-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.px-1 {
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+}
+  
+.px-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+}
+  
+.px-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+}
+
+.title-hightlight {
+    width: 90px;
+    height: 0.25rem;
+    background-color: #008aff;
+    border-radius: 0.5rem;
 }

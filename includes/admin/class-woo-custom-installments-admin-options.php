@@ -1,24 +1,30 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
+
+/**
+ * Admin plugin actions
+ *
+ * @since 2.0.0
+ * @version 4.0.0
+ * @package MeuMouse.com
+ */
 class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init {
 
   /**
-   * Woo_Custom_Installments_Admin constructor.
-   *
+   * Construct function
+   * 
    * @since 2.0.0
-   * @version 3.8.0
-   * @package MeuMouse.com
+   * @version 4.0.0
+   * @return void
    */
   public function __construct() {
     parent::__construct();
 
     add_action( 'admin_menu', array( $this, 'woo_custom_installments_admin_menu' ) );
-    add_action( 'admin_enqueue_scripts', array( $this, 'woo_custom_installments_admin_scripts' ) );
     add_action( 'wp_ajax_woo_custom_installments_ajax_save_options', array( $this, 'woo_custom_installments_ajax_save_options_callback' ) );
-    add_action( 'wp_ajax_nopriv_woo_custom_installments_ajax_save_options', array( $this, 'woo_custom_installments_ajax_save_options_callback' ) );
     add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_unit_fields' ) );
     add_action( 'woocommerce_product_options_advanced', array( $this, 'woo_custom_installments_add_product_option' ) );
     add_action( 'woocommerce_process_product_meta', array( $this,'woo_custom_installments_save_product_option' ), 2);
@@ -28,13 +34,14 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     add_action( 'woocommerce_product_bulk_edit_end', array( $this, 'woo_custom_installments_output_bulk_edit_fields' ) );
     add_action( 'woocommerce_product_bulk_edit_save', array( $this, 'woo_custom_installments_save_bulk_edit_fields' ) );
     add_action( 'admin_head', array( $this, 'inject_inline_js_product_edit_page' ) );
+    add_action( 'wp_ajax_deactive_license_process', array( $this, 'deactive_license_process_callback' ) );
 
     /**
      * Enable functions for discount per quantity in product edit
      * 
      * @since 2.7.2
      */
-    if ( self::get_setting( 'enable_discount_per_quantity_method' ) == 'product' && get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
+    if ( self::get_setting( 'enable_discount_per_quantity_method' ) == 'product' && self::license_valid() ) {
       add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_quantity_fields' ) );
       add_action( 'woocommerce_process_product_meta', array( $this, 'save_options_discount_per_quantity_fields' ) );
     }
@@ -71,36 +78,6 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
 
   /**
-   * Enqueue admin scripts in page settings only
-   * 
-   * @since 2.0.0
-   * @access public
-   * @return void
-   */
-  public function woo_custom_installments_admin_scripts() {
-    $url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-
-    if ( false !== strpos( $url, 'admin.php?page=woo-custom-installments' ) ) {
-      wp_enqueue_script( 'sortable-js', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/sortable.min.js', array(), '1.15.1' );
-      wp_enqueue_script( 'jquery-sortable', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/jquery-sortable-js.js', array('jquery'), null );
-      wp_enqueue_script( 'woo-custom-installments-admin-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/woo-custom-installments-admin-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-
-      // add currency symbol to JS var
-      $currency_symbol = get_woocommerce_currency_symbol();
-      $script = "var currency_symbol = '" . esc_js( $currency_symbol ) . "';";
-      wp_add_inline_script('woo-custom-installments-admin-scripts', $script);
-
-      // add ajax_url parameter for AJAX callback
-      wp_localize_script( 'woo-custom-installments-admin-scripts', 'wci_params', array(
-        'ajax_url' => admin_url( 'admin-ajax.php' ),
-      ));
-
-      wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
-    }
-  }
-
-
-  /**
    * Save options in AJAX
    * 
    * @since 3.0.0
@@ -114,16 +91,16 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
       $options = get_option( 'woo-custom-installments-setting' );
       $options['enable_installments_all_products'] = isset( $form_data['enable_installments_all_products'] ) ? 'yes' : 'no';
-      $options['remove_price_range'] = isset( $form_data['remove_price_range'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
+      $options['remove_price_range'] = isset( $form_data['remove_price_range'] ) && self::license_valid() ? 'yes' : 'no';
       $options['custom_text_after_price'] = isset( $form_data['custom_text_after_price'] ) ? 'yes' : 'no';
-      $options['set_fee_per_installment'] = isset( $form_data['set_fee_per_installment'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
+      $options['set_fee_per_installment'] = isset( $form_data['set_fee_per_installment'] ) && self::license_valid() ? 'yes' : 'no';
       $options['disable_update_installments'] = isset( $form_data['disable_update_installments'] ) ? 'yes' : 'no';
       $options['enable_all_discount_options'] = isset( $form_data['enable_all_discount_options'] ) ? 'yes' : 'no';
       $options['display_installments_cart'] = isset( $form_data['display_installments_cart'] ) ? 'yes' : 'no';
       $options['include_shipping_value_in_discounts'] = isset( $form_data['include_shipping_value_in_discounts'] ) ? 'yes' : 'no';
       $options['display_tag_discount_price_checkout'] = isset( $form_data['display_tag_discount_price_checkout'] ) ? 'yes' : 'no';
-      $options['display_discount_price_schema'] = isset( $form_data['display_discount_price_schema'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
-      $options['enable_functions_discount_per_quantity'] = isset( $form_data['enable_functions_discount_per_quantity'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
+      $options['display_discount_price_schema'] = isset( $form_data['display_discount_price_schema'] ) && self::license_valid() ? 'yes' : 'no';
+      $options['enable_functions_discount_per_quantity'] = isset( $form_data['enable_functions_discount_per_quantity'] ) && self::license_valid() ? 'yes' : 'no';
       $options['enable_discount_per_unit_discount_per_quantity'] = isset( $form_data['enable_discount_per_unit_discount_per_quantity'] ) ? 'yes' : 'no';
       $options['message_discount_per_quantity'] = isset( $form_data['message_discount_per_quantity'] ) ? 'yes' : 'no';
       $options['enable_all_interest_options'] = isset( $form_data['enable_all_interest_options'] ) ? 'yes' : 'no';
@@ -161,21 +138,22 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
       $options['enable_pagarme_flag_debit'] = isset( $form_data['enable_pagarme_flag_debit'] ) ? 'yes' : 'no';
       $options['enable_cielo_flag_debit'] = isset( $form_data['enable_cielo_flag_debit'] ) ? 'yes' : 'no';
       $options['center_group_elements_loop'] = isset( $form_data['center_group_elements_loop'] ) ? 'yes' : 'no';
-      $options['enable_economy_pix_badge'] = isset( $form_data['enable_economy_pix_badge'] ) && $this->responseObj->is_valid ? 'yes' : 'no';
+      $options['enable_economy_pix_badge'] = isset( $form_data['enable_economy_pix_badge'] ) && self::license_valid() ? 'yes' : 'no';
+      $options['enable_post_meta_feed_xml_price'] = isset( $form_data['enable_post_meta_feed_xml_price'] ) && self::license_valid() ? 'yes' : 'no';
 
       $settings_array = array();
 
-      if ( isset( $form_data['woo_custom_installments_discounts'] ) && !empty( $form_data['woo_custom_installments_discounts'] ) && $this->responseObj->is_valid ) {
+      if ( isset( $form_data['woo_custom_installments_discounts'] ) && !empty( $form_data['woo_custom_installments_discounts'] ) && self::license_valid() ) {
         $settings_array = maybe_serialize( $form_data['woo_custom_installments_discounts'] );
         update_option( 'woo_custom_installments_discounts_setting', $settings_array );
       }
 
-      if ( isset( $form_data['woo_custom_installments_interests'] ) && !empty( $form_data['woo_custom_installments_interests'] ) && $this->responseObj->is_valid ) {
+      if ( isset( $form_data['woo_custom_installments_interests'] ) && !empty( $form_data['woo_custom_installments_interests'] ) && self::license_valid() ) {
         $settings_array = maybe_serialize( $form_data['woo_custom_installments_interests'] );
         update_option( 'woo_custom_installments_interests_setting', $settings_array );
       }
 
-      if ( isset( $form_data['custom_fee_installments'] ) && is_array( $form_data['custom_fee_installments'] ) && $this->responseObj->is_valid ) {
+      if ( isset( $form_data['custom_fee_installments'] ) && is_array( $form_data['custom_fee_installments'] ) && self::license_valid() ) {
         $custom_fee_installments = $form_data['custom_fee_installments'];
         
         $settings_array = maybe_serialize( $form_data['custom_fee_installments'] );
@@ -223,18 +201,17 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Save product bulk edit options
    * 
    * @since 2.0.0
-   * @access public 
+   * @version 4.0.0
+   * @return void
    */
   public function woo_custom_installments_save_bulk_edit_fields( $product ) {
     $product_id = $product->get_id();
 
-    if ( $product_id > 0) {
-      $disable_installments = isset( $_REQUEST[ '__disable_installments' ] ) ? 'yes' : 'no';
-      $disable_discount_main_price = isset( $_REQUEST[ '__disable_discount_main_price' ] ) ? 'yes' : 'no';
+    $disable_installments = isset( $_POST[ '__disable_installments' ] ) ? 'yes' : 'no';
+    update_post_meta( $product_id, '__disable_installments', $disable_installments );
 
-      update_post_meta( $product_id, '__disable_installments', $disable_installments );
-      update_post_meta( $product_id, '__disable_discount_main_price', $disable_discount_main_price );
-    }
+    $disable_discount_main_price = isset( $_POST[ '__disable_discount_main_price' ] ) ? 'yes' : 'no';
+    update_post_meta( $product_id, '__disable_discount_main_price', $disable_discount_main_price );
   }
 
 
@@ -242,7 +219,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Display plugin option on product quick edit screen
    * 
    * @since 2.0.0
-   * @access public 
+   * @return void
    */
   public function woo_custom_installments_output_quick_edit_fields() {
     ?>
@@ -260,18 +237,17 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Save product quick edit options
    * 
    * @since 2.0.0
-   * @access public 
+   * @version 4.0.0
+   * @return void
    */
   public function woo_custom_installments_save_quick_edit_fields( $product ) {
     $product_id = $product->get_id();
 
-    if ( $product_id > 0) {
-      $disable_installments = isset( $_REQUEST[ '__disable_installments' ] ) ? 'yes' : 'no';
-      $disable_discount_main_price = isset( $_REQUEST[ '__disable_discount_main_price' ] ) ? 'yes' : 'no';
+    $disable_installments = isset( $_POST[ '__disable_installments' ] ) ? 'yes' : 'no';
+    update_post_meta( $product_id, '__disable_installments', $disable_installments );
 
-      update_post_meta( $product_id, '__disable_installments', $disable_installments );
-      update_post_meta( $product_id, '__disable_discount_main_price', $disable_discount_main_price );
-    }
+    $disable_discount_main_price = isset( $_POST[ '__disable_discount_main_price' ] ) ? 'yes' : 'no';
+    update_post_meta( $product_id, '__disable_discount_main_price', $disable_discount_main_price );
   }
 
 
@@ -307,7 +283,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Display plugin option on product edit screen
    * 
    * @since 2.0.0
-   * @access public 
+   * @return void
    */
   public function woo_custom_installments_add_product_option() {
     woocommerce_wp_checkbox( array( 'id'  =>  '__disable_installments', 'label'  =>  __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ) ));
@@ -319,7 +295,8 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Save product meta
    * 
    * @since 2.0.0
-   * @access public 
+   * @version 4.0.0
+   * @return void
    */
   public function woo_custom_installments_save_product_option( $post_id ) {
     $disable_installments = isset( $_POST[ '__disable_installments' ] ) ? 'yes' : 'no';
@@ -333,16 +310,16 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     update_post_meta( $post_id, 'enable_discount_per_unit', $checkbox_value );
 
     // Salvar o valor da opção do método
-    $discount_method = isset( $_POST['discount_per_unit_method'] ) ? sanitize_text_field($_POST['discount_per_unit_method']) : '';
+    $discount_method = isset( $_POST['discount_per_unit_method'] ) ? sanitize_text_field( $_POST['discount_per_unit_method'] ) : '';
     update_post_meta( $post_id, 'discount_per_unit_method', $discount_method );
 
     // Salvar o valor da opção do desconto por unidade
-    $discount_amount = isset( $_POST['unit_discount_amount'] ) ? sanitize_text_field($_POST['unit_discount_amount']) : '';
+    $discount_amount = isset( $_POST['unit_discount_amount'] ) ? sanitize_text_field( $_POST['unit_discount_amount'] ) : '';
     update_post_meta( $post_id, 'unit_discount_amount', $discount_amount );
 
     // Salvar a opção selecionada do gateway
-    $discount_gateway = isset($_POST['discount_gateway']) ? sanitize_text_field($_POST['discount_gateway']) : '';
-    update_post_meta($post_id, 'discount_gateway', $discount_gateway);
+    $discount_gateway = isset( $_POST['discount_gateway'] ) ? sanitize_text_field( $_POST['discount_gateway'] ) : '';
+    update_post_meta( $post_id, 'discount_gateway', $discount_gateway );
   }
 
 
@@ -420,6 +397,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Add custom inputs for discount per quantity in General tab of product data WooCommerce
    * 
    * @since 2.7.2
+   * @return void
    */
   public function add_options_discount_per_quantity_fields() {
     global $post;
@@ -484,10 +462,11 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
 
   /**
-  * Save options discount per quantity fields
-  * 
-  * @since 2.7.2
-  */
+   * Save options discount per quantity fields
+   * 
+   * @since 2.7.2
+   * @return void
+   */
   public function save_options_discount_per_quantity_fields( $post_id ) {
     // save checkbox option value
     $checkbox_value = isset( $_POST['enable_discount_per_quantity'] ) ? 'yes' : 'no';
@@ -511,6 +490,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Inject JavaScript on page product WooCommerce
    * 
    * @since 2.7.2
+   * @return void
    */
   public function inject_inline_js_product_edit_page() {
     global $post;
@@ -581,6 +561,33 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
         </style>
         <?php
     }
+  }
+
+
+  /**
+   * Remove license domain on deactive license
+   * 
+   * @since 4.0.0
+   * @return void
+   */
+  public function deactive_license_process_callback() {
+    if ( isset( $_POST['deactive_license_process'] ) ) {
+      delete_transient('woo_custom_installments_api_request_cache');
+      delete_transient('woo_custom_installments_api_response_cache');
+      update_option( 'woo_custom_installments_license_status', 'invalid' );
+      update_option( 'woo_custom_installments_license_key', '' );
+      delete_option('woo_custom_installments_license_response_object');
+
+      $response = array(
+        'status' => 'success',
+      );
+
+      echo wp_send_json( $response ); // Send JSON response
+
+      $this->deactive_license = true;
+    }
+
+    wp_die();
   }
 
 }

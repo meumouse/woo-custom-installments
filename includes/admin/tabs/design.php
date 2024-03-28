@@ -1,10 +1,10 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit; ?>
+defined('ABSPATH') || exit; ?>
 
-<div id="design-settings" class="nav-content">
-   <table class="form-table" >
+<div id="design" class="nav-content">
+   <table class="form-table">
       <tr>
         <th>
            <?php echo esc_html__( 'Centralizar melhor parcela e desconto na grade de produtos', 'woo-custom-installments' ) ?>
@@ -16,9 +16,7 @@ defined( 'ABSPATH' ) || exit; ?>
            </div>
         </td>
       </tr>
-      <tr>
-         <td class="container-separator"></td>
-      </tr>
+      <tr class="container-separator"></tr>
       <tr>
          <th>
             <?php echo esc_html__( 'Cor do preço com desconto', 'woo-custom-installments' ) ?>
@@ -192,9 +190,7 @@ defined( 'ABSPATH' ) || exit; ?>
             <input type="text" name="ticket_discount_icon" class="form-control input-control-wd-10" placeholder="fa-solid fa-barcode" value="<?php echo self::get_setting( 'ticket_discount_icon' ) ?>"/>
          </td>
       </tr>
-      <tr>
-         <td class="container-separator"></td>
-      </tr>
+      <tr class="container-separator"></tr>
       <tr>
          <th>
             <?php echo esc_html__( 'Cor do botão do popup de parcelas', 'woo-custom-installments' ) ?>
@@ -269,9 +265,7 @@ defined( 'ABSPATH' ) || exit; ?>
             </div>
          </td>
       </tr>
-      <tr>
-         <td class="container-separator"></td>
-      </tr>
+      <tr class="container-separator"></tr>
       <tr>
          <th>
             <?php echo esc_html__( 'Cor de exibição das parcelas', 'woo-custom-installments' ) ?>

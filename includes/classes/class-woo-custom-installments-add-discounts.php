@@ -1,13 +1,14 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Class for add discounts in the cart
  * 
- * @package MeuMouse.com
  * @since 2.0.0
+ * @version 4.0.0
+ * @package MeuMouse.com
  */
 class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 
@@ -15,26 +16,19 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 		parent::__construct();
 
 		// check if license exists
-		if ( get_option( 'woo_custom_installments_license_status' ) === 'valid' ) {
+		if ( Woo_Custom_Installments_Init::license_valid() ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title' ), 10, 2 );
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data' ), 10 );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_discount' ), 10 );
 
-		} else {
-			remove_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_discount' ), 10 );
-			remove_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title' ), 10, 2 );
-			remove_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data' ), 10 );
-		}
-
-		/**
-		 * Enable discount per quantity for all products
-		 * 
-		 * @since 2.7.2
-		 */
-		if ( Woo_Custom_Installments_Init::get_setting('enable_functions_discount_per_quantity') === 'yes' && get_option( 'woo_custom_installments_license_status' ) === 'valid' ) {
-			add_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
-		} else {
-			remove_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
+			/**
+			 * Enable discount per quantity for all products
+			 * 
+			 * @since 2.7.2
+			 */
+			if ( Woo_Custom_Installments_Init::get_setting('enable_functions_discount_per_quantity') === 'yes' ) {
+				add_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
+			}
 		}
 	}
 

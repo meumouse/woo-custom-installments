@@ -603,3 +603,7 @@ h4.pix-method-title, h4.ticket-method-title, h4.credit-card-method-title, h4.deb
 .theme-machic .single-product-container .product-price .price {
     display: block;
 }
+
+.d-none {
+    display: none !important;
+}

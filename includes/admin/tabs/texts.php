@@ -1,12 +1,12 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit; 
+defined('ABSPATH') || exit; 
 
 ?>
 
-<div id="text-settings" class="nav-content ">
-    <table class="form-table" >
+<div id="text" class="nav-content">
+    <table class="form-table">
         <tr>
             <th>
                 <?php echo esc_html__( 'Texto antes do preço com desconto', 'woo-custom-installments' ) ?>

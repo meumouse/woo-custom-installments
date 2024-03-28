@@ -1,21 +1,24 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
+/**
+ * Class for add interests for payment method
+ * 
+ * @since 2.3.5
+ * @version 4.0.0
+ * @package MeuMouse.com
+ */
 class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 
 	public function __construct() {
 		parent::__construct();
 
-		if ( get_option( 'woo_custom_installments_license_status' ) === 'valid' ) {
+		if ( Woo_Custom_Installments_Init::license_valid() ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title_interest' ), 10, 2 );
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data_interests' ), 10 );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_interest' ), 10 );
-		} else {
-			remove_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_interest' ), 10 );
-			remove_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title_interest' ), 10, 2 );
-			remove_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data_interests' ), 10 );
 		}
 	}
 
@@ -34,6 +37,7 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 		return $value;
 	}
 
+
 	/**
 	 * Generate the discount name
 	 * 
@@ -42,11 +46,12 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 	 */
 	protected function discount_name( $value, $gateway ) {
 		if ( strstr( $value, '%' ) ) {
-			return sprintf( __( 'Juros para %s (%s off)', 'woo-custom-installments' ), esc_attr( $gateway->title ), $value );
+			return sprintf( __( 'Juros para %s (%s)', 'woo-custom-installments' ), esc_attr( $gateway->title ), $value );
 		}
 
 		return sprintf( __( 'Juros para %s', 'woo-custom-installments' ), esc_attr( $gateway->title ) );
 	}
+
 
 	/**
 	 * Display the discount in payment method title
@@ -80,6 +85,7 @@ class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
 
 		return $title;
 	}
+
 
 	/**
 	 * Add discount
