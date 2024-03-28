@@ -1,5 +1,10 @@
 Registro de alterações (Changelogs):
 
+Versão 4.0.0 (28/03/2024)
+* Correção de bugs
+* Otimizações
+* Recurso adicionado: Ativar preço com desconto no Pix em Post Meta para Feed XML
+
 Versão 3.8.5 (13/03/2024)
 * Correção de bugs
 
