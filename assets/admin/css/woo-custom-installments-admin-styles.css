@@ -1228,8 +1228,14 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     transition: transform .3s ease-out;
 }
 
-.popup-sm {
-    width: 600px !important;
+@media screen and (min-width: 992px) {
+    .popup-sm {
+        width: 600px !important;
+    }
+    
+    .popup-lg {
+        width: 900px !important;
+    }
 }
 
 .manage-credit-card-content,
@@ -1440,4 +1446,9 @@ table.popup-table tr {
     height: 0.25rem;
     background-color: #008aff;
     border-radius: 0.5rem;
+}
+
+.popup-body table th,
+.popup-body table td {
+    width: 50% !important;
 }

@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 4.0.0
+ * @version 4.2.0
  * @package MeuMouse.com
  */
 class Woo_Custom_Installments_Frontend_Template {
@@ -100,9 +100,9 @@ class Woo_Custom_Installments_Frontend_Template {
   /**
    * Check if product is available
    * 
-   * @return bool
    * @since 1.0.0
-   * @package MeuMouse.com
+   * @param mixed $product | Product ID or false
+   * @return bool
    */
   public function is_available( $product = false ) {
     $is_available = true;
@@ -119,9 +119,13 @@ class Woo_Custom_Installments_Frontend_Template {
   /**
    * Calculate installments
    * 
-   * @return string
    * @since 1.0.0
-   * @package MeuMouse.com
+   * @param array $return
+   * @param mixed $price | Product price or false
+   * @param mixed $product | Product ID or false
+   * @param $echo
+   * @param $dynamic
+   * @return string
   */
   public function set_values( $return, $price = false, $product = false, $echo = true, $dynamic = null ) {
     // check if is product
@@ -284,12 +288,12 @@ class Woo_Custom_Installments_Frontend_Template {
     }
   
     // check if option __disable_installments in product is true
-    $disable_installments_in_product = get_post_meta( $product->get_id(), '__disable_installments', true ) == 'yes';
+    $disable_installments_in_product = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
   
     // check if product is variation e get the id of parent product
     if ( $product->is_type( 'variation' ) ) {
         $parent_id = $product->get_parent_id();
-        $disable_installments_in_parent = get_post_meta( $parent_id, '__disable_installments', true ) == 'yes';
+        $disable_installments_in_parent = get_post_meta( $parent_id, '__disable_installments', true ) === 'yes';
     } else {
         $disable_installments_in_parent = false;
     }
@@ -344,14 +348,13 @@ class Woo_Custom_Installments_Frontend_Template {
   /**
    * Pix flag
    * 
-   * @return string
    * @since 2.0.0
-   * @package MeuMouse.com
+   * @return string
    */
   public function woo_custom_installments_pix_flag() {
-    $product = wc_get_product();
-    $args = array();
-    $price = wc_get_price_to_display( $product, $args );
+    global $product;
+
+    $price = wc_get_price_to_display( $product );
     $economy_pix_active = Woo_Custom_Installments_Init::get_setting('enable_economy_pix_badge') === 'yes';
     $pixFlag = '';
     
@@ -488,9 +491,9 @@ class Woo_Custom_Installments_Frontend_Template {
   /**
    * Credit card flags
    * 
-   * @return string
    * @since 2.0.0
-   * @package MeuMouse.com
+   * @version 4.1.0
+   * @return string
    */
   public function woo_custom_installments_credit_card_flags() {
       $options = get_option('woo-custom-installments-setting');
@@ -499,7 +502,8 @@ class Woo_Custom_Installments_Frontend_Template {
       if ( Woo_Custom_Installments_Init::get_setting('enable_credit_card_method_payment_form') === 'yes' ) {
           $creditCardFlag .= '<div class="woo-custom-installments-credit-card-section">';
           $creditCardFlag .= '<h4 class="credit-card-method-title">' . Woo_Custom_Installments_Init::get_setting('text_credit_card_container') . '</h4>';
-          if ( isset( $options['enable_instant_approval_badge'] ) && $options['enable_instant_approval_badge'] == 'yes' ) {
+          
+          if ( Woo_Custom_Installments_Init::get_setting('enable_instant_approval_badge') === 'yes' ) {
               $creditCardFlag .= '<div class="credit-card-method-container">';
                 $creditCardFlag .= '<span class="instant-approval-badge">' . __('Aprovação imediata', 'woo-custom-installments') . '</span>';
               $creditCardFlag .= '</div>';
@@ -508,7 +512,6 @@ class Woo_Custom_Installments_Frontend_Template {
           $creditCardFlag .= '<div class="credit-card-container-badges">';
           $creditCardFlag .= $this->generate_card_flags( $options, 'credit-card', 'credit' );
           $creditCardFlag .= '</div>';
-
           $creditCardFlag .= '</div>';
       }
 
@@ -725,7 +728,7 @@ class Woo_Custom_Installments_Frontend_Template {
     $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
     $enabled_post_meta_feed_xml_price = Woo_Custom_Installments_Init::get_setting('enable_post_meta_feed_xml_price') === 'yes';
 
-    if ( $disable_discount_main_price === true ) {
+    if ( $disable_discount_main_price === 'yes' ) {
       return;
     }
 
@@ -891,7 +894,7 @@ class Woo_Custom_Installments_Frontend_Template {
     $product_id = $product->get_id();
     $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
 
-    if ( $disable_discount_main_price === true ) {
+    if ( $disable_discount_main_price === 'yes' ) {
       return;
     }
 
@@ -965,7 +968,7 @@ class Woo_Custom_Installments_Frontend_Template {
     $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
     $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
 
-    if ( $disable_discount_main_price === true ) {
+    if ( $disable_discount_main_price === 'yes' ) {
       return;
     }
 
@@ -1294,7 +1297,7 @@ class Woo_Custom_Installments_Frontend_Template {
    * Format display popup or accordion
    * 
    * @since 2.0.0
-   * @version 3.8.0
+   * @version 4.1.0
    * @param bool $product_id
    * @return string
   */
@@ -1309,62 +1312,135 @@ class Woo_Custom_Installments_Frontend_Template {
     $installments = array(); 
     $all_installments = array();
 
-    // accordion content
-    $accordion = '<div id="accordion-installments" class="accordion">';
-      $accordion .= '<div class="accordion-item">';
-        $accordion .= '<button class="accordion-header">'. Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ) .'</button>';
-        $accordion .= '<div class="accordion-content">';
-
-          if ( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
-            $accordion .= $this->woo_custom_installments_pix_flag();
-            $accordion .= $this->woo_custom_installments_credit_card_flags();
-            $accordion .= $this->woo_custom_installments_debit_card_flags();
-            $accordion .= $this->woo_custom_installments_ticket_flag();
-          }
-          
-          $accordion .= $this->generate_installments_table( $installments, $product );
-        $accordion .= '</div>';
-      $accordion .= '</div>';
-    $accordion .= '</div>';
-
-    // popup content
-    $popup = '<button id="open-popup"><span class="open-popup-text">'. Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ) .'</span></button>';
-    $popup .= '<div id="popup-container">';
-      $popup .= '<div id="popup-content">';
-        $popup .= '<div id="popup-header">';
-          $popup .= '<h5 id="popup-title">'. Woo_Custom_Installments_Init::get_setting( 'text_container_payment_forms' ) .'</h5>';
-          $popup .= '<button id="close-popup" aria-label="Fechar">.</button>';
-        $popup .= '</div>';
-
-          if ( get_option( 'woo_custom_installments_license_status' ) == 'valid' ) {
-            $popup .= $this->woo_custom_installments_pix_flag();
-            $popup .= $this->woo_custom_installments_credit_card_flags();
-            $popup .= $this->woo_custom_installments_debit_card_flags();
-            $popup .= $this->woo_custom_installments_ticket_flag();
-          }
-          $popup .= $this->generate_installments_table( $installments, $product );
-      $popup .= '</div>';
-    $popup .= '</div>';
-
     // check if product is variation e get your parent id
     if ( $product->is_type( 'variation' ) ) {
-      $disable_installments = get_post_meta( $product->get_parent_id(), '__disable_installments', true );
+      $disable_installments = get_post_meta( $product->get_parent_id(), '__disable_installments', true ) === 'yes';
     } else {
-      $disable_installments = get_post_meta( $product->get_id(), '__disable_installments', true );
+      $disable_installments = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
     }
 
     // check if '__disable_installments' is true or not purchasable and hide for the simple or variation products
     if ( $disable_installments == 'yes' || !$product->is_purchasable() ) {
         return;
     }
+
+    /**
+     * Hook for display custom content before installments container
+     * 
+     * @since 4.1.0
+     */
+    do_action('woo_custom_installments_before_installments_container');
     
-    if ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) == 'accordion' ) {
-      echo apply_filters( 'woo_custom_installments_table', $accordion, $all_installments );
-    } elseif ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) == 'popup' ) {
-      echo apply_filters( 'woo_custom_installments_table', $popup, $all_installments );
+    if ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) === 'accordion' ) {
+      echo apply_filters( 'woo_custom_installments_table', $this->accordion_container( $product, $installments ), $all_installments );
+    } elseif ( Woo_Custom_Installments_Init::get_setting( 'display_installment_type' ) === 'popup' ) {
+        echo apply_filters( 'woo_custom_installments_table', $this->popup_container( $product, $installments ), $all_installments );
     } else {
-      return;
+        return;
     }
+
+    /**
+     * Hook for display custom content after installments container
+     * 
+     * @since 4.1.0
+     */
+    do_action('woo_custom_installments_after_installments_container');
+  }
+
+
+  /**
+   * Create container for popup installments
+   * 
+   * @since 4.1.0
+   * @param int $product | Product ID
+   * @param array $installments | Array of installments
+   * @return void
+   */
+  public function popup_container( $product, $installments ) {
+    ?>
+    <button id="open-popup">
+      <span class="open-popup-text"><?php echo Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ); ?></span>
+    </button>
+
+    <div id="popup-container">
+      <div id="popup-content">
+        <div id="popup-header">
+          <h5 id="popup-title"><?php echo Woo_Custom_Installments_Init::get_setting( 'text_container_payment_forms' ); ?></h5>
+          <button id="close-popup" aria-label="Fechar">.</button>
+        </div>
+
+          <?php
+          /**
+           * Hook for display custom content inside accordion container
+           * 
+           * @since 4.1.0
+           */
+          do_action('woo_custom_installments_popup_header');
+
+          if ( Woo_Custom_Installments_Init::license_valid() ) {
+            echo $this->woo_custom_installments_pix_flag();
+            echo $this->woo_custom_installments_credit_card_flags();
+            echo $this->woo_custom_installments_debit_card_flags();
+            echo $this->woo_custom_installments_ticket_flag();
+          }
+
+          echo $this->generate_installments_table( $installments, $product );
+
+          /**
+           * Hook for display custom content inside bottom popup
+           * 
+           * @since 4.1.0
+           */
+          do_action('woo_custom_installments_popup_bottom'); ?>
+      </div>
+    </div>
+    <?php
+  }
+
+
+  /**
+   * Create container for accordion installments
+   * 
+   * @since 4.1.0
+   * @param int $product | Product ID
+   * @param array $installments | Array of installments
+   * @return void
+   */
+  public function accordion_container( $product, $installments ) {
+    ?>
+    <div id="accordion-installments" class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header"><?php echo Woo_Custom_Installments_Init::get_setting( 'text_button_installments' ); ?></button>
+        <div class="accordion-content">
+
+          <?php
+          /**
+           * Hook for display custom content inside header accordion
+           * 
+           * @since 4.1.0
+           */
+          do_action('woo_custom_installments_accordion_header');
+
+          if ( Woo_Custom_Installments_Init::license_valid() ) {
+            echo $this->woo_custom_installments_pix_flag();
+            echo $this->woo_custom_installments_credit_card_flags();
+            echo $this->woo_custom_installments_debit_card_flags();
+            echo $this->woo_custom_installments_ticket_flag();
+          }
+          
+          echo $this->generate_installments_table( $installments, $product ); ?>
+        </div>
+
+        <?php
+        /**
+         * Hook for display custom content inside bottom accordion
+         * 
+         * @since 4.1.0
+         */
+        do_action('woo_custom_installments_accordion_bottom'); ?>
+      </div>
+    </div>
+    <?php
   }
 
 
@@ -1404,7 +1480,7 @@ class Woo_Custom_Installments_Frontend_Template {
    * 
    * @since 2.8.0
    * @version 3.8.0
-   * @return string
+   * @return void
    */
   public function display_message_discount_per_quantity() {
     global $product;
@@ -1459,9 +1535,9 @@ class Woo_Custom_Installments_Frontend_Template {
     foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
         $product = $cart_item['data'];
         $product_id = $product->get_id();
-        $disable_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) == 'yes';
+        $disable_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
         $parent_id = $product->get_parent_id();
-        $disable_discount_in_parent = get_post_meta( $parent_id, '__disable_discount_main_price', true ) == 'yes';
+        $disable_discount_in_parent = get_post_meta( $parent_id, '__disable_discount_main_price', true ) === 'yes';
 
         // Get the discount information specific to the product
         $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
@@ -1483,10 +1559,10 @@ class Woo_Custom_Installments_Frontend_Template {
                 }
             } else {
                 // Calculate discounted price for individual item using the default discount
-                if ( Woo_Custom_Installments_Init::get_setting( 'product_price_discount_method' ) == 'percentage' ) {
+                if ( Woo_Custom_Installments_Init::get_setting('product_price_discount_method') === 'percentage' ) {
                     $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $cart_item_total, Woo_Custom_Installments_Init::get_setting( 'discount_main_price' ) );
                 } else {
-                    $custom_price = $cart_item_total - Woo_Custom_Installments_Init::get_setting( 'discount_main_price' );
+                    $custom_price = $cart_item_total - Woo_Custom_Installments_Init::get_setting('discount_main_price');
                 }
             }
 
@@ -1510,10 +1586,10 @@ class Woo_Custom_Installments_Frontend_Template {
     <div class="woo-custom-installments-order-discount-cart">
         <tr>
             <span class="table-header-text">
-                <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) ) ); ?></th>
+                <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting('text_after_price') ) ); ?></th>
             </span>
             <span class="discount-price">
-                <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting( 'text_after_price' ) ) ) ); ?>"><?php echo wc_price( $total_discount_price ); ?></td>
+                <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Woo_Custom_Installments_Init::get_setting('text_after_price') ) ) ); ?>"><?php echo wc_price( $total_discount_price ); ?></td>
             </span>
         </tr>
     </div>

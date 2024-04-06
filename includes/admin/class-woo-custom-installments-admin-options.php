@@ -8,7 +8,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 4.0.0
+ * @version 4.2.0
  * @package MeuMouse.com
  */
 class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init {
@@ -198,38 +198,45 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
 
   /**
+   * Display plugin option on product quick edit screen
+   * 
+   * @since 2.0.0
+   * @version 4.1.0
+   * @return void
+   */
+  public function woo_custom_installments_output_quick_edit_fields() {
+    global $post;
+
+    $disable_installments_checked = get_post_meta( $post->ID, '__disable_installments', true );
+    $disable_discount_checked = get_post_meta( $post->ID, '__disable_discount_main_price', true ); ?>
+
+    <label class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
+      <input type="checkbox" class="checkbox" name="__disable_installments" <?php checked( $disable_installments_checked === 'yes'); ?> >
+      <?php echo esc_html__( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ); ?>
+    </label>
+    <label class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
+      <input type="checkbox" class="checkbox" name="__disable_discount_main_price" <?php checked( $disable_discount_checked === 'yes'); ?> >
+      <?php echo esc_html__( 'Desativar descontos neste produto', 'woo-custom-installments' ); ?>
+    </label>
+    <?php
+  }
+
+
+  /**
    * Save product bulk edit options
    * 
    * @since 2.0.0
-   * @version 4.0.0
+   * @version 4.1.0
    * @return void
    */
   public function woo_custom_installments_save_bulk_edit_fields( $product ) {
     $product_id = $product->get_id();
 
-    $disable_installments = isset( $_POST[ '__disable_installments' ] ) ? 'yes' : 'no';
+    $disable_installments = isset( $_POST['__disable_installments'] ) ? 'yes' : 'no';
     update_post_meta( $product_id, '__disable_installments', $disable_installments );
 
-    $disable_discount_main_price = isset( $_POST[ '__disable_discount_main_price' ] ) ? 'yes' : 'no';
+    $disable_discount_main_price = isset( $_POST['__disable_discount_main_price'] ) ? 'yes' : 'no';
     update_post_meta( $product_id, '__disable_discount_main_price', $disable_discount_main_price );
-  }
-
-
-  /**
-   * Display plugin option on product quick edit screen
-   * 
-   * @since 2.0.0
-   * @return void
-   */
-  public function woo_custom_installments_output_quick_edit_fields() {
-    ?>
-    <div class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
-      <?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_installments', 'label'  =>  __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ) ) ); ?>
-    </div>
-    <div class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
-      <?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_discount_main_price', 'label'  =>  __( 'Desativar descontos neste produto', 'woo-custom-installments' ) ) ); ?>
-    </div>
-    <?php
   }
 
 
@@ -252,9 +259,10 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
 
 
   /**
-   * Output  plugin option values for product quick edit
+   * Output plugin option values for product quick edit
    * 
    * @since 2.0.0
+   * @version 4.1.0
    * @access public 
    */
   public function woo_custom_installments_output_quick_edit_values( $column ) {
@@ -283,11 +291,23 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
    * Display plugin option on product edit screen
    * 
    * @since 2.0.0
+   * @version 4.1.0
    * @return void
    */
   public function woo_custom_installments_add_product_option() {
-    woocommerce_wp_checkbox( array( 'id'  =>  '__disable_installments', 'label'  =>  __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ) ));
-    woocommerce_wp_checkbox( array( 'id'  =>  '__disable_discount_main_price', 'label'  =>  __( 'Desativar descontos neste produto', 'woo-custom-installments' ) ));
+    woocommerce_wp_checkbox(
+      array(
+        'id' => '__disable_installments',
+        'label' => __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ),
+      )
+    );
+
+    woocommerce_wp_checkbox(
+      array(
+        'id' => '__disable_discount_main_price',
+        'label' => __( 'Desativar descontos neste produto', 'woo-custom-installments' ),
+      )
+    );
   }
 
 

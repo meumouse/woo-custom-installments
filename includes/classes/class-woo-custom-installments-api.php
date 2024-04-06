@@ -7,15 +7,18 @@ defined( 'ABSPATH' ) || exit;
  * Class for handler API calls
  * 
  * @since 2.0.0
- * @version 4.0.0
+ * @version 4.2.0
  * @package MeuMouse.com
  */
 if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 	class Woo_Custom_Installments_Api {
 
-    	public $key = '2951578DE46F56D7';
-    	private $product_id = '1';
-    	private $product_base = 'woo-custom-installments';
+        public $wci_key = '2951578DE46F56D7';
+    	private $wci_product_id = '1';
+    	private $wci_product_base = 'woo-custom-installments';
+        private $product_key;
+        private $product_id;
+        private $product_base;
         private $server_host = 'https://api.meumouse.com/wp-json/license/';
     	private $isEncryptUpdate = true;
     	private $pluginFile;
@@ -29,10 +32,24 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * Construct function
          * 
          * @since 2.0.0
+         * @version 4.2.0
          * @param string $plugin_base_file
          * @return void
          */
 		public function __construct( $plugin_base_file = '') {
+            $license_key = get_option('woo_custom_installments_license_key');
+
+            // check if license is for Clube M
+            if ( strpos( $license_key, 'CM-' ) === 0 ) {
+                $this->product_base = 'clube-m';
+                $this->product_id = '7';
+                $this->product_key = 'B729F2659393EE27';
+            } else {
+                $this->product_base = $this->wci_product_base;
+                $this->product_id = $this->wci_product_id;
+                $this->product_key = $this->wci_key;
+            }
+
 			$this->pluginFile = $plugin_base_file;
             $dir = dirname( $plugin_base_file );
             $dir = str_replace('\\','/', $dir );
@@ -44,7 +61,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 
 
 		function initActionHandler() {
-			$handler = hash("crc32b", $this->product_id . $this->key . self::get_domain() ) . "_handle";
+			$handler = hash("crc32b", $this->product_id . $this->product_key . self::get_domain() ) . "_handle";
 
 			if ( isset( $_GET['action'] ) && $_GET['action'] == $handler){
 				$this->handleServerRequest();
@@ -175,7 +192,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 
 		private function encrypt( $plainText, $password = '' ) {
 			if ( empty( $password ) ) {
-				$password = $this->key;
+				$password = $this->product_key;
 			}
 
 			$plainText = wp_rand( 10, 99 ) . $plainText . wp_rand( 10, 99 );
@@ -189,7 +206,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 
 		private function decrypt( $encrypted, $password = '' ) {
             if ( empty( $password ) ) {
-                $password = $this->key;
+                $password = $this->product_key;
             }
 
             $logger = wc_get_logger();
@@ -277,7 +294,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 
                 $logger->info('(Parcelas Customizadas para WooCommerce) Response: ' . print_r( $response, true ), array('source' => $plugin_log_file));
         
-                if ( ! empty( $this->key ) ) {
+                if ( ! empty( $this->product_key ) ) {
                     // Try to decrypt
                     $decrypted_response = $this->decrypt( $response );
         
@@ -344,7 +361,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                 $finalData = wp_json_encode( $data );
                 $url = rtrim( $this->server_host, '/' ) . "/" . ltrim( $relative_url, '/' );
         
-                if ( !empty( $this->key ) ) {
+                if ( !empty( $this->product_key ) ) {
                     $finalData = $this->encrypt( $finalData );
                 }
         
@@ -482,7 +499,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 		}
 
 		private function get_key_name() {
-            return hash( 'crc32b', self::get_domain() . $this->pluginFile . $this->product_id . $this->product_base . $this->key . "LIC" );
+            return hash( 'crc32b', self::get_domain() . $this->pluginFile . $this->product_id . $this->product_base . $this->product_key . "LIC" );
         }
 
         private function save_wp_response( $response ) {

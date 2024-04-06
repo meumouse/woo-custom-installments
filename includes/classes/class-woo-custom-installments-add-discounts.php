@@ -7,14 +7,18 @@ defined('ABSPATH') || exit;
  * Class for add discounts in the cart
  * 
  * @since 2.0.0
- * @version 4.0.0
+ * @version 4.2.0
  * @package MeuMouse.com
  */
-class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
+class Woo_Custom_Installments_Discounts {
 
+	/**
+	 * Construct function
+	 * 
+	 * @since 2.0.0
+	 * @return void
+	 */
 	public function __construct() {
-		parent::__construct();
-
 		// check if license exists
 		if ( Woo_Custom_Installments_Init::license_valid() ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title' ), 10, 2 );
@@ -97,8 +101,8 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 		// Check if there are products in the cart with the "enable_discount_per_unit" option set to 'yes'.
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = $cart_item['data'];
-			$enable_discount = get_post_meta( $product->get_id(), 'enable_discount_per_unit', true ) == 'yes';
-			$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) == 'yes';
+			$enable_discount = get_post_meta( $product->get_id(), 'enable_discount_per_unit', true ) === 'yes';
+			$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
 			$discount_gateway = get_post_meta( $product->get_id(), 'discount_gateway', true ); // Gets the payment method configured on the product.
 	
 			if ( $enable_discount && ! $disable_discount ) {
@@ -249,7 +253,7 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 					}
 	
 					// Calculate discount based on total cart value
-					if (self::get_setting('product_price_discount_method') == 'percentage') {
+					if ( Woo_Custom_Installments_Init::get_setting('product_price_discount_method') == 'percentage') {
 						$total_discount = $this->calculate_discount($type, $value, $total_cart_value) * -1;
 					} else {
 						$total_discount = $value * -1; // apply fixed discount to total order, not per item
@@ -306,9 +310,9 @@ class Woo_Custom_Installments_Discounts extends Woo_Custom_Installments_Init {
 				$quantity = $cart_item['quantity'];
 	
 				// global discount options
-				$discount_method = self::get_setting('discount_per_quantity_method');
-				$discount_value = self::get_setting('value_for_discount_per_quantity');
-				$minimum_quantity = self::get_setting('set_quantity_enable_discount');
+				$discount_method = Woo_Custom_Installments_Init::get_setting('discount_per_quantity_method');
+				$discount_value = Woo_Custom_Installments_Init::get_setting('value_for_discount_per_quantity');
+				$minimum_quantity = Woo_Custom_Installments_Init::get_setting('set_quantity_enable_discount');
 	
 				// single product discount options
 				$discount_method_single = get_post_meta( $product->get_id(), 'discount_per_quantity_method', true );

@@ -7,14 +7,12 @@ defined('ABSPATH') || exit;
  * Class for add interests for payment method
  * 
  * @since 2.3.5
- * @version 4.0.0
+ * @version 4.2.0
  * @package MeuMouse.com
  */
-class Woo_Custom_Installments_Interests extends Woo_Custom_Installments_Init {
+class Woo_Custom_Installments_Interests {
 
 	public function __construct() {
-		parent::__construct();
-
 		if ( Woo_Custom_Installments_Init::license_valid() ) {
 			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title_interest' ), 10, 2 );
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data_interests' ), 10 );
