@@ -34,6 +34,14 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 4.3.0 (17/04/2024)
+* Correção de bugs
+* Otimizações
+* Recurso adicionado: Ativação alternativa de licenças
+* Arquivo modelo de traduções atualizado
+* Arquivo de tradução idioma en_US (Inglês americano) atualizado
+* Arquivo de tradução idioma es_ES (Espanhol) atualizado
+
 Versão 4.2.0 (06/04/2024)
 * Correção de bugs
 * Compatibilidade com Clube M
