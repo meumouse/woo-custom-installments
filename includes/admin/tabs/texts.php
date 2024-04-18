@@ -1,9 +1,7 @@
 <?php
 
 // Exit if accessed directly.
-defined('ABSPATH') || exit; 
-
-?>
+defined('ABSPATH') || exit; ?>
 
 <div id="text" class="nav-content">
     <table class="form-table">

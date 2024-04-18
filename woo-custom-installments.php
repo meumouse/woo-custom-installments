@@ -6,11 +6,11 @@
  * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				4.2.0
+ * Version: 				4.3.0
  * WC requires at least: 	6.0.0
  * WC tested up to: 		8.7.0
  * Requires PHP: 			7.4
- * Tested up to:      		6.5
+ * Tested up to:      		6.5.2
  * Text Domain: 			woo-custom-installments
  * Domain Path: 			/languages
  * License: 				GPL2
@@ -52,7 +52,7 @@ class Woo_Custom_Installments {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '4.2.0';
+		public static $version = '4.3.0';
 
 		/**
 		 * Constructor function.
@@ -82,7 +82,7 @@ class Woo_Custom_Installments {
 				return;
 			}
 
-			if ( !function_exists( 'is_plugin_active' ) ) {
+			if ( ! function_exists( 'is_plugin_active' ) ) {
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			}
 		
@@ -148,7 +148,7 @@ class Woo_Custom_Installments {
 		/**
 		 * Setup plugin constants
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.0
 		 * @return void
 		 */
 		public function setup_constants() {
@@ -279,8 +279,8 @@ class Woo_Custom_Installments {
 		 */
 		public function woo_custom_installments_wc_version_notice() {
 			echo '<div class="notice is-dismissible error">
-					<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do WooCommerce 6.0 ou maior. Faça a atualização do plugin WooCommerce.', 'woo-custom-installments' ) . '</p>
-				</div>';
+				<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do WooCommerce 6.0 ou maior. Faça a atualização do plugin WooCommerce.', 'woo-custom-installments' ) . '</p>
+			</div>';
 		}
 
 		/**
@@ -295,8 +295,8 @@ class Woo_Custom_Installments {
 			}
 
 			echo '<div class="notice is-dismissible error">
-					<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>WooCommerce</strong> esteja instalado e ativado.', 'woo-custom-installments' ) . '</p>
-				</div>';
+				<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>WooCommerce</strong> esteja instalado e ativado.', 'woo-custom-installments' ) . '</p>
+			</div>';
 		}
 
 		/**
@@ -308,8 +308,8 @@ class Woo_Custom_Installments {
 		 */
 		public function woo_custom_installments_php_version_notice() {
 			echo '<div class="notice is-dismissible error">
-					<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do PHP 7.4 ou maior. Contate o suporte da sua hospedagem para realizar a atualização.', 'woo-custom-installments' ) . '</p>
-				</div>';
+				<p>' . __( '<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do PHP 7.4 ou maior. Contate o suporte da sua hospedagem para realizar a atualização.', 'woo-custom-installments' ) . '</p>
+			</div>';
 		}
 
 
@@ -375,23 +375,24 @@ class Woo_Custom_Installments {
 		 */
 		public function badge_pro_woo_custom_installments() {
 			echo '<style>
-			#get-pro-woo-custom-installments {
-				display: inline-block;
-				padding: 0.35em 0.6em;
-				font-size: 0.8125em;
-				font-weight: 600;
-				line-height: 1;
-				color: #fff;
-				text-align: center;
-				white-space: nowrap;
-				vertical-align: baseline;
-				border-radius: 0.25rem;
-				background-color: #008aff;
-				transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-			}
-			#get-pro-woo-custom-installments:hover {
-				background-color: #0078ed;
-			}
+				#get-pro-woo-custom-installments {
+					display: inline-block;
+					padding: 0.35em 0.6em;
+					font-size: 0.8125em;
+					font-weight: 600;
+					line-height: 1;
+					color: #fff;
+					text-align: center;
+					white-space: nowrap;
+					vertical-align: baseline;
+					border-radius: 0.25rem;
+					background-color: #008aff;
+					transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+				}
+				
+				#get-pro-woo-custom-installments:hover {
+					background-color: #0078ed;
+				}
 			</style>';
 		}
 

@@ -57,6 +57,10 @@ class Woo_Custom_Installments_Assets {
                 'api_key' => 'AD320786-A840D179-6789E14F-D844351E',
                 'license' => get_option('woo_custom_installments_license_key'),
                 'domain' => Woo_Custom_Installments_Api::get_domain(),
+                'toast_error' => esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                'toast_success_license' => esc_html__( 'Licença ativada com sucesso!', 'woo-custom-installments' ),
+                'active_license_message' => esc_html__( 'Todos os recursos da versão Pro agora estão ativos!', 'woo-custom-installments' ),
+                'confirm_deactivate_license' => esc_html__( 'Tem certeza que deseja desativar sua licença?', 'woo-custom-installments' ),
             ));
 
             wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );

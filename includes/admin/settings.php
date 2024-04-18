@@ -130,7 +130,7 @@ settings_errors(); ?>
             <?php echo esc_html__( 'Geral', 'woo-custom-installments' ) ?></a>
         </a>
         <a href="#text" class="nav-tab ">
-        <svg class="woo-custom-installments-tab-icon" viewBox="0 0 24 24"><path d="M5 8h2V6h3.252L7.68 18H5v2h8v-2h-2.252L13.32 6H17v2h2V4H5z"></path></svg>
+            <svg class="woo-custom-installments-tab-icon" viewBox="0 0 24 24"><path d="M5 8h2V6h3.252L7.68 18H5v2h8v-2h-2.252L13.32 6H17v2h2V4H5z"></path></svg>
             <?php echo esc_html__( 'Textos', 'woo-custom-installments' ) ?>
         </a>
         <a href="#discount" class="nav-tab ">
@@ -138,7 +138,8 @@ settings_errors(); ?>
             <?php echo esc_html__( 'Descontos', 'woo-custom-installments' ) ?>
         </a>
         <a href="#interests" class="nav-tab ">
-        <svg class="woo-custom-installments-tab-icon" viewBox="0 0 24 24"><path d="m10 10.414 4 4 5.707-5.707L22 11V5h-6l2.293 2.293L14 11.586l-4-4-7.707 7.707 1.414 1.414z"></path></svg><?php echo esc_html__( 'Juros', 'woo-custom-installments' ) ?>
+            <svg class="woo-custom-installments-tab-icon" viewBox="0 0 24 24"><path d="m10 10.414 4 4 5.707-5.707L22 11V5h-6l2.293 2.293L14 11.586l-4-4-7.707 7.707 1.414 1.414z"></path></svg>
+            <?php echo esc_html__( 'Juros', 'woo-custom-installments' ) ?>
         </a>
         <a href="#payment" class="nav-tab ">
             <svg class="woo-custom-installments-tab-icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 11c-2 0-2-.63-2-1s.7-1 2-1 1.39.64 1.4 1h2A3 3 0 0 0 13 7.12V6h-2v1.09C9 7.42 8 8.71 8 10c0 1.12.52 3 4 3 2 0 2 .68 2 1s-.62 1-2 1c-1.84 0-2-.86-2-1H8c0 .92.66 2.55 3 2.92V18h2v-1.08c2-.34 3-1.63 3-2.92 0-1.12-.52-3-4-3z"></path></svg>

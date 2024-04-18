@@ -1,5 +1,5 @@
 /**
- * Update checkout on change values
+ * Update checkout on change payment method
  * 
  * @since 2.0.0
  */

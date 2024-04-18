@@ -136,7 +136,7 @@ class Woo_Custom_Installments_Custom_Design extends Woo_Custom_Installments_Init
       $css .= '#open-popup:hover {';
         $css .= 'text-decoration: none;';
         $css .= 'color:'. $button_popup_color .';';
-        $css .= 'background-color: transparent;';
+        $css .= 'background-color: transparent !important;';
       $css .= '}';
       $css .= '#open-popup:hover::after {';
         $css .= '-webkit-animation: linkUnderline .6s ease-in-out;';

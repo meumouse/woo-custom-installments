@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 4.0.0
+ * @version 4.3.0
  * @package MeuMouse.com
  */
 class Woo_Custom_Installments_Init {
@@ -18,10 +18,21 @@ class Woo_Custom_Installments_Init {
   public $active_license = false;
   public $deactive_license = false;
   public $clear_cache = false;
+  public $site_not_allowed = false;
+  public $product_not_allowed = false;
   
+
+  /**
+   * Consctruct function
+   * 
+   * @since 1.0.0
+   * @version 4.3.0
+   * @return void
+   */
   public function __construct() {
     add_action( 'admin_init', array( $this, 'woo_custom_installments_set_default_options' ) );
     add_action( 'admin_init', array( $this, 'woo_custom_installments_connect_api' ) );
+    add_action( 'admin_init', array( $this, 'alternative_activation_process' ) );
   }
 
 
@@ -58,11 +69,11 @@ class Woo_Custom_Installments_Init {
    * Set default options
    * 
    * @since 2.0.0
-   * @version 3.8.0
+   * @version 4.3.0
    * @return array
    */
   public function set_default_data_options() {
-    $options = array(
+    return array(
       'enable_installments_all_products' => 'yes',
       'remove_price_range' => 'no',
       'custom_text_after_price' => 'no',
@@ -195,8 +206,6 @@ class Woo_Custom_Installments_Init {
       'text_discount_per_quantity_message' => 'Compre %d UN e ganhe %s de desconto',
       'enable_post_meta_feed_xml_price' => 'no',
     );
-
-    return $options;
   }
 
 
@@ -249,7 +258,7 @@ class Woo_Custom_Installments_Init {
    * @return string
   */
   public function get_main_price_discount( $product = false ) {
-    $discount = self::get_setting( 'discount_main_price' );
+    $discount = self::get_setting('discount_main_price');
 
     return apply_filters( 'woo_custom_installments_get_main_price_discount', $discount, $product );
   }
@@ -268,34 +277,53 @@ class Woo_Custom_Installments_Init {
       $message = '';
       $license_key = get_option('woo_custom_installments_license_key', '');
   
-      // Save settings on active license
+      // active license action
       if ( isset( $_POST['woo_custom_installments_active_license'] ) ) {
+        // clear response cache first
         delete_transient('woo_custom_installments_api_request_cache');
         delete_transient('woo_custom_installments_api_response_cache');
-        
-        $license_key = !empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
+
+        $license_key = ! empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
         update_option( 'woo_custom_installments_license_key', $license_key ) || add_option('woo_custom_installments_license_key', $license_key );
+        update_option( 'woo_custom_installments_temp_license_key', $license_key ) || add_option('woo_custom_installments_temp_license_key', $license_key );
+      }
+
+      if ( ! self::license_valid() ) {
+        update_option( 'woo_custom_installments_license_status', 'invalid' );
       }
 
       // Check on the server if the license is valid and update responses and options
       if ( Woo_Custom_Installments_Api::check_purchase_key( $license_key, $this->licenseMessage, $this->responseObj, WOO_CUSTOM_INSTALLMENTS_FILE ) ) {
-        if ( isset( $_POST['woo_custom_installments_active_license'] ) && $this->responseObj && $this->responseObj->is_valid ) {
-          $this->active_license = true;
-        }
+          if ( $this->responseObj && $this->responseObj->is_valid ) {
+            update_option( 'woo_custom_installments_license_status', 'valid' );
+            delete_option('woo_custom_installments_temp_license_key');
+            delete_option('woo_custom_installments_alternative_license');
+
+            $this->active_license = true;
+          } else {
+            update_option( 'woo_custom_installments_license_status', 'invalid' );
+          }
       } else {
-        if ( !empty( $license_key ) && !empty( $this->licenseMessage ) ) {
-          $this->show_message = true;
-        }
+          if ( ! empty( $license_key ) && ! empty( $this->licenseMessage ) ) {
+              $this->showMessage = true;
+          }
       }
 
+      // deactive license action
       if ( isset( $_POST['woo_custom_installments_deactive_license'] ) ) {
-        delete_transient('woo_custom_installments_api_request_cache');
-        delete_transient('woo_custom_installments_api_response_cache');
-        update_option( 'woo_custom_installments_license_status', 'invalid' );
-        update_option( 'woo_custom_installments_license_key', '' );
-        delete_option('woo_custom_installments_license_response_object');
+        if ( Woo_Custom_Installments_Api::RemoveLicenseKey( WOO_CUSTOM_INSTALLMENTS_FILE, $message ) ) {
+          update_option( 'woo_custom_installments_license_status', 'invalid' );
+          delete_option( 'woo_custom_installments_license_key' );
+          delete_transient('woo_custom_installments_api_request_cache');
+          delete_transient('woo_custom_installments_api_response_cache');
+          delete_option('woo_custom_installments_license_response_object');
+          delete_option('woo_custom_installments_alternative_license_decrypted');
+          delete_option('woo_custom_installments_alternative_license_activation');
+          delete_option('woo_custom_installments_temp_license_key');
+          delete_option('woo_custom_installments_alternative_license');
 
-        $this->deactive_license = true;
+          $this->deactive_license = true;
+        }
       }
 
       // clear activation cache
@@ -305,6 +333,56 @@ class Woo_Custom_Installments_Init {
 
         $this->clear_cache = true;
       }
+    }
+  }
+
+
+  /**
+   * Generate alternative activation object from decrypted license
+   * 
+   * @since 4.3.0
+   * @return void
+   */
+  public function alternative_activation_process() {
+    $decrypted_license_data = get_option('woo_custom_installments_alternative_license_decrypted');
+    $license_data_array = json_decode( stripslashes( $decrypted_license_data ) );
+    $this_domain = Woo_Custom_Installments_Api::get_domain();
+    $allowed_products = array( '1', '7', );
+
+    if ( $license_data_array === null ) {
+      return;
+    }
+
+    if ( $this_domain !== $license_data_array->site_domain ) {
+      $this->site_not_allowed = true;
+
+      return;
+    }
+
+    if ( ! in_array( $license_data_array->selected_product, $allowed_products ) ) {
+      $this->product_not_allowed = true;
+
+      return;
+    }
+
+    $license_object = $license_data_array->license_object;
+
+    if ( $this_domain === $license_data_array->site_domain ) {
+      $obj = new stdClass();
+      $obj->license_key = $license_data_array->license_code;
+      $obj->email = $license_data_array->user_email;
+      $obj->domain = $this_domain;
+      $obj->app_version = WOO_CUSTOM_INSTALLMENTS_VERSION;
+      $obj->product_id = $license_data_array->selected_product;
+      $obj->product_base = $license_data_array->product_base;
+      $obj->is_valid = $license_object->is_valid;
+      $obj->license_title = $license_object->license_title;
+      $obj->expire_date = $license_object->expire_date;
+
+      update_option( 'woo_custom_installments_alternative_license', 'active' );
+      update_option( 'woo_custom_installments_license_response_object', $obj );
+      update_option( 'woo_custom_installments_license_key', $obj->license_key );
+      delete_option('woo_custom_installments_alternative_license_decrypted');
     }
   }
 

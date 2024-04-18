@@ -35,6 +35,7 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     add_action( 'woocommerce_product_bulk_edit_save', array( $this, 'woo_custom_installments_save_bulk_edit_fields' ) );
     add_action( 'admin_head', array( $this, 'inject_inline_js_product_edit_page' ) );
     add_action( 'wp_ajax_deactive_license_process', array( $this, 'deactive_license_process_callback' ) );
+    add_action( 'wp_ajax_wci_alternative_activation_license', array( $this, 'wci_alternative_activation_license_callback' ) );
 
     /**
      * Enable functions for discount per quantity in product edit
@@ -44,6 +45,12 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     if ( self::get_setting( 'enable_discount_per_quantity_method' ) == 'product' && self::license_valid() ) {
       add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_quantity_fields' ) );
       add_action( 'woocommerce_process_product_meta', array( $this, 'save_options_discount_per_quantity_fields' ) );
+    }
+
+    // add product post meta for xml feed
+    if ( self::get_setting('enable_post_meta_feed_xml_price') === 'yes' && self::license_valid() ) {
+      add_action( 'init', array( $this, 'product_price_for_xml_feed' ) );
+      add_action( 'save_post_product', array( $this, 'update_discount_on_product_price_on_pix' ) );
     }
   }
 
@@ -610,6 +617,188 @@ class Woo_Custom_Installments_Admin_Options extends Woo_Custom_Installments_Init
     wp_die();
   }
 
+
+  /**
+   * Handle alternative activation license file .key
+   * 
+   * @since 4.3.0
+   * @return void
+   */
+  public function wci_alternative_activation_license_callback() {
+    if ( ! isset( $_POST['action'] ) || $_POST['action'] !== 'wci_alternative_activation_license' ) {
+        $response = array(
+          'status' => 'error',
+          'message' => 'Erro ao carregar o arquivo. A ação não foi acionada corretamente.',
+        );
+
+        wp_send_json( $response );
+    }
+
+    // Verifica se o arquivo foi enviado
+    if ( empty( $_FILES['file'] ) ) {
+        $response = array(
+          'status' => 'error',
+          'message' => 'Erro ao carregar o arquivo. O arquivo não foi enviado.',
+        );
+
+        wp_send_json( $response );
+    }
+
+    $file = $_FILES['file'];
+
+    // Verifica se é um arquivo .key
+    if ( pathinfo( $file['name'], PATHINFO_EXTENSION ) !== 'key' ) {
+        $response = array(
+          'status' => 'invalid_file',
+          'message' => 'Arquivo inválido. O arquivo deve ser extensão .key',
+        );
+        
+        wp_send_json( $response );
+    }
+
+    // Lê o conteúdo do arquivo
+    $file_content = file_get_contents( $file['tmp_name'] );
+
+    $decrypt_keys = array(
+        '2951578DE46F56D7', // original product key
+        'B729F2659393EE27', // Clube M
+    );
+
+    $decrypted_data = $this->decrypt_with_multiple_keys( $file_content, $decrypt_keys );
+
+    if ( $decrypted_data !== null ) {
+        update_option( 'woo_custom_installments_alternative_license_decrypted', $decrypted_data );
+        
+        $response = array(
+          'status' => 'success',
+          'message' => 'Licença enviada e decriptografada com sucesso.',
+        );
+    } else {
+        $response = array(
+          'status' => 'error',
+          'message' => 'Não foi possível descriptografar o arquivo de licença.',
+        );
+    }
+
+    wp_send_json( $response );
+
+    wp_die();
+  }
+
+
+  /**
+   * Try to decrypt with multiple keys
+   * 
+   * @since 4.3.0
+   * @param string $encrypted_data | Encrypted data
+   * @param array $possible_keys | Array list with decryp keys
+   * @return mixed Decrypted string or null
+   */
+  public function decrypt_with_multiple_keys( $encrypted_data, $possible_keys ) {
+    foreach ( $possible_keys as $key ) {
+      $decrypted_data = openssl_decrypt( $encrypted_data, 'AES-256-CBC', $key, 0, substr( $key, 0, 16 ) );
+
+      // Checks whether decryption was successful
+      if ( $decrypted_data !== false ) {
+        return $decrypted_data;
+      }
+    }
+    
+    return null;
+  }
+
+
+  /**
+   * Generate post meta '_product_price_on_pix' for Feed XML
+   * 
+   * @since 4.0.0
+   * @return void
+   */
+  public function product_price_for_xml_feed( $product_id ) {
+    if ( 'product' !== get_post_type( $product_id ) ) {
+      return;
+    }
+
+    $args = array(
+      'post_type' => 'product',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+
+    $products = new WP_Query( $args );
+
+    if ( $products->have_posts() ) {
+        while ( $products->have_posts() ) {
+            $products->the_post();
+            $product_id = get_the_ID();
+            $product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
+            $product = wc_get_product( $product_id );
+
+            if ( $product && $product->get_price() > 0 && empty( $product_price_on_pix ) ) {
+              $discount = self::get_setting('discount_main_price');
+              $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
+              $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+              $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+
+              if ( $discount_per_product === 'yes' ) {
+                  if ( $discount_per_product_method === 'percentage' ) {
+                      $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+                  } else {
+                      $custom_price = $product->get_price() - $discount_per_product_value;
+                  }
+              } else {
+                  if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+                      $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
+                  } else {
+                      $custom_price = $product->get_price() - $discount;
+                  }
+              }
+
+              update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
+            }
+        }
+    }
+  }
+  
+
+  /**
+   * Update post meta "_product_price_on_pix" on change value on product post
+   * 
+   * @since 4.3.0
+   * @param int $product_id | Product ID
+   * @return void
+   */
+  public function update_discount_on_product_price_on_pix( $product_id ) {
+    $product = wc_get_product( $product_id );
+
+    // Checks if the product exists and has a defined price
+    if ( $product && $product->get_price() > 0 ) {
+      $product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
+
+      if ( ! empty( $product_price_on_pix ) ) {
+        $discount = self::get_setting('discount_main_price');
+        $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
+        $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+        $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+
+        if ( $discount_per_product === 'yes' ) {
+            if ( $discount_per_product_method === 'percentage' ) {
+                $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+            } else {
+                $custom_price = $product->get_price() - $discount_per_product_value;
+            }
+        } else {
+            if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+                $custom_price = Woo_Custom_Installments_Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
+            } else {
+                $custom_price = $product->get_price() - $discount;
+            }
+        }
+
+        update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
+      }
+    }
+  }
 }
 
 new Woo_Custom_Installments_Admin_Options();

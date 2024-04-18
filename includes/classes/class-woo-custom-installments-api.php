@@ -1,19 +1,20 @@
 <?php
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
     
-/**
- * Class for handler API calls
- * 
- * @since 2.0.0
- * @version 4.2.0
- * @package MeuMouse.com
- */
 if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
+
+    /**
+     * Connect to license authentication server
+     * 
+     * @since 2.0.0
+     * @version 4.3.0
+     * @package MeuMouse.com
+     */
 	class Woo_Custom_Installments_Api {
 
-        public $wci_key = '2951578DE46F56D7';
+    	public $wci_key = '2951578DE46F56D7';
     	private $wci_product_id = '1';
     	private $wci_product_base = 'woo-custom-installments';
         private $product_key;
@@ -32,7 +33,6 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * Construct function
          * 
          * @since 2.0.0
-         * @version 4.2.0
          * @param string $plugin_base_file
          * @return void
          */
@@ -59,9 +59,8 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
             }
 		}
 
-
 		function initActionHandler() {
-			$handler = hash("crc32b", $this->product_id . $this->product_key . self::get_domain() ) . "_handle";
+			$handler = hash( 'crc32b', $this->product_id . $this->product_key . self::get_domain() ) . "_handle";
 
 			if ( isset( $_GET['action'] ) && $_GET['action'] == $handler){
 				$this->handleServerRequest();
@@ -70,12 +69,12 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 			}
 		}
 
-		function handleServerRequest(){
+		function handleServerRequest() {
 			$type = isset( $_GET['type'] ) ? strtolower( $_GET['type'] ) : "";
 
 			switch( $type ) {
 				case "rl": //remove license
-					$this->remove_old_wp_response();
+					$this->removeOldWPResponse();
 					$obj = new stdClass();
 					$obj->product = $this->product_id;
 					$obj->status = true;
@@ -83,7 +82,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 					
 					return;
 				case "rc": //remove license
-					$key = $this->get_key_name();
+					$key = $this->getKeyName();
 					delete_option( $key );
 					$obj = new stdClass();
 					$obj->product = $this->product_id;
@@ -95,7 +94,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 					$obj = new stdClass();
 					$obj->product = $this->product_id;
 					$obj->status = false;
-					$this->remove_old_wp_response();
+					$this->removeOldWPResponse();
 
 					require_once( ABSPATH . 'wp-admin/includes/file.php' );
 
@@ -128,7 +127,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 		/**
          * @param callable $func
          */
-        static function addOnDelete( $func){
+        static function addOnDelete( $func ) {
             self::$_onDeleteLicense[] = $func;
         }
 
@@ -160,7 +159,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 
                 if ( strtolower( trim( $responseObj->support_end ) ) == "no support" ) {
                     $isShowButton = true;
-                } elseif ( !in_array( $support_str, ["unlimited"] ) ) {
+                } elseif ( ! in_array( $support_str, ["unlimited"] ) ) {
                     if ( strtotime( 'ADD 30 DAYS', strtotime( $responseObj->support_end ) ) < time() ) {
                         $isShowButton = true;
                     }
@@ -175,7 +174,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                 $isShowButton = false;
                 $expire_str = strtolower( trim( $responseObj->expire_date ) );
 
-                if ( !in_array( $expire_str, ["unlimited", "no expiry"] ) ) {
+                if ( ! in_array( $expire_str, array( "unlimited", "no expiry" ) ) ) {
                     if ( strtotime( 'ADD 30 DAYS', strtotime( $responseObj->expire_date ) ) < time() ) {
                         $isShowButton = true;
                     }
@@ -249,7 +248,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * Get domain of activation
          * 
          * @since 2.0.0
-         * @version 4.0.0
+         * @version 3.2.0
          * @return string
          */
 		public static function get_domain() {
@@ -258,7 +257,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
             }
 
 			if ( defined( "WPINC" ) && function_exists( "get_bloginfo" ) ) {
-				return get_bloginfo( 'url' );
+				return get_bloginfo('url');
 			} else {
 				$base_url = ( ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == "on" ) ? "https" : "http" );
 				$base_url .= "://" . $_SERVER['HTTP_HOST'];
@@ -282,10 +281,15 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * JSON decoding error and unknown responses.
          *
          * @since 2.0.0
+         * @version 4.3.0
          * @param string $response Raw API response.
          * @return stdClass|mixed Object decoded from the JSON response or error object, if applicable.
          */
 		private function process_response( $response ) {
+            if ( get_option('woo_custom_installments_alternative_license') === 'active' ) {
+                return;
+            }
+
             if ( ! empty( $response ) ) {
                 $resbk = $response;
                 $decrypted_response = $response;
@@ -302,6 +306,8 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                     $logger->info('(Parcelas Customizadas para WooCommerce) Decrypted response: ' . print_r( $decrypted_response, true ), array('source' => $plugin_log_file));
         
                     if ( empty( $decrypted_response ) ) {
+                        update_option( 'woo_custom_installments_alternative_license_activation', 'yes' );
+
                         // Handle decryption failure
                         $decryption_error = new stdClass();
                         $decryption_error->status = false;
@@ -352,7 +358,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
         private function _request( $relative_url, $data, &$error = '' ) {
             $transient_name = 'woo_custom_installments_api_request_cache';
             $cached_response = get_transient( $transient_name );
-        
+
             if ( false === $cached_response ) {
                 $response = new stdClass();
                 $response->status = false;
@@ -486,7 +492,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
             return $this->process_response( $cached_response );
         }
 
-		private function get_object_param( $purchase_key, $app_version, $admin_email = '' ) {
+		private function get_response_param( $purchase_key, $app_version, $admin_email = '' ) {
 			$req = new stdClass();
 			$req->license_key = $purchase_key;
 			$req->email = ! empty( $admin_email ) ? $admin_email : $this->getEmail();
@@ -498,18 +504,18 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 			return $req;
 		}
 
-		private function get_key_name() {
+		private function getKeyName() {
             return hash( 'crc32b', self::get_domain() . $this->pluginFile . $this->product_id . $this->product_base . $this->product_key . "LIC" );
         }
 
-        private function save_wp_response( $response ) {
-            $key = $this->get_key_name();
+        private function SaveWPResponse( $response ) {
+            $key = $this->getKeyName();
             $data = $this->encrypt( maybe_serialize( $response ), self::get_domain() );
             update_option( $key, $data ) || add_option( $key, $data );
         }
 
         public function getOldWPResponse() {
-            $key = $this->get_key_name();
+            $key = $this->getKeyName();
             $response = get_option( $key, NULL );
 
             if ( empty( $response ) ) {
@@ -519,8 +525,8 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
             return maybe_unserialize( $this->decrypt( $response, self::get_domain() ) );
         }
 
-        public function remove_old_wp_response() {
-            $key = $this->get_key_name();
+        public function removeOldWPResponse() {
+            $key = $this->getKeyName();
             $isDeleted = delete_option( $key );
 
             foreach ( self::$_onDeleteLicense as $func ) {
@@ -532,7 +538,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
             return $isDeleted;
         }
 
-		public static function remove_license_key( $plugin_base_file, &$message = "" ) {
+		public static function RemoveLicenseKey( $plugin_base_file, &$message = "" ) {
 			$obj = self::get_instance( $plugin_base_file );
 
 			return $obj->_removeWPPluginLicense( $message );
@@ -543,17 +549,16 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * Check purchase key
          * 
          * @since 2.0.0
-         * @version 4.0.0
-         * @param string $purchase_key | License key
-         * @param string $error
-         * @param null $responseObj
-         * @param string $plugin_base_file
+         * @param $purchase_key
+         * @param $error
+         * @param $responseObj
+         * @param $plugin_base_file
          * @return object
          */
 		public static function check_purchase_key( $purchase_key, &$error = "", &$responseObj = null, $plugin_base_file = "" ) {
 			$obj = self::get_instance( $plugin_base_file );
 
-			return $obj->validade_license_key( $purchase_key, $error, $responseObj );
+			return $obj->validate_license_key( $purchase_key, $error, $responseObj );
 		}
 
 
@@ -561,23 +566,23 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * Deactive license process
          * 
          * @since 2.0.0
-         * @version 4.0.0
+         * @version 4.3.0
          * @param $message
          * @return bool
          */
 		final function _removeWPPluginLicense( &$message = '' ) {
 			$oldRespons = $this->getOldWPResponse();
 
-			if ( ! empty( $oldRespons->is_valid ) ) {
+			if ( !empty( $oldRespons->is_valid ) ) {
 				if ( ! empty( $oldRespons->license_key ) ) {
-					$param = $this->get_object_param( $oldRespons->license_key, $this->version );
+					$param = $this->get_response_param( $oldRespons->license_key, $this->version );
 					$response = $this->_request( 'product/deactive/' . $this->product_id, $param, $message );
                     update_option('woo_custom_installments_license_response_object', $response);
 
 					if ( empty( $response->code ) ) {
 						if ( ! empty( $response->status ) ) {
 							$message = $response->msg;
-							$this->remove_old_wp_response();
+							$this->removeOldWPResponse();
 
 							return true;
 						} else {
@@ -588,7 +593,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
 					}
 				}
 			} else {
-                $this->remove_old_wp_response();
+                $this->removeOldWPResponse();
                 delete_transient('woo_custom_installments_api_request_cache');
                 delete_transient('woo_custom_installments_api_response_cache');
 
@@ -616,9 +621,13 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
          * @param $responseObj
          * @return string
          */
-		final function validade_license_key( $purchase_key, &$error = "", &$responseObj = null ) {
+		final function validate_license_key( $purchase_key, &$error = "", &$responseObj = null ) {
+            if ( get_option('woo_custom_installments_alternative_license') === 'active' ) {
+                return;
+            }
+
             if ( empty( $purchase_key ) ) {
-                $this->remove_old_wp_response();
+                $this->removeOldWPResponse();
                 $error = "";
         
                 return false;
@@ -650,7 +659,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                 }
             }
         
-            $param = $this->get_object_param( $purchase_key, $this->version );
+            $param = $this->get_response_param( $purchase_key, $this->version );
             $response = $this->_request( 'product/active/' . $this->product_id, $param, $error );
 
             if ( empty( $response->is_request_error ) ) {
@@ -676,10 +685,10 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                                 $responseObj->license_title = $licenseObj->license_title;
                                 $responseObj->license_key = $purchase_key;
                                 $responseObj->msg = $response->msg;
-                                $responseObj->renew_link = !empty($licenseObj->renew_link) ? $licenseObj->renew_link : "";
+                                $responseObj->renew_link = ! empty( $licenseObj->renew_link ) ? $licenseObj->renew_link : "";
                                 $responseObj->expire_renew_link = self::getRenewLink( $responseObj, "l" );
                                 $responseObj->support_renew_link = self::getRenewLink( $responseObj, "s" );
-                                $this->save_wp_response( $responseObj );
+                                $this->SaveWPResponse( $responseObj );
         
                                 // Armazena a resposta em cache por um período de tempo
                                 set_transient( $transient_name, maybe_serialize( $responseObj ), DAY_IN_SECONDS );
@@ -692,7 +701,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                                 if ( $this->__checkoldtied( $oldRespons, $responseObj, $response ) ) {
                                     return true;
                                 } else {
-                                    $this->remove_old_wp_response();
+                                    $this->removeOldWPResponse();
                                     $error = ! empty( $response->msg ) ? $response->msg : "";
                                 }
                             }
@@ -709,7 +718,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                 if ( $this->__checkoldtied( $oldRespons, $responseObj, $response ) ) {
                     return true;
                 } else {
-                    $this->remove_old_wp_response();
+                    $this->removeOldWPResponse();
                     $error = ! empty( $response->msg ) ? $response->msg : "";
                 }
             }
@@ -728,7 +737,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
                     unset( $responseObj->tried );
                 }
 
-                $this->save_wp_response( $oldRespons );
+                $this->SaveWPResponse( $oldRespons );
 
                 return true;
             }

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-15 20:02+0000\n"
-"PO-Revision-Date: 2024-03-28 03:15+0000\n"
+"PO-Revision-Date: 2024-04-18 00:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
@@ -15,13 +15,13 @@ msgstr ""
 "X-Loco-Version: 2.6.4; wp-6.2.1\n"
 "X-Domain: woo-custom-installments"
 
-#: includes/classes/class-woo-custom-installments-add-interest.php:80
+#: includes/classes/class-woo-custom-installments-add-interest.php:78
 #, php-format
 msgid "%s juros"
 msgstr "%s juros"
 
-#: includes/classes/class-woo-custom-installments-add-discounts.php:118
-#: includes/classes/class-woo-custom-installments-add-discounts.php:144
+#: includes/classes/class-woo-custom-installments-add-discounts.php:122
+#: includes/classes/class-woo-custom-installments-add-discounts.php:148
 #, php-format
 msgid "%s off"
 msgstr "%s off"
@@ -81,7 +81,7 @@ msgstr ""
 msgid "A cor do texto e borda será obtida a partir da cor informada."
 msgstr "A cor do texto e borda será obtida a partir da cor informada."
 
-#: includes/classes/class-woo-custom-installments-api.php:395
+#: includes/classes/class-woo-custom-installments-api.php:418
 msgid "A extensão cURL está faltando."
 msgstr "A extensão cURL está faltando."
 
@@ -95,11 +95,11 @@ msgid ""
 msgstr ""
 "A versão do plugin Parcelas Customizadas para WooCommerce é a mais recente."
 
-#: includes/admin/tabs/about.php:152
+#: includes/admin/tabs/about.php:182
 msgid "A versão mínima exigida do PHP é 7.2"
 msgstr "A versão mínima exigida do PHP é 7.2"
 
-#: includes/admin/tabs/about.php:117
+#: includes/admin/tabs/about.php:147
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr "A versão mínima exigida do WooCommerce é 6.0"
 
@@ -129,13 +129,13 @@ msgstr "Apenas página do produto individual"
 msgid "Apenas página do produto individual (Padrão)"
 msgstr "Apenas página do produto individual (Padrão)"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:376
+#: includes/admin/class-woo-custom-installments-admin-options.php:403
 msgid "Aplicar desconto para o gateway"
 msgstr "Aplicar desconto para o gateway"
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:365
-#: includes/classes/class-woo-custom-installments-frontend-template.php:504
-#: includes/classes/class-woo-custom-installments-frontend-template.php:551
+#: includes/classes/class-woo-custom-installments-frontend-template.php:363
+#: includes/classes/class-woo-custom-installments-frontend-template.php:500
+#: includes/classes/class-woo-custom-installments-frontend-template.php:545
 msgid "Aprovação imediata"
 msgstr "Aprovação imediata"
 
@@ -224,11 +224,11 @@ msgstr "Ativar bandeira Visa"
 msgid "Ativar cálculo de desconto para cada unidade do produto elegível"
 msgstr "Ativar cálculo de desconto para cada unidade do produto elegível"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:341
+#: includes/admin/class-woo-custom-installments-admin-options.php:368
 msgid "Ativar desconto do produto"
 msgstr "Ativar desconto do produto"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:411
+#: includes/admin/class-woo-custom-installments-admin-options.php:438
 msgid "Ativar desconto por quantidade"
 msgstr "Ativar desconto por quantidade"
 
@@ -260,7 +260,7 @@ msgstr "Ativar funções de descontos"
 msgid "Ativar funções de juros"
 msgstr "Ativar funções de juros"
 
-#: includes/admin/tabs/about.php:80
+#: includes/admin/tabs/about.php:109
 msgid "Ativar licença"
 msgstr "Ativar licença"
 
@@ -383,7 +383,7 @@ msgstr "Ative para exibir a forma de pagamento cartão de débito."
 msgid "Ative para exibir a forma de pagamento Pix."
 msgstr "Ative para exibir a forma de pagamento Pix."
 
-#: includes/admin/tabs/about.php:104
+#: includes/admin/tabs/about.php:134
 msgid "Ativo"
 msgstr "Ativo"
 
@@ -399,11 +399,15 @@ msgstr "Central de ajuda"
 msgid "Centralizar melhor parcela e desconto na grade de produtos"
 msgstr "Centralizar melhor parcela e desconto na grade de produtos"
 
+#: includes/admin/tabs/about.php:71
+msgid "Clique aqui para gerar seu arquivo de licença"
+msgstr "Clique aqui para gerar seu arquivo de licença"
+
 #: includes/admin/settings.php:29
 msgid "Como converter fator de multiplicação para juros."
 msgstr "Como converter fator de multiplicação para juros."
 
-#: includes/admin/tabs/about.php:70
+#: includes/admin/tabs/about.php:99
 msgid "Comprar licença"
 msgstr "Comprar licença"
 
@@ -463,11 +467,11 @@ msgid ""
 msgstr ""
 "Cor para ser utilizada na informação de melhor parcela com ou sem juros."
 
-#: includes/admin/tabs/about.php:76
+#: includes/admin/tabs/about.php:105
 msgid "Código da licença"
 msgstr "Código da licença"
 
-#: includes/classes/class-woo-custom-installments-api.php:683
+#: includes/classes/class-woo-custom-installments-api.php:709
 msgid "Dados inválidos."
 msgstr "Dados inválidos."
 
@@ -502,10 +506,10 @@ msgstr "Define qual será o valor mínimo da parcela que o cliente pagará."
 msgid "Definir taxa de juros por parcela"
 msgstr "Definir taxa de juros por parcela"
 
-#: includes/admin/tabs/texts.php:13 includes/admin/tabs/texts.php:22
-#: includes/admin/tabs/texts.php:31 includes/admin/tabs/texts.php:40
-#: includes/admin/tabs/texts.php:106 includes/admin/tabs/texts.php:115
-#: includes/admin/tabs/texts.php:172
+#: includes/admin/tabs/texts.php:11 includes/admin/tabs/texts.php:20
+#: includes/admin/tabs/texts.php:29 includes/admin/tabs/texts.php:38
+#: includes/admin/tabs/texts.php:104 includes/admin/tabs/texts.php:113
+#: includes/admin/tabs/texts.php:170
 msgid "Deixe em branco para não exibir."
 msgstr "Deixe em branco para não exibir."
 
@@ -513,13 +517,13 @@ msgstr "Deixe em branco para não exibir."
 msgid "Depois do carrinho"
 msgstr "Depois do carrinho"
 
-#: includes/admin/tabs/about.php:104
+#: includes/admin/tabs/about.php:134
 msgid "Desativado"
 msgstr "Desativado"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:191
-#: includes/admin/class-woo-custom-installments-admin-options.php:227
-#: includes/admin/class-woo-custom-installments-admin-options.php:289
+#: includes/admin/class-woo-custom-installments-admin-options.php:198
+#: includes/admin/class-woo-custom-installments-admin-options.php:222
+#: includes/admin/class-woo-custom-installments-admin-options.php:308
 msgid "Desativar a exibição de parcelas neste produto"
 msgstr "Desativar a exibição de parcelas neste produto"
 
@@ -527,9 +531,9 @@ msgstr "Desativar a exibição de parcelas neste produto"
 msgid "Desativar atualização dinâmica de parcelas em produtos variáveis"
 msgstr "Desativar atualização dinâmica de parcelas em produtos variáveis"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:194
-#: includes/admin/class-woo-custom-installments-admin-options.php:230
-#: includes/admin/class-woo-custom-installments-admin-options.php:290
+#: includes/admin/class-woo-custom-installments-admin-options.php:201
+#: includes/admin/class-woo-custom-installments-admin-options.php:226
+#: includes/admin/class-woo-custom-installments-admin-options.php:315
 msgid "Desativar descontos neste produto"
 msgstr "Desativar descontos neste produto"
 
@@ -549,12 +553,12 @@ msgstr "Desconto no Pix"
 msgid "Desconto no preço do produto"
 msgstr "Desconto no preço do produto"
 
-#: includes/classes/class-woo-custom-installments-add-discounts.php:67
+#: includes/classes/class-woo-custom-installments-add-discounts.php:71
 #, php-format
 msgid "Desconto para %s"
 msgstr "Desconto para %s"
 
-#: includes/classes/class-woo-custom-installments-add-discounts.php:64
+#: includes/classes/class-woo-custom-installments-add-discounts.php:68
 #, php-format
 msgid "Desconto para %s (%s off)"
 msgstr "Desconto para %s (%s off)"
@@ -563,8 +567,8 @@ msgstr "Desconto para %s (%s off)"
 msgid "Desconto por método de pagamento"
 msgstr "Desconto por método de pagamento"
 
-#: includes/classes/class-woo-custom-installments-add-discounts.php:362
-#: includes/classes/class-woo-custom-installments-add-discounts.php:364
+#: includes/classes/class-woo-custom-installments-add-discounts.php:366
+#: includes/classes/class-woo-custom-installments-add-discounts.php:368
 msgid "Desconto por quantidade"
 msgstr "Desconto por quantidade"
 
@@ -572,7 +576,7 @@ msgstr "Desconto por quantidade"
 msgid "Descontos"
 msgstr "Descontos"
 
-#: includes/admin/tabs/about.php:333
+#: includes/admin/tabs/about.php:363
 msgid "Desligado"
 msgstr "Desligado"
 
@@ -580,7 +584,7 @@ msgstr "Desligado"
 msgid "Documentação"
 msgstr "Documentação"
 
-#: includes/admin/tabs/about.php:163
+#: includes/admin/tabs/about.php:193
 msgid "DOMDocument:"
 msgstr "DOMDocument:"
 
@@ -598,12 +602,12 @@ msgstr "Economia no Pix"
 msgid "em"
 msgstr "em"
 
-#: includes/classes/class-woo-custom-installments-api.php:430
+#: includes/classes/class-woo-custom-installments-api.php:453
 #, php-format
 msgid "Erro cURL: %s"
 msgstr "Erro cURL: %s"
 
-#: includes/classes/class-woo-custom-installments-api.php:307
+#: includes/classes/class-woo-custom-installments-api.php:330
 #, php-format
 msgid "Erro JSON: %s"
 msgstr "Erro JSON: %s"
@@ -617,7 +621,7 @@ msgstr "Este recurso está disponível na versão Pro"
 msgid "Estilo do botão do popup de parcelas"
 msgstr "Estilo do botão do popup de parcelas"
 
-#: includes/admin/settings.php:149
+#: includes/admin/settings.php:150
 msgid "Estilos"
 msgstr "Estilos"
 
@@ -637,11 +641,11 @@ msgstr "Exibir preço com desconto em dados estruturados (Schema.org)"
 msgid "Exibir preço com desconto no carrinho"
 msgstr "Exibir preço com desconto no carrinho"
 
-#: includes/admin/tabs/about.php:179
+#: includes/admin/tabs/about.php:209
 msgid "Extensão cURL:"
 msgstr "Extensão cURL:"
 
-#: includes/admin/tabs/about.php:198
+#: includes/admin/tabs/about.php:228
 msgid "Extensão OpenSSL:"
 msgstr "Extensão OpenSSL:"
 
@@ -657,11 +661,11 @@ msgstr ""
 msgid "Fechar"
 msgstr "Fechar"
 
-#: includes/admin/settings.php:145
+#: includes/admin/settings.php:146
 msgid "Formas de pagamento"
 msgstr "Formas de pagamento"
 
-#: includes/admin/tabs/about.php:329
+#: includes/admin/tabs/about.php:359
 msgid "Função PHP \"file_get_content\":"
 msgstr "Função PHP \"file_get_content\":"
 
@@ -707,7 +711,7 @@ msgid ""
 msgstr ""
 "Informe a quantidade mínima do produto para oferecer desconto no carrinho."
 
-#: includes/admin/tabs/about.php:74
+#: includes/admin/tabs/about.php:103
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr "Informe sua licença abaixo para desbloquear todos os recursos."
 
@@ -736,11 +740,11 @@ msgstr ""
 "Informe uma taxa de juros por método de pagamento para ser adicionado na "
 "finalização da compra."
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:456
+#: includes/admin/class-woo-custom-installments-admin-options.php:483
 msgid "Insira a quantidade mínima de produtos para oferecer o desconto."
 msgstr "Insira a quantidade mínima de produtos para oferecer o desconto."
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:371
+#: includes/admin/class-woo-custom-installments-admin-options.php:398
 msgid ""
 "Insira o valor do desconto para o preço do produto. Obs.: Desconto para "
 "pagamento no Pix"
@@ -748,7 +752,7 @@ msgstr ""
 "Insira o valor do desconto para o preço do produto. Obs.: Desconto para "
 "pagamento no Pix"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:441
+#: includes/admin/class-woo-custom-installments-admin-options.php:468
 msgid "Insira o valor do desconto."
 msgstr "Insira o valor do desconto."
 
@@ -756,16 +760,16 @@ msgstr "Insira o valor do desconto."
 msgid "Inválida"
 msgstr "Inválida"
 
-#: includes/admin/settings.php:141
+#: includes/admin/settings.php:142
 msgid "Juros"
 msgstr "Juros"
 
-#: includes/classes/class-woo-custom-installments-add-interest.php:52
+#: includes/classes/class-woo-custom-installments-add-interest.php:50
 #, php-format
 msgid "Juros para %s"
 msgstr "Juros para %s"
 
-#: includes/classes/class-woo-custom-installments-add-interest.php:49
+#: includes/classes/class-woo-custom-installments-add-interest.php:47
 #, php-format
 #| msgid "Juros para %s (%s off)"
 msgid "Juros para %s (%s)"
@@ -780,6 +784,7 @@ msgid "Já tenho uma licença"
 msgstr "Já tenho uma licença"
 
 #: includes/admin/settings.php:51
+#: includes/classes/class-woo-custom-installments-assets.php:61
 msgid "Licença ativada com sucesso!"
 msgstr "Licença ativada com sucesso!"
 
@@ -788,23 +793,23 @@ msgstr "Licença ativada com sucesso!"
 msgid "Licença expira em: %s"
 msgstr "Licença expira em: %s"
 
-#: includes/class-woo-custom-installments-init.php:375
+#: includes/class-woo-custom-installments-init.php:453
 msgid "Licença expirada"
 msgstr "Licença expirada"
 
-#: includes/admin/tabs/about.php:337
+#: includes/admin/tabs/about.php:367
 msgid "Ligado"
 msgstr "Ligado"
 
-#: includes/admin/tabs/about.php:287
+#: includes/admin/tabs/about.php:317
 msgid "Limite de memória do PHP:"
 msgstr "Limite de memória do PHP:"
 
-#: includes/admin/tabs/about.php:243
+#: includes/admin/tabs/about.php:273
 msgid "Limite de tempo do PHP:"
 msgstr "Limite de tempo do PHP:"
 
-#: includes/admin/tabs/about.php:347
+#: includes/admin/tabs/about.php:377
 msgid "Limpar cache de ativação"
 msgstr "Limpar cache de ativação"
 
@@ -880,7 +885,7 @@ msgstr "Melhor parcela sem juros"
 msgid "MeuMouse.com"
 msgstr "MeuMouse.com"
 
-#: includes/admin/tabs/about.php:103
+#: includes/admin/tabs/about.php:133
 msgid "Modo de depuração do WordPress:"
 msgstr "Modo de depuração do WordPress:"
 
@@ -910,8 +915,8 @@ msgstr "Mostrar informação de desconto na forma de pagamento"
 msgid "Mostrar informação de economia no Pix"
 msgstr "Mostrar informação de economia no Pix"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:350
-#: includes/admin/class-woo-custom-installments-admin-options.php:420
+#: includes/admin/class-woo-custom-installments-admin-options.php:377
+#: includes/admin/class-woo-custom-installments-admin-options.php:447
 msgid "Método de desconto"
 msgstr "Método de desconto"
 
@@ -939,16 +944,20 @@ msgstr "Nenhuma licença informada"
 msgid "Normal"
 msgstr "Normal"
 
-#: includes/class-woo-custom-installments-init.php:369
+#: includes/admin/tabs/about.php:69
+msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
+msgstr "Notamos que teve problemas de conexão ao tentar ativar sua licença"
+
+#: includes/class-woo-custom-installments-init.php:447
 msgid "Nunca expira"
 msgstr "Nunca expira"
 
-#: includes/admin/tabs/about.php:100 includes/admin/tabs/about.php:168
-#: includes/admin/tabs/about.php:184 includes/admin/tabs/about.php:203
+#: includes/admin/tabs/about.php:130 includes/admin/tabs/about.php:198
+#: includes/admin/tabs/about.php:214 includes/admin/tabs/about.php:233
 msgid "Não"
 msgstr "Não"
 
-#: includes/class-woo-custom-installments-init.php:353
+#: includes/class-woo-custom-installments-init.php:431
 #: includes/admin/tabs/about.php:42
 msgid "Não disponível"
 msgstr "Não disponível"
@@ -965,7 +974,7 @@ msgstr ""
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr "O cache de ativação foi limpo com sucesso!"
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1282
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1234
 msgid ""
 "O local do shortcode inserido é inválido. Insira em um modelo de página de "
 "produto individual, ou em um local onde consiga obter o ID de um produto."
@@ -973,12 +982,12 @@ msgstr ""
 "O local do shortcode inserido é inválido. Insira em um modelo de página de "
 "produto individual, ou em um local onde consiga obter o ID de um produto."
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:258
-#: includes/classes/class-woo-custom-installments-frontend-template.php:845
-#: includes/classes/class-woo-custom-installments-frontend-template.php:867
-#: includes/classes/class-woo-custom-installments-frontend-template.php:939
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1014
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1383
+#: includes/classes/class-woo-custom-installments-frontend-template.php:256
+#: includes/classes/class-woo-custom-installments-frontend-template.php:797
+#: includes/classes/class-woo-custom-installments-frontend-template.php:819
+#: includes/classes/class-woo-custom-installments-frontend-template.php:891
+#: includes/classes/class-woo-custom-installments-frontend-template.php:966
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1408
 msgid ""
 "O local do shortcode inserido é inválido. É permitido apenas para produtos."
 msgstr ""
@@ -988,7 +997,7 @@ msgstr ""
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 
-#: includes/classes/class-woo-custom-installments-api.php:291
+#: includes/classes/class-woo-custom-installments-api.php:314
 msgid ""
 "Ocorreu um erro na conexão com o servidor de verificação de licenças. "
 "Verifique o erro nos logs do WooCommerce."
@@ -1002,6 +1011,7 @@ msgid "Ocultar"
 msgstr "Ocultar"
 
 #: includes/admin/settings.php:77
+#: includes/classes/class-woo-custom-installments-assets.php:60
 msgid "Ops! Ocorreu um erro."
 msgstr "Ops! Ocorreu um erro."
 
@@ -1009,17 +1019,17 @@ msgstr "Ops! Ocorreu um erro."
 msgid "Ordem dos elementos"
 msgstr "Ordem dos elementos"
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:264
-#: includes/classes/class-woo-custom-installments-frontend-template.php:402
-#: includes/classes/class-woo-custom-installments-frontend-template.php:443
-#: includes/classes/class-woo-custom-installments-frontend-template.php:530
-#: includes/classes/class-woo-custom-installments-frontend-template.php:577
-#: includes/classes/class-woo-custom-installments-frontend-template.php:851
-#: includes/classes/class-woo-custom-installments-frontend-template.php:873
-#: includes/classes/class-woo-custom-installments-frontend-template.php:945
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1020
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1288
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1395
+#: includes/classes/class-woo-custom-installments-frontend-template.php:262
+#: includes/classes/class-woo-custom-installments-frontend-template.php:399
+#: includes/classes/class-woo-custom-installments-frontend-template.php:438
+#: includes/classes/class-woo-custom-installments-frontend-template.php:524
+#: includes/classes/class-woo-custom-installments-frontend-template.php:570
+#: includes/classes/class-woo-custom-installments-frontend-template.php:803
+#: includes/classes/class-woo-custom-installments-frontend-template.php:825
+#: includes/classes/class-woo-custom-installments-frontend-template.php:897
+#: includes/classes/class-woo-custom-installments-frontend-template.php:972
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1240
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1420
 msgid ""
 "Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para "
 "WooCommerce."
@@ -1027,23 +1037,23 @@ msgstr ""
 "Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para "
 "WooCommerce."
 
-#: includes/admin/tabs/texts.php:184 includes/admin/tabs/texts.php:209
-#: includes/admin/tabs/texts.php:234
+#: includes/admin/tabs/texts.php:182 includes/admin/tabs/texts.php:207
+#: includes/admin/tabs/texts.php:232
 msgid "Para recuperar o número de parcelas."
 msgstr "Para recuperar o número de parcelas."
 
-#: includes/admin/tabs/texts.php:188 includes/admin/tabs/texts.php:213
-#: includes/admin/tabs/texts.php:238
+#: includes/admin/tabs/texts.php:186 includes/admin/tabs/texts.php:211
+#: includes/admin/tabs/texts.php:236
 msgid "Para recuperar o valor da parcela."
 msgstr "Para recuperar o valor da parcela."
 
-#: includes/admin/tabs/texts.php:196 includes/admin/tabs/texts.php:221
-#: includes/admin/tabs/texts.php:246
+#: includes/admin/tabs/texts.php:194 includes/admin/tabs/texts.php:219
+#: includes/admin/tabs/texts.php:244
 msgid "Para recuperar o valor total da soma das parcelas."
 msgstr "Para recuperar o valor total da soma das parcelas."
 
-#: includes/admin/tabs/texts.php:192 includes/admin/tabs/texts.php:217
-#: includes/admin/tabs/texts.php:242
+#: includes/admin/tabs/texts.php:190 includes/admin/tabs/texts.php:215
+#: includes/admin/tabs/texts.php:240
 msgid "Para recuperar se a parcela é com ou sem juros."
 msgstr "Para recuperar se a parcela é com ou sem juros."
 
@@ -1052,13 +1062,13 @@ msgid "Para todos os produtos"
 msgstr "Para todos os produtos"
 
 #. page title
-#: includes/admin/class-woo-custom-installments-admin-options.php:61
+#: includes/admin/class-woo-custom-installments-admin-options.php:68
 msgid "Parcelas"
 msgstr "Parcelas"
 
 #. parent page slug
 #. Name of the plugin
-#: includes/admin/class-woo-custom-installments-admin-options.php:60
+#: includes/admin/class-woo-custom-installments-admin-options.php:67
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr "Parcelas Customizadas para WooCommerce"
 
@@ -1066,8 +1076,8 @@ msgstr "Parcelas Customizadas para WooCommerce"
 msgid "Pequeno"
 msgstr "Pequeno"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:353
-#: includes/admin/class-woo-custom-installments-admin-options.php:423
+#: includes/admin/class-woo-custom-installments-admin-options.php:380
+#: includes/admin/class-woo-custom-installments-admin-options.php:450
 #: includes/admin/tabs/discounts.php:114 includes/admin/tabs/discounts.php:132
 #: includes/admin/tabs/discounts.php:230 includes/admin/tabs/discounts.php:336
 #: includes/admin/tabs/interests.php:90
@@ -1078,7 +1088,7 @@ msgstr "Percentual (%)"
 msgid "Percentual para cálculo de juros das parcelas de forma progressiva."
 msgstr "Percentual para cálculo de juros das parcelas de forma progressiva."
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:362
+#: includes/classes/class-woo-custom-installments-frontend-template.php:360
 msgid "Pix"
 msgstr "Pix"
 
@@ -1093,7 +1103,7 @@ msgstr ""
 "Posição das formas de pagamento e parcelas na página de produto individual"
 
 #: includes/admin/settings.php:14 includes/admin/tabs/about.php:24
-#: includes/admin/tabs/about.php:133 includes/admin/tabs/discounts.php:40
+#: includes/admin/tabs/about.php:163 includes/admin/tabs/discounts.php:40
 #: includes/admin/tabs/discounts.php:62 includes/admin/tabs/discounts.php:84
 #: includes/admin/tabs/discounts.php:150 includes/admin/tabs/discounts.php:181
 #: includes/admin/tabs/discounts.php:245 includes/admin/tabs/discounts.php:274
@@ -1151,7 +1161,7 @@ msgstr "Quantidade máxima de parcelas"
 msgid "Quantidade máxima de parcelas sem juros"
 msgstr "Quantidade máxima de parcelas sem juros"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:449
+#: includes/admin/class-woo-custom-installments-admin-options.php:476
 msgid "Quantidade mínima para desconto"
 msgstr "Quantidade mínima para desconto"
 
@@ -1194,7 +1204,7 @@ msgstr "rem"
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr "Remover faixa de preço em produtos variáveis"
 
-#: includes/admin/tabs/about.php:346
+#: includes/admin/tabs/about.php:376
 msgid "Reportar problemas"
 msgstr "Reportar problemas"
 
@@ -1202,12 +1212,12 @@ msgstr "Reportar problemas"
 msgid "Reposicione os elementos arrastando e soltando."
 msgstr "Reposicione os elementos arrastando e soltando."
 
-#: includes/classes/class-woo-custom-installments-api.php:318
+#: includes/classes/class-woo-custom-installments-api.php:341
 #| msgid "Resposta desconhecida."
 msgid "Resposta desconhecida"
 msgstr "Resposta desconhecida"
 
-#: includes/classes/class-woo-custom-installments-api.php:342
+#: includes/classes/class-woo-custom-installments-api.php:365
 msgid "Resposta vazia."
 msgstr "Resposta vazia."
 
@@ -1375,11 +1385,11 @@ msgstr ""
 msgid "Selecione onde o preço com desconto será exibido."
 msgstr "Selecione onde o preço com desconto será exibido."
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:382
+#: includes/admin/class-woo-custom-installments-admin-options.php:409
 msgid "Selecione um gateway"
 msgstr "Selecione um gateway"
 
-#: includes/admin/tabs/about.php:142
+#: includes/admin/tabs/about.php:172
 msgid "Servidor"
 msgstr "Servidor"
 
@@ -1395,12 +1405,12 @@ msgstr "Shortcode"
 msgid "Shortcode: "
 msgstr "Shortcode: "
 
-#: includes/admin/tabs/about.php:100 includes/admin/tabs/about.php:172
-#: includes/admin/tabs/about.php:188 includes/admin/tabs/about.php:207
+#: includes/admin/tabs/about.php:130 includes/admin/tabs/about.php:202
+#: includes/admin/tabs/about.php:218 includes/admin/tabs/about.php:237
 msgid "Sim"
 msgstr "Sim"
 
-#: includes/admin/settings.php:153
+#: includes/admin/settings.php:154
 msgid "Sobre"
 msgstr "Sobre"
 
@@ -1408,7 +1418,7 @@ msgstr "Sobre"
 msgid "Status da licença:"
 msgstr "Status da licença:"
 
-#: includes/admin/tabs/about.php:92
+#: includes/admin/tabs/about.php:122
 msgid "Status do sistema:"
 msgstr "Status do sistema:"
 
@@ -1428,11 +1438,11 @@ msgstr "Tamanho da fonte do desconto no boleto bancário"
 msgid "Tamanho da fonte do preço com desconto"
 msgstr "Tamanho da fonte do preço com desconto"
 
-#: includes/admin/tabs/about.php:221
+#: includes/admin/tabs/about.php:251
 msgid "Tamanho máximo da postagem do PHP:"
 msgstr "Tamanho máximo da postagem do PHP:"
 
-#: includes/admin/tabs/about.php:309
+#: includes/admin/tabs/about.php:339
 msgid "Tamanho máximo de envio do PHP:"
 msgstr "Tamanho máximo de envio do PHP:"
 
@@ -1440,80 +1450,84 @@ msgstr "Tamanho máximo de envio do PHP:"
 msgid "Taxa de juros padrão"
 msgstr "Taxa de juros padrão"
 
-#: includes/admin/tabs/texts.php:12
+#: includes/classes/class-woo-custom-installments-assets.php:63
+msgid "Tem certeza que deseja desativar sua licença?"
+msgstr "Tem certeza que deseja desativar sua licença?"
+
+#: includes/admin/tabs/texts.php:10
 msgid "Texto antes do preço com desconto"
 msgstr "Texto antes do preço com desconto"
 
-#: includes/admin/tabs/texts.php:105
+#: includes/admin/tabs/texts.php:103
 msgid "Texto antes do preço com desconto no boleto bancário"
 msgstr "Texto antes do preço com desconto no boleto bancário"
 
-#: includes/admin/tabs/texts.php:205
+#: includes/admin/tabs/texts.php:203
 msgid "Texto de exibição das parcelas (Arquivos de produtos)"
 msgstr "Texto de exibição das parcelas (Arquivos de produtos)"
 
-#: includes/admin/tabs/texts.php:180
+#: includes/admin/tabs/texts.php:178
 msgid "Texto de exibição das parcelas (Formas de pagamento)"
 msgstr "Texto de exibição das parcelas (Formas de pagamento)"
 
-#: includes/admin/tabs/texts.php:230
+#: includes/admin/tabs/texts.php:228
 msgid "Texto de exibição das parcelas (Produto individual)"
 msgstr "Texto de exibição das parcelas (Produto individual)"
 
-#: includes/admin/tabs/texts.php:96
+#: includes/admin/tabs/texts.php:94
 msgid "Texto de instruções de boleto bancário"
 msgstr "Texto de instruções de boleto bancário"
 
-#: includes/admin/tabs/texts.php:97
+#: includes/admin/tabs/texts.php:95
 msgid "Texto de instruções que será exibido no container de boleto bancário."
 msgstr "Texto de instruções que será exibido no container de boleto bancário."
 
-#: includes/admin/tabs/texts.php:21
+#: includes/admin/tabs/texts.php:19
 msgid "Texto depois do preço com desconto"
 msgstr "Texto depois do preço com desconto"
 
-#: includes/admin/tabs/texts.php:114
+#: includes/admin/tabs/texts.php:112
 msgid "Texto depois do preço com desconto no boleto bancário"
 msgstr "Texto depois do preço com desconto no boleto bancário"
 
-#: includes/admin/tabs/texts.php:30
+#: includes/admin/tabs/texts.php:28
 msgid "Texto depois do preço do produto"
 msgstr "Texto depois do preço do produto"
 
-#: includes/admin/tabs/texts.php:153
+#: includes/admin/tabs/texts.php:151
 msgid "Texto informativo de parcelas com juros"
 msgstr "Texto informativo de parcelas com juros"
 
-#: includes/admin/tabs/texts.php:162
+#: includes/admin/tabs/texts.php:160
 msgid "Texto informativo de parcelas sem juros"
 msgstr "Texto informativo de parcelas sem juros"
 
-#: includes/admin/tabs/texts.php:57
+#: includes/admin/tabs/texts.php:55
 msgid "Texto informativo para desconto por quantidade"
 msgstr "Texto informativo para desconto por quantidade"
 
-#: includes/admin/tabs/texts.php:48
+#: includes/admin/tabs/texts.php:46
 msgid "Texto informativo para economia no Pix"
 msgstr "Texto informativo para economia no Pix"
 
-#: includes/admin/tabs/texts.php:39
+#: includes/admin/tabs/texts.php:37
 msgid "Texto inicial em produtos variáveis (A partir de)"
 msgstr "Texto inicial em produtos variáveis (A partir de)"
 
-#: includes/admin/tabs/texts.php:145
+#: includes/admin/tabs/texts.php:143
 msgid "Texto que será exibido antes da tabela de parcelas no popup ou sanfona."
 msgstr ""
 "Texto que será exibido antes da tabela de parcelas no popup ou sanfona."
 
-#: includes/admin/tabs/texts.php:154 includes/admin/tabs/texts.php:163
+#: includes/admin/tabs/texts.php:152 includes/admin/tabs/texts.php:161
 msgid "Texto que será exibido depois da parcela."
 msgstr "Texto que será exibido depois da parcela."
 
-#: includes/admin/tabs/texts.php:67
+#: includes/admin/tabs/texts.php:65
 msgid "Texto que será exibido no botão do popup ou sanfona de parcelas."
 msgstr "Texto que será exibido no botão do popup ou sanfona de parcelas."
 
-#: includes/admin/tabs/texts.php:58
+#: includes/admin/tabs/texts.php:56
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de desconto por quantidade. Obs.: É "
@@ -1524,7 +1538,7 @@ msgstr ""
 "necessário que a variável %d (Quantidade) e %s (Desconto) estejam na frase "
 "para exibir o valor."
 
-#: includes/admin/tabs/texts.php:49
+#: includes/admin/tabs/texts.php:47
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de economia ao pagar com Pix. Obs.: É "
@@ -1533,19 +1547,19 @@ msgstr ""
 "Texto que será exibido no emblema de economia ao pagar com Pix. Obs.: É "
 "necessário que a variável %s esteja na frase para exibir o valor."
 
-#: includes/admin/tabs/texts.php:88
+#: includes/admin/tabs/texts.php:86
 msgid "Texto que será usado como título do container de boleto bancário."
 msgstr "Texto que será usado como título do container de boleto bancário."
 
-#: includes/admin/tabs/texts.php:124
+#: includes/admin/tabs/texts.php:122
 msgid "Texto que será usado como título do container de cartões de crédito."
 msgstr "Texto que será usado como título do container de cartões de crédito."
 
-#: includes/admin/tabs/texts.php:133
+#: includes/admin/tabs/texts.php:131
 msgid "Texto que será usado como título do container de cartões de débito."
 msgstr "Texto que será usado como título do container de cartões de débito."
 
-#: includes/admin/tabs/texts.php:79
+#: includes/admin/tabs/texts.php:77
 msgid "Texto que será usado como título do container de transferências."
 msgstr "Texto que será usado como título do container de transferências."
 
@@ -1564,6 +1578,7 @@ msgid "Tipo de exibição das parcelas"
 msgstr "Tipo de exibição das parcelas"
 
 #: includes/admin/settings.php:54
+#: includes/classes/class-woo-custom-installments-assets.php:62
 msgid "Todos os recursos da versão Pro agora estão ativos!"
 msgstr "Todos os recursos da versão Pro agora estão ativos!"
 
@@ -1571,41 +1586,41 @@ msgstr "Todos os recursos da versão Pro agora estão ativos!"
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr "Todos os recursos da versão Pro agora estão desativados!"
 
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1513
-#: includes/classes/class-woo-custom-installments-frontend-template.php:1516
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1538
+#: includes/classes/class-woo-custom-installments-frontend-template.php:1541
 #, php-format
 msgid "Total %s"
 msgstr "Total %s"
 
-#: woo-custom-installments.php:413 woo-custom-installments.php:422
+#: woo-custom-installments.php:414 woo-custom-installments.php:423
 msgid "Trapaceando?"
 msgstr "Trapaceando?"
 
-#: includes/admin/tabs/texts.php:144
+#: includes/admin/tabs/texts.php:142
 msgid "Título da tabela de parcelas"
 msgstr "Título da tabela de parcelas"
 
-#: includes/admin/tabs/texts.php:66
+#: includes/admin/tabs/texts.php:64
 msgid "Título do botão acionador de parcelas"
 msgstr "Título do botão acionador de parcelas"
 
-#: includes/admin/tabs/texts.php:171
+#: includes/admin/tabs/texts.php:169
 msgid "Título do container das formas de pagamento"
 msgstr "Título do container das formas de pagamento"
 
-#: includes/admin/tabs/texts.php:87
+#: includes/admin/tabs/texts.php:85
 msgid "Título do container de boleto bancário"
 msgstr "Título do container de boleto bancário"
 
-#: includes/admin/tabs/texts.php:123
+#: includes/admin/tabs/texts.php:121
 msgid "Título do container de cartões de crédito"
 msgstr "Título do container de cartões de crédito"
 
-#: includes/admin/tabs/texts.php:132
+#: includes/admin/tabs/texts.php:130
 msgid "Título do container de cartões de débito"
 msgstr "Título do container de cartões de débito"
 
-#: includes/admin/tabs/texts.php:78
+#: includes/admin/tabs/texts.php:76
 msgid "Título do container de transferências"
 msgstr "Título do container de transferências"
 
@@ -1625,8 +1640,8 @@ msgstr ""
 "Uma nova versão do plugin Parcelas Customizadas para WooCommerce está "
 "disponível."
 
-#: includes/admin/tabs/texts.php:181 includes/admin/tabs/texts.php:206
-#: includes/admin/tabs/texts.php:231
+#: includes/admin/tabs/texts.php:179 includes/admin/tabs/texts.php:204
+#: includes/admin/tabs/texts.php:229
 msgid "Utilize as variáveis:"
 msgstr "Utilize as variáveis:"
 
@@ -1634,8 +1649,8 @@ msgstr "Utilize as variáveis:"
 msgid "Valor"
 msgstr "Valor"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:363
-#: includes/admin/class-woo-custom-installments-admin-options.php:433
+#: includes/admin/class-woo-custom-installments-admin-options.php:390
+#: includes/admin/class-woo-custom-installments-admin-options.php:460
 msgid "Valor do desconto"
 msgstr "Valor do desconto"
 
@@ -1643,8 +1658,8 @@ msgstr "Valor do desconto"
 msgid "Valor do desconto por quantidade"
 msgstr "Valor do desconto por quantidade"
 
-#: includes/admin/class-woo-custom-installments-admin-options.php:354
-#: includes/admin/class-woo-custom-installments-admin-options.php:424
+#: includes/admin/class-woo-custom-installments-admin-options.php:381
+#: includes/admin/class-woo-custom-installments-admin-options.php:451
 #: includes/admin/tabs/discounts.php:115 includes/admin/tabs/discounts.php:133
 #: includes/admin/tabs/discounts.php:231 includes/admin/tabs/discounts.php:335
 #, php-format
@@ -1659,23 +1674,23 @@ msgstr "Valor fixo (R$)"
 msgid "Valor mínimo da parcela"
 msgstr "Valor mínimo da parcela"
 
-#: includes/admin/tabs/about.php:274
+#: includes/admin/tabs/about.php:304
 msgid "Valor mínimo recomendado é 10000"
 msgstr "Valor mínimo recomendado é 10000"
 
-#: includes/admin/tabs/about.php:296
+#: includes/admin/tabs/about.php:326
 msgid "Valor mínimo recomendado é 128M"
 msgstr "Valor mínimo recomendado é 128M"
 
-#: includes/admin/tabs/about.php:252
+#: includes/admin/tabs/about.php:282
 msgid "Valor mínimo recomendado é 180"
 msgstr "Valor mínimo recomendado é 180"
 
-#: includes/admin/tabs/about.php:230 includes/admin/tabs/about.php:318
+#: includes/admin/tabs/about.php:260 includes/admin/tabs/about.php:348
 msgid "Valor mínimo recomendado é 64M"
 msgstr "Valor mínimo recomendado é 64M"
 
-#: includes/admin/tabs/about.php:265
+#: includes/admin/tabs/about.php:295
 msgid "Variáveis máximas de entrada do PHP:"
 msgstr "Variáveis máximas de entrada do PHP:"
 
@@ -1683,40 +1698,48 @@ msgstr "Variáveis máximas de entrada do PHP:"
 msgid "Verificar atualizações"
 msgstr "Verificar atualizações"
 
-#: includes/admin/tabs/about.php:191
+#: includes/admin/tabs/about.php:221
 #, php-format
 msgid "Versão %s"
 msgstr "Versão %s"
 
-#: includes/admin/tabs/about.php:128
+#: includes/admin/tabs/about.php:158
 msgid "Versão do Parcelas Customizadas para WooCommerce:"
 msgstr "Versão do Parcelas Customizadas para WooCommerce:"
 
-#: includes/admin/tabs/about.php:144
+#: includes/admin/tabs/about.php:174
 msgid "Versão do PHP:"
 msgstr "Versão do PHP:"
 
-#: includes/admin/tabs/about.php:109
+#: includes/admin/tabs/about.php:139
 msgid "Versão do WooCommerce:"
 msgstr "Versão do WooCommerce:"
 
-#: includes/admin/tabs/about.php:95
+#: includes/admin/tabs/about.php:125
 msgid "Versão do WordPress:"
 msgstr "Versão do WordPress:"
+
+#: includes/admin/tabs/about.php:70
+msgid ""
+"Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
+"manual."
+msgstr ""
+"Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
+"manual."
 
 #: includes/admin/tabs/about.php:14
 msgid "Válida"
 msgstr "Válida"
 
-#: includes/admin/tabs/about.php:107
+#: includes/admin/tabs/about.php:137
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/admin/tabs/about.php:93
+#: includes/admin/tabs/about.php:123
 msgid "WordPress"
 msgstr "WordPress"
 
-#: includes/admin/tabs/about.php:99
+#: includes/admin/tabs/about.php:129
 msgid "WordPress Multisite:"
 msgstr "WordPress Multisite:"
 
