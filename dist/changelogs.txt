@@ -1,5 +1,8 @@
 Registro de alterações (Changelogs):
 
+Versão 4.3.1 (20/04/2024)
+* Correção de bugs
+
 Versão 4.3.0 (17/04/2024)
 * Correção de bugs
 * Otimizações
