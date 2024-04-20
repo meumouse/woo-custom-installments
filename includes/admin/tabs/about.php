@@ -68,7 +68,7 @@ defined('ABSPATH') || exit; ?>
 					<td>
 						<span class="h4 d-block"><?php esc_attr_e( 'Notamos que teve problemas de conexão ao tentar ativar sua licença', 'woo-custom-installments' ); ?></span>
 						<span class="d-block text-muted"><?php esc_attr_e( 'Você pode fazer upload do arquivo .key da licença para fazer sua ativação manual.', 'woo-custom-installments' ); ?></span>
-						<a class="fancy-link mt-2 mb-3" href="https://meumouse.com/minha-conta/licenses/?domain=<?php echo urlencode( Woo_Custom_Installments_Api::get_domain() ); ?>&license_key=<?php echo urlencode( get_option('woo_custom_installments_temp_license_key') ); ?>&app_version=<?php echo urlencode( FLEXIFY_CHECKOUT_VERSION ); ?>&product_id=1&settings_page=<?php echo urlencode( Woo_Custom_Installments_Api::get_domain() . '/wp-admin/admin.php?page=woo-custom-installments' ); ?>" target="_blank"><?php echo esc_html__( 'Clique aqui para gerar seu arquivo de licença', 'woo-custom-installments' ) ?></a>
+						<a class="fancy-link mt-2 mb-3" href="https://meumouse.com/minha-conta/licenses/?domain=<?php echo urlencode( Woo_Custom_Installments_Api::get_domain() ); ?>&license_key=<?php echo urlencode( get_option('woo_custom_installments_temp_license_key') ); ?>&app_version=<?php echo urlencode( WOO_CUSTOM_INSTALLMENTS_VERSION ); ?>&product_id=1&settings_page=<?php echo urlencode( Woo_Custom_Installments_Api::get_domain() . '/wp-admin/admin.php?page=woo-custom-installments' ); ?>" target="_blank"><?php echo esc_html__( 'Clique aqui para gerar seu arquivo de licença', 'woo-custom-installments' ) ?></a>
 
 						<div class="drop-file-license-key">
 							<div class="dropzone-license mt-4" id="license_key_zone">

@@ -14,7 +14,7 @@ if ( ! class_exists( 'Woo_Custom_Installments_Api' ) ) {
      */
 	class Woo_Custom_Installments_Api {
 
-    	public $wci_key = '2951578DE46F56D7';
+    	private $wci_key = '2951578DE46F56D7';
     	private $wci_product_id = '1';
     	private $wci_product_base = 'woo-custom-installments';
         private $product_key;

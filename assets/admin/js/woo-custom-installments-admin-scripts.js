@@ -887,7 +887,7 @@
 		$('#upload_license_key').on('change', function(e) {
 			var file = e.target.files[0];
 
-			handle_file(file, $(this).parents('.dropzone'));
+			handle_file(file, $(this).parents('.dropzone-license'));
 		});
 	
 		/**
@@ -912,7 +912,7 @@
 				dropzone.append('<div class="spinner-border"></div>');
 				dropzone.children('.drag-text').addClass('d-none');
 				dropzone.children('.drag-and-drop-file').addClass('d-none');
-				dropzone.children('.form-inter-bank-files').addClass('d-none');
+				dropzone.children('.upload-license-key').addClass('d-none');
 	
 				$.ajax({
 					url: wci_params.ajax_url,
@@ -970,7 +970,7 @@
 								dropzone.children('.spinner-border').remove();
 								dropzone.children('.drag-text').removeClass('d-none');
 								dropzone.children('.drag-and-drop-file').removeClass('d-none');
-								dropzone.children('.form-inter-bank-files').removeClass('d-none');
+								dropzone.children('.upload-license-key').removeClass('d-none');
 								dropzone.children('.file-list').addClass('d-none');
 							}
 						} catch (error) {

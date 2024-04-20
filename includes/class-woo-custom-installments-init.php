@@ -275,7 +275,7 @@ class Woo_Custom_Installments_Init {
     if ( current_user_can('manage_woocommerce') ) {
       $this->responseObj = new stdClass();
       $message = '';
-      $license_key = get_option('woo_custom_installments_license_key', '');
+      $license_key = get_option('woo_custom_installments_license_key');
   
       // active license action
       if ( isset( $_POST['woo_custom_installments_active_license'] ) ) {
@@ -283,7 +283,7 @@ class Woo_Custom_Installments_Init {
         delete_transient('woo_custom_installments_api_request_cache');
         delete_transient('woo_custom_installments_api_response_cache');
 
-        $license_key = ! empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
+        $license_key = isset( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
         update_option( 'woo_custom_installments_license_key', $license_key ) || add_option('woo_custom_installments_license_key', $license_key );
         update_option( 'woo_custom_installments_temp_license_key', $license_key ) || add_option('woo_custom_installments_temp_license_key', $license_key );
       }
@@ -305,7 +305,7 @@ class Woo_Custom_Installments_Init {
           }
       } else {
           if ( ! empty( $license_key ) && ! empty( $this->licenseMessage ) ) {
-              $this->showMessage = true;
+              $this->show_message = true;
           }
       }
 
@@ -313,14 +313,14 @@ class Woo_Custom_Installments_Init {
       if ( isset( $_POST['woo_custom_installments_deactive_license'] ) ) {
         if ( Woo_Custom_Installments_Api::RemoveLicenseKey( WOO_CUSTOM_INSTALLMENTS_FILE, $message ) ) {
           update_option( 'woo_custom_installments_license_status', 'invalid' );
-          delete_option( 'woo_custom_installments_license_key' );
-          delete_transient('woo_custom_installments_api_request_cache');
-          delete_transient('woo_custom_installments_api_response_cache');
+          delete_option('woo_custom_installments_license_key');
           delete_option('woo_custom_installments_license_response_object');
           delete_option('woo_custom_installments_alternative_license_decrypted');
           delete_option('woo_custom_installments_alternative_license_activation');
           delete_option('woo_custom_installments_temp_license_key');
           delete_option('woo_custom_installments_alternative_license');
+          delete_transient('woo_custom_installments_api_request_cache');
+          delete_transient('woo_custom_installments_api_response_cache');
 
           $this->deactive_license = true;
         }
@@ -391,7 +391,7 @@ class Woo_Custom_Installments_Init {
    * Check if license if valid
    * 
    * @since 3.8.5
-   * @version 4.0.0
+   * @version 4.3.1
    * @return bool
    */
   public static function license_valid() {
@@ -408,7 +408,6 @@ class Woo_Custom_Installments_Init {
 
       return true;
     } else {
-        update_option( 'woo_custom_installments_license_key', '' );
         update_option( 'woo_custom_installments_license_status', 'invalid' );
 
         return false;
