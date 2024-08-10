@@ -2,23 +2,24 @@
  * Modal installments
  * 
  * @since 2.0.0
+ * @version 4.5.0
  */
-jQuery( function($) {
-	const openPopupButton = $('#open-popup');
-	const popupContainer = $('#popup-container');
-	const closePopup = $('#close-popup');
+jQuery(document).ready( function($) {
+	const trigger = $('#wci-open-popup');
+	const container = $('#wci-popup-container');
+	const close = $('#wci-close-popup');
 	
-	openPopupButton.on('click', function() {
-		popupContainer.addClass('show');
+	trigger.on('click', function() {
+		container.addClass('show');
 	});
 	
-	popupContainer.on('click', function(event) {
-		if (event.target === this) {
+	container.on('click', function(e) {
+		if (e.target === this) {
 			$(this).removeClass('show');
 		}
 	});
 
-	closePopup.on('click', function() {
-		popupContainer.removeClass('show');
-	})
+	close.on('click', function() {
+		container.removeClass('show');
+	});
 });

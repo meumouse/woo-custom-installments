@@ -2,8 +2,9 @@
  * Update table installments
  * 
  * @since 2.3.5
+ * @version 4.5.0
  */
-jQuery( function($) {
+jQuery(document).ready( function($) {
 
 	/**
 	 * Init object
@@ -15,8 +16,8 @@ jQuery( function($) {
 	   */
 	  init: function() {
 		// Initial load.
-		$( document.body ).on( 'show_variation', function( event, variation, purchasable ) {
-		  Woo_Custom_Installments.updateTable( event, variation, purchasable );
+		$(document.body).on('show_variation', function( e, variation, purchasable ) {
+		  Woo_Custom_Installments.update_table( e, variation, purchasable );
 		});
 	  },
   
@@ -24,29 +25,29 @@ jQuery( function($) {
 	  /**
 	   * Update table installments
 	   *
-	   * @param {String} field Target
-	   * @param {Boolean} copy
+	   * @param {string} field Target
+	   * @param {boolean} copy
 	   */
-	  updateTable: function( event, variation, purchasable ) {
-		var tbody = $( '.woo-custom-installments-table' ).find( 'tbody' );
+	  update_table: function( e, variation, purchasable ) {
+		var tbody = $('.woo-custom-installments-table').find('tbody');
 		tbody.html( '<tr style="display: none !important;"></tr>' );
   
 		var i = 1;
-		var fees = Woo_Custom_Installments_Params.fees;
+		var fees = wci_update_table_params.fees;
 
-		while ( i <= Woo_Custom_Installments_Params.max_installments ) {
-		  var fee = fees.hasOwnProperty( i ) ? fees[i] : Woo_Custom_Installments_Params.fee;
+		while ( i <= wci_update_table_params.max_installments ) {
+		  var fee = fees.hasOwnProperty(i) ? fees[i] : wci_update_table_params.fee;
   
-		  if ( i <= Woo_Custom_Installments_Params.max_installments_no_fee ) {
+		  if ( i <= wci_update_table_params.max_installments_no_fee ) {
 			var price = variation.display_price / i;
   
-			if ( price < Woo_Custom_Installments_Params.min_installment ) {
+			if ( price < wci_update_table_params.min_installment ) {
 			  break;
 			}
   
-			tbody.append( '<tr class="fee-included"><th>' + tbody.data( 'default-text' ).replace( '{{ parcelas }}', i ).replace( '{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price ) ).replace( '{{ juros }}', Woo_Custom_Installments_Params.without_fee_label ) + '</th><th>' + Woo_Custom_Installments.getFormattedPrice( variation.display_price ) + '</th></tr>' );
+			tbody.append( '<tr class="fee-included"><th>' + tbody.data('default-text').replace( '{{ parcelas }}', i ).replace( '{{ valor }}', Woo_Custom_Installments.get_formatted_price( price ) ).replace( '{{ juros }}', wci_update_table_params.without_fee_label ) + '</th><th>' + Woo_Custom_Installments.get_formatted_price( variation.display_price ) + '</th></tr>' );
 		  } else {
-			if ( Woo_Custom_Installments_Params.fee !== fee ) {
+			if ( wci_update_table_params.fee !== fee ) {
 				// custom fees
 				var fee = fee.toString().replace( ',', '.' ) / 100;
 				var final_cost = variation.display_price + ( variation.display_price * fee );
@@ -58,31 +59,49 @@ jQuery( function($) {
 				var final_cost = price * i;
 			}
   
-			if ( price < Woo_Custom_Installments_Params.min_installment ) {
+			if ( price < wci_update_table_params.min_installment ) {
 			  break;
 			}
   
-			tbody.append( '<tr class="fee-included"><th>' + tbody.data( 'default-text' ).replace( '{{ parcelas }}', i ).replace( '{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price ) ).replace( '{{ juros }}', Woo_Custom_Installments_Params.with_fee_label ) + '</th><th>' + Woo_Custom_Installments.getFormattedPrice( final_cost ) + '</th></tr>' );
+			tbody.append( '<tr class="fee-included"><th>' + tbody.data( 'default-text' ).replace( '{{ parcelas }}', i ).replace( '{{ valor }}', Woo_Custom_Installments.get_formatted_price( price ) ).replace( '{{ juros }}', wci_update_table_params.with_fee_label ) + '</th><th>' + Woo_Custom_Installments.get_formatted_price( final_cost ) + '</th></tr>' );
 		  }
   
 		  i++;
 		}
+
+		// AJAX call to get update prices
+		$.ajax({
+			url: wci_update_table_params.ajax_url,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'get_updated_variation_prices_action',
+				variation_id: variation.variation_id,
+			},
+			success: function(response) {
+				if ( response.success ) {
+					$.each(response.data, function(key, value) {
+						$(value.element).find('.amount').html(value.price);
+					});
+				}
+			}
+		});
 	  },
   
 	  /**
-	   * Formatted Price.
+	   * Formatted price
 	   *
-	   * @param {String} price
+	   * @param {string} price
 	   */
-	  getFormattedPrice: function( price ) {
+	  get_formatted_price: function(price) {
 		'use strict';
   
 		var formatted_price = accounting.formatMoney( price, {
-		  symbol : Woo_Custom_Installments_Params.currency_format_symbol,
-		  decimal : Woo_Custom_Installments_Params.currency_format_decimal_sep,
-		  thousand : Woo_Custom_Installments_Params.currency_format_thousand_sep,
-		  precision : Woo_Custom_Installments_Params.currency_format_num_decimals,
-		  format : Woo_Custom_Installments_Params.currency_format
+		  symbol: wci_update_table_params.currency_format_symbol,
+		  decimal: wci_update_table_params.currency_format_decimal_sep,
+		  thousand: wci_update_table_params.currency_format_thousand_sep,
+		  precision: wci_update_table_params.currency_format_num_decimals,
+		  format: wci_update_table_params.currency_format
 		} );
   
 		return formatted_price;

@@ -2,10 +2,11 @@
  * Accordion installments
  * 
  * @since 2.0.0
+ * @version 5.0.0
  */
-jQuery( function($) {
-	$('.accordion-header').click(function() {
-		let content = $(this).next('.accordion-content');
+jQuery( function() {
+	jQuery('.accordion-header').click( function() {
+		var content = jQuery(this).next('.accordion-content');
 		
 		if (content.css('max-height') == '0px') {
 			content.css('max-height', content.prop('scrollHeight') + 'px');

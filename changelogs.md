@@ -1,38 +1,13 @@
-# Parcelas Customizadas para WooCommerce®
-
-Extensão que permite adicionar detalhes de parcelamento, desconto e formas de pagamento aceitas em lojas WooCommerce, tornando a experiência de compra mais flexível e conveniente.
-
-O melhor plugin de parcelas e descontos para WooCommerce!
-
-#### Propriedade intelectual:
-O software Parcelas Customizadas para WooCommerce ® é uma propriedade registrada da MEUMOUSE.COM® – SOLUÇÕES DIGITAIS LTDA, em conformidade com o §2°, art. 2° da Lei 9.609, de 19 de Fevereiro de 1998.
-É expressamente proibido a distribuição ou cópia ilegal deste software, sujeita a penalidades conforme as leis de direitos autorais vigentes.
-
-### Instalação:
-
-#### Instalação via painel de administração:
-
-Você pode instalar um plugin WordPress de duas maneiras: via o painel de administração do WordPress ou via FTP. Aqui estão as etapas para ambos os métodos:
-
-* Acesse o painel de administração do seu site WordPress.
-* Vá para “Plugins” e clique em “Adicionar Novo”.
-* Digite o nome do plugin que você deseja instalar na barra de pesquisa ou carregue o arquivo ZIP do plugin baixado.
-* Clique em “Instalar Agora” e espere até que o plugin seja instalado.
-* Clique em “Ativar Plugin”.
-
-#### Instalação via FTP:
-
-* Baixe o arquivo ZIP do plugin que você deseja instalar.
-* Descompacte o arquivo ZIP em seu computador.
-* Conecte-se ao seu servidor via FTP.
-* Navegue até a pasta “wp-content/plugins”.
-* Envie a pasta do plugin descompactada para a pasta “plugins” no seu servidor.
-* Acesse o painel de administração do seu site WordPress.
-* Vá para “Plugins” e clique em “Plugins Instalados”.
-* Localize o plugin que você acabou de instalar e clique em “Ativar”.
-* Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.
-
-### Registro de alterações (Changelogs):
+Versão 4.5.0 (09/08/2024)
+* Correção de bugs
+* Otimizações
+* Nova arquitetura
+* Opção removida: Desativar atualização dinâmica de parcelas em produtos variáveis
+* Shortcode adicionado: [woo_custom_installments_get_price_on_pix] - Para recuperar o valor do produto no Pix
+* Shortcode adicionado: [woo_custom_installments_get_price_on_ticket] - Para recuperar o valor do produto no Boleto bancário
+* Shortcode adicionado: [woo_custom_installments_get_economy_pix_price] - Para recuperar o valor da economia no Pix
+* Recurso modificado: Ordem dos elementos - Preço do produto adicionado para alteração da ordem de exibição
+* Recurso adicionado: API de transientes para recuperação de opções do plugin
 
 Versão 4.3.0 (17/04/2024)
 * Correção de bugs

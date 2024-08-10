@@ -16,22 +16,65 @@ defined('ABSPATH') || exit; ?>
            </div>
         </td>
       </tr>
+
       <tr class="container-separator"></tr>
+
       <tr>
          <th>
-            <?php echo esc_html__( 'Cor do preço com desconto', 'woo-custom-installments' ) ?>
-            <span class="woo-custom-installments-description"><?php echo esc_html__( 'A cor de fundo será gerada automaticamente com 10% de transparência a partir da cor informada. Esta configuração também altera a cor do emblema de aprovação imediata e desconto no checkout.', 'woo-custom-installments' ) ?></span>
+            <?php echo esc_html__( 'Ordem dos elementos', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Reposicione os elementos arrastando e soltando.', 'woo-custom-installments' ) ?></span>
+         </th>
+
+         <td>
+            <div id="reorder_wci_elements">
+               <ul class="sortable">
+                  <li class="tab-item" id="best_installments_order">
+                     <span><?php echo esc_html__( 'Preço do produto', 'woo-custom-installments' ) ?></span>
+                     <input type="hidden" class="change-priority" name="product_price_order" value="<?php echo self::get_setting('product_price_order') ?>"/>
+                  </li>
+
+                  <li class="tab-item" id="best_installments_order">
+                     <span><?php echo esc_html__( 'Melhor parcela', 'woo-custom-installments' ) ?></span>
+                     <input type="hidden" class="change-priority" name="best_installments_order" value="<?php echo self::get_setting('best_installments_order') ?>"/>
+                  </li>
+
+                  <li class="tab-item" id="discount_pix_order">
+                     <span><?php echo esc_html__( 'Desconto no Pix', 'woo-custom-installments' ) ?></span>
+                     <input type="hidden" class="change-priority" name="discount_pix_order" value="<?php echo self::get_setting('discount_pix_order') ?>"/>
+                  </li>
+
+                  <li class="tab-item" id="economy_pix_order">
+                     <span><?php echo esc_html__( 'Economia no Pix', 'woo-custom-installments' ) ?></span>
+                     <input type="hidden" class="change-priority" name="economy_pix_order" value="<?php echo self::get_setting('economy_pix_order') ?>"/>
+                  </li>
+
+                  <li class="tab-item" id="slip_bank_order">
+                     <span><?php echo esc_html__( 'Desconto no boleto bancário', 'woo-custom-installments' ) ?></span>
+                     <input type="hidden" class="change-priority" name="slip_bank_order" value="<?php echo self::get_setting('slip_bank_order') ?>"/>
+                  </li>
+               </ul>
+            </div>
+         </td>
+      </tr>
+
+      <tr class="container-separator"></tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Cor do preço com desconto no Pix', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'A cor de fundo será gerada automaticamente com 15% de transparência a partir da cor informada. Esta configuração também altera a cor do emblema de aprovação imediata e desconto no checkout.', 'woo-custom-installments' ) ?></span>
          </th>
          <td>
             <div class="color-container input-group">
                <input type="color" name="discount_main_price_color" class="form-control-color" value="<?php echo self::get_setting( 'discount_main_price_color' ) ?>"/>
                <input type="text" class="get-color-selected form-control" value="<?php echo self::get_setting( 'discount_main_price_color' ) ?>"/>
-               <button class="btn btn-outline-secondary btn-icon reset-color tooltip" data-color="#22c55e" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
+               <button class="btn btn-outline-secondary btn-icon reset-color wci-tooltip" data-color="#22c55e" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
                   <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
                </button>
             </div>
          </td>
       </tr>
+
       <tr>
          <th>
             <?php echo esc_html__( 'Tamanho da fonte do preço com desconto', 'woo-custom-installments' ) ?>
@@ -47,6 +90,7 @@ defined('ABSPATH') || exit; ?>
             </div>
          </td>
       </tr>
+
       <tr>
          <th>
             <?php echo esc_html__( 'Margem superior do preço com desconto', 'woo-custom-installments' ) ?>
@@ -62,6 +106,7 @@ defined('ABSPATH') || exit; ?>
             </div>
          </td>
       </tr>
+
       <tr>
          <th>
             <?php echo esc_html__( 'Margem inferior do preço com desconto', 'woo-custom-installments' ) ?>
@@ -77,6 +122,7 @@ defined('ABSPATH') || exit; ?>
             </div>
          </td>
       </tr>
+
       <tr>
          <th>
             <?php echo esc_html__( 'Arredondamento do preço com desconto', 'woo-custom-installments' ) ?>
@@ -93,6 +139,7 @@ defined('ABSPATH') || exit; ?>
             </div>
          </td>
       </tr>
+
       <tr>
          <th>
             <?php echo esc_html__( 'Ícone do preço com desconto', 'woo-custom-installments' ) ?>
@@ -102,9 +149,102 @@ defined('ABSPATH') || exit; ?>
             <input type="text" name="icon_main_price" class="form-control input-control-wd-10" placeholder="fa-brands fa-pix" value="<?php echo self::get_setting( 'icon_main_price' ) ?>"/>
          </td>
       </tr>
+
+      <tr class="container-separator"></tr>
+
       <tr>
-         <td class="container-separator admin-container-ticket"></td>
+         <th>
+            <?php echo esc_html__( 'Cor de fundo da economia no Pix', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Define a cor de fundo da informação de economia no Pix.', 'woo-custom-installments' ) ?></span>
+         </th>
+         <td>
+            <div class="color-container input-group">
+               <input type="color" name="economy_pix_bg" class="form-control-color" value="<?php echo self::get_setting('economy_pix_bg') ?>"/>
+               <input type="text" class="get-color-selected form-control" value="<?php echo self::get_setting('economy_pix_bg') ?>"/>
+               <button class="btn btn-outline-secondary btn-icon reset-color wci-tooltip" data-color="#22c55e" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
+                  <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
+               </button>
+            </div>
+         </td>
       </tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Tamanho da fonte da economia no Pix', 'woo-custom-installments' ) ?>
+         </th>
+         <td>
+            <div class="input-group">
+               <input type="text" name="font_size_economy_pix" class="form-control input-control-wd-5 design-parameters" value="<?php echo self::get_setting('font_size_economy_pix') ?>"/>
+               <select id="font_size_economy_pix_unit" class="form-select" name="font_size_economy_pix_unit">
+                  <option value="px" <?php echo ( self::get_setting( 'font_size_economy_pix_unit' ) === 'px' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'px', 'woo-custom-installments' ) ?></option>
+                  <option value="em" <?php echo ( self::get_setting( 'font_size_economy_pix_unit' ) === 'em' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'em', 'woo-custom-installments' ) ?></option>
+                  <option value="rem" <?php echo ( self::get_setting( 'font_size_economy_pix_unit' ) === 'rem' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'rem', 'woo-custom-installments' ) ?></option>
+               </select>
+            </div>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Margem superior da economia no Pix', 'woo-custom-installments' ) ?>
+         </th>
+         <td>
+            <div class="input-group">
+               <input type="text" name="margin_top_economy_pix" class="form-control input-control-wd-5 design-parameters" value="<?php echo self::get_setting('margin_top_economy_pix') ?>"/>
+               <select id="margin_top_economy_pix_unit" class="form-select" name="margin_top_economy_pix_unit">
+                  <option value="px" <?php echo ( self::get_setting('margin_top_economy_pix_unit') === 'px' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'px', 'woo-custom-installments' ) ?></option>
+                  <option value="em" <?php echo ( self::get_setting('margin_top_economy_pix_unit') === 'em' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'em', 'woo-custom-installments' ) ?></option>
+                  <option value="rem" <?php echo ( self::get_setting('margin_top_economy_pix_unit') === 'rem' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'rem', 'woo-custom-installments' ) ?></option>
+               </select>
+            </div>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Margem inferior da economia no Pix', 'woo-custom-installments' ) ?>
+         </th>
+         <td>
+            <div class="input-group">
+               <input type="text" name="margin_bottom_economy_pix" class="form-control input-control-wd-5 design-parameters" value="<?php echo self::get_setting('margin_bottom_economy_pix') ?>"/>
+               <select id="margin_bottom_economy_pix_unit" class="form-select" name="margin_bottom_economy_pix_unit">
+                  <option value="px" <?php echo ( self::get_setting('margin_bottom_economy_pix_unit') === 'px' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'px', 'woo-custom-installments' ) ?></option>
+                  <option value="em" <?php echo ( self::get_setting('margin_bottom_economy_pix_unit') === 'em' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'em', 'woo-custom-installments' ) ?></option>
+                  <option value="rem" <?php echo ( self::get_setting('margin_bottom_economy_pix_unit') === 'rem' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'rem', 'woo-custom-installments' ) ?></option>
+               </select>
+            </div>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Arredondamento da economia no Pix', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Raio da borda da economia no Pix.', 'woo-custom-installments' ) ?></span>
+         </th>
+         <td>
+            <div class="input-group">
+               <input type="text" name="border_radius_economy_pix" class="form-control input-control-wd-5 allow-number-and-dots" value="<?php echo self::get_setting('border_radius_economy_pix') ?>"/>
+               <select id="border_radius_economy_pix_unit" class="form-select" name="border_radius_economy_pix_unit">
+                  <option value="px" <?php echo ( self::get_setting('border_radius_economy_pix_unit') === 'px' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'px', 'woo-custom-installments' ) ?></option>
+                  <option value="em" <?php echo ( self::get_setting('border_radius_economy_pix_unit') === 'em' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'em', 'woo-custom-installments' ) ?></option>
+                  <option value="rem" <?php echo ( self::get_setting('border_radius_economy_pix_unit') === 'rem' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'rem', 'woo-custom-installments' ) ?></option>
+               </select>
+            </div>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <?php echo esc_html__( 'Ícone da economia no Pix', 'woo-custom-installments' ) ?>
+            <span class="woo-custom-installments-description"><?php echo esc_html__( 'Informe uma classe de ícone do Font Awesome. Ou deixe em branco para não exibir.', 'woo-custom-installments' ) ?></span><a class="fancy-link mt-2" href="https://fontawesome.com/search?o=r&m=free" target="_blank"><?php echo esc_html__( 'Acessar Font Awesome', 'woo-custom-installments' ) ?></a>
+         </th>
+         <td>
+            <input type="text" name="economy_pix_icon_class" class="form-control input-control-wd-10" placeholder="fa-solid fa-circle-info" value="<?php echo self::get_setting('economy_pix_icon_class') ?>"/>
+         </td>
+      </tr>
+
+      <tr class="container-separator admin-container-ticket"></tr>
+
       <tr class="admin-container-ticket">
          <th>
             <?php echo esc_html__( 'Cor do desconto no boleto bancário', 'woo-custom-installments' ) ?>
@@ -114,7 +254,7 @@ defined('ABSPATH') || exit; ?>
             <div class="color-container input-group">
                <input type="color" name="discount_ticket_color_badge" class="form-control-color" value="<?php echo self::get_setting( 'discount_ticket_color_badge' ) ?>"/>
                <input type="text" class="get-color-selected form-control" value="<?php echo self::get_setting( 'discount_ticket_color_badge' ) ?>"/>
-               <button class="btn btn-outline-secondary btn-icon reset-color tooltip" data-color="#ffba08" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
+               <button class="btn btn-outline-secondary btn-icon reset-color wci-tooltip" data-color="#ffba08" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
                   <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
                </button>
             </div>
@@ -200,7 +340,7 @@ defined('ABSPATH') || exit; ?>
             <div class="color-container input-group">
                <input type="color" name="button_popup_color" class="form-control-color" value="<?php echo self::get_setting( 'button_popup_color' ) ?>"/>
                <input type="text" class="get-color-selected form-control" value="<?php echo self::get_setting( 'button_popup_color' ) ?>"/>
-               <button class="btn btn-outline-secondary btn-icon reset-color tooltip" data-color="#008aff" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
+               <button class="btn btn-outline-secondary btn-icon reset-color wci-tooltip" data-color="#008aff" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
                   <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
                </button>
             </div>
@@ -275,7 +415,7 @@ defined('ABSPATH') || exit; ?>
             <div class="color-container input-group">
             <input type="color" name="best_installments_color" class="form-control-color" value="<?php echo self::get_setting( 'best_installments_color' ) ?>"/>
                <input type="text" class="get-color-selected form-control" value="<?php echo self::get_setting( 'best_installments_color' ) ?>"/>
-               <button class="btn btn-outline-secondary btn-icon reset-color tooltip" data-color="#343a40" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
+               <button class="btn btn-outline-secondary btn-icon reset-color wci-tooltip" data-color="#343a40" data-text="<?php echo esc_html__( 'Redefinir para cor padrão', 'woo-custom-installments' ) ?>">
                   <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
                </button>
             </div>
