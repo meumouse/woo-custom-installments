@@ -1,4 +1,4 @@
-Versão 4.5.0 (09/08/2024)
+Versão 4.5.0 (10/08/2024)
 * Correção de bugs
 * Otimizações
 * Nova arquitetura
@@ -8,6 +8,9 @@ Versão 4.5.0 (09/08/2024)
 * Shortcode adicionado: [woo_custom_installments_get_economy_pix_price] - Para recuperar o valor da economia no Pix
 * Recurso modificado: Ordem dos elementos - Preço do produto adicionado para alteração da ordem de exibição
 * Recurso adicionado: API de transientes para recuperação de opções do plugin
+
+Versão 4.3.1 (20/04/2024)
+* Correção de bugs
 
 Versão 4.3.0 (17/04/2024)
 * Correção de bugs

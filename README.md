@@ -34,6 +34,20 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 4.5.0 (10/08/2024)
+* Correção de bugs
+* Otimizações
+* Nova arquitetura
+* Opção removida: Desativar atualização dinâmica de parcelas em produtos variáveis
+* Shortcode adicionado: [woo_custom_installments_get_price_on_pix] - Para recuperar o valor do produto no Pix
+* Shortcode adicionado: [woo_custom_installments_get_price_on_ticket] - Para recuperar o valor do produto no Boleto bancário
+* Shortcode adicionado: [woo_custom_installments_get_economy_pix_price] - Para recuperar o valor da economia no Pix
+* Recurso modificado: Ordem dos elementos - Preço do produto adicionado para alteração da ordem de exibição
+* Recurso adicionado: API de transientes para recuperação de opções do plugin
+
+Versão 4.3.1 (20/04/2024)
+* Correção de bugs
+
 Versão 4.3.0 (17/04/2024)
 * Correção de bugs
 * Otimizações
