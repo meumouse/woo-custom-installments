@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Class to make requests to a remote server to get plugin versions and updates
  * 
  * @since 3.0.0
- * @version 4.5.0
+ * @version 4.5.1
  * @package MeuMouse.com
  */
 class Updater {
@@ -55,6 +55,7 @@ class Updater {
      * Request on remote server
      * 
      * @since 3.0.0
+     * @version 4.5.1
      * @return array
      */
     public function request() {
@@ -64,14 +65,17 @@ class Updater {
             $remote = get_transient( $this->cache_data_base_key );
     
             if ( false === $remote ) {
-                $remote = wp_remote_get('https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/dist/update-checker.json', [
+                $url = 'https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/dist/update-checker.json';
+                $params = array(
                     'timeout' => 10,
-                    'headers' => [
-                        'Accept' => 'application/json'
-                    ]
-                ]);
+                    'headers' => array(
+                        'Accept' => 'application/json',
+                    ),
+                );
+
+                $remote = wp_remote_get( $url, $params );
     
-                if ( !is_wp_error( $remote ) && 200 === wp_remote_retrieve_response_code( $remote ) ) {
+                if ( ! is_wp_error( $remote ) && 200 === wp_remote_retrieve_response_code( $remote ) ) {
                     $remote_data = json_decode( wp_remote_retrieve_body( $remote ) );
     
                     // set cache remote data for 1 day
@@ -222,6 +226,7 @@ class Updater {
      * Check manual updates
      * 
      * @since 3.0.0
+     * @version 4.5.1
      * @param $plugins
      * @return string
      */
@@ -242,22 +247,22 @@ class Updater {
     
                 // if the current version is lower than that of the remote server
                 if ( version_compare( $current_version, $latest_version, '<' ) ) {
-                    $message = esc_html__('Uma nova versão do plugin Parcelas Customizadas para WooCommerce está disponível.', 'woo-custom-installments');
+                    $message = __('Uma nova versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> está disponível.', 'woo-custom-installments');
                     $class = 'notice-success';
                     ?>
                     <script type="text/javascript">
-                        if ( !sessionStorage.getItem('reload_woo_custom_installments_update') ) {
+                        if ( ! sessionStorage.getItem('reload_woo_custom_installments_update') ) {
                             sessionStorage.setItem('reload_woo_custom_installments_update', 'true');
                             window.location.reload();
                         }
                     </script>
                     <?php
                 } elseif ( version_compare( $current_version, $latest_version, '>=' ) ) {
-                    $message = esc_html__('A versão do plugin Parcelas Customizadas para WooCommerce é a mais recente.', 'woo-custom-installments');
+                    $message = __('A versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> é a mais recente.', 'woo-custom-installments');
                     $class = 'notice-success';
                 }
             } else {
-                $message = esc_html__('Não foi possível verificar atualizações para o plugin Parcelas Customizadas para WooCommerce.', 'woo-custom-installments');
+                $message = __('Não foi possível verificar atualizações para o plugin <strong>Parcelas Customizadas para WooCommerce.</strong>', 'woo-custom-installments');
                 $class = 'notice-error';
             }
 

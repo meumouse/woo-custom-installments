@@ -2,6 +2,7 @@
 
 namespace MeuMouse\Woo_Custom_Installments;
 
+use MeuMouse\Woo_Custom_Installments\Init;
 use MeuMouse\Woo_Custom_Installments\License;
 use MeuMouse\Woo_Custom_Installments\Frontend;
 use MeuMouse\Woo_Custom_Installments\CalCulate_Values;
@@ -13,6 +14,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
+ * @version 4.5.1
  * @package MeuMouse.com
  */
 class Ajax {
@@ -41,6 +43,11 @@ class Ajax {
 
         add_action( 'wp_ajax_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
         add_action( 'wp_ajax_nopriv_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
+
+        if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
+            add_action( 'wp_ajax_get_updated_price_html', array( $this, 'get_updated_price_html_callback' ) );
+            add_action( 'wp_ajax_nopriv_get_updated_price_html', array( $this, 'get_updated_price_html_callback' ) );
+        }
 	}
 
 
@@ -52,7 +59,7 @@ class Ajax {
      * @return void
      */
     public function ajax_save_options_callback() {
-        if ( isset( $_POST['form_data'] ) ) {
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_save_options' ) {
             // Convert serialized data into an array
             parse_str( $_POST['form_data'], $form_data );
 
@@ -134,9 +141,6 @@ class Ajax {
             $saved_options = update_option( 'woo-custom-installments-setting', $updated_options );
 
             if ( $saved_options ) {
-                // Clear the transient cache whenever options are updated
-                delete_transient('woo_custom_installments_settings_cache');
-
                 $response = array(
                     'status' => 'success',
                     'toast_header_title' => esc_html__( 'Salvo com sucesso', 'woo-custom-installments' ),
@@ -356,6 +360,33 @@ class Ajax {
         }
     
         wp_send_json_error( 'Invalid product variation ID' );
+    }
+
+
+    /**
+     * Get HTML price on update variation in AJAX callback
+     * 
+     * @since 4.5.1
+     * @return void
+     */
+    public function get_updated_price_html_callback() {
+        if ( isset( $_POST['product_id'] ) ) {
+            $product_id = intval( $_POST['product_id'] );
+            $product = wc_get_product( $product_id );
+    
+            if ( $product ) {
+                $price_html = apply_filters('woocommerce_get_price_html', $product->get_price_html(), $product);
+    
+                // get price HTML
+                wp_send_json_success( array(
+                    'price_html' => $price_html,
+                ));
+            }
+        }
+    
+        wp_send_json_error( array(
+            'message' => 'Invalid product',
+        ));
     }
 }
 

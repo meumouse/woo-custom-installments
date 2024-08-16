@@ -122,16 +122,20 @@ class Assets {
      * Enqueue script for update price on select variation
      * 
      * @since 2.9.0
-     * @version 4.5.0
+     * @version 4.5.1
      * @return void
      */
     public function update_price_on_select_variation() {
         $product_id = get_the_ID();
         $product = wc_get_product( $product_id );
 
-        if ( $product && ! Helpers::variations_has_same_price( $product ) ) {
+        if ( $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
             if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
                 wp_enqueue_script( 'woo-custom-installments-range-price', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-range-price.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+
+                wp_localize_script('woo-custom-installments-range-price', 'wci_range_params', array(
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                ));                    
             }
 
             wp_enqueue_script( 'accounting-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accounting.min.js', array(), '0.4.2' );

@@ -898,7 +898,7 @@ class License {
 
         $object_query = get_option('woo_custom_installments_license_response_object');
 
-        if ( ! empty( $object_query ) && isset( $object_query->is_valid )  ) {
+        if ( is_object( $object_query ) && ! empty( $object_query ) && isset( $object_query->is_valid )  ) {
             // set response cache for 24h
             set_transient('woo_custom_installments_license_status_cached', true, 86400);
 
@@ -921,7 +921,7 @@ class License {
     public static function license_title() {
         $object_query = get_option('woo_custom_installments_license_response_object');
     
-        if ( ! empty( $object_query ) && isset( $object_query->license_title ) ) {
+        if ( is_object( $object_query ) && ! empty( $object_query ) && isset( $object_query->license_title ) ) {
           return $object_query->license_title;
         } else {
           return esc_html__( 'Não disponível', 'woo-custom-installments' );
@@ -939,11 +939,14 @@ class License {
     public static function license_expire() {
         $object_query = get_option('woo_custom_installments_license_response_object');
 
-        if ( ! empty( $object_query ) && isset( $object_query->expire_date ) ) {
+        if ( is_object( $object_query ) && ! empty( $object_query ) && isset( $object_query->expire_date ) ) {
             if ( $object_query->expire_date === 'No expiry' ) {
                 return esc_html__( 'Nunca expira', 'woo-custom-installments' );
             } else {
                 if ( strtotime( $object_query->expire_date ) < time() ) {
+                    $object_query->is_valid = false;
+
+                    update_option( 'woo_custom_installments_license_response_object', $object_query );
                     update_option( 'woo_custom_installments_license_status', 'invalid' );
                     delete_option('woo_custom_installments_license_response_object');
 
@@ -954,6 +957,31 @@ class License {
                 $date_format = get_option('date_format');
 
                 return date( $date_format, strtotime( $object_query->expire_date ) );
+            }
+        }
+    }
+
+
+    /**
+     * Check if license is expired
+     * 
+     * @since 4.5.1
+     * @return bool
+     */
+    public static function expired_license() {
+        $object_query = get_option('woo_custom_installments_license_response_object');
+
+        if ( is_object( $object_query ) && ! empty( $object_query ) && isset( $object_query->expire_date ) ) {
+            if ( $object_query->expire_date === 'No expiry' ) {
+                return false;
+            } else {
+                if ( strtotime( $object_query->expire_date ) < time() ) {
+                    $object_query->is_valid = false;
+
+                    update_option( 'woo_custom_installments_license_response_object', $object_query );
+
+                    return false;
+                }
             }
         }
     }

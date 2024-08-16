@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 4.5.0
+ * @version 4.5.1
  * @package MeuMouse.com
  */
 class Frontend {
@@ -49,7 +49,6 @@ class Frontend {
       add_filter( 'woocommerce_locate_template', array( $this, 'woo_custom_installments_locate_templates' ), 10, 3 );
 
       add_filter( 'woocommerce_get_price_html', array( $this, 'woo_custom_installments_group' ), 999, 2 );
-      add_action( 'admin_head', array( $this, 'hide_woo_custom_installments_table_price' ) );
 
       add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_discount_on_cart' ) );
 
@@ -125,7 +124,7 @@ class Frontend {
    * Calculate installments
    * 
    * @since 1.0.0
-   * @version 4.5.0
+   * @version 4.5.1
    * @param array $return
    * @param mixed $price | Product price or false
    * @param mixed $product | Product ID or false
@@ -151,7 +150,7 @@ class Frontend {
           return $return;
       }
 
-      if ( ! Helpers::variations_has_same_price( $product ) ) {
+      if ( $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
           $args['price'] = $product->get_variation_price('max');
       }
 
@@ -565,57 +564,35 @@ class Frontend {
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 4.5.0
+   * @version 4.5.1
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
   */
   public function woo_custom_installments_group( $price, $product ) {
-    if ( $product->is_type('simple') || Helpers::variations_has_same_price( $product ) ) {
-      $html = '<div class="woo-custom-installments-group">';
-    } else {
-      $html = '<div class="woo-custom-installments-group variable-range-price">';
+    if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
+        return $price;
     }
 
-    // Show original price before discount info
+    $html = '<div class="woo-custom-installments-group';
+
+    if ( $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+        $html .= ' variable-range-price';
+    }
+
+    $html .= '">';
+
+    // Original price
     $html .= '<span class="woo-custom-installments-price original-price">' . $price . '</span>';
 
-    // discounted price on pix
-    $html .= $this->discount_main_price_single( $product );
+    $html .= $this->discount_main_price_single($product);
+    $html .= $this->discount_ticket_badge($product);
+    $html .= $this->display_best_installments($product, $price);
+    $html .= $this->economy_pix_badge($product);
 
-    // display discounted price on ticket
-    $html .= $this->discount_ticket_badge( $product );
-
-    // display best installment with or without fee
-    $html .= $this->display_best_installments( $product, $price );
-
-    // display economy pix badge
-    $html .= $this->economy_pix_badge( $product );
-
-    // close 'woo-custom-installments-group'
     $html .= '</div>';
 
-    // check if product price is bigger then zero
-    if ( $product->get_price() > 0 ) {
-      return $html;
-    }  else {
-      return $price;
-    }
-  }
-
-
-  /**
-   * Hide installments info on WooCommerce product table on admin page
-   * 
-   * @since 4.3.5
-   * @return void
-   */
-  public function hide_woo_custom_installments_table_price() {
-    echo '<style>
-      .woo-custom-installments-group {
-        display: none;
-      }
-    </style>';
+    return $html;
   }
 
 
@@ -623,12 +600,12 @@ class Frontend {
    * Discount product main price
    * 
    * @since 3.6.0
-   * @version 4.5.0
+   * @version 4.5.1
    * @param object $product | Product object
    * @return string $html
    */
   public function discount_main_price_single( $product ) {
-    if ( Init::get_setting('display_discount_price_hook') === 'hide' ) {
+    if ( Init::get_setting('display_discount_price_hook') === 'hide' || Init::get_setting('enable_all_discount_options') !== 'yes' ) {
       return;
     }
 
@@ -723,12 +700,12 @@ class Frontend {
    * Create a economy Pix badge
    * 
    * @since 3.6.0
-   * @version 4.5.0
+   * @version 4.5.1
    * @param WC_Product $product | Product object
    * @return string
    */
   public function economy_pix_badge( $product ) {
-    if ( Init::get_setting('enable_economy_pix_badge') !== 'yes' ) {
+    if ( Init::get_setting('enable_economy_pix_badge') !== 'yes' || Init::get_setting('enable_all_discount_options') !== 'yes' ) {
       return;
     }
 
@@ -956,7 +933,7 @@ class Frontend {
    * Generate table of installments
    * 
    * @since 2.0.0
-   * @version 4.5.0
+   * @version 4.5.1
    * @return string
   */
   public function generate_installments_table( $installments, $product ) {
@@ -964,7 +941,7 @@ class Frontend {
         return;
     }
 
-    if ( $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+    if ( $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
       $args = array();
       $args['price'] = $product->get_variation_price( 'max' );
       $price = wc_get_price_to_display( $product, $args );
