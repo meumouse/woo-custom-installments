@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 4.5.0
+ * @version 4.5.1
  * @package MeuMouse.com
  */
 class Admin_Options extends Init {
@@ -56,6 +56,9 @@ class Admin_Options extends Init {
       add_action( 'init', array( $this, 'product_price_for_xml_feed' ) );
       add_action( 'save_post_product', array( $this, 'update_discount_on_product_price_on_pix' ) );
     }
+
+    add_action( 'admin_notices', array( $this, 'expire_license_notice' ) );
+    add_action( 'admin_head', array( $this, 'hide_woo_custom_installments_table_price' ) );
   }
 
   /**
@@ -581,6 +584,38 @@ class Admin_Options extends Init {
         update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
       }
     }
+  }
+
+
+  /**
+   * Display admin notice when license is expired
+   * 
+   * @since 4.5.1
+   * @return void
+   */
+  public function expire_license_notice() {
+    if ( License::expired_license() ) {
+      $class = 'notice notice-error is-dismissible';
+			$message = __( 'Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> expirou, realize a renovação para continuar aproveitando os recursos Pro.', 'woo-custom-installments' );
+
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+    }
+  }
+
+
+  /**
+   * Hide installments info on WooCommerce product table on admin page
+   * 
+   * @since 4.3.5
+   * @version 4.5.1
+   * @return void
+   */
+  public function hide_woo_custom_installments_table_price() {
+    echo '<style>
+      .woo-custom-installments-offer {
+        display: none;
+      }
+    </style>';
   }
 }
 
