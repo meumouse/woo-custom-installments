@@ -6,7 +6,7 @@
  * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				4.5.0
+ * Version: 				4.5.1
  * WC requires at least: 	6.0.0
  * WC tested up to: 		9.1.4
  * Requires PHP: 			7.4
@@ -54,7 +54,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '4.5.0';
+		public static $version = '4.5.1';
 
 		/**
 		 * Constructor function.
