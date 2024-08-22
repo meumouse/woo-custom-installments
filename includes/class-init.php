@@ -220,14 +220,7 @@ class Init {
    * @return mixed | string or false
    */
   public static function get_setting( $key ) {
-    // Try to get the options from the transient cache first
-    $options = get_transient('woo_custom_installments_settings_cache');
-
-    // If the transient doesn't exist, retrieve options from the database and set the transient
-    if ( false === $options ) {
-        $options = get_option('woo-custom-installments-setting', array());
-        set_transient('woo_custom_installments_settings_cache', $options, 7 * DAY_IN_SECONDS);
-    }
+    $options = get_option('woo-custom-installments-setting', array());
 
     // check if array key exists and return key
     if ( isset( $options[$key] ) ) {

@@ -308,11 +308,6 @@ table tbody>tr:nth-child(odd)>th {
     background-color: #E9ECEF;
 }
 
-.woo-custom-installments-order-discount-cart {
-    display: flex;
-    justify-content: space-between;
-}
-
 .fa-brands,
 .fab {
     font-family: "Font Awesome 6 Brands" !important;
@@ -365,4 +360,34 @@ table tbody>tr:nth-child(odd)>th {
 
 .size-badge-icon {
     box-shadow: none !important;
+}
+
+.wci-loading-price {
+    overflow: hidden;
+    width: fit-content !important;
+    background: #000;
+    position: relative;
+    -webkit-animation-duration: 1.7s;
+    animation-duration: 1.7s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-name: placeholder_animation;
+    animation-name: placeholder_animation;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px;
+    border-radius: 0.375rem;
+}
+
+@keyframes placeholder_animation {
+    0% {
+        background-position: -650px 0;
+    }
+    100% {
+        background-position: 650px 0;
+    }
 }

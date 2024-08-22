@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 4.5.1
+ * @version 4.5.2
  * @package MeuMouse.com
  */
 class Frontend {
@@ -124,7 +124,7 @@ class Frontend {
    * Calculate installments
    * 
    * @since 1.0.0
-   * @version 4.5.1
+   * @version 4.5.2
    * @param array $return
    * @param mixed $price | Product price or false
    * @param mixed $product | Product ID or false
@@ -139,8 +139,7 @@ class Frontend {
     }
 
     $installments_info = array();
-    $custom_fee = get_option('woo_custom_installments_custom_fee_installments');
-    $custom_fee = maybe_unserialize( $custom_fee );
+    $custom_fee = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments') );
 
     if ( ! $price ) {
       global $product;
@@ -323,7 +322,7 @@ class Frontend {
    * Pix flag
    * 
    * @since 2.0.0
-   * @version 4.5.0
+   * @version 4.5.2
    * @return string
    */
   public function woo_custom_installments_pix_flag() {
@@ -349,18 +348,22 @@ class Frontend {
 
         $pix_flag .= '</div>';
 
-        if ( $economy_pix_active ) {
+        $get_pix_economy_value = self::calculate_pix_economy( $product );
+
+        if ( $economy_pix_active && $get_pix_economy_value > 0 ) {
           $pix_flag .= '<div class="container-badge-icon pix-flag pix-info instant-approval-badge">';
         } else {
           $pix_flag .= '<div class="container-badge-icon pix-flag pix-info">';
         }
 
-        $pix_flag .= '<i class="pix-icon-badge fa-brands fa-pix"></i>';
-        
-        if ( $economy_pix_active ) {
-          $pix_flag .= '<div class="economy-pix-info">';
-            $pix_flag .= $this->economy_pix_badge( $product );
-          $pix_flag .= '</div>';
+        if ( $get_pix_economy_value ) {
+          $pix_flag .= '<i class="pix-icon-badge fa-brands fa-pix"></i>';
+          
+          if ( $economy_pix_active ) {
+            $pix_flag .= '<div class="economy-pix-info">';
+              $pix_flag .= $this->economy_pix_badge( $product );
+            $pix_flag .= '</div>';
+          }
         }
 
         $pix_flag .= '</div>';
@@ -564,12 +567,14 @@ class Frontend {
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 4.5.1
+   * @version 4.5.2
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
   */
   public function woo_custom_installments_group( $price, $product ) {
+    $price = apply_filters( 'woo_custom_installments_adjusted_price', $price, $product );
+
     if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
         return $price;
     }
@@ -585,10 +590,10 @@ class Frontend {
     // Original price
     $html .= '<span class="woo-custom-installments-price original-price">' . $price . '</span>';
 
-    $html .= $this->discount_main_price_single($product);
-    $html .= $this->discount_ticket_badge($product);
-    $html .= $this->display_best_installments($product, $price);
-    $html .= $this->economy_pix_badge($product);
+    $html .= $this->discount_main_price_single( $product );
+    $html .= $this->discount_ticket_badge( $product );
+    $html .= $this->display_best_installments( $product, $price );
+    $html .= $this->economy_pix_badge( $product );
 
     $html .= '</div>';
 
@@ -1195,7 +1200,7 @@ class Frontend {
    * Display discount in cart page
    * 
    * @since 2.6.0
-   * @version 4.5.0
+   * @version 4.5.2
    * @return string
    */
   public static function display_discount_on_cart() {
@@ -1203,38 +1208,13 @@ class Frontend {
         return;
     }
 
-    // Initialize variables for total discount price and total cart value
-    $total_discount_price = 0;
-    $total_cart_value = 0;
+    $total_cart_value = WC()->cart->get_cart_contents_total() + WC()->cart->get_shipping_total();
+    $total_discount = Calculate_Values::calculate_total_discount( WC()->cart, Init::get_setting('include_shipping_value_in_discounts') === 'yes' ); ?>
 
-    // Iterate over cart items and calculate discount for those where discount is not disabled
-    foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-        $product = $cart_item['data'];
-        $quantity = $cart_item['quantity'];
-        $cart_item_total = $product->get_price() * $quantity;
-        $total_cart_value += $cart_item_total;
-
-        $total_discount_price += Calculate_Values::get_discounted_cart_item_price( $product, $quantity );
-    }
-
-    // Check if shipping value should be included in discounts
-    if ( Init::get_setting('include_shipping_value_in_discounts') === 'yes' ) :
-        // Add shipping cost to the total discount price
-        $shipping_cost = WC()->cart->get_shipping_total();
-        $total_discount_price += $shipping_cost;
-    endif; ?>
-
-    <div class="woo-custom-installments-order-discount-cart">
-        <tr>
-            <span class="table-header-text">
-                <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Init::get_setting('text_after_price') ) ); ?></th>
-            </span>
-            <span class="discount-price">
-                <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Init::get_setting('text_after_price') ) ) ); ?>"><?php echo wc_price( $total_discount_price ); ?></td>
-            </span>
-        </tr>
-    </div>
+    <tr>
+      <th><?php echo apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Init::get_setting('text_after_price') ) ); ?></th>
+      <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Init::get_setting('text_after_price') ) ) ); ?>"><?php echo wc_price( $total_cart_value - $total_discount ); ?></td>
+    </tr>
     <?php
   }
-
 }

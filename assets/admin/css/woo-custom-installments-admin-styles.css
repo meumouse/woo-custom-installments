@@ -1431,6 +1431,7 @@ label.custom-file-label:hover {
 .btn-outline-warning:hover {
     color: #000;
     background-color: var(--meumouse-warning);
+    border-color: var(--meumouse-warning);
 }
 
 .btn-outline-warning:hover > .icon {

@@ -97,7 +97,7 @@ defined('ABSPATH') || exit; ?>
 
       <tr class="display-enable-all-discount-options">
          <th>
-            <?php echo esc_html__( 'Desconto no preço do produto', 'woo-custom-installments' ) ?>
+            <?php echo esc_html__( 'Desconto no preço do produto via Pix', 'woo-custom-installments' ) ?>
             <span class="woo-custom-installments-description"><?php echo esc_html__( 'Define qual será o valor de desconto sobre o preço do produto, para . Deixe em branco para não exibir.', 'woo-custom-installments' ) ?></span>
          </th>
          <td>
@@ -106,7 +106,7 @@ defined('ABSPATH') || exit; ?>
                   <?php echo ( self::get_setting('product_price_discount_method') === 'percentage' ) ? '%' : get_woocommerce_currency_symbol(); ?>
                </span>
 
-               <input type="text" id="discount_main_price" class="form-control input-control-wd-5 allow-number-and-dots" name="discount_main_price" placeholder="20" value="<?php echo self::get_setting( 'discount_main_price' ) ?>">
+               <input type="text" id="discount_main_price" class="form-control text-center input-control-wd-5 allow-number-and-dots" name="discount_main_price" placeholder="20" value="<?php echo self::get_setting( 'discount_main_price' ) ?>">
                
                <select id="product_price_discount_method" class="form-select" name="product_price_discount_method">
                   <option value="percentage" <?php echo ( self::get_setting('product_price_discount_method') == 'percentage' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'Percentual (%)', 'woo-custom-installments' ) ?></option>
@@ -128,7 +128,7 @@ defined('ABSPATH') || exit; ?>
                   <?php echo ( self::get_setting('discount_method_ticket') === 'percentage' ) ? '%' : get_woocommerce_currency_symbol(); ?>
                </span>
 
-               <input type="text" id="discount_ticket" class="form-control input-control-wd-5 allow-number-and-dots" name="discount_ticket" placeholder="20" value="<?php echo self::get_setting( 'discount_ticket' ) ?>">
+               <input type="text" id="discount_ticket" class="form-control text-center input-control-wd-5 allow-number-and-dots" name="discount_ticket" placeholder="20" value="<?php echo self::get_setting( 'discount_ticket' ) ?>">
                
                <select id="discount_method_ticket" class="form-select get-discount-method-ticket" name="discount_method_ticket">
                   <option value="percentage" <?php echo ( self::get_setting( 'discount_method_ticket' ) == 'percentage' ) ? "selected=selected" : ""; ?>><?php echo esc_html__( 'Percentual (%)', 'woo-custom-installments' ) ?></option>

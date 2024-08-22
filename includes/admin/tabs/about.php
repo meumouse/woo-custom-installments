@@ -29,13 +29,20 @@ defined('ABSPATH') || exit; ?>
 					<?php endif; ?>
 				</span>
 
-				<?php if ( License::is_valid() ) : ?>
-					<span class="mb-2"><?php echo sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
+				<?php if ( License::is_valid() ) :
+					$license_key = get_option('woo_custom_installments_license_key');
+
+					if ( strpos( $license_key, 'CM-' ) === 0 ) : ?>
+						<span class="mb-2"><?php echo sprintf( esc_html__( 'Assinatura: Clube M - %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
+					<?php else : ?>
+						<span class="mb-2"><?php echo sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
+					<?php endif; ?>
+
 					<span class="mb-2"><?php echo sprintf( esc_html__( 'Licença expira em: %s', 'woo-custom-installments' ), License::license_expire() ) ?></span>
 					
 					<span class="mb-2"><?php echo esc_html__( 'Sua chave de licença:', 'woo-custom-installments' ) ?>
-						<?php if ( ! empty( get_option('woo_custom_installments_license_key') ) ) :
-							echo esc_attr( substr( get_option('woo_custom_installments_license_key'), 0, 9 ) . "XXXXXXXX-XXXXXXXX" . substr( get_option('woo_custom_installments_license_key'), -9 ) );
+						<?php if ( ! empty( $license_key ) ) :
+							echo esc_attr( substr( $license_key, 0, 9 ) . "XXXXXXXX-XXXXXXXX" . substr( $license_key, -9 ) );
 						else :
 							echo esc_html__(  'Não disponível', 'woo-custom-installments' );
 						endif; ?>
@@ -56,7 +63,7 @@ defined('ABSPATH') || exit; ?>
 					<td>
 						<span class="h4 d-block"><?php esc_attr_e( 'Notamos que teve problemas de conexão ao tentar ativar sua licença', 'woo-custom-installments' ); ?></span>
 						<span class="d-block text-muted"><?php esc_attr_e( 'Você pode fazer upload do arquivo .key da licença para fazer sua ativação manual.', 'woo-custom-installments' ); ?></span>
-						<a class="fancy-link mt-2 mb-3" href="https://meumouse.com/minha-conta/licenses/?domain=<?php echo urlencode( License::get_domain() ); ?>&license_key=<?php echo urlencode( get_option('woo_custom_installments_temp_license_key') ); ?>&app_version=<?php echo urlencode( WOO_CUSTOM_INSTALLMENTS_VERSION ); ?>&product_id=1&settings_page=<?php echo urlencode( License::get_domain() . '/wp-admin/admin.php?page=woo-custom-installments' ); ?>" target="_blank"><?php echo esc_html__( 'Clique aqui para gerar seu arquivo de licença', 'woo-custom-installments' ) ?></a>
+						<a class="fancy-link mt-2 mb-3" href="https://meumouse.com/minha-conta/licenses/?domain=<?php echo urlencode( License::get_domain() ); ?>&license_key=<?php echo urlencode( get_option('woo_custom_installments_temp_license_key') ); ?>&app_version=<?php echo urlencode( WOO_CUSTOM_INSTALLMENTS_VERSION ); ?>&product_id=<?php echo ( strpos( get_option('woo_custom_installments_temp_license_key'), 'CM-' ) === 0 ) ? '7' : '1'; ?>&settings_page=<?php echo urlencode( License::get_domain() . '/wp-admin/admin.php?page=woo-custom-installments' ); ?>" target="_blank"><?php echo esc_html__( 'Clique aqui para gerar seu arquivo de licença', 'woo-custom-installments' ) ?></a>
 
 						<div class="drop-file-license-key">
 							<div class="dropzone-license mt-4" id="license_key_zone">
@@ -83,14 +90,17 @@ defined('ABSPATH') || exit; ?>
 				<tr>
 					<td class="d-grid">
 						<a class="btn btn-primary my-4 d-inline-flex w-fit" href="https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins-list&utm_campaign=wci" target="_blank">
-							<svg class="key-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><g> <path d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g></svg>
-							<span><?php _e(  'Comprar licença', 'woo-custom-installments' );?></span>
+							<svg class="icon icon-white me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path d="M13.5 16.5854C13.5 17.4138 12.8284 18.0854 12 18.0854C11.1716 18.0854 10.5 17.4138 10.5 16.5854C10.5 15.7569 11.1716 15.0854 12 15.0854C12.8284 15.0854 13.5 15.7569 13.5 16.5854Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.33367 10C6.20971 9.64407 6.09518 9.27081 5.99836 8.88671C5.69532 7.68444 5.54485 6.29432 5.89748 4.97439C6.26228 3.60888 7.14664 2.39739 8.74323 1.59523C10.3398 0.793061 11.8397 0.806642 13.153 1.32902C14.4225 1.83396 15.448 2.78443 16.2317 3.7452C16.4302 3.98851 16.6166 4.23669 16.7907 4.48449C17.0806 4.89706 16.9784 5.45918 16.5823 5.7713C16.112 6.14195 15.4266 6.01135 15.0768 5.52533C14.9514 5.35112 14.8197 5.17831 14.6819 5.0094C14.0088 4.18414 13.2423 3.51693 12.4138 3.18741C11.6292 2.87533 10.7252 2.83767 9.64112 3.38234C8.55703 3.92702 8.04765 4.6748 7.82971 5.49059C7.5996 6.35195 7.6774 7.36518 7.93771 8.39788C8.07953 8.96054 8.26936 9.50489 8.47135 10H18C19.6569 10 21 11.3431 21 13V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V13C3 11.3431 4.34315 10 6 10H6.33367ZM19 13C19 12.4477 18.5523 12 18 12H6C5.44772 12 5 12.4477 5 13V20C5 20.5523 5.44772 21 6 21H18C18.5523 21 19 20.5523 19 20V13Z"></path></g></svg>	
+							<span><?php echo esc_html__(  'Comprar licença', 'woo-custom-installments' );?></span>	
 						</a>
+
 						<span class="bg-translucent-success fw-medium rounded-2 px-3 py-2 mb-4 d-flex align-items-center w-fit">
 							<svg class="icon icon-success me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path></svg>
 							<?php echo esc_html__( 'Informe sua licença abaixo para desbloquear todos os recursos.', 'woo-custom-installments' ) ?>
 						</span>
+
 						<span class="form-label d-block mt-2"><?php echo esc_html__( 'Código da licença', 'woo-custom-installments' ) ?></span>
+						
 						<div class="input-group" style="max-width: 550px;">
 							<input class="form-control" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="woo_custom_installments_license_key" name="woo_custom_installments_license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
 							<button type="submit" id="woo_custom_installments_active_license" class="btn btn-primary button-loading" name="woo_custom_installments_active_license"><?php echo esc_html__( 'Ativar licença', 'woo-custom-installments' ); ?></button>

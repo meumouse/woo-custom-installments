@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-15 20:02+0000\n"
-"PO-Revision-Date: 2024-08-10 16:29+0000\n"
+"PO-Revision-Date: 2024-08-22 22:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
 "Language: es_ES\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "%s juros"
 msgstr "%s interés"
 
-#: includes/classes/class-discounts.php:131
-#: includes/classes/class-discounts.php:157
+#: includes/classes/class-discounts.php:83
+#: includes/classes/class-discounts.php:90
 #, php-format
 msgid "%s off"
 msgstr "%s de descuento"
@@ -89,26 +89,30 @@ msgstr "El color del texto y borde se obtendrá del color introducido."
 msgid "A extensão cURL está faltando."
 msgstr "Falta la extensión cURL."
 
-#: includes/classes/class-ajax.php:251
+#: includes/classes/class-ajax.php:255
 msgid "A licença foi desativada"
 msgstr "La licencia ha sido desactivada"
 
-#: includes/classes/class-license.php:1092
+#: includes/classes/class-license.php:1120
 msgid "A licença informada não é permitida para este produto."
 msgstr "La licencia indicada no está permitida para este producto."
 
-#: includes/classes/class-updater.php:256
+#: includes/classes/class-updater.php:261
+#| msgid ""
+#| "A versão do plugin Parcelas Customizadas para WooCommerce é a mais "
+#| "recente."
 msgid ""
-"A versão do plugin Parcelas Customizadas para WooCommerce é a mais recente."
+"A versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> é "
+"a mais recente."
 msgstr ""
-"La versión del complemento Custom Parcels para WooCommerce es la más "
-"reciente."
+"La versión del complemento <strong>Cuotas personalizadas para "
+"WooCommerce</strong> es la más reciente."
 
-#: includes/admin/tabs/about.php:167
+#: includes/admin/tabs/about.php:177
 msgid "A versão mínima exigida do PHP é 7.2"
 msgstr "La versión mínima requerida de PHP es 7.2"
 
-#: includes/admin/tabs/about.php:132
+#: includes/admin/tabs/about.php:142
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr "La versión mínima requerida de WooCommerce es 6.0"
 
@@ -124,7 +128,7 @@ msgstr "Agregar texto personalizado después del precio del producto"
 msgid "Antes do carrinho (Padrão)"
 msgstr "Antes del carrito (predeterminado)"
 
-#: includes/admin/tabs/about.php:380
+#: includes/admin/tabs/about.php:390
 msgid ""
 "Ao redefinir as configurações do plugin, todas opções serão removidas, "
 "voltando ao estado original. Sua licença não será removida."
@@ -146,21 +150,21 @@ msgstr "Solo página de producto individual"
 msgid "Apenas página do produto individual (Padrão)"
 msgstr "Solo página de producto individual (predeterminado)"
 
-#: includes/admin/class-admin-options.php:306
+#: includes/admin/class-admin-options.php:309
 msgid "Aplicar desconto para o gateway"
 msgstr "Aplicar descuento a la puerta de enlace"
 
-#: includes/classes/class-frontend.php:348
-#: includes/classes/class-frontend.php:466
-#: includes/classes/class-frontend.php:496
+#: includes/classes/class-frontend.php:346
+#: includes/classes/class-frontend.php:468
+#: includes/classes/class-frontend.php:498
 msgid "Aprovação imediata"
 msgstr "Aprobación inmediata"
 
-#: includes/classes/class-ajax.php:210
+#: includes/classes/class-ajax.php:214
 msgid "Arquivo enviado com sucesso."
 msgstr "Archivo enviado exitosamente."
 
-#: includes/classes/class-ajax.php:190
+#: includes/classes/class-ajax.php:194
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr "Archivo no válido. El archivo debe tener extensión .key"
 
@@ -180,23 +184,28 @@ msgstr "Redondeo del descuento en el comprobante bancario"
 msgid "Arredondamento do preço com desconto"
 msgstr "Redondeo de precios con descuento"
 
-#: includes/classes/class-assets.php:58
+#: includes/classes/class-assets.php:63
 msgid "As alterações não serão salvas."
 msgstr "Los cambios no se guardarán."
 
-#: includes/classes/class-ajax.php:143
+#: includes/classes/class-ajax.php:147
 msgid "As configurações foram atualizadas!"
 msgstr "¡La configuración ha sido actualizada!"
 
-#: includes/classes/class-ajax.php:311
+#: includes/classes/class-ajax.php:315
 msgid "As opções foram redefinidas"
 msgstr "Las opciones se han restablecido"
 
-#: includes/classes/class-ajax.php:312
+#: includes/classes/class-ajax.php:316
 msgid "As opções foram redefinidas com sucesso!"
 msgstr "¡Las opciones se han restablecido correctamente!"
 
-#: includes/admin/tabs/about.php:378
+#: includes/admin/tabs/about.php:36
+#, php-format
+msgid "Assinatura: Clube M - %s"
+msgstr "Abono: Clube M - %s"
+
+#: includes/admin/tabs/about.php:388
 msgid "Atenção! Você realmente deseja redefinir as configurações?"
 msgstr "¡Atención! ¿Realmente quieres restablecer la configuración?"
 
@@ -269,11 +278,11 @@ msgstr "Activar bandera de Visa"
 msgid "Ativar cálculo de desconto para cada unidade do produto elegível"
 msgstr "Activar el cálculo de descuento para cada unidad de producto elegible"
 
-#: includes/admin/class-admin-options.php:271
+#: includes/admin/class-admin-options.php:274
 msgid "Ativar desconto do produto"
 msgstr "Activar descuento de producto"
 
-#: includes/admin/class-admin-options.php:341
+#: includes/admin/class-admin-options.php:344
 msgid "Ativar desconto por quantidade"
 msgstr "Activar descuento por cantidad"
 
@@ -305,7 +314,7 @@ msgstr "Activar funciones de descuento"
 msgid "Ativar funções de juros"
 msgstr "Activar funciones de interés"
 
-#: includes/admin/tabs/about.php:96
+#: includes/admin/tabs/about.php:106
 msgid "Ativar licença"
 msgstr "Activar licencia"
 
@@ -429,7 +438,7 @@ msgstr "Actívelo para mostrar el método de pago con tarjeta de débito."
 msgid "Ative para exibir a forma de pagamento Pix."
 msgstr "Actívelo para mostrar el método de pago Pix."
 
-#: includes/admin/tabs/about.php:119
+#: includes/admin/tabs/about.php:129
 msgid "Ativo"
 msgstr "Activo"
 
@@ -437,7 +446,7 @@ msgstr "Activo"
 msgid "Básicos"
 msgstr "Lo esencial"
 
-#: includes/classes/class-ajax.php:283
+#: includes/classes/class-ajax.php:287
 msgid "Cache de ativação limpo"
 msgstr "Borrar caché de activación"
 
@@ -449,11 +458,11 @@ msgstr "Centro de ayuda"
 msgid "Centralizar melhor parcela e desconto na grade de produtos"
 msgstr "Centralizar mejores cuotas y descuentos en la gama de productos"
 
-#: includes/admin/tabs/about.php:59
+#: includes/admin/tabs/about.php:66
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr "Haga clic aquí para generar su archivo de licencia"
 
-#: includes/classes/class-frontend.php:388
+#: includes/classes/class-frontend.php:390
 msgid "Cobranças:"
 msgstr "Cargos:"
 
@@ -461,11 +470,11 @@ msgstr "Cargos:"
 msgid "Como converter fator de multiplicação para juros."
 msgstr "Cómo convertir factor de multiplicación a interés."
 
-#: includes/admin/tabs/about.php:87
+#: includes/admin/tabs/about.php:94
 msgid "Comprar licença"
 msgstr "Compra licencia"
 
-#: includes/classes/class-license.php:1008
+#: includes/classes/class-license.php:1036
 msgid "Comprar uma licença"
 msgstr "Comprar una licencia"
 
@@ -526,7 +535,7 @@ msgid ""
 msgstr ""
 "Color a utilizar en la información sobre la mejor cuota con o sin interés."
 
-#: includes/admin/tabs/about.php:93
+#: includes/admin/tabs/about.php:102
 msgid "Código da licença"
 msgstr "Código de licencia"
 
@@ -580,23 +589,23 @@ msgstr "Déjelo en blanco para no mostrarlo."
 msgid "Depois do carrinho"
 msgstr "Despues del carro"
 
-#: includes/admin/tabs/about.php:119
+#: includes/admin/tabs/about.php:129
 msgid "Desativado"
 msgstr "Desactivado"
 
-#: includes/admin/class-admin-options.php:101
-#: includes/admin/class-admin-options.php:125
-#: includes/admin/class-admin-options.php:211
+#: includes/admin/class-admin-options.php:104
+#: includes/admin/class-admin-options.php:128
+#: includes/admin/class-admin-options.php:214
 msgid "Desativar a exibição de parcelas neste produto"
 msgstr "Desactivar la visualización de cuotas en este producto."
 
-#: includes/admin/class-admin-options.php:104
-#: includes/admin/class-admin-options.php:129
-#: includes/admin/class-admin-options.php:218
+#: includes/admin/class-admin-options.php:107
+#: includes/admin/class-admin-options.php:132
+#: includes/admin/class-admin-options.php:221
 msgid "Desativar descontos neste produto"
 msgstr "Desactivar descuentos en este producto"
 
-#: includes/admin/tabs/about.php:50
+#: includes/admin/tabs/about.php:57
 msgid "Desativar licença"
 msgstr "Desactivar licencia"
 
@@ -609,15 +618,16 @@ msgid "Desconto no Pix"
 msgstr "Descuento en Pix"
 
 #: includes/admin/tabs/discounts.php:100
-msgid "Desconto no preço do produto"
-msgstr "Descuento en el precio del producto."
+#| msgid "Desconto no preço do produto"
+msgid "Desconto no preço do produto via Pix"
+msgstr "Descuento en el precio del producto a través de Pix"
 
-#: includes/classes/class-discounts.php:81
+#: includes/classes/class-discounts.php:236
 #, php-format
 msgid "Desconto para %s"
 msgstr "Descuento para %s"
 
-#: includes/classes/class-discounts.php:78
+#: includes/classes/class-discounts.php:233
 #, php-format
 msgid "Desconto para %s (%s off)"
 msgstr "Descuento para %s (%s de descuento)"
@@ -626,8 +636,7 @@ msgstr "Descuento para %s (%s de descuento)"
 msgid "Desconto por método de pagamento"
 msgstr "Descuento por método de pago"
 
-#: includes/classes/class-discounts.php:375
-#: includes/classes/class-discounts.php:377
+#: includes/classes/class-discounts.php:191
 msgid "Desconto por quantidade"
 msgstr "Descuento por cantidad"
 
@@ -635,7 +644,7 @@ msgstr "Descuento por cantidad"
 msgid "Descontos"
 msgstr "Descuentos"
 
-#: includes/admin/tabs/about.php:348
+#: includes/admin/tabs/about.php:358
 msgid "Desligado"
 msgstr "Apagado"
 
@@ -643,7 +652,7 @@ msgstr "Apagado"
 msgid "Documentação"
 msgstr "Documentación"
 
-#: includes/admin/tabs/about.php:178
+#: includes/admin/tabs/about.php:188
 msgid "DOMDocument:"
 msgstr "Documento DOM:"
 
@@ -663,11 +672,11 @@ msgstr "Ahorros en Pix"
 msgid "em"
 msgstr "em"
 
-#: includes/classes/class-ajax.php:166
+#: includes/classes/class-ajax.php:170
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr "Error al cargar el archivo. La acción no se activó correctamente."
 
-#: includes/classes/class-ajax.php:177
+#: includes/classes/class-ajax.php:181
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr "Error al cargar el archivo. El archivo no fue enviado."
 
@@ -686,7 +695,7 @@ msgstr "Error de cURL: %s"
 msgid "Erro JSON: %s"
 msgstr "Error JSON: %s"
 
-#: includes/classes/class-license.php:1000
+#: includes/classes/class-license.php:1028
 msgid "Este recurso está disponível na versão Pro"
 msgstr "Esta función está disponible en la versión Pro."
 
@@ -715,11 +724,11 @@ msgstr "Mostrar precio con descuento en datos estructurados (Schema.org)"
 msgid "Exibir preço com desconto no carrinho"
 msgstr "Mostrar precio con descuento en el carrito"
 
-#: includes/admin/tabs/about.php:194
+#: includes/admin/tabs/about.php:204
 msgid "Extensão cURL:"
 msgstr "Extensión cURL:"
 
-#: includes/admin/tabs/about.php:213
+#: includes/admin/tabs/about.php:223
 msgid "Extensão OpenSSL:"
 msgstr "Extensión OpenSSL:"
 
@@ -739,7 +748,7 @@ msgstr "Cerrar"
 msgid "Formas de pagamento"
 msgstr "Formas de pago"
 
-#: includes/admin/tabs/about.php:344
+#: includes/admin/tabs/about.php:354
 msgid "Função PHP \"file_get_content\":"
 msgstr "Función PHP \"file_get_content\":"
 
@@ -782,7 +791,7 @@ msgstr ""
 "Introduce la cantidad mínima del producto para ofrecer un descuento en el "
 "carrito."
 
-#: includes/admin/tabs/about.php:91
+#: includes/admin/tabs/about.php:99
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr ""
 "Ingrese su licencia a continuación para desbloquear todas las funciones."
@@ -812,11 +821,11 @@ msgstr ""
 "Ingrese una tasa de interés por método de pago que se agregará al finalizar "
 "la compra."
 
-#: includes/admin/class-admin-options.php:386
+#: includes/admin/class-admin-options.php:389
 msgid "Insira a quantidade mínima de produtos para oferecer o desconto."
 msgstr "Ingresa la cantidad mínima de productos para ofrecer el descuento."
 
-#: includes/admin/class-admin-options.php:301
+#: includes/admin/class-admin-options.php:304
 msgid ""
 "Insira o valor do desconto para o preço do produto. Obs.: Desconto para "
 "pagamento no Pix"
@@ -824,7 +833,7 @@ msgstr ""
 "Ingrese el monto del descuento para el precio del producto. Nota: Descuento "
 "por pago en Pix"
 
-#: includes/admin/class-admin-options.php:371
+#: includes/admin/class-admin-options.php:374
 msgid "Insira o valor do desconto."
 msgstr "Ingrese el monto del descuento."
 
@@ -850,40 +859,40 @@ msgstr "Interés para %s (%s)"
 msgid "Juros por método de pagamento"
 msgstr "Intereses por método de pago"
 
-#: includes/classes/class-license.php:1006
+#: includes/classes/class-license.php:1034
 msgid "Já tenho uma licença"
 msgstr "Ya tengo una licencia"
 
-#: includes/classes/class-license.php:1029
+#: includes/classes/class-license.php:1057
 msgid "Licença ativada com sucesso!"
 msgstr "¡Licencia activada exitosamente!"
 
-#: includes/classes/class-ajax.php:211 includes/classes/class-ajax.php:212
+#: includes/classes/class-ajax.php:215 includes/classes/class-ajax.php:216
 msgid "Licença enviada e decriptografada com sucesso."
 msgstr "Licencia enviada y cifrada correctamente."
 
-#: includes/admin/tabs/about.php:34
+#: includes/admin/tabs/about.php:41
 #, php-format
 msgid "Licença expira em: %s"
 msgstr "La licencia vence el: %s"
 
-#: includes/classes/class-license.php:950
+#: includes/classes/class-license.php:953
 msgid "Licença expirada"
 msgstr "Licencia caducada"
 
-#: includes/admin/tabs/about.php:352
+#: includes/admin/tabs/about.php:362
 msgid "Ligado"
 msgstr "Conectado"
 
-#: includes/admin/tabs/about.php:302
+#: includes/admin/tabs/about.php:312
 msgid "Limite de memória do PHP:"
 msgstr "Límite de memoria PHP:"
 
-#: includes/admin/tabs/about.php:258
+#: includes/admin/tabs/about.php:268
 msgid "Limite de tempo do PHP:"
 msgstr "Límite de tiempo de PHP:"
 
-#: includes/admin/tabs/about.php:397
+#: includes/admin/tabs/about.php:407
 msgid "Limpar cache de ativação"
 msgstr "Borrar caché de activación"
 
@@ -968,7 +977,7 @@ msgstr "La mejor cuota sin intereses"
 msgid "MeuMouse.com"
 msgstr "MeuMouse.com"
 
-#: includes/admin/tabs/about.php:118
+#: includes/admin/tabs/about.php:128
 msgid "Modo de depuração do WordPress:"
 msgstr "Modo de depuración de WordPress:"
 
@@ -998,8 +1007,8 @@ msgstr "Mostrar información de descuento en el método de pago"
 msgid "Mostrar informação de economia no Pix"
 msgstr "Mostrar información de ahorro en Pix"
 
-#: includes/admin/class-admin-options.php:280
-#: includes/admin/class-admin-options.php:350
+#: includes/admin/class-admin-options.php:283
+#: includes/admin/class-admin-options.php:353
 msgid "Método de desconto"
 msgstr "Método de descuento"
 
@@ -1027,7 +1036,7 @@ msgstr "No se informó ninguna licencia"
 msgid "Normal"
 msgstr "Normal"
 
-#: includes/admin/tabs/about.php:57
+#: includes/admin/tabs/about.php:64
 msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
 msgstr ""
 "Hemos notado que tuvo problemas de conexión al intentar activar su licencia."
@@ -1036,32 +1045,35 @@ msgstr ""
 msgid "Nunca expira"
 msgstr "Nunca expira"
 
-#: includes/admin/tabs/about.php:115 includes/admin/tabs/about.php:183
-#: includes/admin/tabs/about.php:199 includes/admin/tabs/about.php:218
+#: includes/admin/tabs/about.php:125 includes/admin/tabs/about.php:193
+#: includes/admin/tabs/about.php:209 includes/admin/tabs/about.php:228
 msgid "Não"
 msgstr "No"
 
-#: includes/classes/class-license.php:927 includes/admin/tabs/about.php:40
+#: includes/classes/class-license.php:927 includes/admin/tabs/about.php:47
 msgid "Não disponível"
 msgstr "No disponible"
 
-#: includes/classes/class-ajax.php:218
+#: includes/classes/class-ajax.php:222
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr "No se puede descifrar el archivo de licencia."
 
-#: includes/classes/class-updater.php:260
+#: includes/classes/class-updater.php:265
+#| msgid ""
+#| "Não foi possível verificar atualizações para o plugin Parcelas "
+#| "Customizadas para WooCommerce."
 msgid ""
-"Não foi possível verificar atualizações para o plugin Parcelas Customizadas "
-"para WooCommerce."
+"Não foi possível verificar atualizações para o plugin <strong>Parcelas "
+"Customizadas para WooCommerce.</strong>"
 msgstr ""
-"No se pueden buscar actualizaciones para el complemento Paquetes "
-"personalizados para WooCommerce."
+"No se pueden buscar actualizaciones para el complemento <strong>Cuotas "
+"personalizadas para WooCommerce.</strong>."
 
-#: includes/classes/class-ajax.php:284
+#: includes/classes/class-ajax.php:288
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr "¡El caché de activación se ha borrado exitosamente!"
 
-#: includes/classes/class-license.php:1072
+#: includes/classes/class-license.php:1100
 msgid "O domínio de ativação não é permitido."
 msgstr "No se permite el dominio de activación."
 
@@ -1094,11 +1106,11 @@ msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr ""
 "PagSeguro utiliza un factor de multiplicación para calcular el interés."
 
-#: includes/classes/class-ajax.php:258
+#: includes/classes/class-ajax.php:262
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr "Se produjo un error al desactivar su licencia."
 
-#: includes/classes/class-ajax.php:318
+#: includes/classes/class-ajax.php:322
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr "Se produjo un error al restablecer la configuración."
 
@@ -1115,16 +1127,16 @@ msgstr ""
 msgid "Ocultar"
 msgstr "Esconder"
 
-#: includes/classes/class-assets.php:57
+#: includes/classes/class-assets.php:62
 msgid "Ops! Não há conexão com a internet"
 msgstr "¡Ups! No hay conexión a internet"
 
-#: includes/classes/class-ajax.php:165 includes/classes/class-ajax.php:176
-#: includes/classes/class-ajax.php:189 includes/classes/class-ajax.php:217
-#: includes/classes/class-ajax.php:257 includes/classes/class-ajax.php:317
-#: includes/classes/class-license.php:1049
-#: includes/classes/class-license.php:1069
-#: includes/classes/class-license.php:1089
+#: includes/classes/class-ajax.php:169 includes/classes/class-ajax.php:180
+#: includes/classes/class-ajax.php:193 includes/classes/class-ajax.php:221
+#: includes/classes/class-ajax.php:261 includes/classes/class-ajax.php:321
+#: includes/classes/class-license.php:1077
+#: includes/classes/class-license.php:1097
+#: includes/classes/class-license.php:1117
 msgid "Ops! Ocorreu um erro."
 msgstr "¡Ups! Ocurrio un error."
 
@@ -1178,13 +1190,13 @@ msgid "Para todos os produtos"
 msgstr "Para todos los productos"
 
 #. page title
-#: includes/admin/class-admin-options.php:72
+#: includes/admin/class-admin-options.php:75
 msgid "Parcelas"
 msgstr "Cuotas"
 
 #. parent page slug
 #. Name of the plugin
-#: includes/admin/class-admin-options.php:71 includes/admin/settings.php:9
+#: includes/admin/class-admin-options.php:74 includes/admin/settings.php:9
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr "Cuotas personalizadas para WooCommerce"
 
@@ -1192,8 +1204,8 @@ msgstr "Cuotas personalizadas para WooCommerce"
 msgid "Pequeno"
 msgstr "Pequeño"
 
-#: includes/admin/class-admin-options.php:283
-#: includes/admin/class-admin-options.php:353
+#: includes/admin/class-admin-options.php:286
+#: includes/admin/class-admin-options.php:356
 #: includes/admin/tabs/discounts.php:112 includes/admin/tabs/discounts.php:134
 #: includes/admin/tabs/discounts.php:233 includes/admin/tabs/discounts.php:333
 #: includes/admin/tabs/interests.php:91
@@ -1205,7 +1217,7 @@ msgid "Percentual para cálculo de juros das parcelas de forma progressiva."
 msgstr ""
 "Porcentaje para el cálculo del interés de las cuotas de forma progresiva."
 
-#: includes/classes/class-frontend.php:345
+#: includes/classes/class-frontend.php:343
 #, php-format
 msgid "Pix: %s"
 msgstr "Pix: %s"
@@ -1226,7 +1238,7 @@ msgid "Preço do produto"
 msgstr "Precio del producto"
 
 #: includes/admin/settings.php:14 includes/admin/tabs/about.php:26
-#: includes/admin/tabs/about.php:147 includes/admin/tabs/discounts.php:40
+#: includes/admin/tabs/about.php:157 includes/admin/tabs/discounts.php:40
 #: includes/admin/tabs/discounts.php:60 includes/admin/tabs/discounts.php:82
 #: includes/admin/tabs/discounts.php:150 includes/admin/tabs/discounts.php:181
 #: includes/admin/tabs/discounts.php:249 includes/admin/tabs/discounts.php:276
@@ -1286,7 +1298,7 @@ msgstr "Número máximo de cuotas"
 msgid "Quantidade máxima de parcelas sem juros"
 msgstr "Número máximo de cuotas sin intereses"
 
-#: includes/admin/class-admin-options.php:379
+#: includes/admin/class-admin-options.php:382
 msgid "Quantidade mínima para desconto"
 msgstr "Cantidad mínima para descuento"
 
@@ -1314,7 +1326,7 @@ msgstr "Radio del borde de la insignia del precio de descuento."
 msgid "Recursos:"
 msgstr "Recursos:"
 
-#: includes/admin/tabs/about.php:365
+#: includes/admin/tabs/about.php:375
 msgid "Redefinir configurações"
 msgstr "Restablecer configuración"
 
@@ -1340,7 +1352,7 @@ msgstr "rem"
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr "Eliminar rango de precios en productos variables"
 
-#: includes/admin/tabs/about.php:396
+#: includes/admin/tabs/about.php:406
 msgid "Reportar problemas"
 msgstr "Informar problemas"
 
@@ -1357,7 +1369,7 @@ msgstr "Respuesta desconocida"
 msgid "Resposta vazia."
 msgstr "Respuesta vacía."
 
-#: includes/classes/class-ajax.php:142
+#: includes/classes/class-ajax.php:146
 msgid "Salvo com sucesso"
 msgstr "Guardado exitosamente"
 
@@ -1522,11 +1534,11 @@ msgstr "Seleccione dónde se mostrará el precio con descuento en Pix."
 msgid "Selecione onde o preço com desconto será exibido."
 msgstr "Seleccione dónde se mostrará el precio con descuento."
 
-#: includes/admin/class-admin-options.php:312
+#: includes/admin/class-admin-options.php:315
 msgid "Selecione um gateway"
 msgstr "Seleccione una puerta de enlace"
 
-#: includes/admin/tabs/about.php:157
+#: includes/admin/tabs/about.php:167
 msgid "Servidor"
 msgstr "Servidor"
 
@@ -1542,12 +1554,12 @@ msgstr "Shortcode"
 msgid "Shortcode: "
 msgstr "Código corto:"
 
-#: includes/admin/tabs/about.php:115 includes/admin/tabs/about.php:187
-#: includes/admin/tabs/about.php:203 includes/admin/tabs/about.php:222
+#: includes/admin/tabs/about.php:125 includes/admin/tabs/about.php:197
+#: includes/admin/tabs/about.php:213 includes/admin/tabs/about.php:232
 msgid "Sim"
 msgstr "Sí"
 
-#: includes/admin/tabs/about.php:384
+#: includes/admin/tabs/about.php:394
 msgid "Sim, desejo redefinir"
 msgstr "Sí, quiero restablecer"
 
@@ -1559,13 +1571,21 @@ msgstr "Acerca de"
 msgid "Status da licença:"
 msgstr "Estado de la licencia:"
 
-#: includes/admin/tabs/about.php:107
+#: includes/admin/tabs/about.php:117
 msgid "Status do sistema:"
 msgstr "Estado del sistema:"
 
-#: includes/admin/tabs/about.php:36
+#: includes/admin/tabs/about.php:43
 msgid "Sua chave de licença:"
 msgstr "Su clave de licencia:"
+
+#: includes/admin/class-admin-options.php:599
+msgid ""
+"Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> "
+"expirou, realize a renovação para continuar aproveitando os recursos Pro."
+msgstr ""
+"Su licencia de <strong>Cuotas personalizadas para WooCommerce</strong> ha "
+"caducado, renuévela para seguir disfrutando de las funciones Pro."
 
 #: includes/admin/tabs/design.php:173
 msgid "Tamanho da fonte da economia no Pix"
@@ -1583,11 +1603,11 @@ msgstr "Tamaño de fuente del descuento en el comprobante bancario"
 msgid "Tamanho da fonte do preço com desconto"
 msgstr "Tamaño de fuente de precio con descuento"
 
-#: includes/admin/tabs/about.php:236
+#: includes/admin/tabs/about.php:246
 msgid "Tamanho máximo da postagem do PHP:"
 msgstr "Tamaño máximo de publicación de PHP:"
 
-#: includes/admin/tabs/about.php:324
+#: includes/admin/tabs/about.php:334
 msgid "Tamanho máximo de envio do PHP:"
 msgstr "Tamaño máximo de envío de PHP:"
 
@@ -1595,7 +1615,7 @@ msgstr "Tamaño máximo de envío de PHP:"
 msgid "Taxa de juros padrão"
 msgstr "Tasa de interés estándar"
 
-#: includes/classes/class-assets.php:55
+#: includes/classes/class-assets.php:60
 msgid "Tem certeza que deseja desativar sua licença?"
 msgstr "¿Está seguro de que desea desactivar su licencia?"
 
@@ -1720,7 +1740,7 @@ msgstr "Texto que se utilizará como título del contenedor de transferencia."
 msgid "Textos"
 msgstr "Textos"
 
-#: includes/admin/tabs/about.php:33
+#: includes/admin/tabs/about.php:38
 #, php-format
 #| msgid "Tipo da licença:"
 msgid "Tipo da licença: %s"
@@ -1730,16 +1750,16 @@ msgstr "Tipo de licencia: %s"
 msgid "Tipo de exibição das parcelas"
 msgstr "Tipo de visualización de cuotas"
 
-#: includes/classes/class-license.php:1032
+#: includes/classes/class-license.php:1060
 msgid "Todos os recursos da versão Pro agora estão ativos!"
 msgstr "¡Todas las funciones de la versión Pro ahora están activas!"
 
-#: includes/classes/class-ajax.php:252
+#: includes/classes/class-ajax.php:256
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr "¡Todas las funciones de la versión Pro ahora están deshabilitadas!"
 
-#: includes/classes/class-frontend.php:1253
-#: includes/classes/class-frontend.php:1256
+#: includes/classes/class-frontend.php:1215
+#: includes/classes/class-frontend.php:1216
 #, php-format
 msgid "Total %s"
 msgstr "Total %s"
@@ -1776,7 +1796,7 @@ msgstr "Título del contenedor de la tarjeta de débito"
 msgid "Título do container de transferências"
 msgstr "Título del contenedor de transferencia"
 
-#: includes/classes/class-license.php:1002
+#: includes/classes/class-license.php:1030
 msgid ""
 "Uma licença permite que você desbloqueie todos os recursos Pro que o plugin "
 "tem a oferecer."
@@ -1784,13 +1804,16 @@ msgstr ""
 "Una licencia le permite desbloquear todas las funciones Pro que ofrece el "
 "complemento."
 
-#: includes/classes/class-updater.php:245
+#: includes/classes/class-updater.php:250
+#| msgid ""
+#| "Uma nova versão do plugin Parcelas Customizadas para WooCommerce está "
+#| "disponível."
 msgid ""
-"Uma nova versão do plugin Parcelas Customizadas para WooCommerce está "
-"disponível."
+"Uma nova versão do plugin <strong>Parcelas Customizadas para "
+"WooCommerce</strong> está disponível."
 msgstr ""
-"Está disponible una nueva versión del complemento Cuotas personalizadas para "
-"WooCommerce."
+"Está disponible una nueva versión del complemento <strong>Cuotas "
+"personalizadas para WooCommerce</strong>."
 
 #: includes/admin/tabs/texts.php:179 includes/admin/tabs/texts.php:204
 #: includes/admin/tabs/texts.php:229
@@ -1801,8 +1824,8 @@ msgstr "Utilice las variables:"
 msgid "Valor"
 msgstr "Valor"
 
-#: includes/admin/class-admin-options.php:293
-#: includes/admin/class-admin-options.php:363
+#: includes/admin/class-admin-options.php:296
+#: includes/admin/class-admin-options.php:366
 msgid "Valor do desconto"
 msgstr "Importe de descuento"
 
@@ -1810,8 +1833,8 @@ msgstr "Importe de descuento"
 msgid "Valor do desconto por quantidade"
 msgstr "Cantidad de descuento por cantidad"
 
-#: includes/admin/class-admin-options.php:284
-#: includes/admin/class-admin-options.php:354
+#: includes/admin/class-admin-options.php:287
+#: includes/admin/class-admin-options.php:357
 #: includes/admin/tabs/discounts.php:113 includes/admin/tabs/discounts.php:135
 #: includes/admin/tabs/discounts.php:234 includes/admin/tabs/discounts.php:332
 #, php-format
@@ -1826,52 +1849,52 @@ msgstr "Valor fijo (R$)"
 msgid "Valor mínimo da parcela"
 msgstr "Monto mínimo de la cuota"
 
-#: includes/admin/tabs/about.php:289
+#: includes/admin/tabs/about.php:299
 msgid "Valor mínimo recomendado é 10000"
 msgstr "El valor mínimo recomendado es 10000"
 
-#: includes/admin/tabs/about.php:311
+#: includes/admin/tabs/about.php:321
 msgid "Valor mínimo recomendado é 128M"
 msgstr "El valor mínimo recomendado es 128M"
 
-#: includes/admin/tabs/about.php:267
+#: includes/admin/tabs/about.php:277
 msgid "Valor mínimo recomendado é 180"
 msgstr "El valor mínimo recomendado es 180"
 
-#: includes/admin/tabs/about.php:245 includes/admin/tabs/about.php:333
+#: includes/admin/tabs/about.php:255 includes/admin/tabs/about.php:343
 msgid "Valor mínimo recomendado é 64M"
 msgstr "El valor mínimo recomendado es 64M"
 
-#: includes/admin/tabs/about.php:280
+#: includes/admin/tabs/about.php:290
 msgid "Variáveis máximas de entrada do PHP:"
 msgstr "Variables de entrada máximas de PHP:"
 
-#: includes/classes/class-updater.php:213
+#: includes/classes/class-updater.php:217
 msgid "Verificar atualizações"
 msgstr "Revisa actualizaciones"
 
-#: includes/admin/tabs/about.php:206
+#: includes/admin/tabs/about.php:216
 #, php-format
 msgid "Versão %s"
 msgstr "Versión %s"
 
-#: includes/admin/tabs/about.php:143
+#: includes/admin/tabs/about.php:153
 msgid "Versão do Parcelas Customizadas para WooCommerce:"
 msgstr "Versión de Cuotas personalizadas para WooCommerce:"
 
-#: includes/admin/tabs/about.php:159
+#: includes/admin/tabs/about.php:169
 msgid "Versão do PHP:"
 msgstr "Versión PHP:"
 
-#: includes/admin/tabs/about.php:124
+#: includes/admin/tabs/about.php:134
 msgid "Versão do WooCommerce:"
 msgstr "Versión de WooCommerce:"
 
-#: includes/admin/tabs/about.php:110
+#: includes/admin/tabs/about.php:120
 msgid "Versão do WordPress:"
 msgstr "Versión de WordPress:"
 
-#: includes/admin/tabs/about.php:58
+#: includes/admin/tabs/about.php:65
 msgid ""
 "Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
 "manual."
@@ -1881,15 +1904,15 @@ msgstr "Puede cargar el archivo .key de licencia para activarlo manualmente."
 msgid "Válida"
 msgstr "Válido"
 
-#: includes/admin/tabs/about.php:122
+#: includes/admin/tabs/about.php:132
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/admin/tabs/about.php:108
+#: includes/admin/tabs/about.php:118
 msgid "WordPress"
 msgstr "WordPress"
 
-#: includes/admin/tabs/about.php:114
+#: includes/admin/tabs/about.php:124
 msgid "WordPress Multisite:"
 msgstr "WordPress multisitio:"
 

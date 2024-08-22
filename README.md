@@ -34,6 +34,11 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 4.5.2 (22/08/2024)
+* Correção de bugs
+* Otimizações
+* Integração com plugin Tiered Pricing Table
+
 Versão 4.5.1 (16/08/2024)
 * Correção de bugs
 * Otimizações
