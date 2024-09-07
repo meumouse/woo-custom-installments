@@ -1,5 +1,7 @@
 <?php
 
+use MeuMouse\Woo_Custom_Installments\Helpers;
+
 /**
  * Single Product Price
  *
@@ -14,13 +16,23 @@
  * @see https://woocommerce.com/document/template-structure/
  * @package MeuMouse.com
  * @since 4.5.0
- * @version 4.5.0
+ * @version 5.0.0
  */
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-global $product; ?>
+$product = wc_get_product( Helpers::get_product_id_from_post() );
+
+if ( $product === false ) {
+    global $product;
+}
+
+// check if product is defined
+if ( ! $product || ! is_a( $product, 'WC_Product' ) ) :
+    echo '<p>' . esc_html__( 'Produto não encontrado.', 'woo-custom-installments' ) . '</p>';
+    return;
+endif; ?>
 
 <p id="woo-custom-installments-product-price" class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
     <?php echo $product->get_price_html(); ?>

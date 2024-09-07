@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Init {
@@ -59,7 +59,7 @@ class Init {
    * Set default options
    * 
    * @since 2.0.0
-   * @version 4.5.0
+   * @version 5.0.0
    * @return array
    */
   public function set_default_data_options() {
@@ -205,6 +205,8 @@ class Init {
       'border_radius_economy_pix' => '0.3',
       'border_radius_economy_pix_unit' => 'rem',
       'economy_pix_icon_class' => 'fa-solid fa-circle-info',
+      'set_custom_hook_payment_form' => '',
+      'price_range_method' => 'ajax',
     );
 
     return apply_filters( 'woo_custom_installments_set_default_options', $options );

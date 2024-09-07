@@ -6,6 +6,8 @@ use MeuMouse\Woo_Custom_Installments\License;
 defined('ABSPATH') || exit; ?>
 
 <div class="d-flex align-items-center mt-4 ms-2">
+    <svg class="woo-custom-installments-logo me-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732.07 983.38"><path d="M569.06,765.19c115.21,1.52,248.61-42.44,248.61-156.14s-141-162.2-141-162.2V381.66C851,463.52,955.62,601.47,884.37,750S595.83,927.49,595.83,927.49v104H414.44V927.39C258.3,916.78,174.93,801.57,174.93,801.57L287.1,671.2C399.28,751.55,460.92,763.77,569.06,765.19Z" transform="translate(-174.93 -48.16)" style="fill:#040f0f"/><circle cx="299.39" cy="314.55" r="31.83" style="fill:#2ba84a"/><path d="M572.1,546.9l-32.6-77.1c-181.15-27.07-216-163.93-216-163.93C475.08,240.68,593.32,321,593.32,321l72.76-34.87,63.67,25.77,60.64-81.86c-63.67-68.21-194-84.89-194-84.89v-97H412.92V149.73c-203.13,0-283.47,222.84-189.49,341.08S406.86,598.44,546.32,619.66s63.67,94,63.67,94,148.56-7.58,159.17-109.15S660,464,660,464l-23.5,13.94,47,106.12Z" transform="translate(-174.93 -48.16)" style="fill:#2ba84a"/></svg>
+    
     <h1 class="woo-custom-installments-admin-section-tile"><?php echo esc_html__( 'Parcelas Customizadas para WooCommerce', 'woo-custom-installments' ) ?></h1>
 
     <?php if ( License::is_valid() ) : ?>
@@ -16,7 +18,7 @@ defined('ABSPATH') || exit; ?>
     <?php endif; ?>
 </div>
 
-<div class="woo-custom-installments-admin-title-description">
+<div class="woo-custom-installments-admin-title-description mt-3">
     <p><?php echo esc_html__( 'Configure abaixo o parcelamento, descontos, juros, estilos e entre outras opções disponíveis. Se precisar de ajuda para configurar, acesse nossa', 'woo-custom-installments' ) ?>
         <a class="fancy-link" href="https://meumouse.com/docs/plugins/parcelas-customizadas-para-woocommerce/" target="_blank"><?php echo esc_html__( 'Central de ajuda', 'woo-custom-installments' ) ?></a>
     </p>

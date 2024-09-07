@@ -37,7 +37,7 @@ class Compat_Astra {
 
         ob_start(); ?>
 
-        .ast-sticky-add-to-cart-action-wrap #wci-open-popup {
+        .ast-sticky-add-to-cart-action-wrap button.wci-open-popup {
             display: none;
         }
 

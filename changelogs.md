@@ -1,3 +1,16 @@
+Versão 5.0.0 (06/09/2024)
+* Correção de bugs
+* Otimizações
+* Recurso adicionado: Opção "Gancho personalizado" para Posição das formas de pagamento e parcelas na página de produto individual
+* Recurso adicionado: Widget para Elementor: Preço do produto
+* Recurso adicionado: Widget para Elementor: Popup - Formas de pagamento
+* Recurso adicionado: Widget para Elementor: Sanfona - Formas de pagamento
+* Recurso adicionado: Widget para Elementor: Bandeiras de cartão de crédito
+* Recurso adicionado: Widget para Elementor: Bandeiras de cartão de débito
+* Recurso adicionado: Widget para Elementor: Tabela de parcelamento
+* Recurso adicionado: Widget para Elementor: Caixa de informação de preço
+* Recurso modificado: Remover faixa de preço em produtos variáveis
+
 Versão 4.5.3 (23/08/2024)
 * Correção de bugs
 

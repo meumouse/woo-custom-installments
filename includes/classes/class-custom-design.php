@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Change colors on front-end
  *
  * @since 2.1.0
- * @version 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Custom_Design extends Init {
@@ -28,7 +28,7 @@ class Custom_Design extends Init {
      * Custom CSS for frontend
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return string
      */
     public function wci_front_styles() {
@@ -39,69 +39,69 @@ class Custom_Design extends Init {
 
         $css = "
             .woo-custom-installments-offer {
-                color: {$main_price_color} !important;
-                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) ." !important;
-                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . " !important;
-                margin-top: " . self::get_setting('margin_top_discount_price') . self::get_setting('unit_margin_top_discount_price') . " !important;
-                margin-bottom: " . self::get_setting('margin_bottom_discount_price') . self::get_setting('unit_margin_bottom_discount_price') . " !important;
-                border-radius: " . self::get_setting('border_radius_discount_main_price') . self::get_setting('unit_border_radius_discount_main_price') . " !important;
-                order: " . self::get_setting('discount_pix_order') . " !important;
+                color: {$main_price_color};
+                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) .";
+                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . ";
+                margin-top: " . self::get_setting('margin_top_discount_price') . self::get_setting('unit_margin_top_discount_price') . ";
+                margin-bottom: " . self::get_setting('margin_bottom_discount_price') . self::get_setting('unit_margin_bottom_discount_price') . ";
+                border-radius: " . self::get_setting('border_radius_discount_main_price') . self::get_setting('unit_border_radius_discount_main_price') . ";
+                order: " . self::get_setting('discount_pix_order') . ";
             }
 
             .woo-custom-installments-offer .amount {
-                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . " !important;
-                color: {$main_price_color} !important;
+                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . ";
+                color: {$main_price_color};
             }
 
             .instant-approval-badge, .badge-discount-checkout {
-                color: {$main_price_color} !important;
-                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) ." !important;
+                color: {$main_price_color};
+                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) .";
             }
 
             .woo-custom-installments-economy-pix-badge {
-                background-color: " . self::get_setting('economy_pix_bg') . " !important;
-                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . " !important;
-                margin-top: " . self::get_setting('margin_top_economy_pix') . self::get_setting('margin_top_economy_pix_unit') . " !important;
-                margin-bottom: " . self::get_setting('margin_bottom_economy_pix') . self::get_setting('margin_bottom_economy_pix_unit') . " !important;
-                border-radius: " . self::get_setting('border_radius_economy_pix') . self::get_setting('border_radius_economy_pix_unit') . " !important;
-                order: " . self::get_setting('economy_pix_order') . " !important;
+                background-color: " . self::get_setting('economy_pix_bg') . ";
+                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . ";
+                margin-top: " . self::get_setting('margin_top_economy_pix') . self::get_setting('margin_top_economy_pix_unit') . ";
+                margin-bottom: " . self::get_setting('margin_bottom_economy_pix') . self::get_setting('margin_bottom_economy_pix_unit') . ";
+                border-radius: " . self::get_setting('border_radius_economy_pix') . self::get_setting('border_radius_economy_pix_unit') . ";
+                order: " . self::get_setting('economy_pix_order') . ";
             }
 
             .woo-custom-installments-economy-pix-badge .amount {
-                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . " !important;
+                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . ";
             }
 
-            #wci-open-popup {
+            button.wci-open-popup {
                 color: {$button_popup_color};
-                border-color: {$button_popup_color} !important;
-                border-radius: " . self::get_setting('border_radius_popup_installments') . self::get_setting('unit_border_radius_popup_installments') . " !important;
+                border-color: {$button_popup_color};
+                border-radius: " . self::get_setting('border_radius_popup_installments') . self::get_setting('unit_border_radius_popup_installments') . ";
             }
 
-            #wci-open-popup:hover {
-                background-color: {$button_popup_color} !important;
+            button.wci-open-popup:hover {
+                background-color: {$button_popup_color};
             }";
 
         if ( $button_popup_size == 'small' ) {
             $css .= "
-                #wci-open-popup {
+                button.wci-open-popup {
                     padding: 0.475rem 1.25rem;
                     font-size: 0.75rem;
                 }";
         } elseif ($button_popup_size == 'normal') {
             $css .= "
-                #wci-open-popup {
+                button.wci-open-popup {
                     padding: 0.625rem 1.75rem;
                     font-size: 0.875rem;
                 }";
         } elseif ($button_popup_size == 'large') {
             $css .= "
-                #wci-open-popup {
+                button.wci-open-popup {
                     padding: 0.785rem 2rem;
                     font-size: 1rem;
                 }";
         } else {
             $css .= "
-                #wci-open-popup {
+                button.wci-open-popup {
                     display: inline-block;
                     position: relative;
                     font-weight: 500;
@@ -111,7 +111,7 @@ class Custom_Design extends Init {
                     color: {$button_popup_color};
                 }
 
-                #wci-open-popup::after {
+                button.wci-open-popup::after {
                     content: '';
                     position: absolute;
                     bottom: 0;
@@ -121,13 +121,13 @@ class Custom_Design extends Init {
                     background-color: {$button_popup_color};
                 }
 
-                #wci-open-popup:hover {
+                button.wci-open-popup:hover {
                     text-decoration: none;
                     color: {$button_popup_color};
-                    background-color: transparent !important;
+                    background-color: transparent;
                 }
 
-                #wci-open-popup:hover::after {
+                button.wci-open-popup:hover::after {
                     -webkit-animation: linkUnderline .6s ease-in-out;
                     animation: linkUnderline .6s ease-in-out;
                 }
@@ -146,41 +146,41 @@ class Custom_Design extends Init {
         }
 
         $css .= "
-            #wci-open-popup, #accordion-installments {
-                margin-top: " . self::get_setting('margin_top_popup_installments') . self::get_setting('unit_margin_top_popup_installments') . " !important;
-                margin-bottom: " . self::get_setting('margin_bottom_popup_installments') . self::get_setting('unit_margin_bottom_popup_installments') . " !important;
+            button.wci-open-popup, #wci-accordion-installments {
+                margin-top: " . self::get_setting('margin_top_popup_installments') . self::get_setting('unit_margin_top_popup_installments') . ";
+                margin-bottom: " . self::get_setting('margin_bottom_popup_installments') . self::get_setting('unit_margin_bottom_popup_installments') . ";
             }
 
             .woo-custom-installments-card-container {
-                color: " . self::get_setting('best_installments_color') . " !important;
-                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . " !important;
-                margin-top: " . self::get_setting('margin_top_best_installments') . self::get_setting('unit_margin_top_best_installments') . " !important;
-                margin-bottom: " . self::get_setting('margin_bottom_best_installments') . self::get_setting('unit_margin_bottom_best_installments') . " !important;
-                order: " . self::get_setting('best_installments_order') . " !important;
+                color: " . self::get_setting('best_installments_color') . ";
+                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . ";
+                margin-top: " . self::get_setting('margin_top_best_installments') . self::get_setting('unit_margin_top_best_installments') . ";
+                margin-bottom: " . self::get_setting('margin_bottom_best_installments') . self::get_setting('unit_margin_bottom_best_installments') . ";
+                order: " . self::get_setting('best_installments_order') . ";
             }
 
             .woo-custom-installments-card-container .amount {
-                color: " . self::get_setting('best_installments_color') . " !important;
-                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . " !important;
+                color: " . self::get_setting('best_installments_color') . ";
+                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . ";
             }
 
             .woo-custom-installments-ticket-discount {
-                color: " . self::get_setting('discount_ticket_color_badge') . " !important;
-                background-color: ". Helpers::convert_rgba_colors( self::get_setting('discount_ticket_color_badge'), 0, 15 ) ." !important;
-                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . " !important;
-                margin-top: " . self::get_setting('margin_top_discount_ticket') . self::get_setting('unit_margin_top_discount_ticket') . " !important;
-                margin-bottom: " . self::get_setting('margin_bottom_discount_ticket') . self::get_setting('unit_margin_bottom_discount_ticket') . " !important;
-                border-radius: " . self::get_setting('border_radius_discount_ticket') . self::get_setting('unit_border_radius_discount_ticket') . " !important;
-                order: " . self::get_setting('slip_bank_order') . " !important;
+                color: " . self::get_setting('discount_ticket_color_badge') . ";
+                background-color: ". Helpers::convert_rgba_colors( self::get_setting('discount_ticket_color_badge'), 0, 15 ) .";
+                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . ";
+                margin-top: " . self::get_setting('margin_top_discount_ticket') . self::get_setting('unit_margin_top_discount_ticket') . ";
+                margin-bottom: " . self::get_setting('margin_bottom_discount_ticket') . self::get_setting('unit_margin_bottom_discount_ticket') . ";
+                border-radius: " . self::get_setting('border_radius_discount_ticket') . self::get_setting('unit_border_radius_discount_ticket') . ";
+                order: " . self::get_setting('slip_bank_order') . ";
             }
 
             .woo-custom-installments-ticket-discount .amount {
-                color: " . self::get_setting('discount_ticket_color_badge') . " !important;
-                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . " !important;
+                color: " . self::get_setting('discount_ticket_color_badge') . ";
+                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . ";
             }
                 
             .woo-custom-installments-price.original-price {
-                order: " . self::get_setting('product_price_order') . " !important;
+                order: " . self::get_setting('product_price_order') . ";
             }";
 
         if ( self::get_setting('center_group_elements_loop') === 'yes' ) {

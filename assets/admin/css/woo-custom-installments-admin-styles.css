@@ -19,6 +19,10 @@
     margin-left: 0.5rem;
 }
 
+.woo-custom-installments-admin-title-description p {
+    font-size: 1rem;
+}
+
 .woo-custom-installments-wrapper {
     margin: 2rem 3rem 0 0.5rem;
     border-radius: 0.5rem;
@@ -1047,11 +1051,6 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     cursor: pointer;
 }
 
-#popup-pro-notice,
-.manage-credit-card-container,
-.manage-debit-card-container,
-#discount_per_quantity_container,
-#set_custom_fee_container,
 .popup-container {
     position: fixed;
     top: 0;
@@ -1069,11 +1068,6 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     
 }
 
-#popup-pro-notice.show,
-.manage-credit-card-container.show,
-.manage-debit-card-container.show,
-#discount_per_quantity_container.show,
-#set_custom_fee_container.show,
 .popup-container.show {
     opacity: 1;
     visibility: visible;
@@ -1085,6 +1079,7 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
 .manage-credit-card-content,
 .manage-debit-card-content,
 .popup-content {
+    display: block !important;
     background-color: #fff;
     border-radius: 0.5rem;
     width: 750px;
@@ -1112,11 +1107,6 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     max-height: 80vh;
 }
 
-#popup-pro-notice.show #pro-notice-content,
-.manage-credit-card-container.show .manage-credit-card-content,
-.manage-debit-card-container.show .manage-debit-card-content,
-#discount_per_quantity_container.show .popup-content,
-#set_custom_fee_container.show .popup-content,
 .popup-container.show .popup-content {
     transform: none;
 }
@@ -1441,4 +1431,8 @@ label.custom-file-label:hover {
 input,
 select {
     margin: 0;
+}
+
+.woo-custom-installments-logo {
+    width: 2.525rem;
 }

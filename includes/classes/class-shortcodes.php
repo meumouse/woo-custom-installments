@@ -4,6 +4,7 @@ namespace MeuMouse\Woo_Custom_Installments;
 
 use MeuMouse\Woo_Custom_Installments\Frontend;
 use MeuMouse\Woo_Custom_Installments\Calculate_Values;
+use MeuMouse\Woo_Custom_Installments\Helpers;
 use MeuMouse\Woo_Custom_Installments\License;
 
 // Exit if accessed directly.
@@ -13,6 +14,7 @@ defined('ABSPATH') || exit;
  * Include shortcodes for custom design
  * 
  * @since 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Shortcodes extends Frontend {
@@ -47,26 +49,28 @@ class Shortcodes extends Frontend {
      * Create a shortcode for modal container
      * 
      * @since 2.0.0
-     * @version 4.5.0
-     * @param array $atts | Shortcode attributes
+     * @version 5.0.0
      * @return object
      */
-    public function render_full_installment_shortcode( $atts = array() ) {
-        $product = wc_get_product();
+    public function render_full_installment_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
+
+        $product_id = $product->get_id();
 
         // check if product is valid
         if ( ! $product ) {
             return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
 
-        $atts = shortcode_atts( array(
-            'product_id' => $product->get_id(),
-        ), $atts, 'woo_custom_installments_table' );
-
         ob_start();
 
         if ( License::is_valid() ) {
-            $this->full_installment( $atts['product_id'] );
+            $this->full_installment( $product_id );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -79,19 +83,24 @@ class Shortcodes extends Frontend {
      * Create a shortcode best installments
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return string
      */
     public function best_installments_shortcode() {
-        global $product;
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
-        return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
+            return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
 
         if ( License::is_valid() ) {
-            return $this->display_best_installments( $product, $price );
+            return $this->display_best_installments( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -102,21 +111,50 @@ class Shortcodes extends Frontend {
      * Create a shortcode for discount main price
      * 
      * @since 2.0.0
-     * @version 4.5.0
-     * @param $product | Product object
-     * @param $price | Product price
+     * @version 5.0.0
      * @return string
      */
-    public function woo_custom_installments_group_shortcode( $product, $price ) {
-        global $product;
+    public function woo_custom_installments_group_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
+
+        $price = $product->get_price();
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
-        return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
+            return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
 
         if ( License::is_valid() ) {
-            return $this->woo_custom_installments_group( $price, $product );
+            $price = apply_filters( 'woo_custom_installments_adjusted_price', $price, $product );
+
+            if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
+                return $price;
+            }
+
+            $html = '<div class="woo-custom-installments-group';
+
+            if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+                $html .= ' variable-range-price';
+            }
+
+            $html .= '">';
+
+            // Original price
+            $html .= '<span class="woo-custom-installments-price original-price">' . wc_price( $price ) . '</span>';
+
+            $html .= $this->discount_main_price_single( $product );
+            $html .= $this->discount_ticket_badge( $product );
+            $html .= $this->display_best_installments( $product );
+            $html .= $this->economy_pix_badge( $product );
+
+            $html .= '</div>';
+
+            return $html;
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -127,11 +165,16 @@ class Shortcodes extends Frontend {
      * Create a shortcode installments table
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return string
      */
-    public function installments_table_shortcode( $atts ) {
-        $product = wc_get_product();
+    public function installments_table_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -139,7 +182,7 @@ class Shortcodes extends Frontend {
         }
 
         if ( License::is_valid() ) {
-            return $this->generate_installments_table( null, $product );
+            echo $this->generate_installments_table( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -214,13 +257,16 @@ class Shortcodes extends Frontend {
      * Create a shortcode for discount ticket badge
      * 
      * @since 2.8.0
-     * @version 4.5.0
-     * @param $product | Product object
-     * @param $price | Product price
+     * @version 5.0.0
      * @return string
      */
-    public function discount_ticket_badge_shortcode( $product, $price  ) {
-        global $product;
+    public function discount_ticket_badge_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -239,13 +285,16 @@ class Shortcodes extends Frontend {
      * Create a shortcode for discount on Pix single
      * 
      * @since 3.6.0
-     * @version 4.5.0
-     * @param $product | Product object
-     * @param $price | Product price
+     * @version 5.0.0
      * @return string
      */
-    public function discount_pix_info_shortcode( $product, $price ) {
-        global $product;
+    public function discount_pix_info_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -253,7 +302,7 @@ class Shortcodes extends Frontend {
         }
 
         if ( License::is_valid() ) {
-            return $this->discount_main_price_single( $price, $product );
+            return $this->discount_main_price_single( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -264,13 +313,16 @@ class Shortcodes extends Frontend {
      * Create shortcode for economy Pix badge
      * 
      * @since 3.6.0
-     * @version 4.5.0
-     * @param $product | Product object
-     * @param $price | Product price
+     * @version 5.0.0
      * @return string
      */
-    public function economy_pix_badge_shortcode( $product, $price  ) {
-        global $product;
+    public function economy_pix_badge_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -278,7 +330,7 @@ class Shortcodes extends Frontend {
         }
 
         if ( License::is_valid() ) {
-            return $this->economy_pix_badge( $price, $product );
+            return $this->economy_pix_badge( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -289,10 +341,16 @@ class Shortcodes extends Frontend {
      * Display price on Pix
      * 
      * @since 4.5.0
+     * @version 5.0.0
      * @return string
      */
     public function get_price_on_pix_shortcode() {
-        global $product;
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -311,10 +369,16 @@ class Shortcodes extends Frontend {
      * Display price on ticket
      * 
      * @since 4.5.0
+     * @version 5.0.0
      * @return string
      */
     public function get_price_on_ticket_shortcode() {
-        global $product;
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {
@@ -333,10 +397,16 @@ class Shortcodes extends Frontend {
      * Display price for economy pix
      * 
      * @since 4.5.0
+     * @version 5.0.0
      * @return string
      */
     public function get_economy_pix_price_shortcode() {
-        global $product;
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
 
         // check if local is product page for install shortcode
         if ( ! $product ) {

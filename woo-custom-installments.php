@@ -4,11 +4,12 @@
  * Plugin Name: 			Parcelas Customizadas para WooCommerce
  * Description: 			Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
  * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/
+ * Requires Plugins: 		woocommerce
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				4.5.3
+ * Version: 				5.0.0
  * WC requires at least: 	6.0.0
- * WC tested up to: 		9.1.4
+ * WC tested up to: 		9.2.3
  * Requires PHP: 			7.4
  * Tested up to:      		6.6.1
  * Text Domain: 			woo-custom-installments
@@ -27,7 +28,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 	 * Main class for load plugin
 	 *
 	 * @since 1.0.0
-	 * @version 4.5.0
+	 * @version 5.0.0
 	 * @package MeuMouse.com
 	 */
 	class Woo_Custom_Installments {
@@ -54,19 +55,17 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '4.5.3';
+		public static $version = '5.0.0';
 
 		/**
-		 * Constructor function.
+		 * Constructor function
 		 *
 		 * @since 1.0.0
+		 * @version 5.0.0
 		 * @return void
 		 */
 		public function __construct() {
-			$this->setup_constants();
-
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ), -1 );
-			add_action( 'plugins_loaded', array( $this, 'load_checker' ), 99 );
+			add_action( 'plugins_loaded', array( $this, 'init' ), 99 );
 		}
 		
 
@@ -74,14 +73,13 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Check requeriments and load plugin
 		 * 
 		 * @since 1.0.0
-		 * @version 4.5.0
+		 * @version 5.0.0
 		 * @return void
 		 */
-		public function load_checker() {
+		public function init() {
 			// Display notice if PHP version is bottom 7.4
 			if ( version_compare( phpversion(), '7.4', '<' ) ) {
 				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
-
 				return;
 			}
 
@@ -91,6 +89,9 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		
 			// check if WooCommerce is active
 			if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
+				$this->setup_constants();
+
+				load_plugin_textdomain( 'woo-custom-installments', false, dirname( WOO_CUSTOM_INSTALLMENTS_BASENAME ) . '/languages/' );
 				add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
 				add_action( 'plugins_loaded', array( $this, 'setup_includes' ), 999 );
 				add_filter( 'plugin_action_links_' . WOO_CUSTOM_INSTALLMENTS_BASENAME, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -183,7 +184,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Include required files
 		 *
 		 * @since 1.0.0
-		 * @version 4.5.0
+		 * @version 5.0.0
 		 * @return void
 		 */
 		public function setup_includes() {
@@ -191,7 +192,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'functions.php',
 				'class-init.php',
 				'classes/class-license.php',
-				'admin/class-admin-options.php',
+				'classes/class-admin-options.php',
 				'classes/class-assets.php',
 				'classes/class-ajax.php',
 				'classes/class-helpers.php',
@@ -203,6 +204,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'classes/class-interests.php',
 				'classes/class-schema.php',
 				'classes/class-compat-autoloader.php',
+				'classes/class-elementor-widgets.php',
 				'classes/class-updater.php',
 			));
 
@@ -352,17 +354,6 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 			$css = wp_strip_all_tags( $css );
 
 			printf( __('<style>%s</style>'), $css );
-		}
-
-
-		/**
-		 * Load the plugin text domain for translation
-		 * 
-		 * @since 1.0.0
-		 * @return void
-		 */
-		public static function load_plugin_textdomain() {
-			load_plugin_textdomain( 'woo-custom-installments', false, dirname( WOO_CUSTOM_INSTALLMENTS_BASENAME ) . '/languages/' );
 		}
 
 

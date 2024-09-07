@@ -161,7 +161,7 @@ defined('ABSPATH') || exit; ?>
             
             <button id="discount_per_quantity_trigger" class="btn btn-outline-primary ms-3 discount-per-quantity-option"><?php echo esc_html__( 'Configurar', 'woo-custom-installments' ) ?></button>
             
-            <div id="discount_per_quantity_container">
+            <div id="discount_per_quantity_container" class="popup-container">
                <div class="popup-content">
                   <div class="popup-header">
                      <h5 class="popup-title"><?php echo esc_html__( 'Configure o desconto por quantidade', 'woo-custom-installments' ); ?></h5>

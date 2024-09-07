@@ -2,24 +2,24 @@
  * Modal installments
  * 
  * @since 2.0.0
- * @version 4.5.0
+ * @version 5.0.0
  */
 jQuery(document).ready( function($) {
-	const trigger = $('#wci-open-popup');
-	const container = $('#wci-popup-container');
-	const close = $('#wci-close-popup');
-	
-	trigger.on('click', function() {
-		container.addClass('show');
+	$(document).on('click touchstart', 'button.wci-open-popup', function(e) {
+		e.preventDefault();
+
+		$('.wci-popup-container').addClass('show');
 	});
 	
-	container.on('click', function(e) {
+	$(document).on('click touchstart', '.wci-popup-container', function(e) {
 		if (e.target === this) {
 			$(this).removeClass('show');
 		}
 	});
 
-	close.on('click', function() {
-		container.removeClass('show');
+	$(document).on('click touchstart', 'button.wci-close-popup', function(e) {
+		e.preventDefault();
+		
+		$('.wci-popup-container').removeClass('show');
 	});
 });

@@ -492,6 +492,20 @@
 		$('#enable_economy_pix_badge').click( function() {
 			change_visibility('#enable_economy_pix_badge', '.economy-pix-dependency');
 		});
+
+		select_visibility_controller('#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook');
+
+		/**
+		 * Display remove price range settings
+		 * 
+		 * @since 5.0.0
+		 */
+		change_visibility('#remove_price_range', '.require-remove-price-range');
+		$('#remove_price_range').click( function() {
+			change_visibility('#remove_price_range', '.require-remove-price-range');
+		});
+
+		select_visibility_controller('#price_range_method', ['dynamic'], '.require-dynamic-method');
 	});
 
 
@@ -784,6 +798,7 @@
 		display_popup( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
 		display_popup( $('.pro-version-notice'), $('#popup-pro-notice'), $('#close-pro-notice') );
 		display_popup( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
+		display_popup( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
 	});
 
 
@@ -940,6 +955,7 @@
 	 * Deactivation license process
 	 * 
 	 * @since 4.5.0
+	 * @version 5.0.0
 	 * @package MeuMouse.com
 	 */
 	jQuery(document).ready( function($) {
@@ -965,7 +981,7 @@
 					url: wci_params.ajax_url,
 					type: 'POST',
 					data: {
-						action: 'deactive_license_action',
+						action: 'wci_deactive_license_action',
 					},
 					success: function(response) {
 						try {

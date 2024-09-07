@@ -2,7 +2,7 @@
  * Replace range price
  * 
  * @since 2.8.0
- * @version 4.5.1
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 jQuery(document).ready( function($) {
@@ -10,37 +10,48 @@ jQuery(document).ready( function($) {
     var siblings_price = product_price_container.siblings('.woo-custom-installments-group.variable-range-price');
     var original_price = get_original_price();
 
+    /**
+     * Get original price container
+     * 
+     * @since 2.8.0
+     * @version 5.0.0
+     * @returns string
+     */
     function get_original_price() {
-        return product_price_container.html();
+        var container_price = product_price_container;
+
+        if ( product_price_container.html().trim() === '' ) {
+            container_price = siblings_price;
+        }
+
+        return container_price.html();
     }
 
-    // on load page
+    // update price on load page
     update_price_html(original_price);
 
-    // when a variation is finded
-    $(document).on('found_variation', 'form.variations_form', function(e, variation) {
-        if (variation.variation_id) {
-            update_price_via_ajax(variation.variation_id);
+    // Variation events found or selected
+    $('form.variations_form').on('found_variation show_variation', function (e, variation) {
+        if (variation && variation.variation_id) {
+            if (wci_range_params.update_method === 'ajax') {
+                update_price_via_ajax(variation.variation_id);
+            } else {
+                update_price_html(variation.price_html);
+            }
         }
     });
 
-    // when a variation is selected
-    $('form.variations_form').on('show_variation', function(e, variation) {
-        if (variation.variation_id) {
-            update_price_via_ajax(variation.variation_id);
-        }
-    });
-
-    $('form.variations_form').on('change', 'select', function() {
+    // When changing the variation, if no value is selected, restore the original price
+    $('form.variations_form').on('change', 'select', function () {
         if ($(this).val() === '') {
             update_price_html(original_price);
         }
     });
 
+    // clear variations
     $('a.reset_variations').click( function(e) {
         e.preventDefault();
-        
-        product_price_container.addClass('d-none');
+        product_price_container.removeClass('active').html(original_price);
         siblings_price.removeClass('d-none');
     });
 
@@ -62,15 +73,18 @@ jQuery(document).ready( function($) {
                 action: 'get_updated_price_html',
                 product_id: variation_id,
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     update_price_html(response.data.price_html);
-                    product_price_container.removeClass('wci-loading-price');
-                    siblings_price.removeClass('wci-loading-price');
                     siblings_price.addClass('d-none');
+                } else {
+                    update_price_html(original_price);
                 }
+
+                product_price_container.removeClass('wci-loading-price');
+                siblings_price.removeClass('wci-loading-price');
             },
-            error: function() {
+            error: function () {
                 update_price_html(original_price);
                 product_price_container.removeClass('wci-loading-price');
                 siblings_price.removeClass('wci-loading-price');
@@ -82,11 +96,34 @@ jQuery(document).ready( function($) {
      * Update variation price with selected variation 
      * 
      * @since 2.8.0
-     * @version 4.5.1
+     * @version 5.0.0
      * @param {string} price_html | Product price HTML
      */
     function update_price_html(price_html) {
-        product_price_container.html('');
+        if (wci_range_params.update_method !== 'dynamic') {
+            return;
+        }
+
         product_price_container.html(price_html).removeClass('d-none').addClass('active');
+
+        if ( product_price_container.hasClass('active') && product_price_container.html().trim() !== '' ) {
+            siblings_price.addClass('d-none');
+        }
     }
+
+    // Check for duplicates and prevent multiple displays
+    var wci_siblings = $('.range-price .price').siblings('.woo-custom-installments-group');
+
+    if (wci_siblings.length > 0) {
+        wci_siblings.addClass('d-none');
+    }
+
+    var triggers = wci_range_params.element_triggers.split(',');
+
+    // Iterate over each trigger and associate a click event
+    triggers.forEach( function(trigger) {
+        $(trigger.trim()).on('click', function () {
+            update_price_html(original_price);
+        });
+    });
 });

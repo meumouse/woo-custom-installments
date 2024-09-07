@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Assets {
@@ -23,14 +23,12 @@ class Assets {
      * Construct function
      * 
      * @since 4.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return void
      */
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'frontend_assets' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'update_checkout' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'update_price_on_select_variation' ), 10 );
     }
 
 
@@ -38,7 +36,7 @@ class Assets {
      * Enqueue admin scripts in page settings only
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return void
      */
     public function admin_assets() {
@@ -46,6 +44,8 @@ class Assets {
 
         if ( strpos( $url, 'admin.php?page=woo-custom-installments' ) !== false ) {
             wp_enqueue_media();
+
+            wp_enqueue_script( 'woo-custom-installments-visibility-controller', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'components/visibility-controller/visibility-controller.min.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
 
             wp_enqueue_script( 'woo-custom-installments-admin-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/woo-custom-installments-admin-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
             wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
@@ -70,7 +70,7 @@ class Assets {
      * Enqueue scripts and styles on frontend
      *
      * @since 1.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return void
      */
     public function frontend_assets() {
@@ -101,31 +101,12 @@ class Assets {
             wp_enqueue_style( 'woo-custom-installments-front-accordion-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/css/accordion.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
             wp_enqueue_script( 'woo-custom-installments-front-accordion', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accordion.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
         }
-    }
 
-
-    /**
-     * Enqueue update checkout script
-     * 
-     * @since 3.6.0
-     * @version 4.5.0
-     * @return void
-     */
-    public function update_checkout() {
+        // update checkout on change payment methods
         if ( is_checkout() && Init::get_setting('enable_all_discount_options') === 'yes' && ! class_exists('Flexify_Checkout') ) {
             wp_enqueue_script( 'woo-custom-installments-update-checkout', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/update-checkout.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
         }
-    }
 
-
-    /**
-     * Enqueue script for update price on select variation
-     * 
-     * @since 2.9.0
-     * @version 4.5.2
-     * @return void
-     */
-    public function update_price_on_select_variation() {
         $product_id = get_the_ID();
         $product = wc_get_product( $product_id );
 
@@ -135,13 +116,14 @@ class Assets {
 
                 wp_localize_script('woo-custom-installments-range-price', 'wci_range_params', array(
                     'ajax_url' => admin_url('admin-ajax.php'),
+                    'element_triggers' => Init::get_setting('update_range_price_triggers'),
+                    'update_method' => Init::get_setting('price_range_method'),
                 ));                    
             }
 
             wp_enqueue_script( 'accounting-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accounting.min.js', array(), '0.4.2' );
             wp_enqueue_script( 'woo-custom-installments-update-table-installments', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-update-table-installments.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
 
-            $interest = Helpers::get_fee();
             $installments_fee = array();
 
             foreach ( range( 1, Init::get_setting('max_qtd_installments') ) as $i ) {
@@ -158,7 +140,7 @@ class Assets {
                 'max_installments' => Init::get_setting('max_qtd_installments'),
                 'max_installments_no_fee' => Init::get_setting('max_qtd_installments_without_fee'),
                 'min_installment' => Init::get_setting('min_value_installments'),
-                'fee' => $interest,
+                'fee' => Helpers::get_fee(),
                 'fees' => $installments_fee,
                 'without_fee_label' => Init::get_setting('text_without_fee_installments'),
                 'with_fee_label' => Init::get_setting('text_with_fee_installments'),

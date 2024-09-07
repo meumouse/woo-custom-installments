@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 4.5.1
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Ajax {
@@ -23,6 +23,7 @@ class Ajax {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
+     * @version 5.0.0
 	 * @return void
 	 */
 	public function __construct() {
@@ -33,7 +34,7 @@ class Ajax {
         add_action( 'wp_ajax_wci_alternative_activation_license', array( $this, 'alternative_activation_callback' ) );
 
         // deactive license process
-        add_action( 'wp_ajax_deactive_license_action', array( $this, 'deactive_license_callback' ) );
+        add_action( 'wp_ajax_wci_deactive_license_action', array( $this, 'deactive_license_callback' ) );
 
         // clear activation cache
         add_action( 'wp_ajax_clear_activation_cache_action', array( $this, 'clear_activation_cache_callback' ) );
@@ -44,7 +45,7 @@ class Ajax {
         add_action( 'wp_ajax_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
         add_action( 'wp_ajax_nopriv_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
 
-        if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
+        if ( Init::get_setting('remove_price_range') === 'yes' && Init::get_setting('price_range_method') === 'ajax' && License::is_valid() ) {
             add_action( 'wp_ajax_get_updated_price_html', array( $this, 'get_updated_price_html_callback' ) );
             add_action( 'wp_ajax_nopriv_get_updated_price_html', array( $this, 'get_updated_price_html_callback' ) );
         }
@@ -55,7 +56,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 4.5.0
+     * @version 5.0.0
      * @return void
      */
     public function ajax_save_options_callback() {
@@ -63,64 +64,68 @@ class Ajax {
             // Convert serialized data into an array
             parse_str( $_POST['form_data'], $form_data );
 
-            $options = get_option('woo-custom-installments-setting');
+            $fields_without_license = array(
+                'enable_installments_all_products',
+                'custom_text_after_price',
+                'enable_all_discount_options',
+                'display_installments_cart',
+                'include_shipping_value_in_discounts',
+                'display_tag_discount_price_checkout',
+                'enable_discount_per_unit_discount_per_quantity',
+                'message_discount_per_quantity',
+                'enable_all_interest_options',
+                'display_tag_interest_checkout',
+                'enable_pix_method_payment_form',
+                'enable_instant_approval_badge',
+                'enable_ticket_method_payment_form',
+                'enable_ticket_discount_main_price',
+                'enable_credit_card_method_payment_form',
+                'enable_debit_card_method_payment_form',
+                'enable_mastercard_flag_credit',
+                'enable_visa_flag_credit',
+                'enable_elo_flag_credit',
+                'enable_hipercard_flag_credit',
+                'enable_diners_club_flag_credit',
+                'enable_discover_flag_credit',
+                'enable_american_express_flag_credit',
+                'enable_paypal_flag_credit',
+                'enable_stripe_flag_credit',
+                'enable_mercado_pago_flag_credit',
+                'enable_pagseguro_flag_credit',
+                'enable_pagarme_flag_credit',
+                'enable_cielo_flag_credit',
+                'enable_mastercard_flag_debit',
+                'enable_visa_flag_debit',
+                'enable_elo_flag_debit',
+                'enable_hipercard_flag_debit',
+                'enable_diners_club_flag_debit',
+                'enable_discover_flag_debit',
+                'enable_american_express_flag_debit',
+                'enable_paypal_flag_debit',
+                'enable_stripe_flag_debit',
+                'enable_mercado_pago_flag_debit',
+                'enable_pagseguro_flag_debit',
+                'enable_pagarme_flag_debit',
+                'enable_cielo_flag_debit',
+                'center_group_elements_loop'
+            );
 
-            /**
-             * Add custom option to AJAX form data
-             * 
-             * @since 4.5.0
-             */
-            do_action('woo_custom_installments_ajax_form_data');
+            $fields_with_license = array(
+                'remove_price_range',
+                'set_fee_per_installment',
+                'display_discount_price_schema',
+                'enable_functions_discount_per_quantity',
+                'enable_economy_pix_badge',
+                'enable_post_meta_feed_xml_price',
+            );
 
-            $options['enable_installments_all_products'] = isset( $form_data['enable_installments_all_products'] ) ? 'yes' : 'no';
-            $options['remove_price_range'] = isset( $form_data['remove_price_range'] ) && License::is_valid() ? 'yes' : 'no';
-            $options['custom_text_after_price'] = isset( $form_data['custom_text_after_price'] ) ? 'yes' : 'no';
-            $options['set_fee_per_installment'] = isset( $form_data['set_fee_per_installment'] ) && License::is_valid() ? 'yes' : 'no';
-            $options['enable_all_discount_options'] = isset( $form_data['enable_all_discount_options'] ) ? 'yes' : 'no';
-            $options['display_installments_cart'] = isset( $form_data['display_installments_cart'] ) ? 'yes' : 'no';
-            $options['include_shipping_value_in_discounts'] = isset( $form_data['include_shipping_value_in_discounts'] ) ? 'yes' : 'no';
-            $options['display_tag_discount_price_checkout'] = isset( $form_data['display_tag_discount_price_checkout'] ) ? 'yes' : 'no';
-            $options['display_discount_price_schema'] = isset( $form_data['display_discount_price_schema'] ) && License::is_valid() ? 'yes' : 'no';
-            $options['enable_functions_discount_per_quantity'] = isset( $form_data['enable_functions_discount_per_quantity'] ) && License::is_valid() ? 'yes' : 'no';
-            $options['enable_discount_per_unit_discount_per_quantity'] = isset( $form_data['enable_discount_per_unit_discount_per_quantity'] ) ? 'yes' : 'no';
-            $options['message_discount_per_quantity'] = isset( $form_data['message_discount_per_quantity'] ) ? 'yes' : 'no';
-            $options['enable_all_interest_options'] = isset( $form_data['enable_all_interest_options'] ) ? 'yes' : 'no';
-            $options['display_tag_interest_checkout'] = isset( $form_data['display_tag_interest_checkout'] ) ? 'yes' : 'no';
-            $options['enable_pix_method_payment_form'] = isset( $form_data['enable_pix_method_payment_form'] ) ? 'yes' : 'no';
-            $options['enable_instant_approval_badge'] = isset( $form_data['enable_instant_approval_badge'] ) ? 'yes' : 'no';
-            $options['enable_ticket_method_payment_form'] = isset( $form_data['enable_ticket_method_payment_form'] ) ? 'yes' : 'no';
-            $options['enable_ticket_discount_main_price'] = isset( $form_data['enable_ticket_discount_main_price'] ) ? 'yes' : 'no';
-            $options['enable_credit_card_method_payment_form'] = isset( $form_data['enable_credit_card_method_payment_form'] ) ? 'yes' : 'no';
-            $options['enable_debit_card_method_payment_form'] = isset( $form_data['enable_debit_card_method_payment_form'] ) ? 'yes' : 'no';
-            $options['enable_mastercard_flag_credit'] = isset( $form_data['enable_mastercard_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_visa_flag_credit'] = isset( $form_data['enable_visa_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_elo_flag_credit'] = isset( $form_data['enable_elo_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_hipercard_flag_credit'] = isset( $form_data['enable_hipercard_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_diners_club_flag_credit'] = isset( $form_data['enable_diners_club_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_discover_flag_credit'] = isset( $form_data['enable_discover_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_american_express_flag_credit'] = isset( $form_data['enable_american_express_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_paypal_flag_credit'] = isset( $form_data['enable_paypal_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_stripe_flag_credit'] = isset( $form_data['enable_stripe_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_mercado_pago_flag_credit'] = isset( $form_data['enable_mercado_pago_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_pagseguro_flag_credit'] = isset( $form_data['enable_pagseguro_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_pagarme_flag_credit'] = isset( $form_data['enable_pagarme_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_cielo_flag_credit'] = isset( $form_data['enable_cielo_flag_credit'] ) ? 'yes' : 'no';
-            $options['enable_mastercard_flag_debit'] = isset( $form_data['enable_mastercard_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_visa_flag_debit'] = isset( $form_data['enable_visa_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_elo_flag_debit'] = isset( $form_data['enable_elo_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_hipercard_flag_debit'] = isset( $form_data['enable_hipercard_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_diners_club_flag_debit'] = isset( $form_data['enable_diners_club_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_discover_flag_debit'] = isset( $form_data['enable_discover_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_american_express_flag_debit'] = isset( $form_data['enable_american_express_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_paypal_flag_debit'] = isset( $form_data['enable_paypal_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_stripe_flag_debit'] = isset( $form_data['enable_stripe_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_mercado_pago_flag_debit'] = isset( $form_data['enable_mercado_pago_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_pagseguro_flag_debit'] = isset( $form_data['enable_pagseguro_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_pagarme_flag_debit'] = isset( $form_data['enable_pagarme_flag_debit'] ) ? 'yes' : 'no';
-            $options['enable_cielo_flag_debit'] = isset( $form_data['enable_cielo_flag_debit'] ) ? 'yes' : 'no';
-            $options['center_group_elements_loop'] = isset( $form_data['center_group_elements_loop'] ) ? 'yes' : 'no';
-            $options['enable_economy_pix_badge'] = isset( $form_data['enable_economy_pix_badge'] ) && License::is_valid() ? 'yes' : 'no';
-            $options['enable_post_meta_feed_xml_price'] = isset( $form_data['enable_post_meta_feed_xml_price'] ) && License::is_valid() ? 'yes' : 'no';
+            foreach ( $fields_without_license as $field ) {
+                $options[$field] = isset( $form_data[$field] ) ? 'yes' : 'no';
+            }
+
+            foreach ( $fields_with_license as $field ) {
+                $options[$field] = ( isset( $form_data[$field] ) && License::is_valid() ) ? 'yes' : 'no';
+            }
 
             if ( isset( $form_data['woo_custom_installments_discounts'] ) && ! empty( $form_data['woo_custom_installments_discounts'] ) && License::is_valid() ) {
                 update_option( 'woo_custom_installments_discounts_setting', maybe_serialize( $form_data['woo_custom_installments_discounts'] ) );
@@ -231,10 +236,11 @@ class Ajax {
      * Deactive license on AJAX callback
      * 
      * @since 4.5.0
+     * @version 5.0.0
      * @return void
      */
     public function deactive_license_callback() {
-        if ( isset( $_POST['action'] ) && $_POST['action'] === 'deactive_license_action' ) {
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_deactive_license_action' ) {
             $message = '';
             $deactivation = License::deactive_license( WOO_CUSTOM_INSTALLMENTS_FILE, $message );
 
@@ -375,7 +381,7 @@ class Ajax {
             $product = wc_get_product( $product_id );
     
             if ( $product ) {
-                $price_html = apply_filters('woocommerce_get_price_html', $product->get_price_html(), $product);
+                $price_html = apply_filters( 'woocommerce_get_price_html', $product->get_price_html(), $product );
     
                 // get price HTML
                 wp_send_json_success( array(

@@ -117,13 +117,18 @@ class Calculate_Values {
      * Get discounted price based on product and settings, including variations
      *
      * @since 4.5.0
+     * @version 5.0.0
      * @param WC_Product $product | Product object
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
      */
     public static function get_discounted_price( $product, $discount_type = 'main' ) {
+        if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
+            return 0;
+        }
+
         // Check if the product is a variation and get the correct ID
-        if ( $product->is_type('variation') ) {
+        if ( $product && $product->is_type('variation', 'variable') ) {
             $product_id = $product->get_id();
             $parent_product_id = $product->get_parent_id();
         } else {
@@ -145,7 +150,7 @@ class Calculate_Values {
         }
 
         // Get product discount
-        list($discount_per_product, $discount_per_product_method, $discount_per_product_value) = self::get_product_discount($product_id, $parent_product_id);
+        list( $discount_per_product, $discount_per_product_method, $discount_per_product_value ) = self::get_product_discount( $product_id, $parent_product_id );
 
         $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
 
@@ -159,7 +164,7 @@ class Calculate_Values {
             $discount_value = $discount_per_product_value;
         }
 
-        return self::calculate_price_with_discount(wc_get_price_to_display( $product ), $discount_method, $discount_value);
+        return self::calculate_price_with_discount( wc_get_price_to_display( $product ), $discount_method, $discount_value );
     }
 
 
@@ -202,14 +207,17 @@ class Calculate_Values {
      * Helper function to calculate price with discount method
      *
      * @since 4.5.2
+     * @version 5.0.0
      * @param float $price | Original price
      * @param string $discount_method | Discount method ('percentage', 'fixed')
      * @param float $discount_value | Discount value
      * @return float $discounted_price
      */
     public static function calculate_price_with_discount( $price, $discount_method, $discount_value ) {
+        $discount_value = floatval( $discount_value );
+
         if ( $discount_method === 'percentage' ) {
-            return self::calculate_discounted_price($price, $discount_value);
+            return self::calculate_discounted_price( $price, $discount_value );
         } else {
             return $price - $discount_value;
         }

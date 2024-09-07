@@ -26,6 +26,7 @@
     border-radius: 0.3rem;
     line-height: 1;
     white-space: wrap;
+    width: fit-content;
 }
 
 .woo-custom-installments-economy-pix-badge .amount {
@@ -237,22 +238,14 @@ th.final-price .amount  {
 
 .container-badge-icon {
     width: 3rem;
-    min-width: 3rem;
     height: auto;
     margin-right: 0.75rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-content: center;
-}
-
-.paypal-flag,
-.mercado_pago-flag,
-.diners_club-flag,
-.pagseguro-flag,
-.pagarme-flag {
-    width: 5rem;
-    min-width: 5rem;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
 .credit-card-container-badges,
@@ -306,6 +299,10 @@ table tbody>tr:nth-child(odd)>th {
 
 .woo-custom-installments-table tr:hover {
     background-color: #E9ECEF;
+}
+
+.woo-custom-installments-table {
+    width: 100%;
 }
 
 .fa-brands,
@@ -390,4 +387,41 @@ table tbody>tr:nth-child(odd)>th {
     100% {
         background-position: 650px 0;
     }
+}
+
+.woo-custom-installments-logo {
+    width: 3rem;
+}
+
+.wci-license-message-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wci-license-message-box .message-box-header {
+    width: 6rem;
+    height: 6rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #efefef;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wci-license-message-box .message-box-header h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #040f0f;
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.wci-license-message-box .message-box-header .message-cta {
+    font-size: 1.125rem;
+    text-align: center;
+    color: #495057;
 }

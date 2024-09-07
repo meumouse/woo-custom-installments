@@ -9,6 +9,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class Helpers {
@@ -170,6 +171,94 @@ class Helpers {
     
         // Check if the lowercase version of both names match
         return ( strtolower( $current_theme_name ) === strtolower( $theme_name ) );
+    }
+
+
+    /**
+     * Check if the Elementor editor is currently editing a single product page.
+     * 
+     * @since 5.0.0
+     * @return bool True if editing a single product page in Elementor; false otherwise.
+     */
+    public static function is_editing_single_product_in_elementor() {
+        $is_editing = false;
+
+        // Check if Elementor is in edit mode
+        if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+            $post_type = get_post_type();
+
+            if ( $post_type === 'elementor_library' ) {
+                // Check if we are editing a product template
+                if ( isset( $_GET['post'] ) ) {
+                    $post_id = intval( $_GET['post'] );
+                    $template_type = get_post_meta( $post_id, '_elementor_template_type', true );
+
+                    if ( 'product' === $template_type ) {
+                        $is_editing = true;
+                    }
+                }
+            }
+        }
+
+        /**
+         * Filter to modify the condition for checking if editing a single product in Elementor
+         *
+         * @since 5.0.0
+         * @param bool $is_editing | Whether Elementor is editing a single product page
+         */
+        return apply_filters('woo_custom_installments_is_single_product_in_elementor', $is_editing);
+    }
+
+
+    /**
+     * Check if is editing mode on Elementor
+     * 
+     * @since 5.0.0
+     * @return bool
+     */
+    public static function elementor_is_editing_mode() {
+        if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Get product ID from post when editing with Elementor
+     * 
+     * @since 5.0.0
+     * @param bool $product | Get product object for get id
+     * @return mixed | Product ID or false
+     */
+    public static function get_product_id_from_post( $product = false ) {
+        global $post;
+
+        if ( ! $product ) {
+            $product = wc_get_product();
+        }
+
+        if ( ! $post ) {
+            return false;
+        }
+
+        // Check if Elementor is in edit mode
+        if ( ! $product && self::elementor_is_editing_mode() && $post ) {
+            $post_content = $post->post_content;
+            preg_match( '/data-product_id=["\']?(\d+)["\']?/', $post_content, $matches );
+
+            if ( isset( $matches[1] ) ) {
+                return (int) $matches[1];
+            }
+        }
+
+        // If the product was found and is a valid instance of WC_Product
+        if ( $product instanceof \WC_Product ) {
+            return $product->get_id();
+        }
+
+        return false;
     }
 }
 

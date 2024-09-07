@@ -1,19 +1,19 @@
 /**
- * Accordion installments
+ * Accordion payment methods
  * 
  * @since 2.0.0
  * @version 5.0.0
  */
-jQuery( function() {
-	jQuery('.accordion-header').click( function() {
-		var content = jQuery(this).next('.accordion-content');
+jQuery(document).ready( function($) {
+	$(document).on('click', '.wci-accordion-header', function() {
+		var content = jQuery(this).next('.wci-accordion-content');
 		
 		if (content.css('max-height') == '0px') {
 			content.css('max-height', content.prop('scrollHeight') + 'px');
-			content.parent('.accordion-item').addClass('active');
+			content.parent('.wci-accordion-item').addClass('active');
 		} else {
 			content.slideUp(350, function() {
-				content.parent('.accordion-item').removeClass('active');
+				content.parent('.wci-accordion-item').removeClass('active');
 				content.css('display', '');
 				content.css('max-height', '0px');
 			});

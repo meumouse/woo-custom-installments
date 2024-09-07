@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Connect to license authentication server
  * 
  * @since 2.0.0
- * @version 4.5.0
+ * @version 5.0.0
  * @package MeuMouse.com
  */
 class License {
@@ -1018,7 +1018,7 @@ class License {
      */
     public function display_modal_license_require() {
         if ( ! self::is_valid() ) : ?>
-            <div id="popup-pro-notice">
+            <div id="popup-pro-notice" class="popup-container">
                 <div class="popup-content popup-sm">
                     <div class="popup-body">
                         <div class="d-flex flex-column align-items-center p-4">
@@ -1120,6 +1120,26 @@ class License {
             <div class="toast-body"><?php echo esc_html__( 'A licença informada não é permitida para este produto.', 'woo-custom-installments' ) ?></div>
         </div>
         <?php
+    }
+
+
+    /**
+     * Display be Pro license message for Elementor widgets
+     * 
+     * @since 5.0.0
+     * @return void
+     */
+    public static function render_widget_license_message() {
+        if ( ! License::is_valid() ) : ?>
+            <div class="wci-license-message-box">
+                <div class="message-box-header">
+                    <svg class="woo-custom-installments-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732.07 983.38"><path d="M569.06,765.19c115.21,1.52,248.61-42.44,248.61-156.14s-141-162.2-141-162.2V381.66C851,463.52,955.62,601.47,884.37,750S595.83,927.49,595.83,927.49v104H414.44V927.39C258.3,916.78,174.93,801.57,174.93,801.57L287.1,671.2C399.28,751.55,460.92,763.77,569.06,765.19Z" transform="translate(-174.93 -48.16)" style="fill:#040f0f"/><circle cx="299.39" cy="314.55" r="31.83" style="fill:#2ba84a"/><path d="M572.1,546.9l-32.6-77.1c-181.15-27.07-216-163.93-216-163.93C475.08,240.68,593.32,321,593.32,321l72.76-34.87,63.67,25.77,60.64-81.86c-63.67-68.21-194-84.89-194-84.89v-97H412.92V149.73c-203.13,0-283.47,222.84-189.49,341.08S406.86,598.44,546.32,619.66s63.67,94,63.67,94,148.56-7.58,159.17-109.15S660,464,660,464l-23.5,13.94,47,106.12Z" transform="translate(-174.93 -48.16)" style="fill:#2ba84a"/></svg>
+                </div>
+
+                <h5><?php echo esc_html__('Este recurso está disponível na versão Pro', 'woo-custom-installments'); ?></h5>
+                <span class="message-cta"><?php echo esc_html__( 'Uma licença permite que você desbloqueie todos os recursos Pro que o plugin tem a oferecer.', 'woo-custom-installments' ) ?></span>
+            </div>
+        <?php endif;
     }
 }
 

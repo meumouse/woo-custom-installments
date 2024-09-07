@@ -90,8 +90,10 @@ defined('ABSPATH') || exit; ?>
          <td>
             <div class="form-check form-switch <?php echo ( License::is_valid() ) ? '': 'pro-version-notice'; ?>">
                <input type="checkbox" class="toggle-switch <?php echo ( License::is_valid() ) ? '': 'pro-version'; ?>" id="enable_credit_card_method_payment_form" name="enable_credit_card_method_payment_form" value="yes" <?php checked( self::get_setting( 'enable_credit_card_method_payment_form') == 'yes' && License::is_valid() ); ?> />
+               
                <button class="manage-credit-card-trigger btn btn-outline-primary ms-3"><?php echo esc_html__( 'Configurar bandeiras', 'woo-custom-installments' ) ?></button>
-               <div class="manage-credit-card-container">
+               
+               <div class="manage-credit-card-container popup-container">
                   <div class="manage-credit-card-content">
                      <div class="popup-header">
                         <h5 class="popup-title"><?php echo esc_html__( 'Gerenciar bandeiras para cartão de crédito', 'woo-custom-installments' ); ?></h5>
@@ -398,8 +400,10 @@ defined('ABSPATH') || exit; ?>
          <td>
             <div class="form-check form-switch <?php echo ( License::is_valid() ) ? '': 'pro-version-notice'; ?>">
                <input type="checkbox" class="toggle-switch <?php echo ( License::is_valid() ) ? '': 'pro-version'; ?>" id="enable_debit_card_method_payment_form" name="enable_debit_card_method_payment_form" value="yes" <?php checked( self::get_setting( 'enable_debit_card_method_payment_form') == 'yes' && License::is_valid() ); ?> />
+               
                <button class="manage-debit-card-trigger btn btn-outline-primary ms-3"><?php echo esc_html__( 'Configurar bandeiras', 'woo-custom-installments' ) ?></button>
-               <div class="manage-debit-card-container">
+               
+               <div class="manage-debit-card-container popup-container">
                   <div class="manage-debit-card-content">
                      <div class="popup-header">
                         <h5 class="popup-title"><?php echo esc_html__( 'Gerenciar bandeiras para cartão de débito', 'woo-custom-installments' ); ?></h5>
