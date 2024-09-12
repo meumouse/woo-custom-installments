@@ -1,3 +1,6 @@
+Versão 5.1.2 (12/09/2024)
+* Correção de bugs
+
 Versão 5.1.0 (10/09/2024)
 * Correção de bugs
 * Otimizações

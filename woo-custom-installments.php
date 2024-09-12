@@ -7,7 +7,7 @@
  * Requires Plugins: 		woocommerce
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				5.0.0
+ * Version: 				5.1.2
  * WC requires at least: 	6.0.0
  * WC tested up to: 		9.2.3
  * Requires PHP: 			7.4
@@ -55,7 +55,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.0.0';
+		public static $version = '5.1.2';
 
 		/**
 		 * Constructor function
@@ -274,7 +274,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 */
 		public function add_action_plugin_links( $action_links ) {
 			$plugins_links = array(
-				'<a href="' . admin_url( 'admin.php?page=woo-custom-installments' ) . '">'. __( 'Configurar', 'woo-custom-installments' ) .'</a>',
+				'<a href="' . admin_url('admin.php?page=woo-custom-installments') . '">'. __( 'Configurar', 'woo-custom-installments' ) .'</a>',
 			);
 
 			return array_merge( $plugins_links, $action_links );
