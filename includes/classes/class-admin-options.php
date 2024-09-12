@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 5.0.0
+ * @version 5.1.2
  * @package MeuMouse.com
  */
 class Admin_Options extends Init {
@@ -502,7 +502,8 @@ class Admin_Options extends Init {
    * Generate post meta '_product_price_on_pix' for Feed XML
    * 
    * @since 4.0.0
-   * @version 4.5.0
+   * @version 5.1.2
+   * @param int $product_id | Product ID
    * @return void
    */
   public function product_price_for_xml_feed( $product_id ) {
@@ -531,13 +532,13 @@ class Admin_Options extends Init {
                   if ( $discount_per_product_method === 'percentage' ) {
                       $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
                   } else {
-                      $custom_price = $product->get_price() - $discount_per_product_value;
+                      $custom_price = (float) $product->get_price() - (float) $discount_per_product_value;
                   }
               } else {
                   if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
                       $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
                   } else {
-                      $custom_price = $product->get_price() - $discount;
+                      $custom_price = (float) $product->get_price() - (float) $discount;
                   }
               }
 
