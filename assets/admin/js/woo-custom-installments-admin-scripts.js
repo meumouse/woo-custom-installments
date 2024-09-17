@@ -351,8 +351,9 @@
 	 * Change container visibility on click
 	 * 
 	 * @since 2.7.2
+	 * @version 5.2.0
 	 */
-	jQuery(function($) {
+	jQuery( function($) {
 
 		/**
 		 * Function to change container visibility
@@ -506,6 +507,26 @@
 		});
 
 		select_visibility_controller('#price_range_method', ['dynamic'], '.require-dynamic-method');
+
+		/**
+		 * Display custom price modal settings
+		 * 
+		 * @since 5.2.0
+		 */
+		change_visibility('#custom_text_after_price', '.require-custom-product-price');
+		$('#custom_text_after_price').click( function() {
+			change_visibility('#custom_text_after_price', '.require-custom-product-price');
+		});
+
+		/**
+		 * Display custom product price container
+		 * 
+		 * @since 5.2.0
+		 */
+		change_visibility('#add_discount_custom_product_price', '.require-add-discount-custom-product-price');
+		$('#add_discount_custom_product_price').click( function() {
+			change_visibility('#add_discount_custom_product_price', '.require-add-discount-custom-product-price');
+		});
 	});
 
 
@@ -765,6 +786,7 @@
 	 * Display popups
 	 * 
 	 * @since 3.8.0
+	 * @version 5.2.0
 	 */
 	jQuery( function($) {
 		/**
@@ -799,6 +821,7 @@
 		display_popup( $('.pro-version-notice'), $('#popup-pro-notice'), $('#close-pro-notice') );
 		display_popup( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
 		display_popup( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
+		display_popup( $('#custom_product_price_trigger'), $('#custom_product_price_container'), $('#custom_product_price_close') );
 	});
 
 
