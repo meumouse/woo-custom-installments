@@ -7,11 +7,11 @@
  * Requires Plugins: 		woocommerce
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				5.1.2
+ * Version: 				5.2.0
  * WC requires at least: 	6.0.0
- * WC tested up to: 		9.2.3
+ * WC tested up to: 		9.3.1
  * Requires PHP: 			7.4
- * Tested up to:      		6.6.1
+ * Tested up to:      		6.6.2
  * Text Domain: 			woo-custom-installments
  * Domain Path: 			/languages
  * License: 				GPL2
@@ -55,13 +55,13 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.1.2';
+		public static $version = '5.2.0';
 
 		/**
 		 * Constructor function
 		 *
 		 * @since 1.0.0
-		 * @version 5.0.0
+		 * @version 5.2.0
 		 * @return void
 		 */
 		public function __construct() {
@@ -73,7 +73,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Check requeriments and load plugin
 		 * 
 		 * @since 1.0.0
-		 * @version 5.0.0
+		 * @version 5.2.0
 		 * @return void
 		 */
 		public function init() {
@@ -83,15 +83,16 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				return;
 			}
 
+			$this->setup_constants();
+
+			load_plugin_textdomain( 'woo-custom-installments', false, dirname( WOO_CUSTOM_INSTALLMENTS_BASENAME ) . '/languages/' );
+
 			if ( ! function_exists( 'is_plugin_active' ) ) {
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			}
 		
 			// check if WooCommerce is active
 			if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
-				$this->setup_constants();
-
-				load_plugin_textdomain( 'woo-custom-installments', false, dirname( WOO_CUSTOM_INSTALLMENTS_BASENAME ) . '/languages/' );
 				add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
 				add_action( 'plugins_loaded', array( $this, 'setup_includes' ), 999 );
 				add_filter( 'plugin_action_links_' . WOO_CUSTOM_INSTALLMENTS_BASENAME, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -148,6 +149,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Setup plugin constants
 		 *
 		 * @since 1.0.0
+		 * @version 5.2.0
 		 * @return void
 		 */
 		public function setup_constants() {
@@ -161,7 +163,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_SLUG', self::$slug );
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_VERSION', self::$version );
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL', get_option('admin_email') );
-			$this->define( 'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK', 'https://meumouse.com/docs/parcelas-customizadas-para-woocommerce/' );
+			$this->define( 'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK', 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview' );
 		}
 
 

@@ -1,3 +1,14 @@
+Versão 5.2.0 (17/09/2024)
+* Correção de bugs
+* Otimizações
+* Links da documentação atualizados
+* Compatibilidade com Rank Math JSON LD - Exibir preço com desconto em dados estruturados (Schema.org)
+* Recurso adicionado: Ativar widgets para Elementor
+* Recurso adicionado: Empilhamento de preços em widgets
+* Recurso adicionado: Forma de exibição da mensagem de desconto
+* Recurso adicionado: Widget para Elementor: Mensagem de desconto por quantidade
+* Recurso modificado: Personalizar preço do produto
+
 Versão 5.1.2 (12/09/2024)
 * Correção de bugs
 
