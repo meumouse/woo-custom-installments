@@ -3,7 +3,6 @@
 namespace MeuMouse\Woo_Custom_Installments;
 
 use MeuMouse\Woo_Custom_Installments\Init;
-use MeuMouse\Woo_Custom_Installments\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -12,6 +11,7 @@ defined('ABSPATH') || exit;
  * Add Woo Custom Installments widgets on Elementor
  *
  * @since 5.0.0
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Elementor_Widgets {
@@ -20,12 +20,15 @@ class Elementor_Widgets {
      * Construct function
      * 
      * @since 5.0.0
+     * @version 5.2.0
      * @return void
      */
     public function __construct() {
-        add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 3 );
-        add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ), 10, 1 );
-        add_action( 'elementor/preview/enqueue_scripts', array( $this, 'wci_preview_assets' ) );
+        if ( Init::get_setting('enable_elementor_widgets') === 'yes' ) {
+            add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 3 );
+            add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ), 10, 1 );
+            add_action( 'elementor/preview/enqueue_scripts', array( $this, 'wci_preview_assets' ) );
+        }
     }
 
 
@@ -51,6 +54,7 @@ class Elementor_Widgets {
      * Register Custom Installments Widget
      *
      * @since 5.0.0
+     * @version 5.2.0
      * @param \Elementor\Widgets_Manager $widgets_manager | Elementor widgets manager
      * @return void
      */
@@ -64,6 +68,7 @@ class Elementor_Widgets {
             'widgets/class-debit-card-badges.php',
             'widgets/class-installments-table.php',
             'widgets/class-price-info-box.php',
+            'widgets/class-discount-per-quantity.php',
         ));
 
         foreach ( $widgets as $file ) {

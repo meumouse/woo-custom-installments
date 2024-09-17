@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.0.0
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Ajax {
@@ -56,7 +56,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.0.0
+     * @version 5.2.0
      * @return void
      */
     public function ajax_save_options_callback() {
@@ -107,7 +107,10 @@ class Ajax {
                 'enable_pagseguro_flag_debit',
                 'enable_pagarme_flag_debit',
                 'enable_cielo_flag_debit',
-                'center_group_elements_loop'
+                'center_group_elements_loop',
+                'enable_elementor_widgets',
+                'enable_price_grid_in_widgets',
+                'add_discount_custom_product_price',
             );
 
             $fields_with_license = array(
@@ -338,60 +341,111 @@ class Ajax {
      * Get updated prices for selected variation on callback AJAX
      * 
      * @since 4.5.0
+     * @version 5.1.0
      * @return void
      */
     public function get_update_variation_prices_callback() {
-        if ( isset( $_POST['variation_id'] ) ) {
+        if ( isset( $_POST['variation_id'] ) && is_numeric( $_POST['variation_id'] ) ) {
             $variation_id = intval( $_POST['variation_id'] );
-            $variation = wc_get_product( $variation_id );
+            $direct_price = filter_var( $_POST['direct_price'], FILTER_VALIDATE_BOOLEAN );
 
-            $response = apply_filters( 'woo_custom_installments_update_variation_prices', array(
-                'pix_price' => array(
-                    'element' => '.pix-method-name',
-                    'price'  => wc_price( Calculate_Values::get_discounted_price( $variation, 'main' ) ),
-                ),
-                'economy_pix' => array(
-                    'element' => '.discount-before-economy-pix',
-                    'price'  => wc_price( Frontend::calculate_pix_economy( $variation ) ),
-                ),
-                'ticket_price' => array(
-                    'element' => '.ticket-method-name',
-                    'price'  => wc_price( Calculate_Values::get_discounted_price( $variation, 'ticket' ) ),
-                ),
-            ));
+            if ( $direct_price === true ) {
+                // get direct price from variation param
+                $product_or_price = $variation_id;
+            } else {
+                $product_or_price = wc_get_product( $variation_id );
+            }
+
+            if ( $product_or_price && ( is_a( $product_or_price, 'WC_Product' ) || is_numeric( $product_or_price ) ) ) {
+                $response = apply_filters( 'woo_custom_installments_update_variation_prices', array(
+                    'pix_price' => array(
+                        'selectors' => array(
+                            '.wci-popup-container .pix-method-name',
+                            '.wci-accordion-item .pix-method-name',
+                            '#woo-custom-installments-product-price .woo-custom-installments-offer .discounted-price',
+                            '.woo-custom-installments-group.variable-range-price .woo-custom-installments-offer .discounted-price',
+                            '.woocommerce-variation-price .woo-custom-installments-offer .discounted-price',
+                        ),
+                        'price'  => wc_price( Calculate_Values::get_discounted_price( $product_or_price, 'main' ) ),
+                    ),
+                    'economy_pix' => array(
+                        'selectors' => array(
+                            '.wci-popup-container .discount-before-economy-pix',
+                            '.wci-accordion-item .discount-before-economy-pix',
+                            '#woo-custom-installments-product-price .woo-custom-installments-economy-pix-badge .discount-before-economy-pix',
+                            '.woo-custom-installments-group.variable-range-price .woo-custom-installments-economy-pix-badge .discount-before-economy-pix',
+                            '.woocommerce-variation-price .woo-custom-installments-economy-pix-badge .discount-before-economy-pix',
+                        ),
+                        'price'  => wc_price( Frontend::calculate_pix_economy( $product_or_price ) ),
+                    ),
+                    'ticket_price' => array(
+                        'selectors' => array(
+                            '.wci-popup-container .ticket-method-name',
+                            '.wci-accordion-item .ticket-method-name',
+                            '#woo-custom-installments-product-price .woo-custom-installments-ticket-discount .discounted-price',
+                            '.woo-custom-installments-group.variable-range-price .woo-custom-installments-ticket-discount .discounted-price',
+                            '.woocommerce-variation-price .woo-custom-installments-ticket-discount .discounted-price',
+                        ),
+                        'price'  => wc_price( Calculate_Values::get_discounted_price( $product_or_price, 'ticket' ) ),
+                    ),
+                ));
     
-            if ( $variation ) {
                 wp_send_json_success( $response );
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Invalid product variation ID or product not found',
+                    'variation_id' => $variation_id,
+                );
+                wp_send_json_error( $response );
             }
         }
-    
-        wp_send_json_error( 'Invalid product variation ID' );
+
+        $response = array(
+            'status' => 'error',
+            'message' => 'Invalid product variation ID',
+            'variation_id' => isset( $_POST['variation_id'] ) ? $_POST['variation_id'] : 'undefined',
+        );
+        
+        wp_send_json_error( $response );
     }
 
 
     /**
-     * Get HTML price on update variation in AJAX callback
+     * Get updated price HTML via AJAX callback
      * 
      * @since 4.5.1
+     * @version 5.1.0
      * @return void
      */
     public function get_updated_price_html_callback() {
-        if ( isset( $_POST['product_id'] ) ) {
-            $product_id = intval( $_POST['product_id'] );
-            $product = wc_get_product( $product_id );
-    
-            if ( $product ) {
-                $price_html = apply_filters( 'woocommerce_get_price_html', $product->get_price_html(), $product );
-    
-                // get price HTML
-                wp_send_json_success( array(
-                    'price_html' => $price_html,
-                ));
+        // Check if the necessary data (price and quantity) is sent via AJAX
+        if ( isset( $_POST['price'] ) && isset( $_POST['quantity'] ) ) {
+            $price = floatval( $_POST['price'] );
+            $quantity = intval( $_POST['quantity'] );
+
+            // Validate the inputs
+            if ( $price > 0 && $quantity > 0 ) {
+                $product_id = intval( $_POST['product_id'] );
+                $product = wc_get_product( $product_id );
+
+                if ( $product ) {
+                    // Calculate the total price based on the price per unit and quantity
+                    $total_price = $price * $quantity;
+
+                    // You can apply any custom logic for price HTML formatting
+                    $price_html = apply_filters( 'woocommerce_get_price_html', wc_price( $total_price ), $product );
+
+                    // Return the updated price HTML via AJAX
+                    wp_send_json_success( array(
+                        'price_html' => $price_html,
+                    ));
+                }
             }
         }
-    
+
         wp_send_json_error( array(
-            'message' => 'Invalid product',
+            'message' => 'Invalid price or quantity',
         ));
     }
 }

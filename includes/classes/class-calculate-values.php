@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 4.5.2
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -20,6 +20,7 @@ class Calculate_Values {
      * Calculate total value of single installment with interest
      *
      * @since 2.1.0
+     * @version 5.2.0
      * @param float $value (Base value for calc)
      * @param float $fee (Fee of interest)
      * @param int $installments (Total of installments)
@@ -28,14 +29,24 @@ class Calculate_Values {
     public static function calculate_installment_with_fee( $value, $fee, $installments ) {
         $percentage = floatval( wc_format_decimal( $fee ) ) / 100.00;
         
+        if ( $installments <= 0 ) {
+            return 0;
+        }
+    
         if ( Init::get_setting('set_fee_per_installment') === 'yes' ) {
             $installment_price = ( $value * $percentage + $value ) / $installments;
         } else {
-            $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / ( ( ( 1 + $percentage ) ** $installments ) - 1 );
+            $denominator = ( ( 1 + $percentage ) ** $installments ) - 1;
+    
+            if ( $denominator === 0 ) {
+                return 0;
+            }
+    
+            $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / $denominator;
         }
-
+    
         return apply_filters( 'woo_custom_installments_with_fee', $installment_price, $value, $fee, $installments );
-    }
+    }    
 
 
     /**
@@ -114,26 +125,38 @@ class Calculate_Values {
 
 
     /**
-     * Get discounted price based on product and settings, including variations
+     * Get discounted price based on product, price, and settings, including variations.
      *
      * @since 4.5.0
-     * @version 5.0.0
-     * @param WC_Product $product | Product object
+     * @version 5.1.0
+     * @param mixed $product_or_price | Can be a WC_Product object or a numeric price.
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
      */
-    public static function get_discounted_price( $product, $discount_type = 'main' ) {
-        if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-            return 0;
-        }
+    public static function get_discounted_price( $product_or_price, $discount_type = 'main' ) {
+        // If the input is a WC_Product object, handle the product-based discount logic
+        if ( is_a( $product_or_price, 'WC_Product' ) ) {
+            $product = $product_or_price;
 
-        // Check if the product is a variation and get the correct ID
-        if ( $product && $product->is_type('variation', 'variable') ) {
-            $product_id = $product->get_id();
-            $parent_product_id = $product->get_parent_id();
+            // Check if the product is a variation and get the correct ID
+            if ( $product->is_type('variation', 'variable') ) {
+                $product_id = $product->get_id();
+                $parent_product_id = $product->get_parent_id();
+            } else {
+                $product_id = $product->get_id();
+                $parent_product_id = $product_id;
+            }
+
+            // Get the price of the product
+            $price = wc_get_price_to_display( $product );
+
+        // If the input is a numeric value, treat it as the price directly
+        } elseif ( is_numeric( $product_or_price ) ) {
+            $price = floatval( $product_or_price );
+            $product_id = null;
+            $parent_product_id = null;
         } else {
-            $product_id = $product->get_id();
-            $parent_product_id = $product_id;
+            return 0; // Invalid input
         }
         
         // Set discount values based on discount type
@@ -149,22 +172,25 @@ class Calculate_Values {
                 break;
         }
 
-        // Get product discount
-        list( $discount_per_product, $discount_per_product_method, $discount_per_product_value ) = self::get_product_discount( $product_id, $parent_product_id );
+        // Apply product-specific discounts if applicable
+        if ( $product_id && $parent_product_id ) {
+            list( $discount_per_product, $discount_per_product_method, $discount_per_product_value ) = self::get_product_discount( $product_id, $parent_product_id );
 
-        $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
+            $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
 
-        if ( $disable_discount_main_price === 'yes' ) {
-            return wc_get_price_to_display( $product );
+            if ( $disable_discount_main_price === 'yes' ) {
+                return $price; // No discount should be applied
+            }
+
+            // Override global discount with product-specific discount if applicable
+            if ( $discount_per_product === 'yes' ) {
+                $discount_method = $discount_per_product_method;
+                $discount_value = $discount_per_product_value;
+            }
         }
 
-        // If an individual product discount is enabled, override the global discount
-        if ( $discount_per_product === 'yes' ) {
-            $discount_method = $discount_per_product_method;
-            $discount_value = $discount_per_product_value;
-        }
-
-        return self::calculate_price_with_discount( wc_get_price_to_display( $product ), $discount_method, $discount_value );
+        // Calculate the discounted price
+        return self::calculate_price_with_discount( $price, $discount_method, $discount_value );
     }
 
 

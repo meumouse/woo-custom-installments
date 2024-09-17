@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 5.0.0
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Frontend {
@@ -40,7 +40,7 @@ class Frontend {
    * Construct function
    * 
    * @since 1.0.0
-   * @version 5.0.0
+   * @version 5.2.0
    * @return void
    */
   public function __construct() {
@@ -55,9 +55,9 @@ class Frontend {
       // get hook to display accordion or popup payment form in single product page
       if ( Init::get_setting('hook_payment_form_single_product') === 'before_cart' ) {
         add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'full_installment' ), 10 );
-      } elseif ( Init::get_setting( 'hook_payment_form_single_product' ) === 'after_cart' ) {
+      } elseif ( Init::get_setting('hook_payment_form_single_product') === 'after_cart' ) {
           add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'full_installment' ), 10 );
-      } elseif ( Init::get_setting( 'hook_payment_form_single_product' ) === 'custom_hook' ) {
+      } elseif ( Init::get_setting('hook_payment_form_single_product') === 'custom_hook' ) {
         add_action( Init::get_setting('set_custom_hook_payment_form'), array( $this, 'full_installment' ), 10 );
       } else {
           remove_action( 'woocommerce_after_add_to_cart_form', array( $this, 'full_installment' ), 10 );
@@ -84,9 +84,17 @@ class Frontend {
       }
 
       // display discount per quantity message if parent option is activated
-      if ( Init::get_setting('enable_functions_discount_per_quantity') === 'yes' && Init::get_setting('message_discount_per_quantity') === 'yes' ) {
+      if ( Init::get_setting('enable_functions_discount_per_quantity') === 'yes' && Init::get_setting('message_discount_per_quantity') === 'yes' && Init::get_setting('discount_per_qtd_message_method') === 'hook' ) {
         add_action( 'woocommerce_single_product_summary', array( $this, 'display_message_discount_per_quantity' ) );
         add_action( 'woocommerce_after_shop_loop_item_title', array( $this, 'display_message_discount_per_quantity' ) );
+      }
+
+      if ( Init::get_setting('center_group_elements_loop') === 'yes' ) {
+        add_filter( 'woo_custom_installments_align_price_group_widgets', array( __CLASS__, 'align_center_group_prices' ) );
+      }
+
+      if ( Init::get_setting( 'custom_text_after_price') === 'yes' ) {
+        add_filter( 'woocommerce_get_price_html', array( $this, 'custom_product_price' ), 10, 2 );
       }
     }
   }
@@ -150,7 +158,7 @@ class Frontend {
           return $return;
       }
 
-      if ( $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
+      if ( $product && $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
           $args['price'] = $product->get_variation_price('max');
       }
 
@@ -252,11 +260,15 @@ class Frontend {
    * Display best installments
    * 
    * @since 2.1.0
-   * @version 5.0.0
+   * @version 5.1.0
    * @param object $product | Product object
    * @return string
   */
   public function display_best_installments( $product ) {
+    if ( $product === false ) {
+      global $product;
+    }
+
     // check if option __disable_installments in product is true
     $disable_installments_in_product = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
   
@@ -559,19 +571,12 @@ class Frontend {
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 4.5.2
+   * @version 5.1.0
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
   */
   public function woo_custom_installments_group( $price, $product ) {
-    $product_id = Helpers::get_product_id_from_post();
-    $product = wc_get_product( $product_id );
-
-    if ( $product === false || ! isset( $product ) ) {
-      global $product;
-    }
-
     $price = apply_filters( 'woo_custom_installments_adjusted_price', $price, $product );
 
     if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
@@ -589,10 +594,10 @@ class Frontend {
     // Original price
     $html .= '<span class="woo-custom-installments-price original-price">' . $price . '</span>';
 
-    $html .= $this->discount_main_price_single( $product );
-    $html .= $this->discount_ticket_badge( $product );
     $html .= $this->display_best_installments( $product );
+    $html .= $this->discount_main_price_single( $product );
     $html .= $this->economy_pix_badge( $product );
+    $html .= $this->discount_ticket_badge( $product );
 
     $html .= '</div>';
 
@@ -604,11 +609,15 @@ class Frontend {
    * Discount product main price
    * 
    * @since 3.6.0
-   * @version 4.5.1
+   * @version 5.1.0
    * @param object $product | Product object
    * @return string $html
    */
   public function discount_main_price_single( $product ) {
+    if ( $product === false ) {
+      global $product;
+    }
+
     if ( Init::get_setting('display_discount_price_hook') === 'hide' || Init::get_setting('enable_all_discount_options') !== 'yes' ) {
       return;
     }
@@ -648,11 +657,15 @@ class Frontend {
    * Create a ticket discount badge
    * 
    * @since 2.8.0
-   * @version 4.5.0
+   * @version 5.1.0
    * @param object $product | Product object
    * @return string $html
    */
   public function discount_ticket_badge( $product ) {
+    if ( $product === false ) {
+      global $product;
+    }
+
     $html = '<span class="woo-custom-installments-ticket-discount">';
 
     if ( ! empty( Init::get_setting('ticket_discount_icon') ) ) {
@@ -688,17 +701,26 @@ class Frontend {
    * Calculate Pix economy value
    *
    * @since 4.5.0
-   * @version 5.0.0
-   * @param WC_Product $product | Product object
+   * @version 5.1.0
+   * @param mixed $product_or_price | Can be a WC_Product object or a numeric price
    * @return float | Economy value
    */
-  public static function calculate_pix_economy( $product ) {
-    if ( $product === false || ! isset( $product ) ) {
-      global $product;
+  public static function calculate_pix_economy( $product_or_price ) {
+    // If the input is a WC_Product object, get the price from the product object
+    if ( is_a( $product_or_price, 'WC_Product' ) ) {
+        $product = $product_or_price;
+        $price = $product->get_price();
+    // If the input is a numeric value, treat it as the price directly
+    } elseif ( is_numeric( $product_or_price ) ) {
+        $price = floatval( $product_or_price );
+    } else {
+        return 0; // Invalid input
     }
 
-    $price = $product->get_price();
-    $custom_price = Calculate_Values::get_discounted_price( $product, 'main' );
+    // Calculate the custom discounted price based on the "main" discount type
+    $custom_price = Calculate_Values::get_discounted_price( $product_or_price, 'main' );
+    
+    // Calculate the economy value (how much is saved with Pix)
     $economy = (float) $price - (float) $custom_price;
 
     return apply_filters( 'woo_custom_installments_economy_pix_price', $economy );
@@ -709,17 +731,17 @@ class Frontend {
    * Create a economy Pix badge
    * 
    * @since 3.6.0
-   * @version 5.0.0
+   * @version 5.1.0
    * @param WC_Product $product | Product object
    * @return string
    */
   public function economy_pix_badge( $product ) {
-    if ( Init::get_setting('enable_economy_pix_badge') !== 'yes' || Init::get_setting('enable_all_discount_options') !== 'yes' ) {
-      return;
-    }
-
     if ( $product === false || ! isset( $product ) ) {
       global $product;
+    }
+    
+    if ( Init::get_setting('enable_economy_pix_badge') !== 'yes' || Init::get_setting('enable_all_discount_options') !== 'yes' ) {
+      return;
     }
 
     $economy_value = self::calculate_pix_economy( $product );
@@ -747,13 +769,11 @@ class Frontend {
 
         // Check display conditions
         if ( Init::get_setting('display_economy_pix_hook') === 'global'
-        || ( Init::get_setting('display_economy_pix_hook') === 'only_single_product' && is_product() )
-        || ( Init::get_setting('display_economy_pix_hook') === 'only_loop_products' && is_archive() ) ) {
+        || Init::get_setting('display_economy_pix_hook') === 'only_single_product' && is_product()
+        || Init::get_setting('display_economy_pix_hook') === 'only_loop_products' && is_archive() ) {
           return $html;
         }
     }
-
-    return '';
   }
 
 
@@ -784,7 +804,9 @@ class Frontend {
    * Get best installment without interest
    * 
    * @since 1.0.0
-   * @version 5.0.0
+   * @version 5.1.0
+   * @param array $installments | Product installments
+   * @param object $product | Product object
    * @return string
   */
   public function best_without_interest( $installments, $product ) {
@@ -812,7 +834,7 @@ class Frontend {
       return;
     }
 
-    if ( 'main_price' == $hook ) {
+    if ( 'main_price' === $hook ) {
       $text = Init::get_setting('text_display_installments_single_product');
     } else {
       $text = Init::get_setting('text_display_installments_loop');
@@ -822,7 +844,7 @@ class Frontend {
     $replace = array_values( $this->strings_to_replace( $best_without_interest ) );
     $text = str_replace( $find, $replace, $text );
 
-    $html = '<span class="woo-custom-installments-details-without-fee">';
+    $html = '<span class="woo-custom-installments-details-without-fee" data-end-installments="'. esc_attr( $best_without_interest['installments_total'] ) .'">';
 
       if ( ! empty( Init::get_setting('icon_best_installments') ) ) {
         $html .= '<i class="wci-icon-best-installments '. Init::get_setting('icon_best_installments') .'"></i>';
@@ -834,11 +856,14 @@ class Frontend {
     return $html;
   }
 
+
   /**
    * Get best installment with interest
    * 
    * @since 1.0.0
-   * @version 5.0.0
+   * @version 5.1.0
+   * @param array $installments | Product installments
+   * @param object $product | Product object
    * @return string
   */
   public function best_with_interest( $installments, $product ) {
@@ -868,13 +893,13 @@ class Frontend {
     $replace = array_values( $this->strings_to_replace( $best_with_interest ) );
     $text = str_replace( $find, $replace, $text );
 
-    $html = '<span class="woo-custom-installments-details-with-fee">';
+    $html = '<span class="woo-custom-installments-details-with-fee" data-end-installments="'. esc_attr( $best_with_interest['installments_total'] ) .'">';
 
       if ( ! empty( Init::get_setting('icon_best_installments') ) ) {
         $html .= '<i class="wci-icon-best-installments '. Init::get_setting('icon_best_installments') .'"></i>';
       }
 
-      $html .= '<span class="best-value'. $best_with_interest['class'] .'">'. apply_filters( 'woo_custom_installments_best_with_fee_'. $hook, $text, $best_with_interest, $product ) . '</span>';
+      $html .= '<span class="best-value '. $best_with_interest['class'] .'">'. apply_filters( 'woo_custom_installments_best_with_fee_'. $hook, $text, $best_with_interest, $product ) . '</span>';
     $html .= '</span>';
 
     return $html;
@@ -900,7 +925,12 @@ class Frontend {
    * Save array with all details of installments
    * 
    * @since 1.0.0
-   * @return string
+   * @param float $price | Product price
+   * @param float $final_price | Final price
+   * @param float $interest_fee | Interest rate fee
+   * @param string $class | Installments classs
+   * @param int $i | Installments total
+   * @return array
   */
   public function set_installment_info( $price, $final_price, $interest_fee, $class, $i ) {
     return apply_filters( 'woo_custom_installments_installment_info', array(
@@ -1179,7 +1209,7 @@ class Frontend {
    * Display menssage in elegible products for discount per quantity
    * 
    * @since 2.8.0
-   * @version 5.0.0
+   * @version 5.2.0
    * @param int $product_id | Product ID
    * @return void
    */
@@ -1220,10 +1250,11 @@ class Frontend {
 
       if ( ! empty( $text_discount_per_quantity_message ) ) {
           // Count the number of %s in the string
-          $placeholders_count = substr_count( $text_discount_per_quantity_message, '%s' );
+          $placeholders_string_count = substr_count( $text_discount_per_quantity_message, '%s' );
+          $placeholders_number_count = substr_count( $text_discount_per_quantity_message, '%d' );
 
           // Ensure that the number of arguments passed to sprintf matches the number of %s
-          if ( $placeholders_count === 2 ) {
+          if ( $placeholders_string_count === 1 && $placeholders_number_count === 1 ) {
               $formatted_text = sprintf( $text_discount_per_quantity_message, $minimum_quantity, $discount_message );
           } else {
               // If the amount of %s does not match, use the original text
@@ -1259,5 +1290,67 @@ class Frontend {
       <td data-title="<?php echo esc_attr( apply_filters( 'woo_custom_installments_cart_total_title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Init::get_setting('text_after_price') ) ) ); ?>"><?php echo wc_price( $total_cart_value - $total_discount ); ?></td>
     </tr>
     <?php
+  }
+
+
+  /**
+   * Set price group to center for Elementor widgets
+   * 
+   * @since 5.2.0
+   * @return string
+   */
+  public static function align_center_group_prices() {
+    return 'center';
+  }
+
+
+  /**
+   * Custom product price
+   * 
+   * @since 5.2.0
+   * @param string $price | Product price
+   * @param object $product | Product object
+   * @return string
+  */
+  public function custom_product_price( $price, $product ) {
+    $discount_value = (float) Init::get_setting('discount_value_custom_product_price') / 100;
+    $after_text = Init::get_setting('custom_text_after_price_front');
+
+    if ( $product && $product->is_type('simple') ) {
+        $regular_price = $product->get_regular_price();
+        
+        if ( Init::get_setting('add_discount_custom_product_price') === 'yes' ) {
+          $discounted_price = (float) $regular_price - ( (float) $regular_price * (float) $discount_value );
+        } else {
+          $discounted_price = (float) $regular_price;
+        }
+
+        if ( ! empty( $after_text ) ) {
+          $after_text_element = ' <span class="woo-custom-installments-text-after-price">'. $after_text .'</span>';
+        } else {
+          $after_text_element = '';
+        }
+
+        $price = wc_price( $discounted_price ) . $after_text_element;
+    } elseif ( $product && $product->is_type('variable') ) {
+        $prices = $product->get_variation_prices();
+        $min_price = min( $prices['regular_price'] );
+
+        if ( Init::get_setting('add_discount_custom_product_price') === 'yes' ) {
+          $discounted_price = (float) $min_price - ( (float) $min_price * (float) $discount_value );
+        } else {
+          $discounted_price = (float) $min_price;
+        }
+
+        if ( ! empty( $after_text ) ) {
+          $after_text_element = ' <span class="woo-custom-installments-text-after-price">'. $after_text .'</span>';
+        } else {
+          $after_text_element = '';
+        }
+
+        $price = wc_price( $discounted_price ) . $after_text_element;
+    }
+
+    return $price;
   }
 }
