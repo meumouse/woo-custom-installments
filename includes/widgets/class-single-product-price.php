@@ -6,6 +6,7 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
+use MeuMouse\Woo_Custom_Installments\Init;
 use MeuMouse\Woo_Custom_Installments\Helpers;
 use MeuMouse\Woo_Custom_Installments\Frontend;
 use MeuMouse\Woo_Custom_Installments\License;
@@ -17,6 +18,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add product price on single product page
  * 
  * @since 5.0.0
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Price extends \Elementor\Widget_Base {
@@ -99,10 +101,12 @@ class Price extends \Elementor\Widget_Base {
 	 * Show in panel
 	 *
      * @since 5.0.0
+     * @version 5.1.0
 	 * @return bool Whether to show the widget in the panel or not
 	 */
 	public function show_in_panel() {
-		return Helpers::is_editing_single_product_in_elementor();
+        return true;
+	//	return Helpers::is_editing_single_product_in_elementor();
 	}
 
 
@@ -110,6 +114,7 @@ class Price extends \Elementor\Widget_Base {
 	 * Register the widget controls
      * 
      * @since 5.0.0
+     * @version 5.2.0
      * @return void
 	 */
 	protected function register_controls() {
@@ -262,23 +267,25 @@ class Price extends \Elementor\Widget_Base {
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 
-        $this->add_control(
-            'enable_grid_display',
-            array(
-                'label' => esc_html__( 'Ativar empilhamento de preços', 'woo-custom-installments' ),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
-                'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-                'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
-                ),
-                'selectors_off' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
-                ),
-            )
-        );
+        if ( Init::get_setting('enable_price_grid_in_widgets') === 'yes' ) {
+            $this->add_control(
+                'enable_grid_display',
+                array(
+                    'label' => esc_html__( 'Ativar empilhamento de preços', 'woo-custom-installments' ),
+                    'type' => Controls_Manager::SWITCHER,
+                    'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
+                    'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
+                    'return_value' => 'yes',
+                    'default' => apply_filters( 'woo_custom_installments_enable_grid_price_widgets', 'yes' ),
+                    'selectors' => array(
+                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
+                    ),
+                    'selectors_off' => array(
+                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
+                    ),
+                )
+            );
+        }
     
         $this->add_responsive_control(
             'price_margin',

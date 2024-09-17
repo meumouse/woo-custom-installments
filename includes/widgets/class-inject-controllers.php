@@ -5,6 +5,7 @@ namespace MeuMouse\Woo_Custom_Installments\Elementor\Widgets;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
+use MeuMouse\Woo_Custom_Installments\Init;
 use MeuMouse\Woo_Custom_Installments\License;
 
 // Exit if accessed directly.
@@ -14,6 +15,7 @@ defined('ABSPATH') || exit;
  * Add controllers on Elementor widgets
  * 
  * @since 5.0.0
+ * @version 5.2.0
  * @package MeuMouse.com
  */
 class Inject_Controllers {
@@ -61,6 +63,7 @@ class Inject_Controllers {
      * Woo Custom Installments element design controllers
      * 
      * @since 5.0.0
+     * @version 5.2.0
      * @param \Elementor\Controls_Stack $element | The element type
      * @return void
      */
@@ -92,7 +95,7 @@ class Inject_Controllers {
                         'icon' => 'eicon-text-align-right',
                     ),
                 ),
-                'default' => 'left',
+                'default' => apply_filters( 'woo_custom_installments_align_price_group_widgets', 'left' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-group' => 'justify-items: {{VALUE}};',
                 ),
@@ -175,7 +178,7 @@ class Inject_Controllers {
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
-				'default' => 'block',
+				'default' => apply_filters( 'woo_custom_installments_hidden_old_price_widget', 'block' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-price.original-price del' => 'display: {{VALUE}}',
                 ),
@@ -214,23 +217,25 @@ class Inject_Controllers {
 		$element->end_controls_tab();
 		$element->end_controls_tabs();
 
-        $element->add_control(
-            'wci_enable_grid_price',
-            array(
-                'label' => esc_html__( 'Ativar empilhamento de preços', 'woo-custom-installments' ),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
-                'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-                'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
-                ),
-                'selectors_off' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
-                ),
-            )
-        );
+        if ( Init::get_setting('enable_price_grid_in_widgets') === 'yes' ) {
+            $element->add_control(
+                'wci_enable_grid_price',
+                array(
+                    'label' => esc_html__( 'Ativar empilhamento de preços', 'woo-custom-installments' ),
+                    'type' => Controls_Manager::SWITCHER,
+                    'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
+                    'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
+                    'return_value' => 'yes',
+                    'default' => apply_filters( 'woo_custom_installments_enable_grid_price_widgets', 'yes' ),
+                    'selectors' => array(
+                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
+                    ),
+                    'selectors_off' => array(
+                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
+                    ),
+                )
+            );
+        }
     
         $element->add_responsive_control(
             'wci_price_margin',
