@@ -34,6 +34,11 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.2.1 (23/09/2024)
+* Correção de bugs
+* Otimizações
+* Compatibilidade com tema Ricky
+
 Versão 5.2.0 (17/09/2024)
 * Correção de bugs
 * Otimizações

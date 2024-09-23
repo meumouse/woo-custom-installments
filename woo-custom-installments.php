@@ -7,7 +7,7 @@
  * Requires Plugins: 		woocommerce
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				5.2.0
+ * Version: 				5.2.1
  * WC requires at least: 	6.0.0
  * WC tested up to: 		9.3.1
  * Requires PHP: 			7.4
@@ -55,7 +55,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.2.0';
+		public static $version = '5.2.1';
 
 		/**
 		 * Constructor function
