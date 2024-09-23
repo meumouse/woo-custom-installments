@@ -1308,6 +1308,7 @@ class Frontend {
    * Custom product price
    * 
    * @since 5.2.0
+   * @version 5.2.1
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
@@ -1315,6 +1316,10 @@ class Frontend {
   public function custom_product_price( $price, $product ) {
     $discount_value = (float) Init::get_setting('discount_value_custom_product_price') / 100;
     $after_text = Init::get_setting('custom_text_after_price_front');
+
+    if ( $price <= 0 || ! isset( $price ) ) {
+      return '';
+    }
 
     if ( $product && $product->is_type('simple') ) {
         $regular_price = $product->get_regular_price();
@@ -1333,8 +1338,7 @@ class Frontend {
 
         $price = wc_price( $discounted_price ) . $after_text_element;
     } elseif ( $product && $product->is_type('variable') ) {
-        $prices = $product->get_variation_prices();
-        $min_price = min( $prices['regular_price'] );
+        $min_price = $product->get_variation_price( 'min', true );
 
         if ( Init::get_setting('add_discount_custom_product_price') === 'yes' ) {
           $discounted_price = (float) $min_price - ( (float) $min_price * (float) $discount_value );
