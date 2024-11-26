@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Include shortcodes for custom design
  * 
  * @since 4.5.0
- * @version 5.0.0
+ * @version 5.2.2
  * @package MeuMouse.com
  */
 class Shortcodes extends Frontend {
@@ -49,23 +49,24 @@ class Shortcodes extends Frontend {
      * Create a shortcode for modal container
      * 
      * @since 2.0.0
-     * @version 5.0.0
+     * @version 5.2.2
      * @return object
      */
     public function render_full_installment_shortcode() {
         // compatibility with Elementor editing mode
-        $product = wc_get_product( Helpers::get_product_id_from_post() );
+        $product_id = Helpers::get_product_id_from_post();
+        $product = wc_get_product( $product_id );
 
         if ( $product === false ) {
             global $product;
         }
 
-        $product_id = $product->get_id();
-
         // check if product is valid
-        if ( ! $product ) {
+        if ( ! $product || ! $product instanceof WC_Product || $product === null ) {
             return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
+
+        $product_id = $product->get_id();
 
         ob_start();
 

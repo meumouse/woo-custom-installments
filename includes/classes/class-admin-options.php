@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 5.1.2
+ * @version 5.2.2
  * @package MeuMouse.com
  */
 class Admin_Options extends Init {
@@ -23,7 +23,7 @@ class Admin_Options extends Init {
    * Construct function
    * 
    * @since 2.0.0
-   * @version 4.0.0
+   * @version 5.2.2
    * @return void
    */
   public function __construct() {
@@ -53,12 +53,13 @@ class Admin_Options extends Init {
 
     // add product post meta for xml feed
     if ( self::get_setting('enable_post_meta_feed_xml_price') === 'yes' && License::is_valid() ) {
-      add_action( 'init', array( $this, 'product_price_for_xml_feed' ) );
+      add_action( 'wp_loaded', array( $this, 'product_price_for_xml_feed' ) );
       add_action( 'save_post_product', array( $this, 'update_discount_on_product_price_on_pix' ) );
     }
 
     add_action( 'admin_notices', array( $this, 'expire_license_notice' ) );
     add_action( 'admin_head', array( $this, 'hide_woo_custom_installments_table_price' ) );
+    add_action( 'woocommerce_update_product', array( $this, 'clear_price_cache_on_update' ) );
   }
 
 
@@ -502,15 +503,28 @@ class Admin_Options extends Init {
    * Generate post meta '_product_price_on_pix' for Feed XML
    * 
    * @since 4.0.0
-   * @version 5.1.2
+   * @version 5.2.2
    * @param int $product_id | Product ID
    * @return void
    */
-  public function product_price_for_xml_feed( $product_id ) {
+  public function product_price_for_xml_feed() {
+    if ( ! is_admin() ) {
+        return;
+    }
+
+    $cache_key = 'woo_custom_installments_product_price_xml_feed_cache';
+    $cached_data = get_transient( $cache_key );
+
+    // If the data is in the cache, return without executing the query
+    if ( $cached_data !== false ) {
+        return $cached_data;
+    }
+
+    // Performs the query if the cache does not exist
     $args = array(
-      'post_type' => 'product',
-      'post_status' => 'publish',
-      'posts_per_page' => -1,
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
     );
 
     $products = new \WP_Query( $args );
@@ -523,29 +537,33 @@ class Admin_Options extends Init {
             $product = wc_get_product( $product_id );
 
             if ( $product && $product->get_price() > 0 && empty( $product_price_on_pix ) ) {
-              $discount = self::get_setting('discount_main_price');
-              $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
-              $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
-              $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+                $discount = self::get_setting( 'discount_main_price' );
+                $discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
+                $discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+                $discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
 
-              if ( $discount_per_product === 'yes' ) {
-                  if ( $discount_per_product_method === 'percentage' ) {
-                      $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
-                  } else {
-                      $custom_price = (float) $product->get_price() - (float) $discount_per_product_value;
-                  }
-              } else {
-                  if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
-                      $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
-                  } else {
-                      $custom_price = (float) $product->get_price() - (float) $discount;
-                  }
-              }
+                if ( $discount_per_product === 'yes' ) {
+                    if ( $discount_per_product_method === 'percentage' ) {
+                        $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+                    } else {
+                        $custom_price = (float) $product->get_price() - (float) $discount_per_product_value;
+                    }
+                } else {
+                    if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+                        $custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
+                    } else {
+                        $custom_price = (float) $product->get_price() - (float) $discount;
+                    }
+                }
 
-              update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
+                update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
             }
         }
     }
+
+    set_transient( $cache_key, $products, 7 * DAY_IN_SECONDS );
+
+    return $products;
   }
   
 
@@ -586,6 +604,18 @@ class Admin_Options extends Init {
         update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
       }
     }
+  }
+
+
+  /**
+   * Clear cache on update product
+   * 
+   * @since 5.2.2
+   * @param int $product_id | Product ID
+   * @return void
+   */
+  public function clear_price_cache_on_update( $product_id ) {
+    delete_transient( 'woo_custom_installments_product_price_xml_feed_cache' );
   }
 
 

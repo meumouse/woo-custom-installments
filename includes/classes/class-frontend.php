@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 5.2.0
+ * @version 5.2.
  * @package MeuMouse.com
  */
 class Frontend {
@@ -571,7 +571,7 @@ class Frontend {
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 5.1.0
+   * @version 5.2.2
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
@@ -591,8 +591,38 @@ class Frontend {
 
     $html .= '">';
 
-    // Original price
-    $html .= '<span class="woo-custom-installments-price original-price">' . $price . '</span>';
+    $html .= '<div class="woo-custom-installments-group-main-price">';
+
+    if ( $product && $product->is_type('variable') ) {
+        // Get variation prices
+        $min_regular_price = $product->get_variation_regular_price( 'min', true );
+        $max_regular_price = $product->get_variation_regular_price( 'max', true );
+        $min_sale_price = $product->get_variation_sale_price( 'min', true );
+        $max_sale_price = $product->get_variation_sale_price( 'max', true );
+
+        if ( $min_sale_price !== $min_regular_price ) {
+            $regular_price_html = wc_price( $min_regular_price ) . ( $min_regular_price !== $max_regular_price ? ' - ' . wc_price( $max_regular_price ) : '' );
+            $sale_price_html = wc_price( $min_sale_price ) . ( $min_sale_price !== $max_sale_price ? ' - ' . wc_price( $max_sale_price ) : '' );
+
+            $html .= '<span class="woo-custom-installments-price original-price has-discount">' . $regular_price_html . '</span>';
+            $html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price_html . '</span>';
+        } else {
+            $html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
+        }
+    } else {
+        // Check if the product has a sale price for simple products
+        if ( $product && $product->is_on_sale() ) {
+            $regular_price = wc_price( $product->get_regular_price() );
+            $sale_price = wc_price( $product->get_sale_price() );
+
+            $html .= '<span class="woo-custom-installments-price original-price has-discount">' . $regular_price . '</span>';
+            $html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price . '</span>';
+        } else {
+            $html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
+        }
+    }
+
+    $html .= '</div>';
 
     $html .= $this->display_best_installments( $product );
     $html .= $this->discount_main_price_single( $product );
