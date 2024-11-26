@@ -7,7 +7,7 @@
  * Requires Plugins: 		woocommerce
  * Author: 					MeuMouse.com
  * Author URI: 				https://meumouse.com/
- * Version: 				5.2.1
+ * Version: 				5.2.2
  * WC requires at least: 	6.0.0
  * WC tested up to: 		9.3.1
  * Requires PHP: 			7.4
@@ -55,7 +55,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.2.1';
+		public static $version = '5.2.2';
 
 		/**
 		 * Constructor function
@@ -107,7 +107,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				}
 			} else {
 				add_action( 'admin_notices', array( $this, 'woo_version_notice' ) );
-				deactivate_plugins( 'woo-custom-installments/woo-custom-installments.php' );
+				deactivate_plugins('woo-custom-installments/woo-custom-installments.php');
 				add_action( 'admin_notices', array( $this, 'require_woocommerce_notice' ) );
 			}
 		}
