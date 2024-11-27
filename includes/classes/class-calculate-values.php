@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.2.0
+ * @version 5.2.3
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -128,29 +128,29 @@ class Calculate_Values {
      * Get discounted price based on product, price, and settings, including variations.
      *
      * @since 4.5.0
-     * @version 5.1.0
+     * @version 5.2.3
      * @param mixed $product_or_price | Can be a WC_Product object or a numeric price.
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
      */
     public static function get_discounted_price( $product_or_price, $discount_type = 'main' ) {
-        // If the input is a WC_Product object, handle the product-based discount logic
         if ( is_a( $product_or_price, 'WC_Product' ) ) {
             $product = $product_or_price;
-
-            // Check if the product is a variation and get the correct ID
-            if ( $product->is_type('variation', 'variable') ) {
-                $product_id = $product->get_id();
-                $parent_product_id = $product->get_parent_id();
+    
+            // Get the correct price based on the product type
+            if ( $product->is_type( 'variation' ) ) {
+                $price = $product->get_sale_price() ?: $product->get_regular_price();
+            } elseif ( $product->is_type( 'variable' ) ) {
+                // For variable products, get the lowest price with discount
+                $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
             } else {
-                $product_id = $product->get_id();
-                $parent_product_id = $product_id;
+                $price = $product->get_sale_price() ?: $product->get_regular_price();
             }
-
-            // Get the price of the product
-            $price = wc_get_price_to_display( $product );
-
-        // If the input is a numeric value, treat it as the price directly
+    
+            $product_id = $product->get_id();
+            $parent_product_id = $product->get_parent_id() ?: $product_id;
+    
+        // If it is a numeric value
         } elseif ( is_numeric( $product_or_price ) ) {
             $price = floatval( $product_or_price );
             $product_id = null;
@@ -158,40 +158,40 @@ class Calculate_Values {
         } else {
             return 0; // Invalid input
         }
-        
-        // Set discount values based on discount type
+    
+        // Set discount amounts based on discount type
         switch ( $discount_type ) {
             case 'ticket':
-                $discount_value = Init::get_setting('discount_ticket');
-                $discount_method = Init::get_setting('discount_method_ticket');
+                $discount_value = Init::get_setting( 'discount_ticket' );
+                $discount_method = Init::get_setting( 'discount_method_ticket' );
                 break;
             case 'main':
             default:
-                $discount_value = Init::get_setting('discount_main_price');
-                $discount_method = Init::get_setting('product_price_discount_method');
+                $discount_value = Init::get_setting( 'discount_main_price' );
+                $discount_method = Init::get_setting( 'product_price_discount_method' );
                 break;
         }
-
-        // Apply product-specific discounts if applicable
+    
+        // Apply product-specific discounts, if applicable
         if ( $product_id && $parent_product_id ) {
             list( $discount_per_product, $discount_per_product_method, $discount_per_product_value ) = self::get_product_discount( $product_id, $parent_product_id );
-
+    
             $disable_discount_main_price = get_post_meta( $product_id, '__disable_discount_main_price', true );
-
+    
             if ( $disable_discount_main_price === 'yes' ) {
                 return $price; // No discount should be applied
             }
-
-            // Override global discount with product-specific discount if applicable
+    
+            // Replace global discount with product-specific discount if applicable
             if ( $discount_per_product === 'yes' ) {
                 $discount_method = $discount_per_product_method;
                 $discount_value = $discount_per_product_value;
             }
         }
-
-        // Calculate the discounted price
+    
+        // Calculate discounted price
         return self::calculate_price_with_discount( $price, $discount_method, $discount_value );
-    }
+    }    
 
 
     /**

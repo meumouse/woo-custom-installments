@@ -5,6 +5,7 @@ namespace MeuMouse\Woo_Custom_Installments;
 use MeuMouse\Woo_Custom_Installments\Init;
 use MeuMouse\Woo_Custom_Installments\Helpers;
 use MeuMouse\Woo_Custom_Installments\License;
+use MeuMouse\Woo_Custom_Installments\Calculate_Values;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -13,7 +14,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 5.2.
+ * @version 5.2.3
  * @package MeuMouse.com
  */
 class Frontend {
@@ -260,7 +261,7 @@ class Frontend {
    * Display best installments
    * 
    * @since 2.1.0
-   * @version 5.1.0
+   * @version 5.2.3
    * @param object $product | Product object
    * @return string
   */
@@ -285,14 +286,17 @@ class Frontend {
       return;
     }
 
-    $display_single_product = Init::get_setting('hook_display_best_installments');
-    $args = array();
-  
-    if ( $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
-      $args['price'] = $product->get_variation_price('min');
+    // Get the correct price based on the product type
+    if ( $product->is_type( 'variation' ) ) {
+      $price = $product->get_sale_price() ?: $product->get_regular_price();
+    } elseif ( $product->is_type( 'variable' ) ) {
+        // For variable products, get the lowest price with discount
+        $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
+    } else {
+        $price = $product->get_sale_price() ?: $product->get_regular_price();
     }
-  
-    $installments = $this->set_values( $display_single_product, wc_get_price_to_display( $product, $args ), $product, false );
+
+    $installments = $this->set_values( [], $price, $product, false );
     $best_installments = '';
   
     if ( Init::get_setting('get_type_best_installments') === 'best_installment_without_fee' ) {
