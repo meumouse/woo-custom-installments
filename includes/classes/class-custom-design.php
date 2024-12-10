@@ -3,7 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments;
 
 use MeuMouse\Woo_Custom_Installments\Init;
-use MeuMouse\Woo_Custom_Installments\Helpers;
+use MeuMouse\Woo_Custom_Installments\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -12,88 +12,185 @@ defined('ABSPATH') || exit;
  * Change colors on front-end
  *
  * @since 2.1.0
- * @version 5.0.0
+ * @version 5.2.5
  * @package MeuMouse.com
  */
-class Custom_Design extends Init {
+class Custom_Design {
 
+    /**
+     * Construct function
+     * 
+     * @since 2.1.0
+     * @return void
+     */
     public function __construct() {
-        parent::__construct();
-
         add_action( 'wp_head', array( $this, 'wci_front_styles' ) );
     }
-    
+
 
     /**
      * Custom CSS for frontend
      * 
      * @since 2.0.0
-     * @version 5.0.0
+     * @version 5.2.5
      * @return string
      */
     public function wci_front_styles() {
-        $main_price_color = self::get_setting('discount_main_price_color');
-        $main_price_bg = Helpers::convert_rgba_colors( $main_price_color );
-        $button_popup_color = self::get_setting('button_popup_color');
-        $button_popup_size = self::get_setting('button_popup_size');
+        $button_popup_color = Init::get_setting('button_popup_color');
+        $button_popup_size = Init::get_setting('button_popup_size');
+        $discount_pix_styles = Init::get_setting('elements_design')['discount_pix']['styles'];
+        $economy_pix_styles = Init::get_setting('elements_design')['pix_economy']['styles'];
+        $installments_styles = Init::get_setting('elements_design')['installments']['styles'];
+        $ticket_styles = Init::get_setting('elements_design')['discount_slip_bank']['styles'];
+        $price_styles = Init::get_setting('elements_design')['price']['styles'];
+
+        /**
+         * Force apply styles on elements
+         * 
+         * @since 5.2.5
+         */
+        $apply_styles = apply_filters( 'woo_custom_installments_force_apply_styles', '!important' );
 
         $css = "
+            @media screen and (max-width: 992px) {
+                .woo-custom-installments-offer {
+                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $discount_pix_styles['mobile']['font_color'] . $apply_styles .";
+                    background-color: ". $discount_pix_styles['mobile']['background_color'] . $apply_styles .";
+                    margin: ". Components::format_box_property( $discount_pix_styles['mobile']['margin'], $discount_pix_styles['mobile']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                    padding: ". Components::format_box_property( $discount_pix_styles['mobile']['padding'], $discount_pix_styles['mobile']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                    border-radius: ". Components::format_box_property( $discount_pix_styles['mobile']['border_radius'], $discount_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                }
+
+                .woo-custom-installments-offer .amount {
+                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $discount_pix_styles['mobile']['font_color'] . $apply_styles .";
+                }
+
+                .woo-custom-installments-economy-pix-badge {
+                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $economy_pix_styles['mobile']['font_color'] . $apply_styles .";
+                    background-color: ". $economy_pix_styles['mobile']['background_color'] . $apply_styles .";
+                    margin: ". Components::format_box_property( $economy_pix_styles['mobile']['margin'], $economy_pix_styles['mobile']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                    padding: ". Components::format_box_property( $economy_pix_styles['mobile']['padding'], $economy_pix_styles['mobile']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                    border-radius: ". Components::format_box_property( $economy_pix_styles['mobile']['border_radius'], $economy_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                }
+
+                .woo-custom-installments-economy-pix-badge .amount {
+                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $economy_pix_styles['mobile']['font_color'] . $apply_styles .";
+                }
+
+                .woo-custom-installments-card-container {
+                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $installments_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $installments_styles['mobile']['font_color'] . $apply_styles .";
+                    background-color: ". $installments_styles['mobile']['background_color'] . $apply_styles .";
+                    margin: ". Components::format_box_property( $installments_styles['mobile']['margin'], $installments_styles['mobile']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                    padding: ". Components::format_box_property( $installments_styles['mobile']['padding'], $installments_styles['mobile']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                    border-radius: ". Components::format_box_property( $installments_styles['mobile']['border_radius'], $installments_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                }
+
+                .woo-custom-installments-card-container .amount {
+                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $installments_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $installments_styles['mobile']['font_color'] . $apply_styles .";
+                }
+
+                .woo-custom-installments-ticket-discount {
+                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $ticket_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $ticket_styles['mobile']['font_color'] . $apply_styles .";
+                    background-color: ". $ticket_styles['mobile']['background_color'] . $apply_styles .";
+                    margin: ". Components::format_box_property( $ticket_styles['mobile']['margin'], $ticket_styles['mobile']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                    padding: ". Components::format_box_property( $ticket_styles['mobile']['padding'], $ticket_styles['mobile']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                    border-radius: ". Components::format_box_property( $ticket_styles['mobile']['border_radius'], $ticket_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                }
+
+                .woo-custom-installments-ticket-discount .amount {
+                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $ticket_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $ticket_styles['mobile']['font_color'] . $apply_styles .";
+                }
+
+                .woo-custom-installments-group-main-price {
+                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $price_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $price_styles['mobile']['font_color'] . $apply_styles .";
+                    background-color: ". $price_styles['mobile']['background_color'] . $apply_styles .";
+                    margin: ". Components::format_box_property( $price_styles['mobile']['margin'], $price_styles['mobile']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                    padding: ". Components::format_box_property( $price_styles['mobile']['padding'], $price_styles['mobile']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                    border-radius: ". Components::format_box_property( $price_styles['mobile']['border_radius'], $price_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                }
+                    
+                .woo-custom-installments-group-main-price .amount {
+                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $apply_styles .";
+                    font-weight: ". $price_styles['mobile']['font_weight'] . $apply_styles .";
+                    color: ". $price_styles['mobile']['font_color'] . $apply_styles .";
+                }
+            }
+
             .woo-custom-installments-offer {
-                color: {$main_price_color};
-                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) .";
-                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . ";
-                margin-top: " . self::get_setting('margin_top_discount_price') . self::get_setting('unit_margin_top_discount_price') . ";
-                margin-bottom: " . self::get_setting('margin_bottom_discount_price') . self::get_setting('unit_margin_bottom_discount_price') . ";
-                border-radius: " . self::get_setting('border_radius_discount_main_price') . self::get_setting('unit_border_radius_discount_main_price') . ";
-                order: " . self::get_setting('discount_pix_order') . ";
+                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $discount_pix_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $discount_pix_styles['desktop']['font_color'] . $apply_styles .";
+                background-color: ". $discount_pix_styles['desktop']['background_color'] . $apply_styles .";
+                margin: ". Components::format_box_property( $discount_pix_styles['desktop']['margin'], $discount_pix_styles['desktop']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                padding: ". Components::format_box_property( $discount_pix_styles['desktop']['padding'], $discount_pix_styles['desktop']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                border-radius: ". Components::format_box_property( $discount_pix_styles['desktop']['border_radius'], $discount_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                order: ". Init::get_setting('elements_design')['discount_pix']['order'] . $apply_styles .";
             }
 
             .woo-custom-installments-offer .amount {
-                font-size: " . self::get_setting('font_size_discount_price') . self::get_setting('unit_font_size_discount_price') . ";
-                color: {$main_price_color};
-            }
-
-            .instant-approval-badge, .badge-discount-checkout {
-                color: {$main_price_color};
-                background-color: ". Helpers::convert_rgba_colors( $main_price_color, 0, 15 ) .";
+                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $discount_pix_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $discount_pix_styles['desktop']['font_color'] . $apply_styles .";
             }
 
             .woo-custom-installments-economy-pix-badge {
-                background-color: " . self::get_setting('economy_pix_bg') . ";
-                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . ";
-                margin-top: " . self::get_setting('margin_top_economy_pix') . self::get_setting('margin_top_economy_pix_unit') . ";
-                margin-bottom: " . self::get_setting('margin_bottom_economy_pix') . self::get_setting('margin_bottom_economy_pix_unit') . ";
-                border-radius: " . self::get_setting('border_radius_economy_pix') . self::get_setting('border_radius_economy_pix_unit') . ";
-                order: " . self::get_setting('economy_pix_order') . ";
+                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $economy_pix_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $economy_pix_styles['desktop']['font_color'] . $apply_styles .";
+                background-color: ". $economy_pix_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $economy_pix_styles['desktop']['margin'], $economy_pix_styles['desktop']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                padding: ". Components::format_box_property( $economy_pix_styles['desktop']['padding'], $economy_pix_styles['desktop']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                border-radius: ". Components::format_box_property( $economy_pix_styles['desktop']['border_radius'], $economy_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                order: ". Init::get_setting('elements_design')['pix_economy']['order'] . $apply_styles .";
             }
 
             .woo-custom-installments-economy-pix-badge .amount {
-                font-size: " . self::get_setting('font_size_economy_pix') . self::get_setting('font_size_economy_pix_unit') . ";
+                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $economy_pix_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $economy_pix_styles['desktop']['font_color'] . $apply_styles .";
             }
 
             button.wci-open-popup {
-                color: {$button_popup_color};
-                border-color: {$button_popup_color};
-                border-radius: " . self::get_setting('border_radius_popup_installments') . self::get_setting('unit_border_radius_popup_installments') . ";
+                color: ". $button_popup_color .";
+                border-color: ". $button_popup_color .";
+                border-radius: " . Init::get_setting('border_radius_popup_installments') . Init::get_setting('unit_border_radius_popup_installments') . $apply_styles .";
             }
 
             button.wci-open-popup:hover {
-                background-color: {$button_popup_color};
+                background-color: ". $button_popup_color .";
             }";
 
-        if ( $button_popup_size == 'small' ) {
+        if ( $button_popup_size === 'small' ) {
             $css .= "
                 button.wci-open-popup {
                     padding: 0.475rem 1.25rem;
                     font-size: 0.75rem;
                 }";
-        } elseif ($button_popup_size == 'normal') {
+        } elseif ( $button_popup_size === 'normal' ) {
             $css .= "
                 button.wci-open-popup {
                     padding: 0.625rem 1.75rem;
                     font-size: 0.875rem;
                 }";
-        } elseif ($button_popup_size == 'large') {
+        } elseif ($button_popup_size === 'large') {
             $css .= "
                 button.wci-open-popup {
                     padding: 0.785rem 2rem;
@@ -147,43 +244,72 @@ class Custom_Design extends Init {
 
         $css .= "
             button.wci-open-popup, #wci-accordion-installments {
-                margin-top: " . self::get_setting('margin_top_popup_installments') . self::get_setting('unit_margin_top_popup_installments') . ";
-                margin-bottom: " . self::get_setting('margin_bottom_popup_installments') . self::get_setting('unit_margin_bottom_popup_installments') . ";
+                margin-top: " . Init::get_setting('margin_top_popup_installments') . Init::get_setting('unit_margin_top_popup_installments') . $apply_styles .";
+                margin-bottom: " . Init::get_setting('margin_bottom_popup_installments') . Init::get_setting('unit_margin_bottom_popup_installments') . $apply_styles .";
             }
 
             .woo-custom-installments-card-container {
-                color: " . self::get_setting('best_installments_color') . ";
-                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . ";
-                margin-top: " . self::get_setting('margin_top_best_installments') . self::get_setting('unit_margin_top_best_installments') . ";
-                margin-bottom: " . self::get_setting('margin_bottom_best_installments') . self::get_setting('unit_margin_bottom_best_installments') . ";
-                order: " . self::get_setting('best_installments_order') . ";
+                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $installments_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $installments_styles['desktop']['font_color'] . $apply_styles .";
+                background-color: ". $installments_styles['desktop']['background_color'] . $apply_styles .";
+                margin: ". Components::format_box_property( $installments_styles['desktop']['margin'], $installments_styles['desktop']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                padding: ". Components::format_box_property( $installments_styles['desktop']['padding'], $installments_styles['desktop']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                border-radius: ". Components::format_box_property( $installments_styles['desktop']['border_radius'], $installments_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                order: ". Init::get_setting('elements_design')['installments']['order'] . $apply_styles .";
             }
 
             .woo-custom-installments-card-container .amount {
-                color: " . self::get_setting('best_installments_color') . ";
-                font-size: " . self::get_setting('font_size_best_installments') . self::get_setting('unit_font_size_best_installments') . ";
+                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $installments_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $installments_styles['desktop']['font_color'] . $apply_styles .";
             }
 
             .woo-custom-installments-ticket-discount {
-                color: " . self::get_setting('discount_ticket_color_badge') . ";
-                background-color: ". Helpers::convert_rgba_colors( self::get_setting('discount_ticket_color_badge'), 0, 15 ) .";
-                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . ";
-                margin-top: " . self::get_setting('margin_top_discount_ticket') . self::get_setting('unit_margin_top_discount_ticket') . ";
-                margin-bottom: " . self::get_setting('margin_bottom_discount_ticket') . self::get_setting('unit_margin_bottom_discount_ticket') . ";
-                border-radius: " . self::get_setting('border_radius_discount_ticket') . self::get_setting('unit_border_radius_discount_ticket') . ";
-                order: " . self::get_setting('slip_bank_order') . ";
+                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $ticket_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $ticket_styles['desktop']['font_color'] . $apply_styles .";
+                background-color: ". $ticket_styles['desktop']['background_color'] . $apply_styles .";
+                margin: ". Components::format_box_property( $ticket_styles['desktop']['margin'], $ticket_styles['desktop']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                padding: ". Components::format_box_property( $ticket_styles['desktop']['padding'], $ticket_styles['desktop']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                border-radius: ". Components::format_box_property( $ticket_styles['desktop']['border_radius'], $ticket_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                order: ". Init::get_setting('elements_design')['discount_slip_bank']['order'] . $apply_styles .";
             }
 
             .woo-custom-installments-ticket-discount .amount {
-                color: " . self::get_setting('discount_ticket_color_badge') . ";
-                font-size: " . self::get_setting('font_size_discount_ticket') . self::get_setting('unit_font_size_discount_ticket') . ";
+                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $ticket_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $ticket_styles['desktop']['font_color'] . $apply_styles .";
             }
                 
-            .woo-custom-installments-price.original-price {
-                order: " . self::get_setting('product_price_order') . ";
+            .woo-custom-installments-group-main-price {
+                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $price_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $price_styles['desktop']['font_color'] . $apply_styles .";
+                background-color: ". $price_styles['desktop']['background_color'] . $apply_styles .";
+                margin: ". Components::format_box_property( $price_styles['desktop']['margin'], $price_styles['desktop']['margin']['unit'] ?? 'px' ) . $apply_styles .";
+                padding: ". Components::format_box_property( $price_styles['desktop']['padding'], $price_styles['desktop']['padding']['unit'] ?? 'px' ) . $apply_styles .";
+                border-radius: ". Components::format_box_property( $price_styles['desktop']['border_radius'], $price_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $apply_styles .";
+                order: ". Init::get_setting('elements_design')['price']['order'] . $apply_styles .";
+            }
+                
+            .woo-custom-installments-group-main-price .amount {
+                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $apply_styles .";
+                font-weight: ". $price_styles['desktop']['font_weight'] . $apply_styles .";
+                color: ". $price_styles['desktop']['font_color'] . $apply_styles .";
+            }
+                
+            .woo-custom-installments-price.original-price.has-discount .amount {
+                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $apply_styles .";
+                opacity: 0.75;
+            }
+                
+            .woo-custom-installments-starting-from {
+                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $apply_styles .";
+                font-weight: 500;
             }";
 
-        if ( self::get_setting('center_group_elements_loop') === 'yes' ) {
+        if ( Init::get_setting('center_group_elements_loop') === 'yes' ) {
             $css .= "
                 .archive .woo-custom-installments-group,
                 .loop .woo-custom-installments-group,
@@ -204,14 +330,13 @@ class Custom_Design extends Init {
                 }";
         }
 
-        if ( self::get_setting('remove_price_range') === 'yes' ) {
-            $css .= "
-                .woocommerce-variation-price {
-                    display: none !important;
-                }";
+        if ( Init::get_setting('remove_price_range') === 'yes' ) {
+            $css .= ".woocommerce-variation-price {
+                display: none !important;
+            }";
         }
 
-        echo '<style type="text/css">' . $css . '</style>';
+        printf( '<style type="text/css">%s</style>', $css );
     }
 }
 

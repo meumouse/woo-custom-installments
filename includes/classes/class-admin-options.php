@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 5.2.2
+ * @version 5.2.5
  * @package MeuMouse.com
  */
 class Admin_Options extends Init {
@@ -639,14 +639,15 @@ class Admin_Options extends Init {
    * Hide installments info on WooCommerce product table on admin page
    * 
    * @since 4.3.5
-   * @version 5.0.0
+   * @version 5.2.5
    * @return void
    */
   public function hide_woo_custom_installments_table_price() {
     echo '<style>
       .woo-custom-installments-offer,
       .woo-custom-installments-economy-pix-badge,
-      .woo-custom-installments-ticket-discount {
+      .woo-custom-installments-ticket-discount,
+      .wci-sale-badge {
         display: none;
       }
 

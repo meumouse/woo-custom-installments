@@ -6,6 +6,7 @@ use MeuMouse\Woo_Custom_Installments\Init;
 use MeuMouse\Woo_Custom_Installments\License;
 use MeuMouse\Woo_Custom_Installments\Frontend;
 use MeuMouse\Woo_Custom_Installments\CalCulate_Values;
+use MeuMouse\Woo_Custom_Installments\Helpers;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -14,7 +15,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.2.0
+ * @version 5.2.5
  * @package MeuMouse.com
  */
 class Ajax {
@@ -23,7 +24,7 @@ class Ajax {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.0.0
+     * @version 5.2.5
 	 * @return void
 	 */
 	public function __construct() {
@@ -42,8 +43,10 @@ class Ajax {
         // reset plugin to default
         add_action( 'wp_ajax_reset_plugin_action', array( $this, 'reset_plugin_callback' ) );
 
-        add_action( 'wp_ajax_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
-        add_action( 'wp_ajax_nopriv_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
+        if ( Init::get_setting('enable_update_variation_prices_elements') === 'yes' ) {
+            add_action( 'wp_ajax_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
+            add_action( 'wp_ajax_nopriv_get_updated_variation_prices_action', array( $this, 'get_update_variation_prices_callback' ) );
+        }
 
         if ( Init::get_setting('remove_price_range') === 'yes' && Init::get_setting('price_range_method') === 'ajax' && License::is_valid() ) {
             add_action( 'wp_ajax_get_updated_price_html', array( $this, 'get_updated_price_html_callback' ) );
@@ -56,13 +59,19 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.2.0
+     * @version 5.2.5
      * @return void
      */
     public function ajax_save_options_callback() {
+        // check security nonce
+        check_ajax_referer( 'wci_save_options_nonce', 'security' );
+        
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_save_options' ) {
-            // Convert serialized data into an array
+            // convert serialized form data on a array
             parse_str( $_POST['form_data'], $form_data );
+
+            // get current options
+            $options = get_option( 'woo-custom-installments-setting', array() );
 
             $fields_without_license = array(
                 'enable_installments_all_products',
@@ -81,36 +90,11 @@ class Ajax {
                 'enable_ticket_discount_main_price',
                 'enable_credit_card_method_payment_form',
                 'enable_debit_card_method_payment_form',
-                'enable_mastercard_flag_credit',
-                'enable_visa_flag_credit',
-                'enable_elo_flag_credit',
-                'enable_hipercard_flag_credit',
-                'enable_diners_club_flag_credit',
-                'enable_discover_flag_credit',
-                'enable_american_express_flag_credit',
-                'enable_paypal_flag_credit',
-                'enable_stripe_flag_credit',
-                'enable_mercado_pago_flag_credit',
-                'enable_pagseguro_flag_credit',
-                'enable_pagarme_flag_credit',
-                'enable_cielo_flag_credit',
-                'enable_mastercard_flag_debit',
-                'enable_visa_flag_debit',
-                'enable_elo_flag_debit',
-                'enable_hipercard_flag_debit',
-                'enable_diners_club_flag_debit',
-                'enable_discover_flag_debit',
-                'enable_american_express_flag_debit',
-                'enable_paypal_flag_debit',
-                'enable_stripe_flag_debit',
-                'enable_mercado_pago_flag_debit',
-                'enable_pagseguro_flag_debit',
-                'enable_pagarme_flag_debit',
-                'enable_cielo_flag_debit',
                 'center_group_elements_loop',
                 'enable_elementor_widgets',
                 'enable_price_grid_in_widgets',
                 'add_discount_custom_product_price',
+                'enable_update_variation_prices_elements'
             );
 
             $fields_with_license = array(
@@ -120,30 +104,36 @@ class Ajax {
                 'enable_functions_discount_per_quantity',
                 'enable_economy_pix_badge',
                 'enable_post_meta_feed_xml_price',
+                'enable_sale_badge',
             );
-
+    
+            // update switch options without license
             foreach ( $fields_without_license as $field ) {
                 $options[$field] = isset( $form_data[$field] ) ? 'yes' : 'no';
             }
-
+    
+            // update switch options with license
             foreach ( $fields_with_license as $field ) {
                 $options[$field] = ( isset( $form_data[$field] ) && License::is_valid() ) ? 'yes' : 'no';
             }
-
-            if ( isset( $form_data['woo_custom_installments_discounts'] ) && ! empty( $form_data['woo_custom_installments_discounts'] ) && License::is_valid() ) {
+    
+            // Update discount payments methods settings
+            if ( isset( $form_data['woo_custom_installments_discounts'] ) && License::is_valid() ) {
                 update_option( 'woo_custom_installments_discounts_setting', maybe_serialize( $form_data['woo_custom_installments_discounts'] ) );
             }
-
-            if ( isset( $form_data['woo_custom_installments_interests'] ) && ! empty( $form_data['woo_custom_installments_interests'] ) && License::is_valid() ) {
+    
+            // Update interests settings
+            if ( isset( $form_data['woo_custom_installments_interests'] ) && License::is_valid() ) {
                 update_option( 'woo_custom_installments_interests_setting', maybe_serialize( $form_data['woo_custom_installments_interests'] ) );
             }
-
+    
+            // Update fee per installments
             if ( isset( $form_data['custom_fee_installments'] ) && is_array( $form_data['custom_fee_installments'] ) && License::is_valid() ) {
                 update_option( 'woo_custom_installments_custom_fee_installments', maybe_serialize( $form_data['custom_fee_installments'] ) );
             }
 
-            // Merge the form data with the default options
-            $updated_options = wp_parse_args( $form_data, $options );
+            // merge current data with form data
+            $updated_options = Helpers::merge_options( $options, $form_data );
 
             // Save the updated options
             $saved_options = update_option( 'woo-custom-installments-setting', $updated_options );
@@ -153,11 +143,17 @@ class Ajax {
                     'status' => 'success',
                     'toast_header_title' => esc_html__( 'Salvo com sucesso', 'woo-custom-installments' ),
                     'toast_body_title' => esc_html__( 'As configurações foram atualizadas!', 'woo-custom-installments' ),
-                    'options' => $updated_options,
-                    'custom_fee_installments' => isset( $custom_fee_installments ) ? $custom_fee_installments : '',
                 );
 
-                wp_send_json( $response ); // Send JSON response
+                // debug mode
+                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG ) {
+                    $response['debug'] = array(
+                        'options' => get_option('woo-custom-installments-setting'),
+                    );
+                }
+    
+                // send JSON response to frontend
+                wp_send_json( $response );
             }
         }
     }

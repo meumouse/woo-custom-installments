@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.2.3
+ * @version 5.2.5
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -81,11 +81,14 @@ class Calculate_Values {
      * Calculate product value after applying a discount
      *
      * @since 1.0.0
+     * @version 5.2.5
      * @param float $value (Original value)
      * @param int|float $discount (Discount value)
      * @return float (Final value with discount)
      */
     public static function calculate_discounted_price( $value, $discount, $product = false ) {
+        $discount = (float) $discount;
+        $value = (float) $value;
         $price = $discount ? $value * ( ( 100 - $discount ) / 100 ) : $value;
 
         return apply_filters( 'woo_custom_installments_discounted_price', $price, $value, $discount, $product );
@@ -198,6 +201,7 @@ class Calculate_Values {
      * Calculate total discount for the cart
      *
      * @since 4.5.2
+     * @version 5.2.5
      * @param WC_Cart $cart | Cart object
      * @param bool $include_shipping | Whether to include shipping cost in the calculation
      * @return float $total_discount
@@ -217,12 +221,12 @@ class Calculate_Values {
         }
     
         $discount_method = Init::get_setting('product_price_discount_method');
-        $discount_value = Init::get_setting('discount_main_price');
+        $discount_value = (float) Init::get_setting('discount_main_price');
     
         if ( $discount_method === 'percentage' ) {
-            $total_discount = ( $total_cart_value * $discount_value ) / 100;
+            $total_discount = ( (float) $total_cart_value * $discount_value ) / 100;
         } else {
-            $total_discount = min( $discount_value, $total_cart_value );
+            $total_discount = min( $discount_value, (float) $total_cart_value );
         }
     
         return apply_filters( 'woo_custom_installments_calculate_total_discount', round( $total_discount, 2 ), $cart, $include_shipping );

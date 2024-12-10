@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
- * @version 5.0.0
+ * @version 5.2.5
  * @package MeuMouse.com
  */
 class Helpers {
@@ -178,16 +178,21 @@ class Helpers {
      * Check if the Elementor editor is currently editing a single product page.
      * 
      * @since 5.0.0
+     * @version 5.1.0
      * @return bool True if editing a single product page in Elementor; false otherwise.
      */
     public static function is_editing_single_product_in_elementor() {
         $is_editing = false;
 
         // Check if Elementor is in edit mode
-        if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+        if ( self::elementor_is_editing_mode() ) {
             $post_type = get_post_type();
 
-            if ( $post_type === 'elementor_library' ) {
+            // Checks whether we are editing a product page directly or a product template
+            if ( $post_type === 'product' ) {
+                // You are directly editing a product page
+                $is_editing = true;
+            } elseif ( $post_type === 'elementor_library' ) {
                 // Check if we are editing a product template
                 if ( isset( $_GET['post'] ) ) {
                     $post_id = intval( $_GET['post'] );
@@ -196,6 +201,19 @@ class Helpers {
                     if ( 'product' === $template_type ) {
                         $is_editing = true;
                     }
+                }
+            }
+
+            // Checks if the post content is in JSON format and contains a product
+            global $post;
+
+            if ( $post ) {
+                $post_content = $post->post_content;
+                $post_data = json_decode( $post_content, true );
+
+                // If the content is JSON and the post_type is 'product', we consider that we are editing a product
+                if ( json_last_error() === JSON_ERROR_NONE && isset( $post_data['post_type'] ) && $post_data['post_type'] === 'product' ) {
+                    $is_editing = true;
                 }
             }
         }
@@ -229,16 +247,19 @@ class Helpers {
      * Get product ID from post when editing with Elementor
      * 
      * @since 5.0.0
+     * @version 5.1.0
      * @param bool $product | Get product object for get id
      * @return mixed | Product ID or false
      */
     public static function get_product_id_from_post( $product = false ) {
         global $post;
 
+        // Tries to get the WC_Product object if not passed as a parameter
         if ( ! $product ) {
             $product = wc_get_product();
         }
 
+        // Check if post exists
         if ( ! $post ) {
             return false;
         }
@@ -246,6 +267,15 @@ class Helpers {
         // Check if Elementor is in edit mode
         if ( ! $product && self::elementor_is_editing_mode() && $post ) {
             $post_content = $post->post_content;
+
+            // Checks if there is JSON content in post_content
+            $post_data = json_decode( $post_content, true );
+
+            if ( json_last_error() === JSON_ERROR_NONE && isset( $post_data['ID'] ) ) {
+                return (int) $post_data['ID']; // Returns product ID from JSON
+            }
+
+            // If the content is not JSON, try to search for the ID in HTML format
             preg_match( '/data-product_id=["\']?(\d+)["\']?/', $post_content, $matches );
 
             if ( isset( $matches[1] ) ) {
@@ -259,6 +289,27 @@ class Helpers {
         }
 
         return false;
+    }
+
+    
+    /**
+     * Recursively merges incoming data with existing values
+     * 
+     * @since 5.2.5
+     * @param array $original_data | Existing data in the bank
+     * @param array $new_data | Data received from the form
+     * @return array Merged data
+     */
+    public static function merge_options( $original_data, $new_data ) {
+        foreach ( $new_data as $key => $value ) {
+            if ( is_array( $value ) && isset( $original_data[ $key ] ) && is_array( $original_data[ $key ] ) ) {
+                $original_data[ $key ] = self::merge_options( $original_data[ $key ], $value );
+            } else {
+                $original_data[ $key ] = $value;
+            }
+        }
+    
+        return $original_data;
     }
 }
 

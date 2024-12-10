@@ -12,15 +12,25 @@ defined('ABSPATH') || exit;
  * Class for add interests for payment method
  * 
  * @since 2.3.5
- * @version 4.2.0
+ * @version 5.2.5
  * @package MeuMouse.com
  */
 class Interests {
 
+	/**
+	 * Construct function
+	 * 
+	 * @since 2.3.5
+	 * @version 5.2.5
+	 * @return void
+	 */
 	public function __construct() {
 		if ( License::is_valid() ) {
-			add_filter( 'woocommerce_gateway_title', array( $this, 'woo_custom_installments_payment_method_title_interest' ), 10, 2 );
-			add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_custom_installments_update_order_data_interests' ), 10 );
+			if ( ! is_admin() ) {
+				add_filter( 'woocommerce_gateway_title', array( $this, 'payment_method_title' ), 10, 2 );
+			}
+
+			add_action( 'woocommerce_checkout_create_order', array( $this, 'set_original_payment_title' ), 10 );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'woo_custom_installments_add_interest' ), 10 );
 		}
 	}
@@ -62,7 +72,7 @@ class Interests {
 	 * @since 2.3.5
 	 * @return string $title
 	 */
-	public function woo_custom_installments_payment_method_title_interest( $title, $id ) {
+	public function payment_method_title( $title, $id ) {
 		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return $title;
 		}
@@ -128,15 +138,21 @@ class Interests {
 	 * Remove the discount in the payment method title
 	 * 
 	 * @since 2.3.5
+	 * @version 5.2.5
+	 * @param object $order | Order object
 	 * @return void
 	 */
-	public function woo_custom_installments_update_order_data_interests( $order_id ) {
-		$payment_method_title = get_post_meta( $order_id, '_payment_method_title', true );
-		$new_payment_method_title = preg_replace( '/<small>.*<\/small>/', '', $payment_method_title );
-		
-		// Save the new payment method title.
-		$new_payment_method_title = sanitize_text_field( $new_payment_method_title );
-		update_post_meta( $order_id, '_payment_method_title', $new_payment_method_title );
+	public function set_original_payment_title( $order ) {
+		$payment_method = $order->get_payment_method();
+		$payment_gateways = WC()->payment_gateways->get_available_payment_gateways();
+
+		if ( isset( $payment_gateways[ $payment_method ] ) ) {
+			$clean_title = isset( $payment_gateways[ $payment_method ]->settings['title'] ) 
+				? $payment_gateways[ $payment_method ]->settings['title'] 
+				: $payment_gateways[ $payment_method ]->get_title();
+
+			$order->set_payment_method_title( $clean_title );
+		}
 	}
 
 }
