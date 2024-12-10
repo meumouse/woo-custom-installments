@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Plugin Name: 			Parcelas Customizadas para WooCommerce
- * Description: 			Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
- * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/
+ * Plugin Name: 				Parcelas Customizadas para WooCommerce
+ * Description: 				Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
+ * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
  * Requires Plugins: 		woocommerce
- * Author: 					MeuMouse.com
- * Author URI: 				https://meumouse.com/
- * Version: 				5.2.3
+ * Author: 						MeuMouse.com
+ * Author URI: 				https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
+ * Version: 					5.2.5
  * WC requires at least: 	6.0.0
- * WC tested up to: 		9.3.1
- * Requires PHP: 			7.4
+ * WC tested up to: 			9.4.3
+ * Requires PHP: 				7.4
  * Tested up to:      		6.7.1
- * Text Domain: 			woo-custom-installments
- * Domain Path: 			/languages
- * License: 				GPL2
+ * Text Domain: 				woo-custom-installments
+ * Domain Path: 				/languages
+ * License: 					GPL2
  */
 
 namespace MeuMouse\Woo_Custom_Installments;
@@ -55,7 +55,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.2.3';
+		public static $version = '5.2.5';
 
 		/**
 		 * Constructor function
@@ -149,7 +149,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Setup plugin constants
 		 *
 		 * @since 1.0.0
-		 * @version 5.2.0
+		 * @version 5.2.5
 		 * @return void
 		 */
 		public function setup_constants() {
@@ -164,6 +164,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_VERSION', self::$version );
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL', get_option('admin_email') );
 			$this->define( 'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK', 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview' );
+			$this->define( 'WOO_CUSTOM_INSTALLMENTS_DEBUG', false );
 		}
 
 
@@ -186,7 +187,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Include required files
 		 *
 		 * @since 1.0.0
-		 * @version 5.0.0
+		 * @version 5.2.5
 		 * @return void
 		 */
 		public function setup_includes() {
@@ -200,6 +201,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'classes/class-helpers.php',
 				'classes/class-frontend.php',
 				'classes/class-shortcodes.php',
+				'classes/class-components.php',
 				'classes/class-custom-design.php',
 				'classes/class-calculate-values.php',
 				'classes/class-discounts.php',

@@ -34,6 +34,17 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.2.5 (10/12/2024)
+* Correção de bugs
+* Otimizações
+* Recurso adicionado: Formato de ícones
+* Recurso adicionado: Ativar atualização de valores em elementos em produtos variáveis
+* Recurso adicionado: Ativar emblema de percentual de desconto
+* Recurso modificado: Ordem dos elementos
+* Recurso moficicado: Texto de exibição das parcelas (Formas de pagamento)
+* Recurso moficicado: Texto de exibição das parcelas (Arquivos de produtos)
+* Recurso moficicado: Texto de exibição das parcelas (Produto individual)
+
 Versão 5.2.3 (26/11/2024)
 * Correção de bugs
 
