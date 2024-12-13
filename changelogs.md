@@ -1,3 +1,8 @@
+Versão 5.2.6 (12/12/2024)
+* Correção de bugs
+* Otimizações
+* Recurso modificado: Centralizar grupo de preços na grade de produtos
+
 Versão 5.2.5 (10/12/2024)
 * Correção de bugs
 * Otimizações
