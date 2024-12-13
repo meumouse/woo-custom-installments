@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 5.2.5
+ * @version 5.2.6
  * @package MeuMouse.com
  */
 class Frontend {
@@ -41,7 +41,7 @@ class Frontend {
    * Construct function
    * 
    * @since 1.0.0
-   * @version 5.2.0
+   * @version 5.2.6
    * @return void
    */
   public function __construct() {
@@ -69,11 +69,13 @@ class Frontend {
        * Remove price range
        * 
        * @since 2.6.0
+       * @version 5.2.6
        */
-    /*  if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
+      if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
         add_filter( 'woocommerce_variable_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
         add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
-      }*/
+        add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'show_variation_prices_before_add_to_cart' ) );
+      }
 
       /**
        * Add text after price
@@ -555,6 +557,35 @@ class Frontend {
 
 
   /**
+   * Display product variations for replace on remove price range
+   * 
+   * @since 5.2.6
+   * @return void
+   */
+  public function show_variation_prices_before_add_to_cart() {
+    global $product;
+
+    if ( $product && $product->is_type('variable') ) {
+        $variations = $product->get_available_variations(); ?>
+
+        <ul id="wci-variation-prices">
+            <?php foreach ( $variations as $variation ) : ?>
+                <?php
+                $variation_product = wc_get_product( $variation['variation_id'] );
+                $price = $variation_product->get_price_html();
+                ?>
+
+                <li class="wci-variation-item d-none" data-variation-id="<?php echo esc_attr( $variation['variation_id'] ); ?>">
+                    <?php echo $price; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php
+    }
+  }
+
+
+  /**
    * Add custom text after price
    * 
    * @since 2.8.0
@@ -614,7 +645,7 @@ class Frontend {
         $min_sale_price = $product->get_variation_sale_price( 'min', true );
         $max_sale_price = $product->get_variation_sale_price( 'max', true );
 
-        if ( $min_sale_price !== $min_regular_price ) {
+        if ( ! Helpers::variations_has_same_price( $product ) ) {
             $regular_price_html = wc_price( $min_regular_price );
             $sale_price_html = wc_price( $min_sale_price );
 

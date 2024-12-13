@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Include shortcodes for custom design
  * 
  * @since 4.5.0
- * @version 5.2.2
+ * @version 5.2.6
  * @package MeuMouse.com
  */
 class Shortcodes extends Frontend {
@@ -112,16 +112,14 @@ class Shortcodes extends Frontend {
      * Create a shortcode for discount main price
      * 
      * @since 2.0.0
-     * @version 5.0.0
+     * @version 5.2.6
      * @return string
      */
     public function woo_custom_installments_group_shortcode() {
+        global $product;
+
         // compatibility with Elementor editing mode
         $product = wc_get_product( Helpers::get_product_id_from_post() );
-
-        if ( $product === false ) {
-            global $product;
-        }
 
         $price = $product->get_price();
 

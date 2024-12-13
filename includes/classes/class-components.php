@@ -11,6 +11,7 @@ defined('ABSPATH') || exit;
  * Admin components class
  *
  * @since 5.2.5
+ * @version 5.2.6
  * @package MeuMouse.com
  */
 class Components {
@@ -252,6 +253,7 @@ class Components {
     * Render font size editor control
     *
     * @since 5.2.5
+    * @version 5.2.6
     * @param string $element | Element name
     * @param string $device_type | Device type (mobile or desktop)
     * @param array $styles | Styles array
@@ -265,7 +267,7 @@ class Components {
             <div class="input-group color-container design-control-group">
                <input type="text" id="<?php esc_attr_e( self::generate_random_id( $element . '_font_size_control_' . $device_type . '_' ) ) ?>" name="elements_design[<?php esc_attr_e( $element ) ?>][styles][<?php esc_attr_e( $device_type ) ?>][font_size]" class="design-control-input form-control set-font-size input-control-wd-10" value="<?php esc_attr_e( $styles['font_size'] ) ?>" data-element="<?php echo esc_attr( $element ); ?>" data-property="font-size" data-device="<?php esc_attr_e( $device_type ) ?>">
                
-               <select id="<?php esc_attr_e( self::generate_random_id( $element . '_font_size_unit_control_' . $device_type . '_' ) ) ?>" name="elements_design[<?php esc_attr_e( $element ) ?>][<?php esc_attr_e( $device_type ) ?>][font_unit]" class="design-control-select form-select input-control-wd-10 get-unit set-font-size-unit" data-element="<?php echo esc_attr( $element ); ?>" data-device="<?php esc_attr_e( $device_type ) ?>">
+               <select id="<?php esc_attr_e( self::generate_random_id( $element . '_font_size_unit_control_' . $device_type . '_' ) ) ?>" name="elements_design[<?php esc_attr_e( $element ) ?>][styles][<?php esc_attr_e( $device_type ) ?>][font_unit]" class="design-control-select form-select input-control-wd-10 get-unit set-font-size-unit" data-element="<?php echo esc_attr( $element ); ?>" data-device="<?php esc_attr_e( $device_type ) ?>">
                   <?php foreach ( self::selector_units() as $unit => $unit_title ) : ?>
                      <option value="<?php esc_attr_e( $unit ) ?>" class="font-size-unit <?php esc_attr_e( $unit ) ?>" <?php echo ( $styles['font_unit'] === $unit ) ? 'selected=selected' : ''; ?>><?php echo $unit_title ?></option>
                   <?php endforeach; ?>

@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
- * @version 5.2.5
+ * @version 5.2.6
  * @package MeuMouse.com
  */
 class Helpers {
@@ -107,13 +107,51 @@ class Helpers {
      * Check if variations have equal price
      * 
      * @since 1.0.0
-     * @version 4.5.0
+     * @version 5.2.6
      * @param object $product | Product object
      * @return bool
      */
     public static function variations_has_same_price( $product ) {
-        return ( $product->is_type( 'variable', 'variation' ) && $product->get_variation_price('min') === $product->get_variation_price('max') );
-    }
+        if ( $product && ! $product->is_type( array( 'variable', 'variation' ) ) ) {
+            return false;
+        }
+    
+        // Get the minimum and maximum prices of the variations
+        $min_price = $product->get_variation_price( 'min', true );
+        $max_price = $product->get_variation_price( 'max', true );
+    
+        // Check if all prices are the same
+        if ( $min_price !== $max_price ) {
+            return false;
+        }
+    
+        // Check for promotional prices
+        $min_sale_price = $product->get_variation_regular_price( 'min' );
+        $max_sale_price = $product->get_variation_regular_price( 'max' );
+    
+        // Check if the promotional price is the same as the regular price
+        if ( $min_sale_price !== $max_sale_price ) {
+            return false;
+        }
+    
+        // Iterate through the variations to ensure they all have the same price
+        foreach ( $product->get_children() as $variation_id ) {
+            $variation = wc_get_product( $variation_id );
+            if ( ! $variation ) {
+                continue;
+            }
+    
+            $variation_price = $variation->get_price();
+            $variation_regular_price = $variation->get_regular_price();
+    
+            // Confirms that price variations are consistent
+            if ( $variation_price !== $min_price || $variation_regular_price !== $min_sale_price ) {
+                return false;
+            }
+        }
+    
+        return true;
+    }    
 
 
     /**
