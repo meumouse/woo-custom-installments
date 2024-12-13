@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.2.5
+ * @version 5.2.6
  * @package MeuMouse.com
  */
 class Init {
@@ -56,7 +56,7 @@ class Init {
      * Set default options
      * 
      * @since 2.0.0
-     * @version 5.2.5
+     * @version 5.2.6
      * @return array
      */
     public static function set_default_data_options() {
@@ -530,6 +530,7 @@ class Init {
             ),
             'enable_update_variation_prices_elements' => 'yes',
             'enable_sale_badge' => 'yes',
+            'selectors_group_for_center_elements' => '.archive .woo-custom-installments-group, .loop .woo-custom-installments-group, li.product .woo-custom-installments-group, li.wc-block-grid__product .woo-custom-installments-group, .product-grid-item .woo-custom-installments-group, .e-loop-item.product .woo-custom-installments-group, .swiper-slide .type-product .woo-custom-installments-group, .shopengine-single-product-item .woo-custom-installments-group, .products-list.grid .item-product .woo-custom-installments-group, .product-item.grid .woo-custom-installments-group, .card-product .woo-custom-installments-group, .owl-item .woo-custom-installments-group, .jet-woo-products__inner-box .woo-custom-installments-group',
         );
 
         return apply_filters( 'woo_custom_installments_set_default_options', $options );
