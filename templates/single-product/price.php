@@ -16,7 +16,7 @@ use MeuMouse\Woo_Custom_Installments\Helpers;
  * @see https://woocommerce.com/document/template-structure/
  * @package MeuMouse.com
  * @since 4.5.0
- * @version 5.0.0
+ * @version 5.2.6
  */
 
 // Exit if accessed directly.
@@ -34,6 +34,6 @@ if ( ! $product || ! is_a( $product, 'WC_Product' ) ) :
     return;
 endif; ?>
 
-<p id="woo-custom-installments-product-price" class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
+<p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
     <?php echo $product->get_price_html(); ?>
 </p>
