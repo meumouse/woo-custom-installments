@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
- * @version 5.2.6
+ * @version 5.2.7
  * @package MeuMouse.com
  */
 class Helpers {
@@ -107,51 +107,49 @@ class Helpers {
      * Check if variations have equal price
      * 
      * @since 1.0.0
-     * @version 5.2.6
+     * @version 5.2.7
      * @param object $product | Product object
      * @return bool
      */
     public static function variations_has_same_price( $product ) {
-        if ( $product && ! $product->is_type( array( 'variable', 'variation' ) ) ) {
-            return false;
+        // get the product object, if id is passed
+        if ( ! $product instanceof WC_Product ) {
+            $product = wc_get_product( $product );
         }
-    
-        // Get the minimum and maximum prices of the variations
-        $min_price = $product->get_variation_price( 'min', true );
-        $max_price = $product->get_variation_price( 'max', true );
-    
-        // Check if all prices are the same
-        if ( $min_price !== $max_price ) {
-            return false;
+
+        // check if is a product variable
+        if ( ! $product || ! $product->is_type('variable') ) {
+            return false; // it not product variable
         }
-    
-        // Check for promotional prices
-        $min_sale_price = $product->get_variation_regular_price( 'min' );
-        $max_sale_price = $product->get_variation_regular_price( 'max' );
-    
-        // Check if the promotional price is the same as the regular price
-        if ( $min_sale_price !== $max_sale_price ) {
-            return false;
+
+        // get all variations from product
+        $variations = $product->get_children();
+        
+        if ( empty( $variations ) ) {
+            return false; // there are no variations
         }
-    
-        // Iterate through the variations to ensure they all have the same price
-        foreach ( $product->get_children() as $variation_id ) {
+
+        // get price from first variation as a referrer
+        $first_price = null;
+
+        foreach ( $variations as $variation_id ) {
             $variation = wc_get_product( $variation_id );
-            if ( ! $variation ) {
-                continue;
+
+            if ( ! $variation || ! $variation->is_purchasable() ) {
+                continue; // ignore invalid variations
             }
-    
-            $variation_price = $variation->get_price();
-            $variation_regular_price = $variation->get_regular_price();
-    
-            // Confirms that price variations are consistent
-            if ( $variation_price !== $min_price || $variation_regular_price !== $min_sale_price ) {
-                return false;
+
+            $price = (float) $variation->get_regular_price();
+
+            if ( is_null( $first_price ) ) {
+                $first_price = $price; // set initial price
+            } elseif ( $price !== $first_price ) {
+                return false; // find a different price
             }
         }
-    
+
         return true;
-    }    
+    }
 
 
     /**

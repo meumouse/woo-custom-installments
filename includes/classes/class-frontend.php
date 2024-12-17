@@ -565,7 +565,7 @@ class Frontend {
   public function show_variation_prices_before_add_to_cart() {
     global $product;
 
-    if ( $product && $product->is_type('variable') ) {
+    if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
         $variations = $product->get_available_variations(); ?>
 
         <ul id="wci-variation-prices">
@@ -586,24 +586,10 @@ class Frontend {
 
 
   /**
-   * Add custom text after price
-   * 
-   * @since 2.8.0
-   * @param string $price | Product price
-   * @return string
-   */
-  public function add_custom_text_after_price( $price ) {
-    $price .= '<span class="woo-custom-installments-text-after-price">'. Init::get_setting('custom_text_after_price_front') .'</span>';
-
-    return $price;
-  }
-
-
-  /**
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 5.2.5
+   * @version 5.2.7
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
@@ -617,7 +603,7 @@ class Frontend {
 
     $html = '<div class="woo-custom-installments-group';
 
-    if ( $product && $product->is_type('variable', 'variation') && ! Helpers::variations_has_same_price( $product ) ) {
+    if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
         $html .= ' variable-range-price';
     }
 
@@ -629,11 +615,11 @@ class Frontend {
 
     // add icon before price
     if ( Init::get_setting('icon_format_elements') === 'class' ) {
-      if ( isset( $price_icon_base['class'] ) ) {
+      if ( isset( $price_icon_base['class'] ) && ! empty( $price_icon_base['class'] ) ) {
         $html .= sprintf( __( '<i class="wci-icon-price icon-class %s"></i>' ), esc_attr( $price_icon_base['class'] ) );
       }
     } else {
-      if ( isset( $price_icon_base['image'] ) ) {
+      if ( isset( $price_icon_base['image'] ) && ! empty( $price_icon_base['image'] ) ) {
         $html .= sprintf( __( '<img class="wci-icon-price icon-image" src="%s"/>' ), esc_url( $price_icon_base['image'] ) );
       }
     }
@@ -641,9 +627,7 @@ class Frontend {
     if ( $product && $product->is_type('variable') ) {
         // Get variation prices
         $min_regular_price = $product->get_variation_regular_price( 'min', true );
-        $max_regular_price = $product->get_variation_regular_price( 'max', true );
         $min_sale_price = $product->get_variation_sale_price( 'min', true );
-        $max_sale_price = $product->get_variation_sale_price( 'max', true );
 
         if ( ! Helpers::variations_has_same_price( $product ) ) {
             $regular_price_html = wc_price( $min_regular_price );

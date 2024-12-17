@@ -59,7 +59,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.2.5
+     * @version 5.2.7
      * @return void
      */
     public function ajax_save_options_callback() {
@@ -94,7 +94,8 @@ class Ajax {
                 'enable_elementor_widgets',
                 'enable_price_grid_in_widgets',
                 'add_discount_custom_product_price',
-                'enable_update_variation_prices_elements'
+                'enable_update_variation_prices_elements',
+                'enable_force_styles',
             );
 
             $fields_with_license = array(
