@@ -1,0 +1,69 @@
+.wci-accordion-item {
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.35rem;
+    overflow: hidden;
+    height: 55px;
+    transition: height .35s ease;
+}
+
+.wci-accordion-item.active {
+    height: auto !important;
+}
+
+.wci-accordion-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    padding: 1rem 1.25rem !important;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #343A40;
+    background-color: #fff;
+    text-align: left;
+    text-transform: none;
+    border: 0;
+    border-radius: 0.25rem;
+    overflow-anchor: none;
+    outline: none !important;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+}
+
+.wci-accordion-header:hover,
+.wci-accordion-header:focus {
+    color: #212529;
+    background-color: #E9ECEF;
+}
+
+.wci-accordion-header::after {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: auto;
+    content: "";
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    transition: transform .2s ease-in-out;
+}
+
+.wci-accordion-item.active .wci-accordion-header::after {
+    transform: rotate(-180deg);
+}
+
+.wci-accordion-content {
+    background-color: #fff;
+    max-height: 0;
+    padding: 1rem;
+    border: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+}
+
+.wci-accordion-item.active .wci-accordion-content {
+    padding: 1rem;
+    max-height: none;
+    border-top: 1px solid #ddd;
+}

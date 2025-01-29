@@ -1,0 +1,494 @@
+.woo-custom-installments-offer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+    padding: 0.65rem 0.85rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: wrap;
+    border-radius: 0.3rem;
+    background-color: rgba(34, 197, 94, 0.10);
+    color: #22c55e;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    order: 2;
+}
+
+.woo-custom-installments-economy-pix-badge {
+    order: 2;
+    background-color: #22c55e;
+    color: #fff;
+    font-size: 0.925rem;
+    font-weight: 500;
+    padding: 0.675rem 1rem;
+    border-radius: 0.3rem;
+    line-height: 1;
+    white-space: wrap;
+    width: fit-content;
+}
+
+.woo-custom-installments-economy-pix-badge .amount {
+    color: #fff;
+}
+
+.woo-custom-installments-ticket-discount {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+    padding: 0.65rem 0.85rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: wrap;
+    border-radius: 0.3rem;
+    background-color: rgba(255, 186, 8, 0.10);
+    color: #ffba08;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    order: 3;
+}
+
+.woo-custom-installments-offer .amount,
+.woo-custom-installments-ticket-discount .amount,
+.woo-custom-installments-card-container .amount,
+.woo-custom-installments-economy-pix-badge .amount,
+th.final-text .amount,
+th.final-price .amount  {
+    font-weight: 500;
+}
+
+.woo-custom-installments-group {
+    display: grid;
+    justify-items: flex-start;
+    width: 100%;
+}
+
+.woo-custom-installments-select-variation-message {
+    display: block;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #6C757D;
+}
+
+.woocommerce-variation-price .price .woo-custom-installments-group {
+    justify-items: flex-start;
+}
+
+.variation-price, .discount-before-price, .discounted-price, .discount-after-price, .discount-before-discount-ticket, .discount-after-discount-ticket {
+    line-height: 1;
+}
+
+.woo-custom-installments-card-container {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: #343A40;
+    white-space: wrap;
+}
+
+.woo-custom-installments-details-without-fee, .woo-custom-installments-details-with-fee {
+    display: block;
+}
+
+.variation-price,
+.discount-before-price,
+.wci-icon-ticket-discount,
+.discounted-price,
+.wci-icon-main-price,
+.wci-icon-best-installments,
+.variation-text,
+.discount-before-discount-ticket,
+.wci-icon-economy-pix {
+    margin-right: 0.25rem;
+}
+
+.woo-custom-installments-offer:has(.variation-text) .discount-before-price {
+	display: none;
+}
+
+.container-separator {
+    margin: 1.75rem 0;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+    height: 1px;
+    width: 100%;
+}
+
+.instant-approval-badge,
+.badge-discount-checkout {
+    display: inline-block;
+    padding: 0.35em 0.6em;
+    font-size: 0.825em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50rem;
+    background-color: rgba(34, 197, 94, 0.10);
+    color: #22c55e;
+    margin-bottom: 1rem;
+}
+
+.badge-interest-checkout {
+    display: inline-block;
+    padding: 0.35em 0.6em;
+    font-size: 0.8125em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50rem;
+    background-color: rgba(255,186,8,.12);
+    color: #ffba08; 
+}
+
+.badge-discount-checkout, .badge-interest-checkout {
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+}
+
+.pix-method-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.pix-method-container .instant-approval-badge {
+    margin-bottom: 0;
+}
+
+.pix-method-name {
+    color: #212529;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.ticket-method-name {
+    color: #212529;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.pix-method-name .amount,
+.ticket-method-name .amount,
+.woo-custom-installments-table,
+.woo-custom-installments-table .amount {
+    color: #212529;
+}
+
+.pix-info {
+    display: flex;
+    width: fit-content !important;
+}
+
+.pix-info.instant-approval-badge {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+
+.pix-info.instant-approval-badge .pix-icon-badge {
+    font-size: 1.75rem;
+}
+
+.pix-info .woo-custom-installments-economy-pix-badge {
+    margin-left: 0.5rem;
+    background-color: transparent !important;
+    padding: 0;
+    color: #2ebdaf !important;
+    font-weight: 600;
+}
+
+.pix-info .woo-custom-installments-economy-pix-badge .amount {
+    color: #2ebdaf !important;
+    font-size: 0.925rem;
+    font-weight: 600;
+}
+
+.pix-info .woo-custom-installments-economy-pix-badge .wci-icon-economy-pix {
+    display: none;
+}
+
+.pix-icon-badge {
+    font-size: 2rem;
+    color: #2ebdaf;
+}
+
+.ticket-instructions {
+    font-size: 0.855rem;
+}
+
+.container-badge-icon {
+    width: 3rem;
+    height: auto;
+    margin-right: 0.75rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.credit-card-container-badges,
+.debit-card-container-badges {
+    display: flex;
+    overflow: auto;
+    padding-bottom: 0.5rem;
+}
+
+h4.pix-method-title,
+h4.ticket-method-title,
+h4.credit-card-method-title,
+h4.debit-card-method-title,
+h4.installments-title {
+    font-size: 1.125rem;
+}
+
+.container-badge-icon.pix-flag,
+.credit-card-container-badges,
+.debit-card-container-badges,
+.container-badge-icon.ticket-flag {
+    margin-bottom: 2rem;
+}
+
+.woo-custom-installments-table tbody>tr:nth-child(odd)>td,
+table tbody>tr:nth-child(odd)>th {
+    background-color: transparent !important;
+}
+
+.woo-custom-installments-table th {
+    font-weight: 400;
+    font-size: 0.95rem;
+    border: none;
+    border-bottom: 1px solid;
+    border-color: #d9dde3;
+    padding: 0.75rem 1rem !important;
+    width: 50%;
+}
+
+.woo-custom-installments-table th.final-text {
+    border-right: 1px solid #d9dde3;
+}
+
+.woo-custom-installments-table tr:last-of-type > th {
+    border-bottom: none;
+}
+
+.woo-custom-installments-table tr:first-of-type > th {
+    border-top: none;
+}
+
+.woo-custom-installments-table tr:hover {
+    background-color: #E9ECEF;
+}
+
+.woo-custom-installments-table {
+    width: 100%;
+}
+
+.fa-brands,
+.fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+}
+
+.woo-custom-installments-text-after-price {
+    margin-left: 0.15rem;
+}
+
+.woo-custom-installments-discount-per-quantity-message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 0.3rem;
+    color: #4475de;
+    background-color: #edf3fe;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.woo-custom-installments-discount-per-quantity-message i {
+    margin-right: 0.25rem;
+}
+
+.browser-Safari .hide-larger-price .price {
+    white-space: initial !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.woo-custom-installments-price.original-price {
+    order: 1;
+    font-size: 1.225rem;
+    font-weight: 500;
+}
+
+#woo-custom-installments-product-price {
+    display: grid;
+    width: 100%;
+}
+
+.size-badge-icon {
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.wci-loading-price {
+    overflow: hidden;
+    width: fit-content !important;
+    background: #000;
+    position: relative;
+    -webkit-animation-duration: 1.7s;
+    animation-duration: 1.7s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-name: placeholder_animation;
+    animation-name: placeholder_animation;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px;
+    border-radius: 0.375rem;
+}
+
+@keyframes placeholder_animation {
+    0% {
+        background-position: -650px 0;
+    }
+    100% {
+        background-position: 650px 0;
+    }
+}
+
+.woo-custom-installments-logo {
+    width: 3rem;
+}
+
+.wci-license-message-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wci-license-message-box .message-box-header {
+    width: 6rem;
+    height: 6rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #efefef;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wci-license-message-box .message-box-header h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #040f0f;
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.wci-license-message-box .message-box-header .message-cta {
+    font-size: 1.125rem;
+    text-align: center;
+    color: #495057;
+}
+
+.woo-custom-installments-price.original-price.has-discount {
+    display: flex !important;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #495057;
+    text-decoration: line-through;
+    margin-right: 0.5rem;
+    order: 1;
+}
+
+.woo-custom-installments-price.sale-price {
+	order: 3;
+	font-size: 1.325rem;
+	font-weight: 500;
+}
+
+.woo-custom-installments-group-main-price {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.woo-custom-installments-group-main-price .woo-custom-installments-price {
+    order: 3;
+}
+
+.woo-custom-installments-group .icon-image {
+    width: 1.325rem;
+    height: auto;
+}
+
+.woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price {
+    display: flex !important;
+    align-items: center;
+}
+
+.woo-custom-installments-group-main-price .wci-sale-badge {
+    order: 4;
+    font-size: 0.785rem;
+    font-weight: 600;
+    color: rgba(38, 171, 91, 1);
+    background-color: rgba(34, 197, 94, 0.15);
+    padding: 0.25rem 0.65rem 0.25rem 0.65rem;
+    border-radius: 10rem;
+    margin-left: 0.5rem;
+}
+
+.woo-custom-installments-group-main-price .wci-icon-price {
+    order: 1;
+}
+
+.woo-custom-installments-group-main-price .woo-custom-installments-starting-from {
+    margin-right: 0.5rem;
+    order: 2;
+}
+
+#wci-variation-prices .wci-variation-item {
+    list-style: none;
+}
+
+#wci-variation-prices {
+    padding: 0;
+    margin: 0;
+}
+
+.woo-custom-installments-group-main-price del .amount {
+    margin-right: 0.5rem;
+    display: flex;
+}
