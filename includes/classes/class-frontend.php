@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Display elements on front-end
  *
  * @since 1.0.0
- * @version 5.2.6
+ * @version 5.3.0
  * @package MeuMouse.com
  */
 class Frontend {
@@ -589,7 +589,7 @@ class Frontend {
    * Display group elements
    * 
    * @since 2.0.0
-   * @version 5.2.7
+   * @version 5.3.0
    * @param string $price | Product price
    * @param object $product | Product object
    * @return string
@@ -601,7 +601,15 @@ class Frontend {
         return $price;
     }
 
-    $html = '<div class="woo-custom-installments-group';
+    /**
+     * Add custom classes on woo-custom-installments-group element
+     * 
+     * @since 5.3.0
+     * @return string
+     */
+    $custom_classes = apply_filters( 'woo_custom_installments_group_custom_classes', '' );
+
+    $html = '<div class="woo-custom-installments-group ' . $custom_classes;
 
     if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
         $html .= ' variable-range-price';
@@ -625,20 +633,20 @@ class Frontend {
     }
 
     if ( $product && $product->is_type('variable') ) {
-        if ( ! Helpers::variations_has_same_price( $product ) ) {
-            // Get variation prices
-            $min_regular_price = $product->get_variation_regular_price( 'min', true );
-            $min_sale_price = $product->get_variation_sale_price( 'min', true );
-            $regular_price_html = wc_price( $min_regular_price );
-            $sale_price_html = wc_price( $min_sale_price );
+        // Get variation prices
+        $min_regular_price = $product->get_variation_regular_price( 'min', true );
+        $min_sale_price = $product->get_variation_sale_price( 'min', true );
+        $regular_price = wc_price( $min_regular_price );
+        $sale_price = wc_price( $min_sale_price );
 
+        // check if variations has different price between variations
+        if ( ! Helpers::variations_has_same_price( $product ) ) {
             if ( Init::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
               $html .= ! empty( Init::get_setting('text_initial_variables') ) ? '<span class="woo-custom-installments-starting-from">' . Init::get_setting('text_initial_variables') . '</span>' : '';
+              $html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price . '</span>';
             } else {
-              $html .= '<span class="woo-custom-installments-price original-price has-discount">' . $regular_price_html . '</span>';
+              $html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
             }
-
-            $html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price_html . '</span>';
         } else {
             $html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
         }

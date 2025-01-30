@@ -1,24 +1,24 @@
 <?php
 
 /**
- * Plugin Name: 			Parcelas Customizadas para WooCommerce
- * Description: 			Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
+ * Plugin Name: 				Parcelas Customizadas para WooCommerce
+ * Description: 				Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
  * Plugin URI: 				https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
  * Requires Plugins: 		woocommerce
- * Author: 					MeuMouse.com
+ * Author: 						MeuMouse.com
  * Author URI: 				https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 				5.3.0
+ * Version: 					5.3.0
  * Requires at least: 		6.0
  * WC requires at least: 	6.0.0
- * WC tested up to: 		9.4.3
- * Requires PHP: 			7.4
+ * WC tested up to: 			9.4.3
+ * Requires PHP: 				7.4
  * Tested up to:      		6.7.1
- * Text Domain: 			woo-custom-installments
- * Domain Path: 			/languages
- * License: 				GPL2
+ * Text Domain: 				woo-custom-installments
+ * Domain Path: 				/languages
+ * License: 					GPL2
  * 
- * @package					PCW - MeuMouse.com
- * @author					MeuMouse.com
+ * @package						PCW - MeuMouse.com
+ * @author						MeuMouse.com
  * @copyright         		2023 MeuMouse.com
  */
 

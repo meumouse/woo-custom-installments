@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-17 23:30+0000\n"
+"POT-Creation-Date: 2025-01-29 14:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,50 +16,82 @@ msgstr ""
 "X-Loco-Version: 2.6.4; wp-6.2\n"
 "X-Domain: woo-custom-installments"
 
-#: includes/classes/class-interests.php:83
+#: includes/classes/class-components.php:30
+msgid "%"
+msgstr ""
+
+#: includes/classes/class-interests.php:93
 #, php-format
 msgid "%s juros"
 msgstr ""
 
-#: includes/classes/class-discounts.php:131
-#: includes/classes/class-discounts.php:157
+#: includes/classes/class-frontend.php:706
+#, php-format
+msgid "%s OFF"
+msgstr ""
+
+#: includes/classes/class-discounts.php:128
+#: includes/classes/class-discounts.php:151
 #, php-format
 msgid "%s off"
 msgstr ""
 
-#: woo-custom-installments.php:264
+#: includes/classes/class-components.php:43
+msgid "100"
+msgstr ""
+
+#: includes/classes/class-components.php:44
+msgid "200"
+msgstr ""
+
+#: includes/classes/class-components.php:45
+msgid "300"
+msgstr ""
+
+#: includes/classes/class-components.php:46
+msgid "400"
+msgstr ""
+
+#: includes/classes/class-components.php:47
+msgid "500"
+msgstr ""
+
+#: includes/classes/class-components.php:48
+msgid "600"
+msgstr ""
+
+#: includes/classes/class-components.php:49
+msgid "700"
+msgstr ""
+
+#: includes/classes/class-components.php:50
+msgid "800"
+msgstr ""
+
+#: includes/classes/class-components.php:51
+msgid "900"
+msgstr ""
+
+#: woo-custom-installments.php:271
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do "
 "PHP 7.4 ou maior. Contate o suporte da sua hospedagem para realizar a "
 "atualização."
 msgstr ""
 
-#: woo-custom-installments.php:232
+#: woo-custom-installments.php:239
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do "
 "WooCommerce 6.0 ou maior. Faça a atualização do plugin WooCommerce."
 msgstr ""
 
-#: woo-custom-installments.php:248
+#: woo-custom-installments.php:255
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>"
 "WooCommerce</strong> esteja instalado e ativado."
 msgstr ""
 
-#: includes/admin/tabs/design.php:275
-msgid ""
-"A cor de fundo será gerada automaticamente com 10% de transparência a partir "
-"da cor informada."
-msgstr ""
-
-#: includes/admin/tabs/design.php:89
-msgid ""
-"A cor de fundo será gerada automaticamente com 15% de transparência a partir "
-"da cor informada. Esta configuração também altera a cor do emblema de "
-"aprovação imediata e desconto no checkout."
-msgstr ""
-
-#: includes/admin/tabs/design.php:361
+#: includes/admin/tabs/design.php:174
 msgid "A cor do texto e borda será obtida a partir da cor informada."
 msgstr ""
 
@@ -67,7 +99,7 @@ msgstr ""
 msgid "A extensão cURL está faltando."
 msgstr ""
 
-#: includes/classes/class-ajax.php:264
+#: includes/classes/class-ajax.php:261
 msgid "A licença foi desativada"
 msgstr ""
 
@@ -89,11 +121,11 @@ msgstr ""
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr ""
 
-#: includes/admin/tabs/design.php:170 includes/admin/tabs/design.php:263
+#: includes/classes/class-components.php:400
 msgid "Acessar Font Awesome"
 msgstr ""
 
-#: includes/admin/tabs/options.php:137
+#: includes/admin/tabs/options.php:138
 msgid "Adicionar um desconto no preço do produto"
 msgstr ""
 
@@ -110,11 +142,11 @@ msgid ""
 "liberar todos os recursos e opções de estilização."
 msgstr ""
 
-#: includes/admin/tabs/options.php:60
+#: includes/admin/tabs/options.php:61
 msgid "AJAX"
 msgstr ""
 
-#: includes/admin/tabs/options.php:55
+#: includes/admin/tabs/options.php:56
 msgid ""
 "AJAX é um método de busca do preço através do servidor, ou método Dinâmico "
 "para obter o preço da variação existente e substituindo pelo preço atual "
@@ -130,7 +162,7 @@ msgstr ""
 msgid "Altura do botão"
 msgstr ""
 
-#: includes/admin/tabs/options.php:385
+#: includes/admin/tabs/options.php:398
 msgid "Antes do carrinho (Padrão)"
 msgstr ""
 
@@ -145,67 +177,55 @@ msgid ""
 "voltando ao estado original. Sua licença não será removida."
 msgstr ""
 
-#: includes/admin/tabs/options.php:290 includes/admin/tabs/options.php:305
-#: includes/admin/tabs/options.php:319 includes/admin/tabs/options.php:333
+#: includes/admin/tabs/options.php:303 includes/admin/tabs/options.php:318
+#: includes/admin/tabs/options.php:332 includes/admin/tabs/options.php:346
 msgid "Apenas arquivos de produtos"
 msgstr ""
 
-#: includes/admin/tabs/options.php:289 includes/admin/tabs/options.php:318
-#: includes/admin/tabs/options.php:332
+#: includes/admin/tabs/options.php:302 includes/admin/tabs/options.php:331
+#: includes/admin/tabs/options.php:345
 msgid "Apenas página do produto individual"
 msgstr ""
 
-#: includes/admin/tabs/options.php:303
+#: includes/admin/tabs/options.php:316
 msgid "Apenas página do produto individual (Padrão)"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:310
+#: includes/classes/class-admin-options.php:311
 msgid "Aplicar desconto para o gateway"
 msgstr ""
 
-#: includes/classes/class-frontend.php:345
-#: includes/classes/class-frontend.php:472
-#: includes/classes/class-frontend.php:502
+#: includes/classes/class-frontend.php:348
+#: includes/classes/class-frontend.php:475
+#: includes/classes/class-frontend.php:505
 msgid "Aprovação imediata"
 msgstr ""
 
-#: includes/classes/class-ajax.php:222
+#: includes/classes/class-ajax.php:219
 msgid "Arquivo enviado com sucesso."
 msgstr ""
 
-#: includes/classes/class-ajax.php:202
+#: includes/classes/class-ajax.php:199
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr ""
 
-#: includes/admin/tabs/design.php:245
-msgid "Arredondamento da economia no Pix"
-msgstr ""
-
-#: includes/admin/tabs/design.php:418
+#: includes/admin/tabs/design.php:234
 msgid "Arredondamento do botão de parcelas"
 msgstr ""
 
-#: includes/admin/tabs/design.php:334
-msgid "Arredondamento do desconto no boleto bancário"
-msgstr ""
-
-#: includes/admin/tabs/design.php:152
-msgid "Arredondamento do preço com desconto"
-msgstr ""
-
-#: includes/classes/class-assets.php:63
+#: includes/classes/class-assets.php:72
 msgid "As alterações não serão salvas."
 msgstr ""
 
-#: includes/classes/class-ajax.php:155
+#: includes/classes/class-ajax.php:146
 msgid "As configurações foram atualizadas!"
 msgstr ""
 
-#: includes/classes/class-ajax.php:324
+#: includes/classes/class-ajax.php:321
 msgid "As opções foram redefinidas"
 msgstr ""
 
-#: includes/classes/class-ajax.php:325
+#: includes/classes/class-ajax.php:322
 msgid "As opções foram redefinidas com sucesso!"
 msgstr ""
 
@@ -218,81 +238,89 @@ msgstr ""
 msgid "Atenção! Você realmente deseja redefinir as configurações?"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:232
-#: includes/admin/tabs/payment-forms.php:542
+#: includes/admin/tabs/design.php:89
+msgid "Ativar atualização de valores em elementos em produtos variáveis"
+msgstr ""
+
+#: includes/admin/tabs/payment-forms.php:233
+#: includes/admin/tabs/payment-forms.php:543
 msgid "Ativar bandeira American Express"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:358
-#: includes/admin/tabs/payment-forms.php:668
+#: includes/admin/tabs/payment-forms.php:359
+#: includes/admin/tabs/payment-forms.php:669
 msgid "Ativar bandeira Cielo"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:190
-#: includes/admin/tabs/payment-forms.php:500
+#: includes/admin/tabs/payment-forms.php:191
+#: includes/admin/tabs/payment-forms.php:501
 msgid "Ativar bandeira Diners Club"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:211
-#: includes/admin/tabs/payment-forms.php:521
+#: includes/admin/tabs/payment-forms.php:212
+#: includes/admin/tabs/payment-forms.php:522
 msgid "Ativar bandeira Discover"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:148
-#: includes/admin/tabs/payment-forms.php:458
+#: includes/admin/tabs/payment-forms.php:149
+#: includes/admin/tabs/payment-forms.php:459
 msgid "Ativar bandeira Elo"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:169
-#: includes/admin/tabs/payment-forms.php:479
+#: includes/admin/tabs/payment-forms.php:170
+#: includes/admin/tabs/payment-forms.php:480
 msgid "Ativar bandeira Hipercard"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:106
-#: includes/admin/tabs/payment-forms.php:416
+#: includes/admin/tabs/payment-forms.php:107
+#: includes/admin/tabs/payment-forms.php:417
 msgid "Ativar bandeira Mastercard"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:295
-#: includes/admin/tabs/payment-forms.php:605
+#: includes/admin/tabs/payment-forms.php:296
+#: includes/admin/tabs/payment-forms.php:606
 msgid "Ativar bandeira Mercado Pago"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:337
-#: includes/admin/tabs/payment-forms.php:647
+#: includes/admin/tabs/payment-forms.php:338
+#: includes/admin/tabs/payment-forms.php:648
 msgid "Ativar bandeira Pagar.me"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:316
-#: includes/admin/tabs/payment-forms.php:626
+#: includes/admin/tabs/payment-forms.php:317
+#: includes/admin/tabs/payment-forms.php:627
 msgid "Ativar bandeira PagSeguro"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:253
-#: includes/admin/tabs/payment-forms.php:563
+#: includes/admin/tabs/payment-forms.php:254
+#: includes/admin/tabs/payment-forms.php:564
 msgid "Ativar bandeira PayPal"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:274
-#: includes/admin/tabs/payment-forms.php:584
+#: includes/admin/tabs/payment-forms.php:275
+#: includes/admin/tabs/payment-forms.php:585
 msgid "Ativar bandeira Stripe"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:127
-#: includes/admin/tabs/payment-forms.php:437
+#: includes/admin/tabs/payment-forms.php:128
+#: includes/admin/tabs/payment-forms.php:438
 msgid "Ativar bandeira Visa"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:198
+#: includes/admin/tabs/discounts.php:199
 msgid "Ativar cálculo de desconto para cada unidade do produto elegível"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:275
+#: includes/classes/class-admin-options.php:276
 msgid "Ativar desconto do produto"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:345
+#: includes/classes/class-admin-options.php:346
 msgid "Ativar desconto por quantidade"
+msgstr ""
+
+#: includes/admin/tabs/options.php:177
+msgid "Ativar emblema de percentual de desconto"
 msgstr ""
 
 #: includes/widgets/class-inject-controllers.php:224
@@ -300,31 +328,31 @@ msgstr ""
 msgid "Ativar empilhamento de preços"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:42
+#: includes/admin/tabs/payment-forms.php:43
 msgid "Ativar forma de pagamento boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:76
+#: includes/admin/tabs/payment-forms.php:77
 msgid "Ativar forma de pagamento cartão de crédito"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:386
+#: includes/admin/tabs/payment-forms.php:387
 msgid "Ativar forma de pagamento cartão de débito"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:12
+#: includes/admin/tabs/payment-forms.php:13
 msgid "Ativar forma de pagamento Pix"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:145
+#: includes/admin/tabs/discounts.php:146
 msgid "Ativar funções de desconto por quantidade"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:12
+#: includes/admin/tabs/discounts.php:13
 msgid "Ativar funções de descontos"
 msgstr ""
 
-#: includes/admin/tabs/interests.php:13
+#: includes/admin/tabs/interests.php:14
 msgid "Ativar funções de juros"
 msgstr ""
 
@@ -332,130 +360,144 @@ msgstr ""
 msgid "Ativar licença"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:210
+#: includes/admin/tabs/discounts.php:211
 msgid "Ativar mensagem nos produtos elegíveis para desconto por quantidade"
 msgstr ""
 
-#: includes/admin/tabs/options.php:12
+#: includes/admin/tabs/options.php:13
 msgid "Ativar Parcelas Customizadas"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:75
+#: includes/admin/tabs/discounts.php:76
 msgid "Ativar preço com desconto no Pix em Post Meta para Feed XML"
 msgstr ""
 
-#: includes/admin/tabs/design.php:22
+#: includes/admin/tabs/design.php:65
 msgid "Ativar widgets para Elementor"
 msgstr ""
 
-#: includes/admin/tabs/options.php:116
+#: includes/admin/tabs/options.php:178
+msgid "Ative essa opção exibir o percentual de desconto ao lado do preço."
+msgstr ""
+
+#: includes/admin/tabs/options.php:117
 msgid ""
 "Ative essa opção para personalizar o preço principal do produto, sem afetar "
 "o preço cadastrado. Recomendado para servir o preço com desconto. Por "
 "exemplo: R$100,00 no Pix"
 msgstr ""
 
-#: includes/admin/tabs/design.php:23
+#: includes/admin/tabs/design.php:14
+msgid "Ative essa opção para que os estilos tenham maior prioridade."
+msgstr ""
+
+#: includes/admin/tabs/design.php:66
 msgid "Ative essa opção para que os widgets para Elementor sejam carregados."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:13
+#: includes/admin/tabs/discounts.php:14
 msgid ""
 "Ative esta opção para habilitar todas as opções relacionadas a desconto."
 msgstr ""
 
-#: includes/admin/tabs/interests.php:14
+#: includes/admin/tabs/interests.php:15
 msgid "Ative esta opção para habilitar todas as opções relacionadas a juros."
 msgstr ""
 
-#: includes/admin/tabs/options.php:104 includes/admin/tabs/options.php:138
+#: includes/admin/tabs/options.php:105 includes/admin/tabs/options.php:139
 msgid ""
 "Ative esta opção para mostrar o valor que o usuário economizará ao pagar no "
 "Pix."
 msgstr ""
 
-#: includes/admin/tabs/options.php:13
+#: includes/admin/tabs/design.php:90
+msgid ""
+"Ative esta opção para que elementos de preço dentro do popup ou sanfona em "
+"produtos variáveis sejam atualizados em AJAX."
+msgstr ""
+
+#: includes/admin/tabs/options.php:14
 msgid "Ative esta opção para que o plugin será inicializado."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:243
-#: includes/admin/tabs/payment-forms.php:553
+#: includes/admin/tabs/payment-forms.php:244
+#: includes/admin/tabs/payment-forms.php:554
 msgid "Ative para exibir a bandeira American Express nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:369
-#: includes/admin/tabs/payment-forms.php:679
+#: includes/admin/tabs/payment-forms.php:370
+#: includes/admin/tabs/payment-forms.php:680
 msgid "Ative para exibir a bandeira Cielo nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:201
-#: includes/admin/tabs/payment-forms.php:511
+#: includes/admin/tabs/payment-forms.php:202
+#: includes/admin/tabs/payment-forms.php:512
 msgid "Ative para exibir a bandeira Diners Club nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:222
-#: includes/admin/tabs/payment-forms.php:532
+#: includes/admin/tabs/payment-forms.php:223
+#: includes/admin/tabs/payment-forms.php:533
 msgid "Ative para exibir a bandeira Discover nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:159
-#: includes/admin/tabs/payment-forms.php:469
+#: includes/admin/tabs/payment-forms.php:160
+#: includes/admin/tabs/payment-forms.php:470
 msgid "Ative para exibir a bandeira Elo nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:180
-#: includes/admin/tabs/payment-forms.php:490
+#: includes/admin/tabs/payment-forms.php:181
+#: includes/admin/tabs/payment-forms.php:491
 msgid "Ative para exibir a bandeira Hipercard nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:117
-#: includes/admin/tabs/payment-forms.php:427
+#: includes/admin/tabs/payment-forms.php:118
+#: includes/admin/tabs/payment-forms.php:428
 msgid "Ative para exibir a bandeira Mastercard nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:306
-#: includes/admin/tabs/payment-forms.php:616
+#: includes/admin/tabs/payment-forms.php:307
+#: includes/admin/tabs/payment-forms.php:617
 msgid "Ative para exibir a bandeira Mercado Pago nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:348
-#: includes/admin/tabs/payment-forms.php:658
+#: includes/admin/tabs/payment-forms.php:349
+#: includes/admin/tabs/payment-forms.php:659
 msgid "Ative para exibir a bandeira Pagar.me nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:327
-#: includes/admin/tabs/payment-forms.php:637
+#: includes/admin/tabs/payment-forms.php:328
+#: includes/admin/tabs/payment-forms.php:638
 msgid "Ative para exibir a bandeira PagSeguro nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:264
-#: includes/admin/tabs/payment-forms.php:574
+#: includes/admin/tabs/payment-forms.php:265
+#: includes/admin/tabs/payment-forms.php:575
 msgid "Ative para exibir a bandeira PayPal nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:285
-#: includes/admin/tabs/payment-forms.php:595
+#: includes/admin/tabs/payment-forms.php:286
+#: includes/admin/tabs/payment-forms.php:596
 msgid "Ative para exibir a bandeira Stripe nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:138
-#: includes/admin/tabs/payment-forms.php:448
+#: includes/admin/tabs/payment-forms.php:139
+#: includes/admin/tabs/payment-forms.php:449
 msgid "Ative para exibir a bandeira Visa nas formas de pagamento."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:53
+#: includes/admin/tabs/payment-forms.php:54
 msgid "Ative para exibir a forma de pagamento boleto bancário."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:87
+#: includes/admin/tabs/payment-forms.php:88
 msgid "Ative para exibir a forma de pagamento cartão de crédito."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:397
+#: includes/admin/tabs/payment-forms.php:398
 msgid "Ative para exibir a forma de pagamento cartão de débito."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:20
+#: includes/admin/tabs/payment-forms.php:21
 msgid "Ative para exibir a forma de pagamento Pix."
 msgstr ""
 
@@ -504,12 +546,16 @@ msgstr ""
 msgid "Básicos"
 msgstr ""
 
-#: includes/classes/class-ajax.php:296
+#: includes/classes/class-ajax.php:293
 msgid "Cache de ativação limpo"
 msgstr ""
 
 #: includes/widgets/class-price-info-box.php:40
 msgid "Caixa de informação de preço"
+msgstr ""
+
+#: includes/classes/class-components.php:460
+msgid "Celular"
 msgstr ""
 
 #: includes/admin/settings.php:23
@@ -521,15 +567,19 @@ msgstr ""
 msgid "Centralizado"
 msgstr ""
 
-#: includes/admin/tabs/design.php:10
+#: includes/admin/tabs/design.php:25
 msgid "Centralizar grupo de preços na grade de produtos"
+msgstr ""
+
+#: includes/admin/tabs/design.php:106
+msgid "Classe de ícone (Font Awesome) - (Padrão)"
 msgstr ""
 
 #: includes/admin/tabs/about.php:66
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr ""
 
-#: includes/classes/class-frontend.php:395
+#: includes/classes/class-frontend.php:398
 msgid "Cobranças:"
 msgstr ""
 
@@ -556,22 +606,35 @@ msgstr ""
 msgid "Comprar uma licença"
 msgstr ""
 
-#: woo-custom-installments.php:279 includes/admin/tabs/discounts.php:162
-#: includes/admin/tabs/options.php:39 includes/admin/tabs/options.php:123
-#: includes/admin/tabs/options.php:240
+#: includes/classes/class-components.php:453
+msgid "Computador"
+msgstr ""
+
+#: woo-custom-installments.php:286 includes/admin/tabs/design.php:33
+#: includes/admin/tabs/discounts.php:163 includes/admin/tabs/options.php:40
+#: includes/admin/tabs/options.php:124 includes/admin/tabs/options.php:253
 msgid "Configurar"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:94
-#: includes/admin/tabs/payment-forms.php:404
+#: includes/admin/tabs/payment-forms.php:95
+#: includes/admin/tabs/payment-forms.php:405
 msgid "Configurar bandeiras"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:191
+#: includes/admin/tabs/design.php:38
+msgid "Configurar centralização de elementos"
+msgstr ""
+
+#: includes/admin/tabs/design.php:151
+#, php-format
+msgid "Configurar estilos: %s"
+msgstr ""
+
+#: includes/admin/tabs/discounts.php:192
 msgid "Configurar para cada produto"
 msgstr ""
 
-#: includes/admin/tabs/options.php:44
+#: includes/admin/tabs/options.php:45
 msgid "Configurar remoção da faixa de preço"
 msgstr ""
 
@@ -590,20 +653,16 @@ msgid ""
 "opções disponíveis. Se precisar de ajuda para configurar, acesse nossa"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:167
+#: includes/admin/tabs/discounts.php:168
 msgid "Configure o desconto por quantidade"
 msgstr ""
 
-#: includes/admin/tabs/options.php:245
+#: includes/admin/tabs/options.php:258
 msgid "Configure o juros por parcela"
 msgstr ""
 
-#: includes/admin/tabs/options.php:128
+#: includes/admin/tabs/options.php:129
 msgid "Configure o preço do produto"
-msgstr ""
-
-#: includes/admin/tabs/design.php:435
-msgid "Cor de exibição das parcelas"
 msgstr ""
 
 #: includes/widgets/class-accordion-payment-methods.php:159
@@ -626,28 +685,20 @@ msgstr ""
 msgid "Cor de fundo ao passar o mouse"
 msgstr ""
 
-#: includes/admin/tabs/design.php:181
-msgid "Cor de fundo da economia no Pix"
-msgstr ""
-
 #: includes/widgets/class-accordion-payment-methods.php:306
 msgid "Cor de fundo do botão ativo"
 msgstr ""
 
-#: includes/admin/tabs/design.php:360
-msgid "Cor do botão do popup de parcelas"
+#: includes/classes/class-components.php:210
+msgid "Cor de fundo:"
 msgstr ""
 
-#: includes/admin/tabs/design.php:274
-msgid "Cor do desconto no boleto bancário"
+#: includes/admin/tabs/design.php:173
+msgid "Cor do botão do popup de parcelas"
 msgstr ""
 
 #: includes/widgets/class-installments-table.php:161
 msgid "Cor do preço"
-msgstr ""
-
-#: includes/admin/tabs/design.php:88
-msgid "Cor do preço com desconto no Pix"
 msgstr ""
 
 #: includes/widgets/class-accordion-payment-methods.php:148
@@ -681,13 +732,12 @@ msgstr ""
 msgid "Cor do texto do botão ativo"
 msgstr ""
 
-#: includes/widgets/class-discount-per-quantity.php:159
-msgid "Cor do ícone"
+#: includes/classes/class-components.php:238
+msgid "Cor do texto:"
 msgstr ""
 
-#: includes/admin/tabs/design.php:436
-msgid ""
-"Cor para ser utilizada na informação de melhor parcela com ou sem juros."
+#: includes/widgets/class-discount-per-quantity.php:159
+msgid "Cor do ícone"
 msgstr ""
 
 #: includes/admin/tabs/about.php:102
@@ -698,52 +748,48 @@ msgstr ""
 msgid "Dados inválidos."
 msgstr ""
 
-#: includes/admin/tabs/options.php:150
+#: includes/admin/tabs/options.php:151
 msgid ""
 "Defina um desconto a ser aplicado no preço do produto, use ponto para "
 "definir um número flutuante."
 msgstr ""
 
-#: includes/admin/tabs/design.php:182
-msgid "Define a cor de fundo da informação de economia no Pix."
-msgstr ""
-
-#: includes/admin/tabs/options.php:54
+#: includes/admin/tabs/options.php:55
 msgid "Define o método de atualização do preço da variação."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:236
+#: includes/admin/tabs/discounts.php:237
 msgid "Define qual será o valor de desconto por quantidade do produto."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:122
+#: includes/admin/tabs/discounts.php:123
 msgid ""
 "Define qual será o valor de desconto sobre o preço do produto para boleto "
 "bancário. Deixe em branco para não exibir."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:101
+#: includes/admin/tabs/discounts.php:102
 msgid ""
 "Define qual será o valor de desconto sobre o preço do produto, para . Deixe "
 "em branco para não exibir."
 msgstr ""
 
-#: includes/admin/tabs/options.php:212
+#: includes/admin/tabs/options.php:225
 msgid "Define qual será o valor mínimo da parcela que o cliente pagará."
 msgstr ""
 
-#: includes/admin/tabs/options.php:224
+#: includes/admin/tabs/options.php:237
 msgid "Definir taxa de juros por parcela"
 msgstr ""
 
-#: includes/admin/tabs/options.php:78 includes/admin/tabs/options.php:160
-#: includes/admin/tabs/texts.php:11 includes/admin/tabs/texts.php:21
-#: includes/admin/tabs/texts.php:95 includes/admin/tabs/texts.php:105
-#: includes/admin/tabs/texts.php:169
+#: includes/admin/tabs/options.php:79 includes/admin/tabs/options.php:161
+#: includes/admin/tabs/texts.php:14 includes/admin/tabs/texts.php:24
+#: includes/admin/tabs/texts.php:98 includes/admin/tabs/texts.php:108
+#: includes/admin/tabs/texts.php:172
 msgid "Deixe em branco para não exibir."
 msgstr ""
 
-#: includes/admin/tabs/options.php:386
+#: includes/admin/tabs/options.php:399
 msgid "Depois do carrinho"
 msgstr ""
 
@@ -751,15 +797,15 @@ msgstr ""
 msgid "Desativado"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:105
-#: includes/classes/class-admin-options.php:129
-#: includes/classes/class-admin-options.php:215
+#: includes/classes/class-admin-options.php:106
+#: includes/classes/class-admin-options.php:130
+#: includes/classes/class-admin-options.php:216
 msgid "Desativar a exibição de parcelas neste produto"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:108
-#: includes/classes/class-admin-options.php:133
-#: includes/classes/class-admin-options.php:222
+#: includes/classes/class-admin-options.php:109
+#: includes/classes/class-admin-options.php:134
+#: includes/classes/class-admin-options.php:223
 msgid "Desativar descontos neste produto"
 msgstr ""
 
@@ -767,38 +813,42 @@ msgstr ""
 msgid "Desativar licença"
 msgstr ""
 
-#: includes/admin/tabs/design.php:76 includes/admin/tabs/discounts.php:121
+#: includes/class-init.php:461
+msgid "Desconto no Boleto bancário"
+msgstr ""
+
+#: includes/admin/tabs/discounts.php:122
 msgid "Desconto no boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/design.php:66
+#: includes/class-init.php:317
 msgid "Desconto no Pix"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:100
+#: includes/admin/tabs/discounts.php:101
 msgid "Desconto no preço do produto via Pix"
 msgstr ""
 
-#: includes/classes/class-discounts.php:81
+#: includes/classes/class-discounts.php:79
 #, php-format
 msgid "Desconto para %s"
 msgstr ""
 
-#: includes/classes/class-discounts.php:78
+#: includes/classes/class-discounts.php:76
 #, php-format
 msgid "Desconto para %s (%s off)"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:302
+#: includes/admin/tabs/discounts.php:303
 msgid "Desconto por método de pagamento"
 msgstr ""
 
-#: includes/classes/class-discounts.php:370
-#: includes/classes/class-discounts.php:372
+#: includes/classes/class-discounts.php:369
+#: includes/classes/class-discounts.php:371
 msgid "Desconto por quantidade"
 msgstr ""
 
-#: includes/admin/settings.php:65
+#: includes/admin/settings.php:63
 msgid "Descontos"
 msgstr ""
 
@@ -806,16 +856,19 @@ msgstr ""
 msgid "Desligado"
 msgstr ""
 
-#: includes/admin/tabs/options.php:59
+#: includes/admin/tabs/options.php:60
 msgid "Dinâmico (Padrão)"
 msgstr ""
 
+#: includes/classes/class-components.php:81
+#: includes/classes/class-components.php:145
+#: includes/classes/class-components.php:318
 #: includes/widgets/class-inject-controllers.php:94
 #: includes/widgets/class-single-product-price.php:144
 msgid "Direita"
 msgstr ""
 
-#: woo-custom-installments.php:300
+#: woo-custom-installments.php:307
 msgid "Documentação"
 msgstr ""
 
@@ -823,34 +876,53 @@ msgstr ""
 msgid "DOMDocument:"
 msgstr ""
 
+#: includes/class-init.php:389
 #: includes/widgets/class-inject-controllers.php:587
 #: includes/widgets/class-price-info-box.php:107
 #: includes/widgets/class-single-product-price.php:637
-#: includes/admin/tabs/design.php:71
 msgid "Economia no Pix"
 msgstr ""
 
-#: includes/admin/tabs/design.php:111 includes/admin/tabs/design.php:127
-#: includes/admin/tabs/design.php:143 includes/admin/tabs/design.php:160
-#: includes/admin/tabs/design.php:204 includes/admin/tabs/design.php:220
-#: includes/admin/tabs/design.php:236 includes/admin/tabs/design.php:253
-#: includes/admin/tabs/design.php:296 includes/admin/tabs/design.php:311
-#: includes/admin/tabs/design.php:326 includes/admin/tabs/design.php:342
-#: includes/admin/tabs/design.php:395 includes/admin/tabs/design.php:410
-#: includes/admin/tabs/design.php:426 includes/admin/tabs/design.php:457
-#: includes/admin/tabs/design.php:472 includes/admin/tabs/design.php:487
+#: includes/class-init.php:388
+msgid "Economize R$9,70 no Pix"
+msgstr ""
+
+#: includes/admin/tabs/design.php:146
+msgid "Editar"
+msgstr ""
+
+#: includes/admin/tabs/design.php:117
+msgid ""
+"Edite os estilos clicando no botão editar, ou reposicione a ordem dos "
+"elementos arrastando e soltando."
+msgstr ""
+
+#: includes/classes/class-components.php:28
+msgid "EM"
+msgstr ""
+
+#: includes/admin/tabs/design.php:209 includes/admin/tabs/design.php:225
+#: includes/admin/tabs/design.php:242
 msgid "em"
 msgstr ""
 
-#: includes/admin/tabs/design.php:34
+#: includes/class-init.php:244
+msgid "Em até 3x de R$32,33 sem juros"
+msgstr ""
+
+#: includes/admin/tabs/design.php:77
 msgid "Empilhamento de preços em widgets"
 msgstr ""
 
-#: includes/classes/class-ajax.php:178
+#: includes/admin/tabs/design.php:107
+msgid "Enviar ícones"
+msgstr ""
+
+#: includes/classes/class-ajax.php:175
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr ""
 
-#: includes/classes/class-ajax.php:189
+#: includes/classes/class-ajax.php:186
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr ""
 
@@ -873,6 +945,17 @@ msgstr ""
 msgid "Escolha o preço"
 msgstr ""
 
+#: includes/classes/class-assets.php:74
+msgid "Escolher imagem de ícone"
+msgstr ""
+
+#: includes/classes/class-components.php:293
+msgid "Espessura do texto:"
+msgstr ""
+
+#: includes/classes/class-components.php:83
+#: includes/classes/class-components.php:147
+#: includes/classes/class-components.php:320
 #: includes/widgets/class-inject-controllers.php:86
 #: includes/widgets/class-single-product-price.php:136
 msgid "Esquerda"
@@ -887,11 +970,11 @@ msgstr ""
 msgid "Estilo"
 msgstr ""
 
-#: includes/admin/tabs/design.php:375
+#: includes/admin/tabs/design.php:188
 msgid "Estilo do botão do popup de parcelas"
 msgstr ""
 
-#: includes/admin/settings.php:80
+#: includes/admin/settings.php:78
 msgid "Estilos"
 msgstr ""
 
@@ -918,19 +1001,23 @@ msgstr ""
 msgid "Estilos do preço"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:31
+#: includes/admin/tabs/design.php:116
+msgid "Estilos dos elementos"
+msgstr ""
+
+#: includes/admin/tabs/payment-forms.php:32
 msgid "Exibir emblema de aprovação imediata"
 msgstr ""
 
-#: includes/admin/tabs/options.php:342
+#: includes/admin/tabs/options.php:355
 msgid "Exibir melhor parcela"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:53
+#: includes/admin/tabs/discounts.php:54
 msgid "Exibir preço com desconto em dados estruturados (Schema.org)"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:24
+#: includes/admin/tabs/discounts.php:25
 msgid "Exibir preço com desconto no carrinho"
 msgstr ""
 
@@ -948,62 +1035,75 @@ msgid ""
 "pagamento para lojas WooCommerce."
 msgstr ""
 
-#: includes/classes/class-frontend.php:1118
-#: includes/admin/tabs/discounts.php:168 includes/admin/tabs/options.php:45
-#: includes/admin/tabs/options.php:129 includes/admin/tabs/options.php:246
+#: includes/classes/class-frontend.php:1265 includes/admin/tabs/design.php:39
+#: includes/admin/tabs/design.php:152 includes/admin/tabs/discounts.php:169
+#: includes/admin/tabs/options.php:46 includes/admin/tabs/options.php:130
+#: includes/admin/tabs/options.php:259
 msgid "Fechar"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:222
+#: includes/admin/tabs/discounts.php:223
 msgid "Forma de exibição da mensagem de desconto"
 msgstr ""
 
-#: includes/admin/settings.php:75
+#: includes/admin/settings.php:73
 msgid "Formas de pagamento"
+msgstr ""
+
+#: includes/admin/tabs/design.php:101
+msgid "Formato de ícones"
+msgstr ""
+
+#: includes/admin/tabs/design.php:13
+msgid "Forçar prioridade dos estilos"
 msgstr ""
 
 #: includes/admin/tabs/about.php:354
 msgid "Função PHP \"file_get_content\":"
 msgstr ""
 
-#: includes/admin/tabs/options.php:387
+#: includes/admin/tabs/options.php:400
 msgid "Gancho personalizado"
 msgstr ""
 
-#: includes/admin/tabs/options.php:396
+#: includes/admin/tabs/options.php:409
 msgid "Gancho personalizado das formas de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:227
+#: includes/admin/tabs/discounts.php:228
 msgid "Ganchos (Padrão)"
 msgstr ""
 
-#: includes/admin/tabs/options.php:67
+#: includes/admin/tabs/options.php:68
 msgid "Gatilho para atualização"
 msgstr ""
 
-#: includes/admin/settings.php:55
+#: includes/admin/settings.php:53
 msgid "Geral"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:99
+#: includes/admin/tabs/payment-forms.php:100
 msgid "Gerenciar bandeiras para cartão de crédito"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:409
+#: includes/admin/tabs/payment-forms.php:410
 msgid "Gerenciar bandeiras para cartão de débito"
 msgstr ""
 
-#: includes/admin/tabs/design.php:381
+#: includes/admin/tabs/design.php:194
 msgid "Grande"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://meumouse.com/"
+msgid ""
+"https://meumouse.com/?"
+"utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/"
+msgid ""
+"https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?"
+"utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas"
 msgstr ""
 
 #: includes/widgets/class-inject-controllers.php:227
@@ -1011,20 +1111,26 @@ msgstr ""
 msgid "Inativo"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:35
+#: includes/admin/tabs/discounts.php:36
 msgid "Incluir valor de frete no desconto do pedido"
+msgstr ""
+
+#: includes/classes/class-components.php:82
+#: includes/classes/class-components.php:146
+#: includes/classes/class-components.php:319
+msgid "Inferior"
 msgstr ""
 
 #: includes/admin/tabs/about.php:12
 msgid "Informações sobre a licença:"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:267
+#: includes/admin/tabs/discounts.php:268
 msgid ""
 "Informe a quantidade mínima do produto para oferecer desconto no carrinho."
 msgstr ""
 
-#: includes/admin/tabs/options.php:405
+#: includes/admin/tabs/options.php:418
 msgid ""
 "Informe o gancho que deve ser exibido o botão ou sanfona de formas de "
 "pagamento."
@@ -1034,36 +1140,29 @@ msgstr ""
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:310
+#: includes/admin/tabs/discounts.php:311
 msgid ""
 "Informe um desconto por método de pagamento para ser adicionado na "
 "finalização da compra."
 msgstr ""
 
-#: includes/admin/tabs/design.php:170 includes/admin/tabs/design.php:263
-#: includes/admin/tabs/design.php:351 includes/admin/tabs/design.php:496
-msgid ""
-"Informe uma classe de ícone do Font Awesome. Ou deixe em branco para não "
-"exibir."
-msgstr ""
-
-#: includes/admin/tabs/interests.php:54
+#: includes/admin/tabs/interests.php:55
 msgid ""
 "Informe uma taxa de juros por método de pagamento para ser adicionado na "
 "finalização da compra."
 msgstr ""
 
-#: includes/classes/class-admin-options.php:390
+#: includes/classes/class-admin-options.php:391
 msgid "Insira a quantidade mínima de produtos para oferecer o desconto."
 msgstr ""
 
-#: includes/classes/class-admin-options.php:305
+#: includes/classes/class-admin-options.php:306
 msgid ""
 "Insira o valor do desconto para o preço do produto. Obs.: Desconto para "
 "pagamento no Pix"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:375
+#: includes/classes/class-admin-options.php:376
 msgid "Insira o valor do desconto."
 msgstr ""
 
@@ -1071,21 +1170,21 @@ msgstr ""
 msgid "Inválida"
 msgstr ""
 
-#: includes/admin/settings.php:70
+#: includes/admin/settings.php:68
 msgid "Juros"
 msgstr ""
 
-#: includes/classes/class-interests.php:55
+#: includes/classes/class-interests.php:65
 #, php-format
 msgid "Juros para %s"
 msgstr ""
 
-#: includes/classes/class-interests.php:52
+#: includes/classes/class-interests.php:62
 #, php-format
 msgid "Juros para %s (%s)"
 msgstr ""
 
-#: includes/admin/tabs/interests.php:45
+#: includes/admin/tabs/interests.php:46
 msgid "Juros por método de pagamento"
 msgstr ""
 
@@ -1097,7 +1196,7 @@ msgstr ""
 msgid "Licença ativada com sucesso!"
 msgstr ""
 
-#: includes/classes/class-ajax.php:223 includes/classes/class-ajax.php:224
+#: includes/classes/class-ajax.php:220 includes/classes/class-ajax.php:221
 msgid "Licença enviada e decriptografada com sucesso."
 msgstr ""
 
@@ -1126,23 +1225,23 @@ msgstr ""
 msgid "Limpar cache de ativação"
 msgstr ""
 
-#: includes/admin/tabs/design.php:382
+#: includes/admin/tabs/design.php:195
 msgid "Link"
 msgstr ""
 
-#: includes/admin/tabs/options.php:298
+#: includes/admin/tabs/options.php:311
 msgid "Local de exibição da informação de economia no Pix"
 msgstr ""
 
-#: includes/admin/tabs/options.php:326
+#: includes/admin/tabs/options.php:339
 msgid "Local de exibição das melhores parcelas"
 msgstr ""
 
-#: includes/admin/tabs/options.php:312
+#: includes/admin/tabs/options.php:325
 msgid "Local de exibição desconto no boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/options.php:283
+#: includes/admin/tabs/options.php:296
 msgid "Local de exibição do preço com desconto no Pix"
 msgstr ""
 
@@ -1166,24 +1265,8 @@ msgstr ""
 msgid "Margem externa"
 msgstr ""
 
-#: includes/admin/tabs/design.php:229
-msgid "Margem inferior da economia no Pix"
-msgstr ""
-
-#: includes/admin/tabs/design.php:480
-msgid "Margem inferior da exibição das parcelas"
-msgstr ""
-
-#: includes/admin/tabs/design.php:319
-msgid "Margem inferior do desconto no boleto bancário"
-msgstr ""
-
-#: includes/admin/tabs/design.php:403
+#: includes/admin/tabs/design.php:218
 msgid "Margem inferior do popup/sanfona de parcelas"
-msgstr ""
-
-#: includes/admin/tabs/design.php:136
-msgid "Margem inferior do preço com desconto"
 msgstr ""
 
 #: includes/widgets/class-accordion-payment-methods.php:203
@@ -1206,39 +1289,27 @@ msgstr ""
 msgid "Margem interna"
 msgstr ""
 
-#: includes/admin/tabs/design.php:213
-msgid "Margem superior da economia no Pix"
-msgstr ""
-
-#: includes/admin/tabs/design.php:465
-msgid "Margem superior da exibição das parcelas"
-msgstr ""
-
-#: includes/admin/tabs/design.php:304
-msgid "Margem superior do desconto no boleto bancário"
-msgstr ""
-
-#: includes/admin/tabs/design.php:388
+#: includes/admin/tabs/design.php:202
 msgid "Margem superior do popup/sanfona de parcelas"
 msgstr ""
 
-#: includes/admin/tabs/design.php:120
-msgid "Margem superior do preço com desconto"
+#: includes/classes/class-components.php:87
+msgid "Margem:"
 msgstr ""
 
-#: includes/admin/tabs/design.php:61
+#: includes/class-init.php:245
 msgid "Melhor parcela"
 msgstr ""
 
-#: includes/admin/tabs/options.php:350
+#: includes/admin/tabs/options.php:363
 msgid "Melhor parcela com e sem juros"
 msgstr ""
 
-#: includes/admin/tabs/options.php:349
+#: includes/admin/tabs/options.php:362
 msgid "Melhor parcela com juros"
 msgstr ""
 
-#: includes/admin/tabs/options.php:348
+#: includes/admin/tabs/options.php:361
 msgid "Melhor parcela sem juros"
 msgstr ""
 
@@ -1275,53 +1346,53 @@ msgstr ""
 msgid "Mostrar"
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:64
+#: includes/admin/tabs/payment-forms.php:65
 msgid "Mostrar desconto para boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/options.php:304
+#: includes/admin/tabs/options.php:317
 msgid "Mostrar em todo o site"
 msgstr ""
 
-#: includes/admin/tabs/options.php:288 includes/admin/tabs/options.php:317
-#: includes/admin/tabs/options.php:331
+#: includes/admin/tabs/options.php:301 includes/admin/tabs/options.php:330
+#: includes/admin/tabs/options.php:344
 msgid "Mostrar em todo o site (Padrão)"
 msgstr ""
 
-#: includes/admin/tabs/interests.php:25
+#: includes/admin/tabs/interests.php:26
 msgid "Mostrar emblema de juros na finalização da compra"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:284
+#: includes/admin/tabs/discounts.php:285
 msgid "Mostrar informação de desconto na forma de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/options.php:95
+#: includes/admin/tabs/options.php:96
 msgid "Mostrar informação de economia no Pix"
 msgstr ""
 
-#: includes/admin/tabs/options.php:53
+#: includes/admin/tabs/options.php:54
 msgid "Método de atualização do preço"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:284
-#: includes/classes/class-admin-options.php:354
+#: includes/classes/class-admin-options.php:285
+#: includes/classes/class-admin-options.php:355
 msgid "Método de desconto"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:316 includes/admin/tabs/interests.php:60
+#: includes/admin/tabs/discounts.php:317 includes/admin/tabs/interests.php:61
 msgid "Método de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:322
+#: includes/admin/tabs/discounts.php:323
 msgid "Método do desconto"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:174
+#: includes/admin/tabs/discounts.php:175
 msgid "Método do desconto por quantidade"
 msgstr ""
 
-#: includes/admin/tabs/interests.php:66
+#: includes/admin/tabs/interests.php:67
 msgid "Método do juros"
 msgstr ""
 
@@ -1331,7 +1402,7 @@ msgstr ""
 
 #: includes/widgets/class-accordion-payment-methods.php:132
 #: includes/widgets/class-popup-payment-methods.php:132
-#: includes/admin/tabs/design.php:380
+#: includes/admin/tabs/design.php:193
 msgid "Normal"
 msgstr ""
 
@@ -1352,7 +1423,7 @@ msgstr ""
 msgid "Não disponível"
 msgstr ""
 
-#: includes/classes/class-ajax.php:230
+#: includes/classes/class-ajax.php:227
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr ""
 
@@ -1362,7 +1433,7 @@ msgid ""
 "Customizadas para WooCommerce.</strong>"
 msgstr ""
 
-#: includes/classes/class-ajax.php:297
+#: includes/classes/class-ajax.php:294
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr ""
 
@@ -1370,21 +1441,21 @@ msgstr ""
 msgid "O domínio de ativação não é permitido."
 msgstr ""
 
-#: includes/classes/class-shortcodes.php:181
+#: includes/classes/class-shortcodes.php:180
 msgid ""
 "O local do shortcode inserido é inválido. Insira em um modelo de página de "
 "produto individual, ou em um local onde consiga obter o ID de um produto."
 msgstr ""
 
-#: includes/classes/class-shortcodes.php:67
-#: includes/classes/class-shortcodes.php:99
-#: includes/classes/class-shortcodes.php:129
-#: includes/classes/class-shortcodes.php:273
-#: includes/classes/class-shortcodes.php:301
-#: includes/classes/class-shortcodes.php:329
-#: includes/classes/class-shortcodes.php:357
-#: includes/classes/class-shortcodes.php:385
-#: includes/classes/class-shortcodes.php:413
+#: includes/classes/class-shortcodes.php:66
+#: includes/classes/class-shortcodes.php:100
+#: includes/classes/class-shortcodes.php:128
+#: includes/classes/class-shortcodes.php:272
+#: includes/classes/class-shortcodes.php:300
+#: includes/classes/class-shortcodes.php:328
+#: includes/classes/class-shortcodes.php:356
+#: includes/classes/class-shortcodes.php:384
+#: includes/classes/class-shortcodes.php:412
 msgid ""
 "O local do shortcode inserido é inválido. É permitido apenas para produtos."
 msgstr ""
@@ -1393,11 +1464,11 @@ msgstr ""
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr ""
 
-#: includes/classes/class-ajax.php:271
+#: includes/classes/class-ajax.php:268
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr ""
 
-#: includes/classes/class-ajax.php:331
+#: includes/classes/class-ajax.php:328
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr ""
 
@@ -1420,8 +1491,8 @@ msgstr ""
 #: includes/widgets/class-single-product-price.php:521
 #: includes/widgets/class-single-product-price.php:622
 #: includes/widgets/class-single-product-price.php:723
-#: includes/admin/tabs/options.php:291 includes/admin/tabs/options.php:347
-#: includes/admin/tabs/options.php:364
+#: includes/admin/tabs/options.php:304 includes/admin/tabs/options.php:360
+#: includes/admin/tabs/options.php:377
 msgid "Ocultar"
 msgstr ""
 
@@ -1459,115 +1530,119 @@ msgstr ""
 msgid "Ocultar título"
 msgstr ""
 
-#: includes/classes/class-assets.php:62
+#: includes/classes/class-assets.php:71
 msgid "Ops! Não há conexão com a internet"
 msgstr ""
 
-#: includes/classes/class-ajax.php:177 includes/classes/class-ajax.php:188
-#: includes/classes/class-ajax.php:201 includes/classes/class-ajax.php:229
-#: includes/classes/class-ajax.php:270 includes/classes/class-ajax.php:330
+#: includes/classes/class-ajax.php:174 includes/classes/class-ajax.php:185
+#: includes/classes/class-ajax.php:198 includes/classes/class-ajax.php:226
+#: includes/classes/class-ajax.php:267 includes/classes/class-ajax.php:327
 #: includes/classes/class-license.php:1077
 #: includes/classes/class-license.php:1097
 #: includes/classes/class-license.php:1117
 msgid "Ops! Ocorreu um erro."
 msgstr ""
 
-#: includes/admin/tabs/design.php:48
-msgid "Ordem dos elementos"
-msgstr ""
-
-#: includes/classes/class-shortcodes.php:75
-#: includes/classes/class-shortcodes.php:105
-#: includes/classes/class-shortcodes.php:159
-#: includes/classes/class-shortcodes.php:187
-#: includes/classes/class-shortcodes.php:203
-#: includes/classes/class-shortcodes.php:219
-#: includes/classes/class-shortcodes.php:235
-#: includes/classes/class-shortcodes.php:251
-#: includes/classes/class-shortcodes.php:279
-#: includes/classes/class-shortcodes.php:307
-#: includes/classes/class-shortcodes.php:335
-#: includes/classes/class-shortcodes.php:363
-#: includes/classes/class-shortcodes.php:391
-#: includes/classes/class-shortcodes.php:419
+#: includes/classes/class-shortcodes.php:76
+#: includes/classes/class-shortcodes.php:106
+#: includes/classes/class-shortcodes.php:158
+#: includes/classes/class-shortcodes.php:186
+#: includes/classes/class-shortcodes.php:202
+#: includes/classes/class-shortcodes.php:218
+#: includes/classes/class-shortcodes.php:234
+#: includes/classes/class-shortcodes.php:250
+#: includes/classes/class-shortcodes.php:278
+#: includes/classes/class-shortcodes.php:306
+#: includes/classes/class-shortcodes.php:334
+#: includes/classes/class-shortcodes.php:362
+#: includes/classes/class-shortcodes.php:390
+#: includes/classes/class-shortcodes.php:418
 msgid ""
 "Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para "
 "WooCommerce."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:182 includes/admin/tabs/texts.php:208
-#: includes/admin/tabs/texts.php:234
+#: includes/admin/tabs/texts.php:194 includes/admin/tabs/texts.php:233
+#: includes/admin/tabs/texts.php:272
 msgid "Para recuperar o número de parcelas."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:186 includes/admin/tabs/texts.php:212
-#: includes/admin/tabs/texts.php:238
+#: includes/admin/tabs/texts.php:199 includes/admin/tabs/texts.php:238
+#: includes/admin/tabs/texts.php:277
 msgid "Para recuperar o valor da parcela."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:194 includes/admin/tabs/texts.php:220
-#: includes/admin/tabs/texts.php:246
+#: includes/admin/tabs/texts.php:209 includes/admin/tabs/texts.php:248
+#: includes/admin/tabs/texts.php:287
 msgid "Para recuperar o valor total da soma das parcelas."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:190 includes/admin/tabs/texts.php:216
-#: includes/admin/tabs/texts.php:242
+#: includes/admin/tabs/texts.php:204 includes/admin/tabs/texts.php:243
+#: includes/admin/tabs/texts.php:282
 msgid "Para recuperar se a parcela é com ou sem juros."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:190
+#: includes/admin/tabs/discounts.php:191
 msgid "Para todos os produtos"
 msgstr ""
 
 #. page title
-#: includes/classes/class-admin-options.php:76
+#: includes/classes/class-admin-options.php:77
 #: includes/classes/class-elementor-widgets.php:46
 msgid "Parcelas Customizadas"
 msgstr ""
 
 #. parent page slug
 #. Name of the plugin
-#: includes/admin/settings.php:11 includes/classes/class-admin-options.php:75
+#: includes/admin/settings.php:11 includes/classes/class-admin-options.php:76
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr ""
 
-#: includes/admin/tabs/design.php:379
+#: includes/admin/tabs/design.php:192
 msgid "Pequeno"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:287
-#: includes/classes/class-admin-options.php:357
-#: includes/admin/tabs/discounts.php:112 includes/admin/tabs/discounts.php:134
-#: includes/admin/tabs/discounts.php:246 includes/admin/tabs/discounts.php:346
-#: includes/admin/tabs/interests.php:91
+#: includes/classes/class-admin-options.php:288
+#: includes/classes/class-admin-options.php:358
+#: includes/admin/tabs/discounts.php:113 includes/admin/tabs/discounts.php:135
+#: includes/admin/tabs/discounts.php:247 includes/admin/tabs/discounts.php:347
+#: includes/admin/tabs/interests.php:92
 msgid "Percentual (%)"
 msgstr ""
 
-#: includes/admin/tabs/options.php:179
+#: includes/admin/tabs/options.php:192
 msgid "Percentual para cálculo de juros das parcelas de forma progressiva."
 msgstr ""
 
-#: includes/admin/tabs/options.php:68
+#: includes/admin/tabs/options.php:69
 msgid ""
 "Permite definir elementos que ao serem clicados acionam a atualização do "
 "preço. Informe a classe ou ID separado por vírgulas: .elemento-1, .elemento-2"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:223
+#: includes/admin/tabs/discounts.php:224
 msgid ""
 "Permite definir o método de exibição da mensagem de desconto por quantidade."
 msgstr ""
 
-#: includes/admin/tabs/options.php:115
+#: includes/admin/tabs/design.php:48
+msgid "Permite definir os seletores a serem centralizados ao centro."
+msgstr ""
+
+#: includes/admin/tabs/options.php:116
 msgid "Personalizar preço do produto"
 msgstr ""
 
-#: includes/classes/class-frontend.php:342
+#: includes/classes/class-frontend.php:345
 #, php-format
 msgid "Pix: %s"
 msgstr ""
 
-#: includes/admin/tabs/options.php:362
+#: includes/classes/class-components.php:27
+msgid "Pixel"
+msgstr ""
+
+#: includes/admin/tabs/options.php:375
 msgid "Popup (Padrão)"
 msgstr ""
 
@@ -1575,9 +1650,13 @@ msgstr ""
 msgid "Popup - Formas de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/options.php:371
+#: includes/admin/tabs/options.php:384
 msgid ""
 "Posição das formas de pagamento e parcelas na página de produto individual"
+msgstr ""
+
+#: includes/classes/class-components.php:151
+msgid "Preenchimento:"
 msgstr ""
 
 #: includes/widgets/class-inject-controllers.php:193
@@ -1609,8 +1688,8 @@ msgstr ""
 msgid "Preço com desconto:"
 msgstr ""
 
+#: includes/class-init.php:173
 #: includes/widgets/class-single-product-price.php:44
-#: includes/admin/tabs/design.php:56
 msgid "Preço do produto"
 msgstr ""
 
@@ -1623,77 +1702,83 @@ msgid "Preço no Pix"
 msgstr ""
 
 #: includes/admin/settings.php:16 includes/admin/tabs/about.php:26
-#: includes/admin/tabs/about.php:157 includes/admin/tabs/discounts.php:40
-#: includes/admin/tabs/discounts.php:60 includes/admin/tabs/discounts.php:82
-#: includes/admin/tabs/discounts.php:150 includes/admin/tabs/discounts.php:181
-#: includes/admin/tabs/discounts.php:262 includes/admin/tabs/discounts.php:289
-#: includes/admin/tabs/discounts.php:307 includes/admin/tabs/interests.php:30
-#: includes/admin/tabs/interests.php:50 includes/admin/tabs/options.php:29
-#: includes/admin/tabs/options.php:100 includes/admin/tabs/options.php:229
-#: includes/admin/tabs/options.php:376 includes/admin/tabs/options.php:401
-#: includes/admin/tabs/payment-forms.php:17
-#: includes/admin/tabs/payment-forms.php:48
-#: includes/admin/tabs/payment-forms.php:82
-#: includes/admin/tabs/payment-forms.php:112
-#: includes/admin/tabs/payment-forms.php:133
-#: includes/admin/tabs/payment-forms.php:154
-#: includes/admin/tabs/payment-forms.php:175
-#: includes/admin/tabs/payment-forms.php:196
-#: includes/admin/tabs/payment-forms.php:217
-#: includes/admin/tabs/payment-forms.php:238
-#: includes/admin/tabs/payment-forms.php:259
-#: includes/admin/tabs/payment-forms.php:280
-#: includes/admin/tabs/payment-forms.php:301
-#: includes/admin/tabs/payment-forms.php:322
-#: includes/admin/tabs/payment-forms.php:343
-#: includes/admin/tabs/payment-forms.php:364
-#: includes/admin/tabs/payment-forms.php:392
-#: includes/admin/tabs/payment-forms.php:422
-#: includes/admin/tabs/payment-forms.php:443
-#: includes/admin/tabs/payment-forms.php:464
-#: includes/admin/tabs/payment-forms.php:485
-#: includes/admin/tabs/payment-forms.php:506
-#: includes/admin/tabs/payment-forms.php:527
-#: includes/admin/tabs/payment-forms.php:548
-#: includes/admin/tabs/payment-forms.php:569
-#: includes/admin/tabs/payment-forms.php:590
-#: includes/admin/tabs/payment-forms.php:611
-#: includes/admin/tabs/payment-forms.php:632
-#: includes/admin/tabs/payment-forms.php:653
-#: includes/admin/tabs/payment-forms.php:674
+#: includes/admin/tabs/about.php:157 includes/admin/tabs/discounts.php:41
+#: includes/admin/tabs/discounts.php:61 includes/admin/tabs/discounts.php:83
+#: includes/admin/tabs/discounts.php:151 includes/admin/tabs/discounts.php:182
+#: includes/admin/tabs/discounts.php:263 includes/admin/tabs/discounts.php:290
+#: includes/admin/tabs/discounts.php:308 includes/admin/tabs/interests.php:31
+#: includes/admin/tabs/interests.php:51 includes/admin/tabs/options.php:30
+#: includes/admin/tabs/options.php:101 includes/admin/tabs/options.php:242
+#: includes/admin/tabs/options.php:389 includes/admin/tabs/options.php:414
+#: includes/admin/tabs/payment-forms.php:18
+#: includes/admin/tabs/payment-forms.php:49
+#: includes/admin/tabs/payment-forms.php:83
+#: includes/admin/tabs/payment-forms.php:113
+#: includes/admin/tabs/payment-forms.php:134
+#: includes/admin/tabs/payment-forms.php:155
+#: includes/admin/tabs/payment-forms.php:176
+#: includes/admin/tabs/payment-forms.php:197
+#: includes/admin/tabs/payment-forms.php:218
+#: includes/admin/tabs/payment-forms.php:239
+#: includes/admin/tabs/payment-forms.php:260
+#: includes/admin/tabs/payment-forms.php:281
+#: includes/admin/tabs/payment-forms.php:302
+#: includes/admin/tabs/payment-forms.php:323
+#: includes/admin/tabs/payment-forms.php:344
+#: includes/admin/tabs/payment-forms.php:365
+#: includes/admin/tabs/payment-forms.php:393
+#: includes/admin/tabs/payment-forms.php:423
+#: includes/admin/tabs/payment-forms.php:444
+#: includes/admin/tabs/payment-forms.php:465
+#: includes/admin/tabs/payment-forms.php:486
+#: includes/admin/tabs/payment-forms.php:507
+#: includes/admin/tabs/payment-forms.php:528
+#: includes/admin/tabs/payment-forms.php:549
+#: includes/admin/tabs/payment-forms.php:570
+#: includes/admin/tabs/payment-forms.php:591
+#: includes/admin/tabs/payment-forms.php:612
+#: includes/admin/tabs/payment-forms.php:633
+#: includes/admin/tabs/payment-forms.php:654
+#: includes/admin/tabs/payment-forms.php:675 includes/admin/tabs/texts.php:186
+#: includes/admin/tabs/texts.php:225 includes/admin/tabs/texts.php:264
 msgid "Pro"
+msgstr ""
+
+#: includes/classes/class-components.php:397
+msgid "Procurar"
 msgstr ""
 
 #: templates/single-product/price.php:33
 msgid "Produto não encontrado."
 msgstr ""
 
-#: includes/admin/tabs/design.php:110 includes/admin/tabs/design.php:126
-#: includes/admin/tabs/design.php:142 includes/admin/tabs/design.php:159
-#: includes/admin/tabs/design.php:203 includes/admin/tabs/design.php:219
-#: includes/admin/tabs/design.php:235 includes/admin/tabs/design.php:252
-#: includes/admin/tabs/design.php:295 includes/admin/tabs/design.php:310
-#: includes/admin/tabs/design.php:325 includes/admin/tabs/design.php:341
-#: includes/admin/tabs/design.php:394 includes/admin/tabs/design.php:409
-#: includes/admin/tabs/design.php:425 includes/admin/tabs/design.php:456
-#: includes/admin/tabs/design.php:471 includes/admin/tabs/design.php:486
+#: includes/classes/class-components.php:418
+msgid "Pré-visualizar:"
+msgstr ""
+
+#: includes/admin/tabs/design.php:208 includes/admin/tabs/design.php:224
+#: includes/admin/tabs/design.php:241
 msgid "px"
 msgstr ""
 
-#: includes/admin/tabs/options.php:191
+#: includes/admin/tabs/options.php:204
 msgid "Quantidade máxima de parcelas"
 msgstr ""
 
-#: includes/admin/tabs/options.php:201
+#: includes/admin/tabs/options.php:214
 msgid "Quantidade máxima de parcelas sem juros"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:383
+#: includes/classes/class-admin-options.php:384
 msgid "Quantidade mínima para desconto"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:255
+#: includes/admin/tabs/discounts.php:256
 msgid "Quantidade mínima para oferecer desconto"
+msgstr ""
+
+#: includes/class-init.php:172
+msgid "R$97,00"
 msgstr ""
 
 #: includes/widgets/class-accordion-payment-methods.php:179
@@ -1710,20 +1795,12 @@ msgstr ""
 msgid "Raio da borda"
 msgstr ""
 
-#: includes/admin/tabs/design.php:246
-msgid "Raio da borda da economia no Pix."
-msgstr ""
-
-#: includes/admin/tabs/design.php:419
+#: includes/admin/tabs/design.php:235
 msgid "Raio da borda do botão de popup de parcelas."
 msgstr ""
 
-#: includes/admin/tabs/design.php:335
-msgid "Raio da borda do emblema de desconto no boleto bancário."
-msgstr ""
-
-#: includes/admin/tabs/design.php:153
-msgid "Raio da borda do emblema do preço com desconto."
+#: includes/classes/class-components.php:324
+msgid "Raio da borda:"
 msgstr ""
 
 #: includes/admin/tabs/about.php:24
@@ -1734,34 +1811,26 @@ msgstr ""
 msgid "Redefinir configurações"
 msgstr ""
 
-#: includes/admin/tabs/design.php:95 includes/admin/tabs/design.php:188
-#: includes/admin/tabs/design.php:281 includes/admin/tabs/design.php:367
-#: includes/admin/tabs/design.php:442
+#: includes/classes/class-components.php:215
+#: includes/classes/class-components.php:243 includes/admin/tabs/design.php:179
 msgid "Redefinir para cor padrão"
 msgstr ""
 
-#: includes/admin/tabs/design.php:112 includes/admin/tabs/design.php:128
-#: includes/admin/tabs/design.php:144 includes/admin/tabs/design.php:161
-#: includes/admin/tabs/design.php:205 includes/admin/tabs/design.php:221
-#: includes/admin/tabs/design.php:237 includes/admin/tabs/design.php:254
-#: includes/admin/tabs/design.php:297 includes/admin/tabs/design.php:312
-#: includes/admin/tabs/design.php:327 includes/admin/tabs/design.php:343
-#: includes/admin/tabs/design.php:396 includes/admin/tabs/design.php:411
-#: includes/admin/tabs/design.php:427 includes/admin/tabs/design.php:458
-#: includes/admin/tabs/design.php:473 includes/admin/tabs/design.php:488
+#: includes/classes/class-components.php:29
+msgid "REM"
+msgstr ""
+
+#: includes/admin/tabs/design.php:210 includes/admin/tabs/design.php:226
+#: includes/admin/tabs/design.php:243
 msgid "rem"
 msgstr ""
 
-#: includes/admin/tabs/options.php:24
+#: includes/admin/tabs/options.php:25
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr ""
 
 #: includes/admin/tabs/about.php:406
 msgid "Reportar problemas"
-msgstr ""
-
-#: includes/admin/tabs/design.php:49
-msgid "Reposicione os elementos arrastando e soltando."
 msgstr ""
 
 #: includes/classes/class-license.php:300
@@ -1772,11 +1841,15 @@ msgstr ""
 msgid "Resposta vazia."
 msgstr ""
 
-#: includes/classes/class-ajax.php:154
+#: includes/admin/settings.php:119
+msgid "Salvar alterações"
+msgstr ""
+
+#: includes/classes/class-ajax.php:145
 msgid "Salvo com sucesso"
 msgstr ""
 
-#: includes/admin/tabs/options.php:363
+#: includes/admin/tabs/options.php:376
 msgid "Sanfona"
 msgstr ""
 
@@ -1784,94 +1857,94 @@ msgstr ""
 msgid "Sanfona - Formas de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/design.php:35
+#: includes/admin/tabs/design.php:78
 msgid ""
 "Se ativo, a opção \"Ativar empilhamento de preços\" será incluída nos "
 "widgets para Elementor."
 msgstr ""
 
-#: includes/admin/tabs/design.php:11
+#: includes/admin/tabs/design.php:26
 msgid ""
 "Se ativo, irá centralizar a melhor parcela e desconto na grade de produtos."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:32
+#: includes/admin/tabs/payment-forms.php:33
 msgid ""
 "Se ativo, irá exibir o emblema de aprovação imediata no pix, cartão de "
 "crédito e débito."
 msgstr ""
 
-#: includes/admin/tabs/interests.php:34
+#: includes/admin/tabs/interests.php:35
 msgid ""
 "Se ativo, irá exibir o emblema de juros na página de finalização de compra "
 "para a forma de desconto configurada."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:65
+#: includes/admin/tabs/discounts.php:66
 msgid ""
 "Se ativo, irá exibir o preço com desconto em serviços que fazem a leitura de "
 "dados estruturados ou \"Rich snippets\", para ajudar o produto em SEO. "
 "(Recomendado)"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:25
+#: includes/admin/tabs/discounts.php:26
 msgid ""
 "Se ativo, irá exibir o valor do preço com desconto também no carrinho. "
 "(Recomendado)"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:43
+#: includes/admin/tabs/discounts.php:44
 msgid ""
 "Se ativo, irá incluir o valor de frete no cálculo de desconto na finalização "
 "da compra. (Recomendado)"
 msgstr ""
 
-#: includes/admin/tabs/options.php:33
+#: includes/admin/tabs/options.php:34
 msgid ""
 "Se ativo, irá remover a faixa de preço em produtos variáveis e o preço será "
 "alterado dinâmicamente ao selecionar uma variação."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:211
+#: includes/admin/tabs/discounts.php:212
 msgid ""
 "Se ativo, irá ser adicionado a mensagem informando o usuário que o produto é "
 "elegível para desconto por quantidade."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:154 includes/admin/tabs/discounts.php:186
+#: includes/admin/tabs/discounts.php:155 includes/admin/tabs/discounts.php:187
 msgid ""
 "Se ativo, irá ser adicionado um desconto a partir de uma quantidade mínima "
 "do produto no carrinho, para todos os produtos da loja."
 msgstr ""
 
-#: includes/admin/tabs/payment-forms.php:65
+#: includes/admin/tabs/payment-forms.php:66
 msgid ""
 "Se ativo, irá ser adicionado uma nova informação de desconto no boleto "
 "bancário abaixo do desconto principal."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:199
+#: includes/admin/tabs/discounts.php:200
 msgid "Se ativo, irá ser considerado o desconto para cada unidade do produto."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:87
+#: includes/admin/tabs/discounts.php:88
 msgid ""
 "Se ativo, o post meta \"_product_price_on_pix\" será criado para adicionar "
 "em Feed XML, com plugins compatíveis com esse recurso."
 msgstr ""
 
-#: includes/admin/tabs/options.php:233
+#: includes/admin/tabs/options.php:246
 msgid ""
 "Se ativo, permite informar uma taxa de juros personalizada para cada parcela."
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:292
+#: includes/admin/tabs/discounts.php:293
 msgid ""
 "Se ativo, será exibido o emblema de desconto ao lado do título da forma de "
 "pagamento configurada."
 msgstr ""
 
-#: woo-custom-installments.php:319
+#: woo-custom-installments.php:326
 msgid "Seja PRO"
 msgstr ""
 
@@ -1897,51 +1970,59 @@ msgstr ""
 msgid "Seja Pro - Parcelas Customizadas"
 msgstr ""
 
-#: includes/admin/tabs/options.php:327
+#: includes/admin/tabs/design.php:102
+msgid "Selecione o formato de exibição dos ícones dos elementos."
+msgstr ""
+
+#: includes/admin/tabs/options.php:340
 msgid "Selecione o local para exibir a informação das melhores parcelas."
 msgstr ""
 
-#: includes/admin/tabs/options.php:343
+#: includes/admin/tabs/options.php:356
 msgid "Selecione o tipo de exibição da melhor parcela."
 msgstr ""
 
-#: includes/admin/tabs/options.php:358
+#: includes/admin/tabs/options.php:371
 msgid ""
 "Selecione o tipo de exibição das formas de pagamento na página de produto "
 "individual."
 msgstr ""
 
-#: includes/admin/tabs/options.php:380
+#: includes/admin/tabs/options.php:393
 msgid ""
 "Selecione onde o gancho que será exibido as formas de pagamento na página de "
 "produto individual."
 msgstr ""
 
-#: includes/admin/tabs/options.php:284
+#: includes/admin/tabs/options.php:297
 msgid "Selecione onde o preço com desconto no Pix será exibido."
 msgstr ""
 
-#: includes/admin/tabs/options.php:299 includes/admin/tabs/options.php:313
+#: includes/admin/tabs/options.php:312 includes/admin/tabs/options.php:326
 msgid "Selecione onde o preço com desconto será exibido."
 msgstr ""
 
-#: includes/classes/class-admin-options.php:316
+#: includes/classes/class-admin-options.php:317
 msgid "Selecione um gateway"
+msgstr ""
+
+#: includes/admin/tabs/design.php:47
+msgid "Seletores alvo"
 msgstr ""
 
 #: includes/admin/tabs/about.php:167
 msgid "Servidor"
 msgstr ""
 
-#: includes/admin/tabs/options.php:388
+#: includes/admin/tabs/options.php:401
 msgid "Shortcode"
 msgstr ""
 
-#: includes/admin/tabs/options.php:381 includes/admin/tabs/payment-forms.php:21
-#: includes/admin/tabs/payment-forms.php:54
-#: includes/admin/tabs/payment-forms.php:66
-#: includes/admin/tabs/payment-forms.php:88
-#: includes/admin/tabs/payment-forms.php:398
+#: includes/admin/tabs/options.php:394 includes/admin/tabs/payment-forms.php:22
+#: includes/admin/tabs/payment-forms.php:55
+#: includes/admin/tabs/payment-forms.php:67
+#: includes/admin/tabs/payment-forms.php:89
+#: includes/admin/tabs/payment-forms.php:399
 msgid "Shortcode: "
 msgstr ""
 
@@ -1954,7 +2035,7 @@ msgstr ""
 msgid "Sim, desejo redefinir"
 msgstr ""
 
-#: includes/admin/settings.php:85
+#: includes/admin/settings.php:83
 msgid "Sobre"
 msgstr ""
 
@@ -1970,10 +2051,16 @@ msgstr ""
 msgid "Sua chave de licença:"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:601
+#: includes/classes/class-admin-options.php:631
 msgid ""
 "Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> "
 "expirou, realize a renovação para continuar aproveitando os recursos Pro."
+msgstr ""
+
+#: includes/classes/class-components.php:80
+#: includes/classes/class-components.php:144
+#: includes/classes/class-components.php:317
+msgid "Superior"
 msgstr ""
 
 #: includes/widgets/class-installments-table.php:43
@@ -1985,20 +2072,8 @@ msgstr ""
 msgid "Tamanho da bandeira"
 msgstr ""
 
-#: includes/admin/tabs/design.php:197
-msgid "Tamanho da fonte da economia no Pix"
-msgstr ""
-
-#: includes/admin/tabs/design.php:450
-msgid "Tamanho da fonte de exibição das parcelas"
-msgstr ""
-
-#: includes/admin/tabs/design.php:289
-msgid "Tamanho da fonte do desconto no boleto bancário"
-msgstr ""
-
-#: includes/admin/tabs/design.php:104
-msgid "Tamanho da fonte do preço com desconto"
+#: includes/classes/class-components.php:265
+msgid "Tamanho do texto:"
 msgstr ""
 
 #: includes/widgets/class-discount-per-quantity.php:170
@@ -2013,11 +2088,11 @@ msgstr ""
 msgid "Tamanho máximo de envio do PHP:"
 msgstr ""
 
-#: includes/admin/tabs/options.php:178
+#: includes/admin/tabs/options.php:191
 msgid "Taxa de juros padrão"
 msgstr ""
 
-#: includes/classes/class-assets.php:60
+#: includes/classes/class-assets.php:69
 msgid "Tem certeza que deseja desativar sua licença?"
 msgstr ""
 
@@ -2025,31 +2100,31 @@ msgstr ""
 msgid "Texto antes do preço"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:10
+#: includes/admin/tabs/texts.php:13
 msgid "Texto antes do preço com desconto"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:94
+#: includes/admin/tabs/texts.php:97
 msgid "Texto antes do preço com desconto no boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:204
+#: includes/admin/tabs/texts.php:220
 msgid "Texto de exibição das parcelas (Arquivos de produtos)"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:178
+#: includes/admin/tabs/texts.php:181
 msgid "Texto de exibição das parcelas (Formas de pagamento)"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:230
+#: includes/admin/tabs/texts.php:259
 msgid "Texto de exibição das parcelas (Produto individual)"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:84
+#: includes/admin/tabs/texts.php:87
 msgid "Texto de instruções de boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:85
+#: includes/admin/tabs/texts.php:88
 msgid "Texto de instruções que será exibido no container de boleto bancário."
 msgstr ""
 
@@ -2057,51 +2132,51 @@ msgstr ""
 msgid "Texto depois do preço"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:20
+#: includes/admin/tabs/texts.php:23
 msgid "Texto depois do preço com desconto"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:104
+#: includes/admin/tabs/texts.php:107
 msgid "Texto depois do preço com desconto no boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/options.php:159
+#: includes/admin/tabs/options.php:160
 msgid "Texto depois do preço do produto"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:148
+#: includes/admin/tabs/texts.php:151
 msgid "Texto informativo de parcelas com juros"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:158
+#: includes/admin/tabs/texts.php:161
 msgid "Texto informativo de parcelas sem juros"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:40
+#: includes/admin/tabs/texts.php:43
 msgid "Texto informativo para desconto por quantidade"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:30
+#: includes/admin/tabs/texts.php:33
 msgid "Texto informativo para economia no Pix"
 msgstr ""
 
-#: includes/admin/tabs/options.php:77
+#: includes/admin/tabs/options.php:78
 msgid "Texto inicial em produtos variáveis (A partir de)"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:139
+#: includes/admin/tabs/texts.php:142
 msgid "Texto que será exibido antes da tabela de parcelas no popup ou sanfona."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:149 includes/admin/tabs/texts.php:159
+#: includes/admin/tabs/texts.php:152 includes/admin/tabs/texts.php:162
 msgid "Texto que será exibido depois da parcela."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:51
+#: includes/admin/tabs/texts.php:54
 msgid "Texto que será exibido no botão do popup ou sanfona de parcelas."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:41
+#: includes/admin/tabs/texts.php:44
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de desconto por quantidade. Obs.: É "
@@ -2109,30 +2184,30 @@ msgid ""
 "para exibir o valor."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:31
+#: includes/admin/tabs/texts.php:34
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de economia ao pagar com Pix. Obs.: É "
 "necessário que a variável %s esteja na frase para exibir o valor."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:75
+#: includes/admin/tabs/texts.php:78
 msgid "Texto que será usado como título do container de boleto bancário."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:115
+#: includes/admin/tabs/texts.php:118
 msgid "Texto que será usado como título do container de cartões de crédito."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:125
+#: includes/admin/tabs/texts.php:128
 msgid "Texto que será usado como título do container de cartões de débito."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:65
+#: includes/admin/tabs/texts.php:68
 msgid "Texto que será usado como título do container de transferências."
 msgstr ""
 
-#: includes/admin/settings.php:60
+#: includes/admin/settings.php:58
 msgid "Textos"
 msgstr ""
 
@@ -2141,7 +2216,7 @@ msgstr ""
 msgid "Tipo da licença: %s"
 msgstr ""
 
-#: includes/admin/tabs/options.php:357
+#: includes/admin/tabs/options.php:370
 msgid "Tipo de exibição das formas de pagamento"
 msgstr ""
 
@@ -2173,45 +2248,45 @@ msgstr ""
 msgid "Todos os recursos da versão Pro agora estão ativos!"
 msgstr ""
 
-#: includes/classes/class-ajax.php:265
+#: includes/classes/class-ajax.php:262
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr ""
 
-#: includes/classes/class-frontend.php:1289
-#: includes/classes/class-frontend.php:1290
+#: includes/classes/class-frontend.php:1436
+#: includes/classes/class-frontend.php:1437
 #, php-format
 msgid "Total %s"
 msgstr ""
 
-#: woo-custom-installments.php:369 woo-custom-installments.php:380
+#: woo-custom-installments.php:376 woo-custom-installments.php:387
 msgid "Trapaceando?"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:138
+#: includes/admin/tabs/texts.php:141
 msgid "Título da tabela de parcelas"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:50
+#: includes/admin/tabs/texts.php:53
 msgid "Título do botão acionador de parcelas"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:168
+#: includes/admin/tabs/texts.php:171
 msgid "Título do container das formas de pagamento"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:74
+#: includes/admin/tabs/texts.php:77
 msgid "Título do container de boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:114
+#: includes/admin/tabs/texts.php:117
 msgid "Título do container de cartões de crédito"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:124
+#: includes/admin/tabs/texts.php:127
 msgid "Título do container de cartões de débito"
 msgstr ""
 
-#: includes/admin/tabs/texts.php:64
+#: includes/admin/tabs/texts.php:67
 msgid "Título do container de transferências"
 msgstr ""
 
@@ -2228,41 +2303,45 @@ msgid ""
 "WooCommerce</strong> está disponível."
 msgstr ""
 
-#: includes/admin/tabs/texts.php:179 includes/admin/tabs/texts.php:205
-#: includes/admin/tabs/texts.php:231
+#: includes/classes/class-assets.php:75
+msgid "Usar esta imagem"
+msgstr ""
+
+#: includes/admin/tabs/texts.php:190 includes/admin/tabs/texts.php:229
+#: includes/admin/tabs/texts.php:268
 msgid "Utilize as variáveis:"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:319 includes/admin/tabs/interests.php:63
+#: includes/admin/tabs/discounts.php:320 includes/admin/tabs/interests.php:64
 msgid "Valor"
 msgstr ""
 
-#: includes/admin/tabs/options.php:149
+#: includes/admin/tabs/options.php:150
 msgid "Valor de desconto"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:297
-#: includes/classes/class-admin-options.php:367
+#: includes/classes/class-admin-options.php:298
+#: includes/classes/class-admin-options.php:368
 msgid "Valor do desconto"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:235
+#: includes/admin/tabs/discounts.php:236
 msgid "Valor do desconto por quantidade"
 msgstr ""
 
-#: includes/classes/class-admin-options.php:288
-#: includes/classes/class-admin-options.php:358
-#: includes/admin/tabs/discounts.php:113 includes/admin/tabs/discounts.php:135
-#: includes/admin/tabs/discounts.php:247 includes/admin/tabs/discounts.php:345
+#: includes/classes/class-admin-options.php:289
+#: includes/classes/class-admin-options.php:359
+#: includes/admin/tabs/discounts.php:114 includes/admin/tabs/discounts.php:136
+#: includes/admin/tabs/discounts.php:248 includes/admin/tabs/discounts.php:346
 #, php-format
 msgid "Valor fixo (%s)"
 msgstr ""
 
-#: includes/admin/tabs/interests.php:90
+#: includes/admin/tabs/interests.php:91
 msgid "Valor fixo (R$)"
 msgstr ""
 
-#: includes/admin/tabs/options.php:211
+#: includes/admin/tabs/options.php:224
 msgid "Valor mínimo da parcela"
 msgstr ""
 
@@ -2321,7 +2400,7 @@ msgstr ""
 msgid "Válida"
 msgstr ""
 
-#: includes/admin/tabs/discounts.php:228 includes/admin/tabs/options.php:389
+#: includes/admin/tabs/discounts.php:229 includes/admin/tabs/options.php:402
 msgid "Widget para Elementor"
 msgstr ""
 
@@ -2337,20 +2416,16 @@ msgstr ""
 msgid "WordPress Multisite:"
 msgstr ""
 
-#: includes/admin/tabs/design.php:262
-msgid "Ícone da economia no Pix"
+#: includes/class-init.php:460
+msgid "À vista R$87,30 no Boleto bancário"
 msgstr ""
 
-#: includes/admin/tabs/design.php:495
-msgid "Ícone de exibição das parcelas"
+#: includes/class-init.php:316
+msgid "À vista R$87,30 no Pix"
 msgstr ""
 
-#: includes/admin/tabs/design.php:350
-msgid "Ícone do desconto no boleto bancário"
-msgstr ""
-
-#: includes/admin/tabs/design.php:169
-msgid "Ícone do preço com desconto"
+#: includes/classes/class-components.php:380
+msgid "Ícone:"
 msgstr ""
 
 #: includes/widgets/class-price-info-box.php:127

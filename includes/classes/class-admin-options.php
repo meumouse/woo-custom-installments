@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Admin plugin actions
  *
  * @since 2.0.0
- * @version 5.2.5
+ * @version 5.3.0
  * @package MeuMouse.com
  */
 class Admin_Options extends Init {
@@ -23,7 +23,7 @@ class Admin_Options extends Init {
    * Construct function
    * 
    * @since 2.0.0
-   * @version 5.2.2
+   * @version 5.3.0
    * @return void
    */
   public function __construct() {
@@ -32,7 +32,7 @@ class Admin_Options extends Init {
     add_action( 'admin_menu', array( $this, 'add_woo_submenu' ) );
     
     add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_unit_fields' ) );
-    add_action( 'woocommerce_product_options_advanced', array( $this, 'woo_custom_installments_add_product_option' ) );
+    add_action( 'woocommerce_product_options_general_product_data', array( $this, 'woo_custom_installments_add_product_option' ) );
     add_action( 'woocommerce_process_product_meta', array( $this,'woo_custom_installments_save_product_option' ), 2);
     add_action( 'manage_product_posts_custom_column', array( $this, 'woo_custom_installments_output_quick_edit_values' ) );
     add_action( 'woocommerce_product_quick_edit_end', array( $this, 'woo_custom_installments_output_quick_edit_fields' ) );
@@ -639,7 +639,7 @@ class Admin_Options extends Init {
    * Hide installments info on WooCommerce product table on admin page
    * 
    * @since 4.3.5
-   * @version 5.2.5
+   * @version 5.3.0
    * @return void
    */
   public function hide_woo_custom_installments_table_price() {
@@ -653,6 +653,10 @@ class Admin_Options extends Init {
 
       .woo-custom-installments-starting-from {
         margin-right: 0.25rem;
+      }
+
+      table.wp-list-table .column-price {
+        width: 10rem;
       }
     </style>';
   }

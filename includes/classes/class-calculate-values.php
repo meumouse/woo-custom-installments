@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.2.5
+ * @version 5.3.0
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -201,32 +201,60 @@ class Calculate_Values {
      * Calculate total discount for the cart
      *
      * @since 4.5.2
-     * @version 5.2.5
+     * @version 5.3.0
      * @param WC_Cart $cart | Cart object
      * @param bool $include_shipping | Whether to include shipping cost in the calculation
-     * @return float $total_discount
+     * @return float Total discount on cart
      */
     public static function calculate_total_discount( $cart, $include_shipping = false ) {
         $total_discount = 0;
         $total_cart_value = 0;
-        
+    
         foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
             $product = $cart_item['data'];
             $quantity = $cart_item['quantity'];
-            $total_cart_value += $product->get_price() * $quantity;
+            $product_id = $product->get_id();
+    
+            // If it is a variation, get the parent product ID
+            $parent_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product_id;
+    
+            // If the parent product has '__disable_discount_main_price' enabled, no discount is applied
+            if ( get_post_meta( $parent_id, '__disable_discount_main_price', true ) === 'yes' ) {
+                return 0;
+            }
+    
+            // Get the original price of the product
+            $product_price = wc_get_price_excluding_tax( $product );
+    
+            // Initialize product discount
+            $product_discount = 0;
+    
+            // Checks if per unit discount is enabled on the parent product
+            if ( get_post_meta( $parent_id, 'enable_discount_per_unit', true ) === 'yes' ) {
+                $discount_value = get_post_meta( $parent_id, 'unit_discount_amount', true );
+                $discount_method = get_post_meta( $parent_id, 'discount_per_unit_method', true );
+    
+                if ( ! empty( $discount_value ) && (float) $discount_value > 0 ) {
+                    if ( $discount_method === 'percentage' ) {
+                        $product_discount = ( $product_price * $discount_value / 100 ) * $quantity;
+                    } elseif ( $discount_method === 'fixed' ) {
+                        $product_discount = $discount_value * $quantity;
+                    }
+    
+                    // Add individual discounts to the total
+                    $total_discount += $product_discount;
+                }
+            }
+    
+            // Adds the products without discount to the cart total
+            if ( $product_discount == 0 ) {
+                $total_cart_value += $product_price * $quantity;
+            }
         }
     
+        // Adds shipping to cart total if configured
         if ( $include_shipping ) {
             $total_cart_value += $cart->get_shipping_total();
-        }
-    
-        $discount_method = Init::get_setting('product_price_discount_method');
-        $discount_value = (float) Init::get_setting('discount_main_price');
-    
-        if ( $discount_method === 'percentage' ) {
-            $total_discount = ( (float) $total_cart_value * $discount_value ) / 100;
-        } else {
-            $total_discount = min( $discount_value, (float) $total_cart_value );
         }
     
         return apply_filters( 'woo_custom_installments_calculate_total_discount', round( $total_discount, 2 ), $cart, $include_shipping );
