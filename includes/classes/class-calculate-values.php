@@ -209,6 +209,7 @@ class Calculate_Values {
     public static function calculate_total_discount( $cart, $include_shipping = false ) {
         $total_discount = 0;
         $total_cart_value = 0;
+        $has_individual_discount = false;
     
         foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
             $product = $cart_item['data'];
@@ -216,11 +217,11 @@ class Calculate_Values {
             $product_id = $product->get_id();
     
             // If it is a variation, get the parent product ID
-            $parent_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product_id;
+            $parent_id = $product->is_type('variation') ? $product->get_parent_id() : $product_id;
     
-            // If the parent product has '__disable_discount_main_price' enabled, no discount is applied
+            // If the parent product has '__disable_discount_main_price' enabled, it is ignored from the calculation
             if ( get_post_meta( $parent_id, '__disable_discount_main_price', true ) === 'yes' ) {
-                return 0;
+                continue;
             }
     
             // Get the original price of the product
@@ -235,6 +236,8 @@ class Calculate_Values {
                 $discount_method = get_post_meta( $parent_id, 'discount_per_unit_method', true );
     
                 if ( ! empty( $discount_value ) && (float) $discount_value > 0 ) {
+                    $has_individual_discount = true;
+    
                     if ( $discount_method === 'percentage' ) {
                         $product_discount = ( $product_price * $discount_value / 100 ) * $quantity;
                     } elseif ( $discount_method === 'fixed' ) {
@@ -246,7 +249,7 @@ class Calculate_Values {
                 }
             }
     
-            // Adds the products without discount to the cart total
+            // Adds products without individual discounts to the cart total
             if ( $product_discount == 0 ) {
                 $total_cart_value += $product_price * $quantity;
             }
@@ -255,6 +258,22 @@ class Calculate_Values {
         // Adds shipping to cart total if configured
         if ( $include_shipping ) {
             $total_cart_value += $cart->get_shipping_total();
+        }
+    
+        // If there are no individual discounts applied, the global discount applies.
+        if ( ! $has_individual_discount ) {
+            $global_discount_value = (float) Init::get_setting('discount_main_price');
+            $global_discount = 0;
+    
+            if ( $global_discount_value > 0 ) {
+                if ( Init::get_setting('product_price_discount_method') === 'percentage' ) {
+                    $global_discount = ( $total_cart_value * $global_discount_value ) / 100;
+                } else {
+                    $global_discount = min( $global_discount_value, $total_cart_value );
+                }
+    
+                $total_discount += $global_discount;
+            }
         }
     
         return apply_filters( 'woo_custom_installments_calculate_total_discount', round( $total_discount, 2 ), $cart, $include_shipping );
