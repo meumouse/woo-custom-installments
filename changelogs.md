@@ -1,7 +1,9 @@
-Versão 5.4.0 (11/04/2025)
+Versão 5.4.0 (14/04/2025)
 * Correção de bugs
 * Otimizações
 * Mudança de arquitetura para MACI (Modular Autoload Class Initialization)
+* Recurso adicionado: Ativar atualizações automáticas
+* Recurso removido: Compatibilidade com tema EpicJungle
 
 Versão 5.3.0 (29/01/2025)
 * Correção de bugs

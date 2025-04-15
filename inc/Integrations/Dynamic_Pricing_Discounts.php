@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 use \WC_Product;
 
@@ -11,6 +11,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Dynamic Pricing and Discounts plugin
  *
  * @since 4.5.2
+ * @version 5.4.0
  * @package MeuMouse.com
  */
 class Dynamic_Pricing_Discounts {
@@ -55,5 +56,3 @@ class Dynamic_Pricing_Discounts {
         return $price;
     }
 }
-
-new Dynamic_Pricing_Discounts();

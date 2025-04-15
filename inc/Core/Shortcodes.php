@@ -2,6 +2,8 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
+use MeuMouse\Woo_Custom_Installments\API\License;
+
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
@@ -414,5 +416,3 @@ class Shortcodes extends Frontend {
         }
     }
 }
-
-new Shortcodes();

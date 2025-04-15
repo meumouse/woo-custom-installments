@@ -14,6 +14,8 @@ defined('ABSPATH') || exit;
  */
 class Init {
 
+    public $basename = WOO_CUSTOM_INSTALLMENTS_BASENAME;
+
     /**
      * Construct function
      * 
@@ -22,9 +24,10 @@ class Init {
      * @return void
      */
     public function __construct() {
-        load_plugin_textdomain( 'woo-custom-installments', false, dirname( WOO_CUSTOM_INSTALLMENTS_BASENAME ) . '/languages/' );
+        load_plugin_textdomain( 'woo-custom-installments', false, dirname( $this->basename ) . '/languages/' );
 
-        if ( ! function_exists( 'is_plugin_active' ) ) {
+        // load WordPress plugin class if function is_plugin_active() is not defined
+        if ( ! function_exists('is_plugin_active') ) {
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
         }
     
@@ -32,20 +35,42 @@ class Init {
         if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
             self::instance_classes();
             
-            add_filter( 'plugin_action_links_' . WOO_CUSTOM_INSTALLMENTS_BASENAME, array( $this, 'add_action_plugin_links' ), 10, 4 );
+            // set compatibility with HPOS
+            add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
+
+            // add settings link on plugins list
+            add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'add_action_plugin_links' ), 10, 4 );
+
+            // add docs link on plugins list
             add_filter( 'plugin_row_meta', array( $this, 'add_row_meta_links' ), 10, 4 );
             
             $url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
             // remove Pro badge if plugin is licensed
-            if ( get_option('woo_custom_installments_license_status') !== 'valid' && false !== strpos( $url, 'wp-admin/plugins.php' ) ) {
-                add_filter( 'plugin_action_links_' . WOO_CUSTOM_INSTALLMENTS_BASENAME, array( $this, 'display_be_pro_badge' ), 10, 4 );
-                add_action( 'admin_head', array( $this, 'be_pro_badge_styles' ) );
+            if ( get_option('woo_custom_installments_license_status') !== 'valid' && strpos( $url, 'wp-admin/plugins.php' ) !== false ) {
+                add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'display_be_pro_badge' ), 10, 4 );
+                add_action( 'admin_head', array( '\MeuMouse\Woo_Custom_Installments\Views\Styles', 'be_pro_badge_styles' ) );
             }
         } else {
             add_action( 'admin_notices', array( $this, 'woo_version_notice' ) );
             deactivate_plugins('woo-custom-installments/woo-custom-installments.php');
             add_action( 'admin_notices', array( $this, 'require_woocommerce_notice' ) );
+        }
+    }
+
+
+    /**
+     * Setup WooCommerce High-Performance Order Storage (HPOS) compatibility
+     * 
+     * @since 3.2.0
+     * @version 5.4.0
+     * @return void
+     */
+    public function setup_hpos_compatibility() {
+        if ( defined('WC_VERSION') && version_compare( WC_VERSION, '7.1', '>' ) ) {
+            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_CUSTOM_INSTALLMENTS_FILE, true );
+            }
         }
     }
 
@@ -110,7 +135,7 @@ class Init {
      * @return string
      */
     public function add_row_meta_links( $plugin_meta, $plugin_file, $plugin_data, $status ) {
-        if ( strpos( $plugin_file, WOO_CUSTOM_INSTALLMENTS_BASENAME ) !== false ) {
+        if ( strpos( $plugin_file, $this->basename ) !== false ) {
             $new_links = array(
                 'docs' => '<a href="'. WOO_CUSTOM_INSTALLMENTS_DOCS_LINK .'" target="_blank">'. __( 'Documentação', 'woo-custom-installments' ) .'</a>',
             );
@@ -139,42 +164,6 @@ class Init {
 
 
     /**
-     * Display badge in CSS for get pro in plugins page
-     * 
-     * @since 2.0.0
-     * @version 5.4.0
-     * @access public
-     */
-    public function be_pro_badge_styles() {
-        ob_start(); ?>
-
-        #get-pro-woo-custom-installments {
-            display: inline-block;
-            padding: 0.35em 0.6em;
-            font-size: 0.8125em;
-            font-weight: 600;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 0.25rem;
-            background-color: #008aff;
-            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-        }
-        
-        #get-pro-woo-custom-installments:hover {
-            background-color: #0078ed;
-        }
-
-        <?php $css = ob_get_clean();
-        $css = wp_strip_all_tags( $css );
-
-        printf( __('<style>%s</style>'), $css );
-    }
-
-    
-    /**
      * Instance classes after load Composer
      * 
      * @since 5.4.0
@@ -188,14 +177,24 @@ class Init {
          * @param array $classes | Array with classes to instance
          */
         $classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array(
-            '\MeuMouse\Woo_Custom_Installments\Core\Compatibility',
+            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Hooks',
+            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Filters',
             '\MeuMouse\Woo_Custom_Installments\API\License',
             '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
             '\MeuMouse\Woo_Custom_Installments\Core\Assets',
             '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
             '\MeuMouse\Woo_Custom_Installments\Core\Frontend',
+            '\MeuMouse\Woo_Custom_Installments\Core\Shortcodes',
+            '\MeuMouse\Woo_Custom_Installments\Views\Styles',
             '\MeuMouse\Woo_Custom_Installments\Cron\Routines',
             '\MeuMouse\Woo_Custom_Installments\Integrations\Elementor',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Astra',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Ricky',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Machic',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Dynamic_Pricing_Discounts',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Tiered_Pricing_Table',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Woodmart',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Rank_Math',
         	'\MeuMouse\Woo_Custom_Installments\Core\Updater',
         ));
 

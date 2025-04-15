@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -9,9 +9,10 @@ defined('ABSPATH') || exit;
  * Compatibility with Machic theme
  *
  * @since 4.5.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class Compat_Machic {
+class Machic {
 
 	/**
 	 * Construct function
@@ -51,5 +52,3 @@ class Compat_Machic {
         printf( __('<style>%s</style>'), $css );
     }
 }
-
-new Compat_Machic();

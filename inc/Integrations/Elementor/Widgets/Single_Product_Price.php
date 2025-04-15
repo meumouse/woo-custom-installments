@@ -7,9 +7,9 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
-use MeuMouse\Woo_Custom_Installments\Helpers;
-use MeuMouse\Woo_Custom_Installments\Frontend;
-use MeuMouse\Woo_Custom_Installments\Core\License;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\Core\Frontend;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -18,10 +18,10 @@ defined('ABSPATH') || exit;
  * Elementor widget for add product price on single product page
  * 
  * @since 5.0.0
- * @version 5.2.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class Price extends \Elementor\Widget_Base {
+class Price extends Widget_Base {
 
 	/**
 	 * Get widget name

@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -9,9 +9,10 @@ defined('ABSPATH') || exit;
  * Compatibility with Ricky theme
  *
  * @since 5.2.1
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class Compat_Ricky {
+class Ricky {
 
 	/**
 	 * Construct function
@@ -48,5 +49,3 @@ class Compat_Ricky {
         printf( __('<style>%s</style>'), $css );
     }
 }
-
-new Compat_Ricky();

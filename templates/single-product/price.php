@@ -1,6 +1,6 @@
 <?php
 
-use MeuMouse\Woo_Custom_Installments\Helpers;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 
 /**
  * Single Product Price
@@ -16,7 +16,7 @@ use MeuMouse\Woo_Custom_Installments\Helpers;
  * @see https://woocommerce.com/document/template-structure/
  * @package MeuMouse.com
  * @since 4.5.0
- * @version 5.2.6
+ * @version 5.4.0
  */
 
 // Exit if accessed directly.
@@ -34,6 +34,26 @@ if ( ! $product || ! is_a( $product, 'WC_Product' ) ) :
     return;
 endif; ?>
 
+<?php
+/**
+ * Custom hook for display content before price
+ * 
+ * @since 5.4.0
+ * @param object $product | Product object
+ * @return void
+ */
+do_action( 'Woo_Custom_Installments/Product/Before_Price', $product ); ?>
+
 <p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
     <?php echo $product->get_price_html(); ?>
 </p>
+
+<?php
+/**
+ * Custom hook for display content after price
+ * 
+ * @since 5.4.0
+ * @param object $product | Product object
+ * @return void
+ */
+do_action( 'Woo_Custom_Installments/Product/After_Price', $product ); ?>

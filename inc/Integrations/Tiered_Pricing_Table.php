@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 use \TierPricingTable\PriceManager;
 use \WC_Product;
@@ -12,10 +12,10 @@ defined('ABSPATH') || exit;
  * Compatibility with Tiered Pricing Table plugin
  *
  * @since 4.5.2
- * @version 5.1.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class TierPricingTable {
+class Tiered_Pricing_Table {
 
 	/**
 	 * Construct function
@@ -91,5 +91,3 @@ class TierPricingTable {
         return array_merge( $params, $new_params );
     }
 }
-
-new TierPricingTable();

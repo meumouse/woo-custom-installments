@@ -3,11 +3,10 @@
 namespace MeuMouse\Woo_Custom_Installments\Admin;
 
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
-use MeuMouse\Woo_Custom_Installments\Core\License;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
-
 
 /**
  * Admin plugin actions
@@ -61,7 +60,6 @@ class Admin_Options {
 			add_action( 'save_post_product', array( $this, 'update_discount_on_product_price_on_pix' ) );
 		}
 
-		add_action( 'admin_notices', array( $this, 'expire_license_notice' ) );
 		add_action( 'admin_head', array( $this, 'hide_woo_custom_installments_table_price' ) );
 		add_action( 'woocommerce_update_product', array( $this, 'clear_price_cache_on_update' ) );
 	}
@@ -735,22 +733,6 @@ class Admin_Options {
 	 */
 	public function clear_price_cache_on_update( $product_id ) {
 		delete_transient( 'woo_custom_installments_product_price_xml_feed_cache' );
-	}
-
-
-	/**
-	 * Display admin notice when license is expired
-	 * 
-	 * @since 4.5.1
-	 * @return void
-	 */
-	public function expire_license_notice() {
-		if ( License::expired_license() ) {
-			$class = 'notice notice-error is-dismissible';
-			$message = __( 'Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> expirou, realize a renovação para continuar aproveitando os recursos Pro.', 'woo-custom-installments' );
-
-			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
-		}
 	}
 
 

@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -16,19 +17,25 @@ defined('ABSPATH') || exit;
  */
 class Ajax {
 
+    public $response_obj;
+    public $license_message;
+
 	/**
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.2.5
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
         // save admin options
-		add_action( 'wp_ajax_wci_save_options', array( $this, 'ajax_save_options_callback' ) );
+		add_action( 'wp_ajax_wci_save_options', array( $this, 'save_options_callback' ) );
+
+        // activate license process
+        add_action( 'wp_ajax_wci_alternative_activation_license', array( $this, 'alternative_activation_callback' ) );
 
         // alternative license process
-        add_action( 'wp_ajax_wci_alternative_activation_license', array( $this, 'alternative_activation_callback' ) );
+        add_action( 'wp_ajax_wci_active_license', array( $this, 'active_license_callback' ) );
 
         // deactive license process
         add_action( 'wp_ajax_wci_deactive_license_action', array( $this, 'deactive_license_callback' ) );
@@ -55,10 +62,10 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.2.7
+     * @version 5.4.0
      * @return void
      */
-    public function ajax_save_options_callback() {
+    public function save_options_callback() {
         // check security nonce
         check_ajax_referer( 'wci_save_options_nonce', 'security' );
         
@@ -141,17 +148,77 @@ class Ajax {
                     'toast_header_title' => esc_html__( 'Salvo com sucesso', 'woo-custom-installments' ),
                     'toast_body_title' => esc_html__( 'As configurações foram atualizadas!', 'woo-custom-installments' ),
                 );
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'toast_header_title' => esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                    'toast_body_title' => esc_html__( 'Não foi possível salvar as configurações', 'woo-custom-installments' ),
+                );
+            }
 
-                // debug mode
-                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG ) {
-                    $response['debug'] = array(
-                        'options' => get_option('woo-custom-installments-setting'),
+            // debug mode
+            if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                $response['debug'] = array(
+                    'options' => get_option('woo-custom-installments-setting'),
+                );
+            }
+
+            // send JSON response to frontend
+            wp_send_json( $response );
+        }
+    }
+
+
+    /**
+     * Active license process on AJAX callback
+     * 
+     * @since 5.4.0
+     * @return void
+     */
+    public function active_license_callback() {
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_active_license' ) {
+            $this->response_obj = new \stdClass();
+            $message = '';
+            $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
+        
+            // clear response cache first
+            delete_transient('woo_custom_installments_api_request_cache');
+            delete_transient('woo_custom_installments_api_response_cache');
+            delete_transient('woo_custom_installments_license_status_cached');
+
+            update_option( 'woo_custom_installments_license_key', $license_key ) || add_option('woo_custom_installments_license_key', $license_key );
+            update_option( 'woo_custom_installments_temp_license_key', $license_key ) || add_option('woo_custom_installments_temp_license_key', $license_key );
+    
+            // Check on the server if the license is valid and update responses and options
+            if ( License::check_license( $license_key, $this->license_message, $this->response_obj, WOO_CUSTOM_INSTALLMENTS_FILE ) ) {
+                if ( $this->response_obj && $this->response_obj->is_valid ) {
+                    update_option( 'woo_custom_installments_license_status', 'valid' );
+                    delete_option('woo_custom_installments_temp_license_key');
+                    delete_option('woo_custom_installments_license_expired');
+                    delete_option('woo_custom_installments_alternative_license_activation');
+                } else {
+                    update_option( 'woo_custom_installments_license_status', 'invalid' );
+                }
+        
+                if ( License::is_valid() ) {
+                    $response = array(
+                        'status' => 'success',
+                        'toast_header_title' => __( 'Licença ativada com sucesso.', 'woo-custom-installments' ),
+                        'toast_body_title' => __( 'Agora todos os recursos estão ativos!', 'woo-custom-installments' ),
                     );
                 }
-    
-                // send JSON response to frontend
-                wp_send_json( $response );
+            } else {
+                if ( ! empty( $license_key ) && ! empty( $this->license_message ) ) {
+                    $response = array(
+                        'status' => 'error',
+                        'toast_header_title' => __( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                        'toast_body_title' => $this->license_message,
+                    );
+                }
             }
+
+            // send response for frontend
+            wp_send_json( $response );
         }
     }
 
@@ -442,5 +509,3 @@ class Ajax {
         ));
     }
 }
-
-new Ajax();

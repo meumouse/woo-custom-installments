@@ -1,11 +1,7 @@
 <?php
 
-use MeuMouse\Woo_Custom_Installments\Core\License;
+use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
-
-/**
- * 
- */
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit; ?>

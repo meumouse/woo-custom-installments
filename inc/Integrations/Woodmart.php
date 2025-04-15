@@ -1,8 +1,8 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
-use MeuMouse\Woo_Custom_Installments\Helpers;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use XTS\Modules\Layouts\Main;
 
 // Exit if accessed directly.
@@ -12,10 +12,10 @@ defined('ABSPATH') || exit;
  * Compatibility with Woodmart theme
  *
  * @since 4.5.0
- * @version 5.1.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class Compat_Woodmart {
+class Woodmart {
 
 	/**
 	 * Construct function
@@ -122,5 +122,3 @@ class Compat_Woodmart {
         return array_merge( $widgets, $new_widgets );
     }
 }
-
-new Compat_Woodmart();

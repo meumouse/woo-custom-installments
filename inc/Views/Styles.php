@@ -1,8 +1,8 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments;
+namespace MeuMouse\Woo_Custom_Installments\Views;
 
-use MeuMouse\Woo_Custom_Installments\Views\Components;
+use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -20,10 +20,12 @@ class Styles {
      * Construct function
      * 
      * @since 2.1.0
+     * @version 5.4.0
      * @return void
      */
     public function __construct() {
-        add_action( 'wp_head', array( $this, 'wci_front_styles' ) );
+        // add frontend styles on header
+        add_action( 'wp_head', array( $this, 'render_styles' ) );
     }
 
 
@@ -31,10 +33,10 @@ class Styles {
      * Custom CSS for frontend
      * 
      * @since 2.0.0
-     * @version 5.2.7
+     * @version 5.4.0
      * @return string
      */
-    public function wci_front_styles() {
+    public function render_styles() {
         $button_popup_color = Admin_Options::get_setting('button_popup_color');
         $button_popup_size = Admin_Options::get_setting('button_popup_size');
         $discount_pix_styles = Admin_Options::get_setting('elements_design')['discount_pix']['styles'];
@@ -319,6 +321,40 @@ class Styles {
 
         printf( '<style type="text/css">%s</style>', $css );
     }
-}
 
-new Styles();
+
+    /**
+     * Display badge in CSS for get pro in plugins page
+     * 
+     * @since 2.0.0
+     * @version 5.4.0
+     * @access public
+     */
+    public static function be_pro_badge_styles() {
+        ob_start(); ?>
+
+        #get-pro-woo-custom-installments {
+            display: inline-block;
+            padding: 0.35em 0.6em;
+            font-size: 0.8125em;
+            font-weight: 600;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            background-color: #008aff;
+            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+        
+        #get-pro-woo-custom-installments:hover {
+            background-color: #0078ed;
+        }
+
+        <?php $css = ob_get_clean();
+        $css = wp_strip_all_tags( $css );
+
+        printf( __('<style>%s</style>'), $css );
+    }
+}

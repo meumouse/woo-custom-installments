@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Compat;
+namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -9,9 +9,10 @@ defined('ABSPATH') || exit;
  * Compatibility with Astra theme
  *
  * @since 4.5.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
-class Compat_Astra {
+class Astra {
 
 	/**
 	 * Construct function
@@ -47,5 +48,3 @@ class Compat_Astra {
         printf( __('<style>%s</style>'), $css );
     }
 }
-
-new Compat_Astra();

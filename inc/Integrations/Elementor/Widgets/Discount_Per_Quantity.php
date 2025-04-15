@@ -7,9 +7,9 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
-use MeuMouse\Woo_Custom_Installments\Helpers;
-use MeuMouse\Woo_Custom_Installments\Core\License;
-use MeuMouse\Woo_Custom_Installments\Frontend;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -18,6 +18,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add discount per quantity message
  * 
  * @since 5.2.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
 class Discount_Per_Quantity extends \Elementor\Widget_Base {

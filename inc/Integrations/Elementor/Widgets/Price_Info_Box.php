@@ -8,16 +8,20 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Icons_Manager;
-use MeuMouse\Woo_Custom_Installments\Helpers;
-use MeuMouse\Woo_Custom_Installments\Core\License;
-use MeuMouse\Woo_Custom_Installments\Frontend;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Calculate_Values;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
 /**
+ * Elementor widget for price info box on single product page
  * 
+ * @since 5.0.0
+ * @version 5.4.0
+ * @package MeuMouse.com
  */
 class Price_Info_Box extends \Elementor\Widget_Base {
 

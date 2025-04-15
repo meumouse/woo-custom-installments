@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -47,16 +48,11 @@ class Frontend {
 				remove_action( 'woocommerce_before_add_to_cart_form', array( $this, 'full_installment' ), 10 );
 			}
 
-			/**
-			 * Remove price range
-			 * 
-			 * @since 2.6.0
-			 * @version 5.2.6
-			 */
+			// remove price range
 			if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
 				add_filter( 'woocommerce_variable_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
 				add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
-				add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'show_variation_prices_before_add_to_cart' ) );
+				add_action( 'Woo_Custom_Installments/Product/After_Price', array( $this, 'variation_prices_group' ), 10, 1 );
 			}
 
 			/**
@@ -557,28 +553,24 @@ class Frontend {
 	 * Display product variations for replace on remove price range
 	 * 
 	 * @since 5.2.6
+	 * @version 5.4.0
+	 * @param object $product | Product object
 	 * @return void
 	 */
-	public function show_variation_prices_before_add_to_cart() {
-		global $product;
-
-		if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+	public function variation_prices_group( $product ) {
+		if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) :
 			$variations = $product->get_available_variations(); ?>
 
 			<ul id="wci-variation-prices">
-				<?php foreach ( $variations as $variation ) : ?>
-					<?php
-					$variation_product = wc_get_product( $variation['variation_id'] );
-					$price = $variation_product->get_price_html();
-					?>
+				<?php foreach ( $variations as $variation ) :
+					$variation_product = wc_get_product( $variation['variation_id'] ); ?>
 
 					<li class="wci-variation-item d-none" data-variation-id="<?php echo esc_attr( $variation['variation_id'] ); ?>">
-						<?php echo $price; ?>
+						<?php echo $variation_product->get_price_html(); ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<?php
-		}
+		<?php endif;
 	}
 
 

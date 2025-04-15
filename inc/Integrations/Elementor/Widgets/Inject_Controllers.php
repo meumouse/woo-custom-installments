@@ -6,7 +6,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
-use MeuMouse\Woo_Custom_Installments\Core\License;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * Add controllers on Elementor widgets
  * 
  * @since 5.0.0
- * @version 5.2.0
+ * @version 5.4.0
  * @package MeuMouse.com
  */
 class Inject_Controllers {

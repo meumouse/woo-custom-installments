@@ -1,6 +1,8 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Core;
+namespace MeuMouse\Woo_Custom_Installments\API;
+
+use MeuMouse\Woo_Custom_Installments\Core\Logger;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -14,30 +16,31 @@ defined('ABSPATH') || exit;
  */
 class License {
 
-    private $product_key;
     private $product_id;
     private $product_base;
-    public $wci_product_key = '2951578DE46F56D7';
+    private $product_key;
+
     private $wci_product_id = '1';
     private $wci_product_base = 'woo-custom-installments';
+    public $wci_product_key = '2951578DE46F56D7';
+
     private $clube_m_produt_id = '7';
     private $clube_m_product_base = 'clube-m';
     private $clube_m_product_key = 'B729F2659393EE27';
-    private $server_host = 'https://api.meumouse.com/wp-json/license/';
+
+    public static $server_host = 'https://api.meumouse.com/wp-json/license/';
     private $plugin_file;
     private $version = WOO_CUSTOM_INSTALLMENTS_VERSION;
     private $is_theme = false;
     private $email_address = WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL;
     private static $_onDeleteLicense = array();
     private static $self_obj;
-    public $response_obj;
-    public $license_message;
 
     /**
      * Construct function
      * 
      * @since 2.0.0
-     * @since 4.5.0
+     * @version 5.4.0
      * @param string $plugin_base_file
      * @return void
      */
@@ -63,14 +66,20 @@ class License {
             $this->is_theme = true;
         }
 
-        // connect with API server for authenticate license  
-        add_action( 'admin_init', array( $this, 'licenses_api_connection' ) );
+        // deactive license on expire time
+        add_action( 'Woo_Custom_Installments/License/Check_Expires_Time', array( __CLASS__, 'check_license_expires_time' ) );
 
-        // alternative activation process
-        add_action( 'admin_init', array( $this, 'alternative_activation_process' ) );
+        // register schedule event first time
+        if ( ! get_option('woo_custom_installments_schedule_expiration_check_runned') ) {
+            add_action( 'admin_init', array( __CLASS__, 'schedule_license_expiration_check' ) );
+        }
 
-        // display require license modal before activated
-        add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'display_modal_license_require' ) );
+        // set logger source
+        Logger::set_logger_source( 'woo-custom-installments-license', false );
+
+        if ( get_option('woo_custom_installments_license_expired') ) {
+            add_action( 'admin_notices', array( __CLASS__, 'license_expired_notice' ) );
+        }
     }
 
 
@@ -78,7 +87,6 @@ class License {
      * Get plugin instance
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param self $plugin_base_file | Plugin file
      * @return self|null
      */
@@ -97,7 +105,6 @@ class License {
      * Get renew license link
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param object $response_object | Response object
      * @param string $type | Renew type
      * @return string
@@ -148,7 +155,6 @@ class License {
      * Encrypt response
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param string $plaintext | Object response to encrypt
      * @param string $password | Product key
      * @return string
@@ -171,7 +177,7 @@ class License {
      * Decrypt response
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.4.0
      * @param string $encrypted | Encrypted response
      * @param string $password | Product key
      * @return string
@@ -181,9 +187,9 @@ class License {
             $password = $this->product_key;
         }
 
-        $logger = wc_get_logger();
-        $plugin_log_file = 'woo-custom-installments-log';
-        $logger->info('(Parcelas Customizadas para WooCommerce) Response encrypted: ' . print_r( $encrypted, true ), array('source' => $plugin_log_file));
+        if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+            Logger::register_log( 'License API response encrypted: ' . print_r( $encrypted, true ) );
+        }
 
         if ( is_string( $encrypted ) ) {
             $method = 'aes-256-cbc';
@@ -193,15 +199,19 @@ class License {
             $plaintext = openssl_decrypt( base64_decode( $encrypted ), $method, $key, OPENSSL_RAW_DATA, $iv );
     
             if ( $plaintext === false ) {
-                $logger->info('(Parcelas Customizadas para WooCommerce) Falha na descriptografia. Input: $encrypted: ' . print_r( $plaintext, true ), array('source' => $plugin_log_file));
-                
+                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                    Logger::register_log( 'License API - fail on decrypt: ' . print_r( $plaintext, true ), 'ERROR' );
+                }
+
                 return '';
             }
     
             return substr( $plaintext, 2, -2 );
         } else {
-            $logger->info('(Parcelas Customizadas para WooCommerce) A entrada para decrypt não é uma string. Tipo: ' . gettype( $encrypted ), array('source' => $plugin_log_file));
-            
+            if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                Logger::register_log( 'License API - Entry for decrypt is not string : ' . print_r( $encrypted, true ), 'ERROR' );
+            }
+           
             return '';
         }
     }
@@ -211,7 +221,6 @@ class License {
      * Get site domain
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @return string
      */
     public static function get_domain() {
@@ -235,8 +244,8 @@ class License {
      * Processes the API response
      *
      * @since 2.0.0
-     * @version 4.5.0
-     * @param string $response Raw API response.
+     * @version 5.4.0
+     * @param string $response | Raw API response
      * @return stdClass|mixed Object decoded from the JSON response or error object, if applicable.
      */
     private function process_response( $response ) {
@@ -247,17 +256,18 @@ class License {
         if ( ! empty( $response ) ) {
             $resbk = $response;
             $decrypted_response = $response;
-            $logger = wc_get_logger();
-            $plugin_log_file = 'woo-custom-installments-log';
 
-            $logger->info('(Parcelas Customizadas para WooCommerce) Response: ' . print_r( $response, true ), array('source' => $plugin_log_file));
+            if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                Logger::register_log( 'License API - Process response : ' . print_r( $response, true ) );
+            }
 
             if ( ! empty( $this->product_key ) ) {
                 // Try to decrypt
                 $decrypted_response = $this->decrypt( $response );
 
-                // Add a WooCommerce log to verify decrypted content
-                $logger->info('(Parcelas Customizadas para WooCommerce) Decrypted response: ' . print_r( $decrypted_response, true ), array('source' => $plugin_log_file));
+                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                    Logger::register_log( 'License API - Decrypted response : ' . print_r( $decrypted_response, true ) );
+                }
 
                 if ( empty( $decrypted_response ) ) {
                     update_option( 'woo_custom_installments_alternative_license_activation', 'yes' );
@@ -273,14 +283,16 @@ class License {
             }
 
             // Ensure decrypted_response is a string before decoding the JSON
-            if (is_object($decrypted_response)) {
-                $decrypted_response = json_encode($decrypted_response);
+            if ( is_object( $decrypted_response ) ) {
+                $decrypted_response = json_encode( $decrypted_response );
             }
 
             // Try decoding the JSON
             $decoded_response = json_decode( $decrypted_response );
 
-            $logger->info('(Parcelas Customizadas para WooCommerce) Response decoded: ' . print_r( $decoded_response, true ), array('source' => $plugin_log_file));
+            if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                Logger::register_log( 'License API - Response decoded : ' . print_r( $decoded_response, true ) );
+            }
 
             if ( json_last_error() !== JSON_ERROR_NONE ) {
                 // Handle JSON decoding error
@@ -309,7 +321,7 @@ class License {
      * Request on API server
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.4.0
      * @param string $relative_url | API URL to concat
      * @param object $data | Object data to encode and add to body request
      * @param string $error | Error message
@@ -325,7 +337,7 @@ class License {
             $response->msg = __( 'Resposta vazia.', 'woo-custom-installments' );
             $response->is_request_error = false;
             $final_data = wp_json_encode( $data );
-            $url = rtrim( $this->server_host, '/' ) . "/" . ltrim( $relative_url, '/' );
+            $url = rtrim( self::$server_host, '/' ) . "/" . ltrim( $relative_url, '/' );
     
             if ( ! empty( $this->product_key ) ) {
                 $final_data = $this->encrypt( $final_data );
@@ -346,11 +358,10 @@ class License {
     
                 $server_response = wp_remote_post( $url, $request_params );
 
-                $logger = wc_get_logger();
-                $plugin_log_file = 'woo-custom-installments-log';
+                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                    Logger::register_log( 'License API - Request response : ' . print_r( $server_response, true ) );
+                }
 
-                $logger->info('(Parcelas Customizadas para WooCommerce) Request response: ' . print_r( $server_response, true ), array('source' => $plugin_log_file));
-    
                 if ( is_wp_error( $server_response ) ) {
                     $request_params['sslverify'] = false;
                     $server_response = wp_remote_post( $url, $request_params );
@@ -462,7 +473,6 @@ class License {
      * Build object to send response API
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param string $purchase_key | License key
      * @return object
      */
@@ -483,7 +493,6 @@ class License {
      * Generate hash key
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @return string
      */
     private function get_key_name() {
@@ -495,7 +504,6 @@ class License {
      * Set response base option
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param object $response | Response object
      * @return void
      */
@@ -510,7 +518,6 @@ class License {
      * Get response base option
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @return string
      */
     public function get_response_base() {
@@ -529,12 +536,22 @@ class License {
      * Remove response base option
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.4.0
      * @return string
      */
     public function remove_response_base() {
         $key = $this->get_key_name();
         $is_deleted = delete_option( $key );
+
+        update_option( 'woo_custom_installments_license_status', 'invalid' );
+        delete_option('woo_custom_installments_license_key');
+        delete_option('woo_custom_installments_license_response_object');
+        delete_option('woo_custom_installments_alternative_license');
+        delete_option('woo_custom_installments_temp_license_key');
+        delete_option('woo_custom_installments_alternative_license_activation');
+        delete_transient('woo_custom_installments_api_request_cache');
+        delete_transient('woo_custom_installments_api_response_cache');
+        delete_transient('woo_custom_installments_license_status_cached');
 
         foreach ( self::$_onDeleteLicense as $func ) {
             if ( is_callable( $func ) ) {
@@ -550,7 +567,6 @@ class License {
      * Deactive license action
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param string $plugin_base_file | Plugin base file
      * @param string $message | Error message
      * @return object
@@ -566,7 +582,6 @@ class License {
      * Check purchase key
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param string $purchase_key | License key
      * @param string $error | Error message
      * @param object $response | Response object
@@ -584,7 +599,7 @@ class License {
      * Deactive license process
      * 
      * @since 2.0.0
-     * @version 4.5.0
+     * @version 5.4.0
      * @param string $message | Error message
      * @return bool
      */
@@ -597,11 +612,22 @@ class License {
                 $response = $this->_request( 'product/deactive/' . $this->product_id, $param, $message );
                 update_option('woo_custom_installments_license_response_object', $response);
 
-                $logger = wc_get_logger();
-                $plugin_log_file = 'woo-custom-installments-log';
-                $logger->info('(Parcelas Customizadas para WooCommerce) Deactive response object: ' . print_r( $response, true ), array('source' => $plugin_log_file));
+                if ( WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ) {
+                    Logger::register_log( 'License API - Deactive response object : ' . print_r( $response, true ) );
+                }
 
                 if ( empty( $response->code ) ) {
+                    update_option( 'woo_custom_installments_license_status', 'invalid' );
+                    delete_option('woo_custom_installments_license_key');
+                    delete_option('woo_custom_installments_license_response_object');
+                    delete_option('woo_custom_installments_alternative_license');
+                    delete_option('woo_custom_installments_temp_license_key');
+                    delete_option('woo_custom_installments_license_expired');
+                    delete_option('woo_custom_installments_alternative_license_activation');
+                    delete_transient('woo_custom_installments_api_request_cache');
+                    delete_transient('woo_custom_installments_api_response_cache');
+                    delete_transient('woo_custom_installments_license_status_cached');
+
                     if ( ! empty( $response->status ) ) {
                         $message = $response->msg;
                         $this->remove_response_base();
@@ -630,7 +656,6 @@ class License {
      * Check if license is active and valid
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param string $purchase_key | License key
      * @param string $error | Error message
      * @param object $response_object | Response object
@@ -684,6 +709,9 @@ class License {
                         $serialObj = $this->decrypt( $response->data, $param->domain );
                         $licenseObj = maybe_unserialize( $serialObj );
                         update_option( 'woo_custom_installments_license_response_object', $licenseObj );
+
+                        // schedule event for check expiration license time
+                        self::schedule_license_expiration_check();
     
                         if ( $licenseObj->is_valid ) {
                             $response_object = new \stdClass();
@@ -746,7 +774,6 @@ class License {
      * Check if old response is active
      * 
      * @since 2.0.0
-     * @version 4.5.0
      * @param object $old_response | 
      * @param object $response_object | 
      * @return bool
@@ -772,120 +799,49 @@ class License {
 
 
     /**
-     * Load API settings
+     * Get license expires time
      * 
-     * @since 2.0.0
-     * @version 4.5.0
-     * @return void
+     * @since 5.4.0
+     * @param string $license_key | License key
+     * @return array
      */
-    public function licenses_api_connection() {
-        $this->response_obj = new \stdClass();
-        $message = '';
-        $license_key = get_option('woo_custom_installments_license_key', '');
-    
-        // active license action
-        if ( isset( $_POST['woo_custom_installments_active_license'] ) ) {
-            // clear response cache first
-            delete_transient('woo_custom_installments_api_request_cache');
-            delete_transient('woo_custom_installments_api_response_cache');
-            delete_transient('woo_custom_installments_license_status_cached');
-    
-            $license_key = ! empty( $_POST['woo_custom_installments_license_key'] ) ? $_POST['woo_custom_installments_license_key'] : '';
-            update_option( 'woo_custom_installments_license_key', $license_key ) || add_option('woo_custom_installments_license_key', $license_key );
-            update_option( 'woo_custom_installments_temp_license_key', $license_key ) || add_option('woo_custom_installments_temp_license_key', $license_key );
-    
-            // Check on the server if the license is valid and update responses and options
-            if ( self::check_license( $license_key, $this->license_message, $this->response_obj, WOO_CUSTOM_INSTALLMENTS_FILE ) ) {
-                if ( $this->response_obj && $this->response_obj->is_valid ) {
-                    update_option( 'woo_custom_installments_license_status', 'valid' );
-                    delete_option('woo_custom_installments_temp_license_key');
-                    delete_option('woo_custom_installments_alternative_license');
-                    delete_option('woo_custom_installments_alternative_license_activation');
-                } else {
-                    update_option( 'woo_custom_installments_license_status', 'invalid' );
-                }
-        
-                if ( isset( $_POST['woo_custom_installments_active_license'] ) && self::is_valid() ) {
-                    add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'activated_license_notice' ) );
-                }
-            } else {
-                if ( ! empty( $license_key ) && ! empty( $this->license_message ) ) {
-                    add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'display_license_messages' ) );
-                }
-            }
-        }
-    }
+    public static function get_expires_time( $license_key ) {
+        $api_url = self::$server_host . 'license/view';
 
+        $response = wp_remote_post( $api_url, array(
+            'headers' => array(
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ),
+            'body' => array(
+                'api_key' => '41391199-FE02BDAA-3E8E3920-CDACDE2F',
+                'license_code' => $license_key
+            ),
+            'timeout' => 30,
+        ));
 
-    /**
-     * Generate alternative activation object from decrypted license
-     * 
-     * @since 3.3.0
-     * @version 4.5.0
-     * @return void
-     */
-    public function alternative_activation_process() {
-        $decrypted_license_data = get_option('woo_custom_installments_alternative_license_decrypted');
-        $license_data_array = json_decode( stripslashes( $decrypted_license_data ) );
-        $this_domain = self::get_domain();
+        if ( is_wp_error( $response ) ) {
+            Logger::register_log( 'Error getting license expiration time: ' . $response->get_error_message(), 'ERROR' );
 
-        $allowed_products = array(
-            $this->wci_product_id,
-            $this->clube_m_produt_id,
-        );
-
-        if ( $license_data_array === null ) {
-            return;
+            return false;
         }
 
-        // stop if this site is not same from license site
-        if ( $this_domain !== $license_data_array->site_domain ) {
-            add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'not_allowed_site_notice' ) );
+        $response_body = wp_remote_retrieve_body( $response );
+        $decoded_response = json_decode( $response_body, true );
 
-            return;
+        // check if response is valid
+        if ( ! is_array( $decoded_response ) || empty( $decoded_response['data']['expiry_time'] ) ) {
+            Logger::register_log( 'Invalid response from license API: ' . print_r( $decoded_response, true ), 'ERROR' );
+            return false;
         }
 
-        // stop if product license is not same this product
-        if ( ! in_array( $license_data_array->selected_product, $allowed_products ) ) {
-            add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'not_allowed_product_notice' ) );
-
-            return;
-        }
-
-        $license_object = $license_data_array->license_object;
-
-        if ( $this_domain === $license_data_array->site_domain ) {
-            delete_transient('woo_custom_installments_api_request_cache');
-            delete_transient('woo_custom_installments_api_response_cache');
-            delete_transient('woo_custom_installments_license_status_cached');
-
-            $obj = new \stdClass();
-            $obj->license_key = $license_data_array->license_code;
-            $obj->email = $license_data_array->user_email;
-            $obj->domain = $this_domain;
-            $obj->app_version = WOO_CUSTOM_INSTALLMENTS_VERSION;
-            $obj->product_id = $license_data_array->selected_product;
-            $obj->product_base = $license_data_array->product_base;
-            $obj->is_valid = $license_object->is_valid;
-            $obj->license_title = $license_object->license_title;
-            $obj->expire_date = $license_object->expire_date;
-
-            update_option( 'woo_custom_installments_alternative_license', 'active' );
-            update_option( 'woo_custom_installments_license_response_object', $obj );
-            update_option( 'woo_custom_installments_license_key', $obj->license_key );
-            update_option( 'woo_custom_installments_license_status', 'valid' );
-            delete_option('woo_custom_installments_alternative_license_decrypted');
-
-            add_action( 'woo_custom_installments_display_admin_notices', array( $this, 'activated_license_notice' ) );
-        }
+        return $decoded_response['data']['expiry_time'];
     }
 
 
     /**
      * Check if license is valid
      * 
-     * @since 1.2.5
-     * @version 4.5.0
+     * @since 2.0.0
      * @return bool
      */
     public static function is_valid() {
@@ -904,7 +860,7 @@ class License {
 
             return true;
         } else {
-            set_transient('woo_custom_installments_license_status_cached', false, 86400);
+            set_transient( 'woo_custom_installments_license_status_cached', false, 86400 );
             update_option( 'woo_custom_installments_license_status', 'invalid' );
 
             return false;
@@ -915,7 +871,7 @@ class License {
     /**
      * Get license title
      * 
-     * @version 1.2.5
+     * @since 2.0.0
      * @return string
      */
     public static function license_title() {
@@ -932,8 +888,7 @@ class License {
     /**
      * Get license expire date
      * 
-     * @since 1.2.5
-     * @version 4.5.0
+     * @since 2.0.0
      * @return string
      */
     public static function license_expire() {
@@ -965,7 +920,7 @@ class License {
     /**
      * Check if license is expired
      * 
-     * @since 4.5.1
+     * @since 2.0.0
      * @return bool
      */
     public static function expired_license() {
@@ -979,6 +934,7 @@ class License {
                     $object_query->is_valid = false;
 
                     update_option( 'woo_custom_installments_license_response_object', $object_query );
+                    delete_option('woo_custom_installments_alternative_license');
 
                     return false;
                 }
@@ -990,8 +946,7 @@ class License {
     /**
      * Try to decrypt license with multiple keys
      * 
-     * @since 1.3.0
-     * @version 4.5.0
+     * @since 2.0.0
      * @param string $encrypted_data | Encrypted data
      * @param array $possible_keys | Array list with decryp keys
      * @return mixed Decrypted string or null
@@ -1007,6 +962,71 @@ class License {
         }
         
         return null;
+    }
+
+
+    /**
+     * Check expiration license on schedule event
+     * 
+     * @since 5.4.0
+     * @return void
+     */
+    public static function schedule_license_expiration_check( $expiration_timestamp = 0 ) {
+        // Cancel any previous bookings to avoid duplication
+        wp_clear_scheduled_hook('Woo_Custom_Installments/License/Check_Expires_Time');
+
+        if ( $expiration_timestamp > 0 ) {
+            if ( $expiration_timestamp > time() ) {
+                // Add 24h to timestamp
+                $expiration_timestamp += DAY_IN_SECONDS;
+
+                // Schedule event to expire at exactly the right time
+                wp_schedule_single_event( $expiration_timestamp, 'Woo_Custom_Installments/License/Check_Expires_Time' );
+            }
+        } else {
+            $object_query = get_option('woo_custom_installments_license_response_object');
+    
+            if ( is_object( $object_query ) && ! empty( $object_query->expire_date ) ) {
+                $expiration_timestamp = strtotime( $object_query->expire_date );
+        
+                if ( $expiration_timestamp > time() ) {
+                    // Add 24h to timestamp
+                    $expiration_timestamp += DAY_IN_SECONDS;
+    
+                    // Schedule event to expire at exactly the right time
+                    wp_schedule_single_event( $expiration_timestamp, 'Woo_Custom_Installments/License/Check_Expires_Time' );
+                }
+            }
+        }
+
+        // register runned event
+        update_option( 'woo_custom_installments_schedule_expiration_check_runned', true );
+    }
+
+
+    /**
+     * Deactivate license on scheduled event
+     * 
+     * @since 5.4.0
+     * @return void
+     */
+    public static function check_license_expires_time() {
+        $license_key = get_option('woo_custom_installments_license_key');
+        $api_expiry_time = self::get_expires_time( $license_key );
+
+        if ( $api_expiry_time ) {
+            $expiration_timestamp = strtotime( $api_expiry_time );
+
+            // license expired
+            if ( $expiration_timestamp < time() ) {
+                update_option( 'woo_custom_installments_license_expired', true );
+                $message = '';
+
+                self::deactive_license( WOO_CUSTOM_INSTALLMENTS_FILE, $message );
+            } else {
+                self::schedule_license_expiration_check( $expiration_timestamp );
+            }
+        }
     }
 
 
@@ -1044,86 +1064,6 @@ class License {
 
 
     /**
-     * Display notice for activated Pro license
-     * 
-     * @since 4.5.0
-     * @return void
-     */
-    public function activated_license_notice() {
-        ?>
-            <div class="toast update-notice-wci show">
-                <div class="toast-header bg-success text-white">
-                    <svg class="woo-custom-installments-toast-check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><g><path d="M10.5 15.25C10.307 15.2353 10.1276 15.1455 9.99998 15L6.99998 12C6.93314 11.8601 6.91133 11.7029 6.93756 11.55C6.96379 11.3971 7.03676 11.2562 7.14643 11.1465C7.2561 11.0368 7.39707 10.9638 7.54993 10.9376C7.70279 10.9114 7.86003 10.9332 7.99998 11L10.47 13.47L19 5.00004C19.1399 4.9332 19.2972 4.91139 19.45 4.93762C19.6029 4.96385 19.7439 5.03682 19.8535 5.14649C19.9632 5.25616 20.0362 5.39713 20.0624 5.54999C20.0886 5.70286 20.0668 5.86009 20 6.00004L11 15C10.8724 15.1455 10.6929 15.2353 10.5 15.25Z" fill="#ffffff"/> <path d="M12 21C10.3915 20.9974 8.813 20.5638 7.42891 19.7443C6.04481 18.9247 4.90566 17.7492 4.12999 16.34C3.54037 15.29 3.17596 14.1287 3.05999 12.93C2.87697 11.1721 3.2156 9.39921 4.03363 7.83249C4.85167 6.26578 6.1129 4.9746 7.65999 4.12003C8.71001 3.53041 9.87134 3.166 11.07 3.05003C12.2641 2.92157 13.4719 3.03725 14.62 3.39003C14.7224 3.4105 14.8195 3.45215 14.9049 3.51232C14.9903 3.57248 15.0622 3.64983 15.116 3.73941C15.1698 3.82898 15.2043 3.92881 15.2173 4.03249C15.2302 4.13616 15.2214 4.2414 15.1913 4.34146C15.1612 4.44152 15.1105 4.53419 15.0425 4.61352C14.9745 4.69286 14.8907 4.75712 14.7965 4.80217C14.7022 4.84723 14.5995 4.87209 14.4951 4.87516C14.3907 4.87824 14.2867 4.85946 14.19 4.82003C13.2186 4.52795 12.1987 4.43275 11.19 4.54003C10.193 4.64212 9.22694 4.94485 8.34999 5.43003C7.50512 5.89613 6.75813 6.52088 6.14999 7.27003C5.52385 8.03319 5.05628 8.91361 4.77467 9.85974C4.49307 10.8059 4.40308 11.7987 4.50999 12.78C4.61208 13.777 4.91482 14.7431 5.39999 15.62C5.86609 16.4649 6.49084 17.2119 7.23999 17.82C8.00315 18.4462 8.88357 18.9137 9.8297 19.1953C10.7758 19.4769 11.7686 19.5669 12.75 19.46C13.747 19.3579 14.713 19.0552 15.59 18.57C16.4349 18.1039 17.1818 17.4792 17.79 16.73C18.4161 15.9669 18.8837 15.0864 19.1653 14.1403C19.4469 13.1942 19.5369 12.2014 19.43 11.22C19.4201 11.1169 19.4307 11.0129 19.461 10.9139C19.4914 10.8149 19.5409 10.7228 19.6069 10.643C19.6728 10.5631 19.7538 10.497 19.8453 10.4485C19.9368 10.3999 20.0369 10.3699 20.14 10.36C20.2431 10.3502 20.3471 10.3607 20.4461 10.3911C20.5451 10.4214 20.6372 10.471 20.717 10.5369C20.7969 10.6028 20.863 10.6839 20.9115 10.7753C20.9601 10.8668 20.9901 10.9669 21 11.07C21.1821 12.829 20.842 14.6026 20.0221 16.1695C19.2022 17.7363 17.9389 19.0269 16.39 19.88C15.3288 20.4938 14.1495 20.8755 12.93 21C12.62 21 12.3 21 12 21Z" fill="#ffffff"/></g></svg>
-                    <span class="me-auto"><?php echo esc_html__( 'Licença ativada com sucesso!', 'woo-custom-installments' ); ?></span>
-                    <button class="btn-close btn-close-white ms-2 hide-toast" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body"><?php echo esc_html__( 'Todos os recursos da versão Pro agora estão ativos!', 'woo-custom-installments' ); ?></div>
-            </div>
-        <?php
-    }
-
-
-    /**
-     * Display admin notices for license messages
-     * 
-     * @since 4.5.0
-     * @return void
-     */
-    public function display_license_messages() {
-        if ( ! empty( $this->license_message ) ) : ?>
-            <div class="toast toast-danger show">
-                <div class="toast-header bg-danger text-white">
-                    <svg class="woo-custom-installments-toast-check-icon" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path></svg>
-                    <span class="me-auto"><?php echo esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ); ?></span>
-                    <button class="btn-close btn-close-white ms-2 hide-toast" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body"><?php echo esc_html__( $this->license_message, 'woo-custom-installments' ); ?></div>
-            </div>
-        <?php endif;
-    }
-
-
-    /**
-     * Display not allowed site notice
-     * 
-     * @since 4.5.0
-     * @return void
-     */
-    public function not_allowed_site_notice() {
-        ?>
-        <div class="toast toast-danger show">
-            <div class="toast-header bg-danger text-white">
-                <svg class="woo-custom-installments-toast-check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><g><path d="M10.5 15.25C10.307 15.2353 10.1276 15.1455 9.99998 15L6.99998 12C6.93314 11.8601 6.91133 11.7029 6.93756 11.55C6.96379 11.3971 7.03676 11.2562 7.14643 11.1465C7.2561 11.0368 7.39707 10.9638 7.54993 10.9376C7.70279 10.9114 7.86003 10.9332 7.99998 11L10.47 13.47L19 5.00004C19.1399 4.9332 19.2972 4.91139 19.45 4.93762C19.6029 4.96385 19.7439 5.03682 19.8535 5.14649C19.9632 5.25616 20.0362 5.39713 20.0624 5.54999C20.0886 5.70286 20.0668 5.86009 20 6.00004L11 15C10.8724 15.1455 10.6929 15.2353 10.5 15.25Z" fill="#ffffff"/> <path d="M12 21C10.3915 20.9974 8.813 20.5638 7.42891 19.7443C6.04481 18.9247 4.90566 17.7492 4.12999 16.34C3.54037 15.29 3.17596 14.1287 3.05999 12.93C2.87697 11.1721 3.2156 9.39921 4.03363 7.83249C4.85167 6.26578 6.1129 4.9746 7.65999 4.12003C8.71001 3.53041 9.87134 3.166 11.07 3.05003C12.2641 2.92157 13.4719 3.03725 14.62 3.39003C14.7224 3.4105 14.8195 3.45215 14.9049 3.51232C14.9903 3.57248 15.0622 3.64983 15.116 3.73941C15.1698 3.82898 15.2043 3.92881 15.2173 4.03249C15.2302 4.13616 15.2214 4.2414 15.1913 4.34146C15.1612 4.44152 15.1105 4.53419 15.0425 4.61352C14.9745 4.69286 14.8907 4.75712 14.7965 4.80217C14.7022 4.84723 14.5995 4.87209 14.4951 4.87516C14.3907 4.87824 14.2867 4.85946 14.19 4.82003C13.2186 4.52795 12.1987 4.43275 11.19 4.54003C10.193 4.64212 9.22694 4.94485 8.34999 5.43003C7.50512 5.89613 6.75813 6.52088 6.14999 7.27003C5.52385 8.03319 5.05628 8.91361 4.77467 9.85974C4.49307 10.8059 4.40308 11.7987 4.50999 12.78C4.61208 13.777 4.91482 14.7431 5.39999 15.62C5.86609 16.4649 6.49084 17.2119 7.23999 17.82C8.00315 18.4462 8.88357 18.9137 9.8297 19.1953C10.7758 19.4769 11.7686 19.5669 12.75 19.46C13.747 19.3579 14.713 19.0552 15.59 18.57C16.4349 18.1039 17.1818 17.4792 17.79 16.73C18.4161 15.9669 18.8837 15.0864 19.1653 14.1403C19.4469 13.1942 19.5369 12.2014 19.43 11.22C19.4201 11.1169 19.4307 11.0129 19.461 10.9139C19.4914 10.8149 19.5409 10.7228 19.6069 10.643C19.6728 10.5631 19.7538 10.497 19.8453 10.4485C19.9368 10.3999 20.0369 10.3699 20.14 10.36C20.2431 10.3502 20.3471 10.3607 20.4461 10.3911C20.5451 10.4214 20.6372 10.471 20.717 10.5369C20.7969 10.6028 20.863 10.6839 20.9115 10.7753C20.9601 10.8668 20.9901 10.9669 21 11.07C21.1821 12.829 20.842 14.6026 20.0221 16.1695C19.2022 17.7363 17.9389 19.0269 16.39 19.88C15.3288 20.4938 14.1495 20.8755 12.93 21C12.62 21 12.3 21 12 21Z" fill="#ffffff"/></g></svg>
-                <span class="me-auto"><?php echo esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ) ?></span>
-                <button class="btn-close btn-close-white ms-2 hide-toast" type="button" aria-label="Fechar"></button>
-            </div>
-            <div class="toast-body"><?php echo esc_html__( 'O domínio de ativação não é permitido.', 'woo-custom-installments' ) ?></div>
-        </div>
-        <?php
-    }
-
-
-    /**
-     * Display not allowed product notice
-     * 
-     * @since 4.5.0
-     * @return void
-     */
-    public function not_allowed_product_notice() {
-        ?>
-        <div class="toast toast-danger show">
-            <div class="toast-header bg-danger text-white">
-                <svg class="woo-custom-installments-toast-check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><g><path d="M10.5 15.25C10.307 15.2353 10.1276 15.1455 9.99998 15L6.99998 12C6.93314 11.8601 6.91133 11.7029 6.93756 11.55C6.96379 11.3971 7.03676 11.2562 7.14643 11.1465C7.2561 11.0368 7.39707 10.9638 7.54993 10.9376C7.70279 10.9114 7.86003 10.9332 7.99998 11L10.47 13.47L19 5.00004C19.1399 4.9332 19.2972 4.91139 19.45 4.93762C19.6029 4.96385 19.7439 5.03682 19.8535 5.14649C19.9632 5.25616 20.0362 5.39713 20.0624 5.54999C20.0886 5.70286 20.0668 5.86009 20 6.00004L11 15C10.8724 15.1455 10.6929 15.2353 10.5 15.25Z" fill="#ffffff"/> <path d="M12 21C10.3915 20.9974 8.813 20.5638 7.42891 19.7443C6.04481 18.9247 4.90566 17.7492 4.12999 16.34C3.54037 15.29 3.17596 14.1287 3.05999 12.93C2.87697 11.1721 3.2156 9.39921 4.03363 7.83249C4.85167 6.26578 6.1129 4.9746 7.65999 4.12003C8.71001 3.53041 9.87134 3.166 11.07 3.05003C12.2641 2.92157 13.4719 3.03725 14.62 3.39003C14.7224 3.4105 14.8195 3.45215 14.9049 3.51232C14.9903 3.57248 15.0622 3.64983 15.116 3.73941C15.1698 3.82898 15.2043 3.92881 15.2173 4.03249C15.2302 4.13616 15.2214 4.2414 15.1913 4.34146C15.1612 4.44152 15.1105 4.53419 15.0425 4.61352C14.9745 4.69286 14.8907 4.75712 14.7965 4.80217C14.7022 4.84723 14.5995 4.87209 14.4951 4.87516C14.3907 4.87824 14.2867 4.85946 14.19 4.82003C13.2186 4.52795 12.1987 4.43275 11.19 4.54003C10.193 4.64212 9.22694 4.94485 8.34999 5.43003C7.50512 5.89613 6.75813 6.52088 6.14999 7.27003C5.52385 8.03319 5.05628 8.91361 4.77467 9.85974C4.49307 10.8059 4.40308 11.7987 4.50999 12.78C4.61208 13.777 4.91482 14.7431 5.39999 15.62C5.86609 16.4649 6.49084 17.2119 7.23999 17.82C8.00315 18.4462 8.88357 18.9137 9.8297 19.1953C10.7758 19.4769 11.7686 19.5669 12.75 19.46C13.747 19.3579 14.713 19.0552 15.59 18.57C16.4349 18.1039 17.1818 17.4792 17.79 16.73C18.4161 15.9669 18.8837 15.0864 19.1653 14.1403C19.4469 13.1942 19.5369 12.2014 19.43 11.22C19.4201 11.1169 19.4307 11.0129 19.461 10.9139C19.4914 10.8149 19.5409 10.7228 19.6069 10.643C19.6728 10.5631 19.7538 10.497 19.8453 10.4485C19.9368 10.3999 20.0369 10.3699 20.14 10.36C20.2431 10.3502 20.3471 10.3607 20.4461 10.3911C20.5451 10.4214 20.6372 10.471 20.717 10.5369C20.7969 10.6028 20.863 10.6839 20.9115 10.7753C20.9601 10.8668 20.9901 10.9669 21 11.07C21.1821 12.829 20.842 14.6026 20.0221 16.1695C19.2022 17.7363 17.9389 19.0269 16.39 19.88C15.3288 20.4938 14.1495 20.8755 12.93 21C12.62 21 12.3 21 12 21Z" fill="#ffffff"/></g></svg>
-                <span class="me-auto"><?php echo esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ) ?></span>
-                <button class="btn-close btn-close-white ms-2 hide-toast" type="button" aria-label="Fechar"></button>
-            </div>
-            <div class="toast-body"><?php echo esc_html__( 'A licença informada não é permitida para este produto.', 'woo-custom-installments' ) ?></div>
-        </div>
-        <?php
-    }
-
-
-    /**
      * Display be Pro license message for Elementor widgets
      * 
      * @since 5.0.0
@@ -1141,6 +1081,21 @@ class License {
             </div>
         <?php endif;
     }
-}
 
-new License();
+
+    /**
+	 * Display admin notice when license is expired
+	 * 
+	 * @since 4.5.1
+     * @version 5.4.0
+	 * @return void
+	 */
+    public static function license_expired_notice() {
+        if ( self::expired_license() ) {
+			$class = 'notice notice-error is-dismissible';
+			$message = __( 'Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> expirou, realize a renovação para continuar aproveitando os recursos Pro.', 'woo-custom-installments' );
+
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+		}
+    }
+}

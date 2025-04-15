@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -16,15 +17,23 @@ defined('ABSPATH') || exit;
  */
 class Assets {
 
+    public $version = WOO_CUSTOM_INSTALLMENTS_VERSION;
+    public $min = WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ? '' : '.min';
+    public $assets_url = WOO_CUSTOM_INSTALLMENTS_ASSETS;
+    public $debug_mode = WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE;
+
     /**
      * Construct function
      * 
      * @since 4.0.0
-     * @version 5.0.0
+     * @version 5.4.0
      * @return void
      */
     public function __construct() {
+        // add settings scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets' ) );
+
+        // add frontend scripts
         add_action( 'wp_enqueue_scripts', array( $this, 'frontend_assets' ) );
     }
 
@@ -33,47 +42,74 @@ class Assets {
      * Enqueue admin scripts in page settings only
      * 
      * @since 2.0.0
-     * @version 5.2.5
+     * @version 5.4.0
      * @return void
      */
     public function admin_assets() {
-        $url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-
-        if ( strpos( $url, 'admin.php?page=woo-custom-installments' ) !== false ) {
+        // check if is admin page settings
+        if ( Helpers::check_admin_page('woo-custom-installments') ) {
             wp_enqueue_media();
 
-            wp_enqueue_script( 'woo-custom-installments-visibility-controller', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'components/visibility-controller/visibility-controller.min.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-
             // MiniColors
-            wp_enqueue_script( 'woo-custom-installments-minicolors-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/minicolors/jquery.minicolors.min.js', array('jquery'), '2.3.6' );
-            wp_enqueue_style( 'woo-custom-installments-minicolors-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/minicolors/jquery.minicolors.css', array(), '2.3.6' );
+            wp_enqueue_script( 'woo-custom-installments-minicolors-scripts', $this->assets_url . 'vendor/minicolors/jquery.minicolors.min.js', array('jquery'), '2.3.6' );
+            wp_enqueue_style( 'woo-custom-installments-minicolors-styles', $this->assets_url . 'vendor/minicolors/jquery.minicolors.css', array(), '2.3.6' );
 
-            wp_enqueue_script( 'woo-custom-installments-admin-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/js/woo-custom-installments-admin-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
-            wp_enqueue_style( 'woo-custom-installments-admin-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'admin/css/woo-custom-installments-admin-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
+            /**
+             * Filter to add dependencies in settings script
+             * 
+             * @since 5.4.0
+             * @param array $deps
+             */
+            $deps = apply_filters( 'Woo_Custom_Installments/Admin/Assets/Settings_Script', array(
+                'jquery',
+                'woo-custom-installments-minicolors-scripts',
+            ));
+
+            // settings scripts
+            wp_enqueue_style( 'woo-custom-installments-admin-styles', $this->assets_url . 'admin/css/settings'. $this->min .'.css', array(), $this->version );
+            wp_enqueue_script( 'woo-custom-installments-admin-scripts', $this->assets_url . 'admin/js/settings'. $this->min .'.js', $deps, $this->version );
             
-            if ( ! class_exists('Flexify_Dashboard') ) {
-                wp_enqueue_style( 'bootstrap-grid', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/bootstrap/bootstrap-grid.min.css', array(), '5.3.3' );
-                wp_enqueue_style( 'bootstrap-utilities', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/bootstrap/bootstrap-utilities.min.css', array(), '5.3.3' );
-            }
-
-            if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-                wp_enqueue_script( 'font-awesome-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
-            }
-
             // set script params
             wp_localize_script( 'woo-custom-installments-admin-scripts', 'wci_params', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('wci_save_options_nonce'),
-                'confirm_deactivate_license' => esc_html__( 'Tem certeza que deseja desativar sua licença?', 'woo-custom-installments' ),
+                'debug_mode' => $this->debug_mode,
+                'i18n' => array(
+                    'aria_label_modal' => esc_html__( 'Fechar', 'woo-custom-installments' ),
+                    'offline_toast_header' => esc_html__( 'Ops! Não há conexão com a internet', 'woo-custom-installments' ),
+                    'offline_toast_body' => esc_html__( 'As alterações não serão salvas.', 'woo-custom-installments' ),
+                    'set_media_title' => esc_html__( 'Escolher imagem de ícone', 'woo-custom-installments' ),
+                    'use_this_media_title' => esc_html__( 'Usar esta imagem', 'woo-custom-installments' ),
+                    'confirm_reset_settings' => esc_html__( 'Tem certeza que deseja redefinir suas configurações?', 'woo-custom-installments' ),
+                ),
+                'nonces' => array(
+                    'save_settings' => wp_create_nonce('wci_save_options_nonce'),
+                ),
                 'currency_symbol' => get_woocommerce_currency_symbol(),
-                'offline_toast_header' => esc_html__( 'Ops! Não há conexão com a internet', 'woo-custom-installments' ),
-                'offline_toast_body' => esc_html__( 'As alterações não serão salvas.', 'woo-custom-installments' ),
                 'check_format_icons' => Admin_Options::get_setting('icon_format_elements'),
-                'set_media_title' => esc_html__( 'Escolher imagem de ícone', 'woo-custom-installments' ),
-                'use_this_media_title' => esc_html__( 'Usar esta imagem', 'woo-custom-installments' ),
-                'debug_mode' => WOO_CUSTOM_INSTALLMENTS_DEBUG,
-                'nonce' => wp_create_nonce('wci_save_options_nonce'),
             ));
+
+            wp_enqueue_script( 'woo-custom-installments-license-scripts', $this->assets_url . 'admin/js/license'. $this->min .'.js', array('jquery'), $this->version );
+
+            // set script params
+            wp_localize_script( 'woo-custom-installments-license-scripts', 'wci_license_params', array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'debug_mode' => $this->debug_mode,
+                'i18n' => array(
+                    'aria_label_modal' => esc_html__( 'Fechar', 'woo-custom-installments' ),
+                    'confirm_deactivate_license' => esc_html__( 'Tem certeza que deseja desativar sua licença?', 'woo-custom-installments' ),
+                ),
+            ));
+
+            // add Bootstrap grid and utilities if Flexify Dashboard is not installed
+            if ( ! class_exists('Flexify_Dashboard') ) {
+                wp_enqueue_style( 'bootstrap-grid', $this->assets_url . 'vendor/bootstrap/bootstrap-grid.min.css', array(), '5.3.3' );
+                wp_enqueue_style( 'bootstrap-utilities', $this->assets_url . 'vendor/bootstrap/bootstrap-utilities.min.css', array(), '5.3.3' );
+            }
+
+            // add Font Awesome if icon format is class
+            if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
+                wp_enqueue_script( 'font-awesome-lib', $this->assets_url . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
+            }
         }
     }
 
@@ -82,21 +118,21 @@ class Assets {
      * Enqueue scripts and styles on frontend
      *
      * @since 1.0.0
-     * @version 5.2.7
+     * @version 5.4.0
      * @return void
      */
     public function frontend_assets() {
-        wp_enqueue_style( 'woo-custom-installments-front-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/css/woo-custom-installments-front-styles.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
+        wp_enqueue_style( 'woo-custom-installments-front-styles', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles.css', array(), $this->version );
 
         if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-            wp_enqueue_script( 'font-awesome-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
+            wp_enqueue_script( 'font-awesome-lib', $this->assets_url . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
         }
 
         $post_id = get_the_ID();
 
         if ( is_product() || is_singular() ) {
             if ( get_post_meta( $post_id, 'enable_discount_per_unit', true ) === 'yes' ) {
-                wp_enqueue_script( 'woo-custom-installments-front-scripts', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-front-scripts.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+                wp_enqueue_script( 'woo-custom-installments-front-scripts', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts.js', array('jquery'), $this->version );
 
                 $params = apply_filters( 'woo_custom_installments_front_params', array(
                     'enable_discount_per_unit' => get_post_meta( $post_id, 'enable_discount_per_unit', true ),
@@ -110,16 +146,16 @@ class Assets {
         }
 
         if ( Admin_Options::get_setting('display_installment_type') === 'popup' ) {
-            wp_enqueue_style( 'woo-custom-installments-front-modal-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/css/modal.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
-            wp_enqueue_script( 'woo-custom-installments-front-modal', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/modal.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+            wp_enqueue_style( 'woo-custom-installments-front-modal-styles', $this->assets_url . 'frontend/css/modal.css', array(), $this->version );
+            wp_enqueue_script( 'woo-custom-installments-front-modal', $this->assets_url . 'frontend/js/modal.js', array('jquery'), $this->version );
         } elseif ( Admin_Options::get_setting('display_installment_type') === 'accordion' ) {
-            wp_enqueue_style( 'woo-custom-installments-front-accordion-styles', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/css/accordion.css', array(), WOO_CUSTOM_INSTALLMENTS_VERSION );
-            wp_enqueue_script( 'woo-custom-installments-front-accordion', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/accordion.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+            wp_enqueue_style( 'woo-custom-installments-front-accordion-styles', $this->assets_url . 'frontend/css/accordion.css', array(), $this->version );
+            wp_enqueue_script( 'woo-custom-installments-front-accordion', $this->assets_url . 'frontend/js/accordion.js', array('jquery'), $this->version );
         }
 
         // update checkout on change payment methods
         if ( is_checkout() && Admin_Options::get_setting('enable_all_discount_options') === 'yes' && ! class_exists('Flexify_Checkout') ) {
-            wp_enqueue_script( 'woo-custom-installments-update-checkout', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/update-checkout.js', array('jquery'), WOO_CUSTOM_INSTALLMENTS_VERSION );
+            wp_enqueue_script( 'woo-custom-installments-update-checkout', $this->assets_url . 'frontend/js/update-checkout.js', array('jquery'), $this->version );
         }
 
         $product_id = get_the_ID();
@@ -129,18 +165,18 @@ class Assets {
             $timestamp = time();
 
             if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
-                wp_enqueue_script( 'woo-custom-installments-range-price', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-range-price.js', array('jquery'), $timestamp, true );
+                wp_enqueue_script( 'woo-custom-installments-range-price', $this->assets_url . 'frontend/js/woo-custom-installments-range-price.js', array('jquery'), $timestamp, true );
 
                 wp_localize_script('woo-custom-installments-range-price', 'wci_range_params', array(
                     'ajax_url' => admin_url('admin-ajax.php'),
                     'element_triggers' => Admin_Options::get_setting('update_range_price_triggers'),
                     'update_method' => Admin_Options::get_setting('price_range_method'),
-                    'debug_mode' => WOO_CUSTOM_INSTALLMENTS_DEBUG,
+                    'debug_mode' => $this->debug_mode,
                 ));
             }
 
-            wp_enqueue_script( 'accounting-lib', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'vendor/accounting/accounting.min.js', array(), '0.4.2' );
-            wp_enqueue_script( 'woo-custom-installments-update-table-installments', WOO_CUSTOM_INSTALLMENTS_ASSETS . 'front/js/woo-custom-installments-update-table-installments.js', array('jquery'), $timestamp, true );
+            wp_enqueue_script( 'accounting-lib', $this->assets_url . 'vendor/accounting/accounting.min.js', array(), '0.4.2' );
+            wp_enqueue_script( 'woo-custom-installments-update-table-installments', $this->assets_url . 'frontend/js/woo-custom-installments-update-table-installments.js', array('jquery'), $timestamp, true );
 
             $installments_fee = array();
 
@@ -167,5 +203,3 @@ class Assets {
         }
     }
 }
-
-new Assets();

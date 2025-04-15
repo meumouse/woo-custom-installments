@@ -1,12 +1,27 @@
 <?php
 
-use MeuMouse\Woo_Custom_Installments\Core\License;
+use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit; ?>
 
 <div id="about" class="nav-content">
 	<table class="form-table">
+		<tr>
+			<th>
+				<?php esc_html_e( 'Ativar atualizações automáticas', 'woo-custom-installments' ); ?>
+				<span class="woo-custom-installments-description"><?php esc_html_e( 'Ative essa opção para que o plugin Parcelas Customizadas seja atualizado automaticamente sempre que possível.', 'woo-custom-installments' ); ?></span>
+			</th>
+			<td>
+				<div class="form-check form-switch">
+					<input type="checkbox" class="toggle-switch" id="enable_auto_updates" name="enable_auto_updates" value="yes" <?php checked( Admin_Options::get_setting('enable_auto_updates') === 'yes' ); ?> />
+				</div>
+			</td>
+		</tr>
+
+		<tr class="container-separator"></tr>
+		
 		<tr>
 			<td class="d-grid">
 				<h3 class="mb-4"><?php esc_html_e( 'Informações sobre a licença:', 'woo-custom-installments' ); ?></h3>
@@ -103,7 +118,7 @@ defined('ABSPATH') || exit; ?>
 						
 						<div class="input-group" style="max-width: 550px;">
 							<input class="form-control" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" id="woo_custom_installments_license_key" name="woo_custom_installments_license_key" size="50" value="<?php echo get_option( 'woo_custom_installments_license_key' ) ?>" />
-							<button type="submit" id="woo_custom_installments_active_license" class="btn btn-primary button-loading" name="woo_custom_installments_active_license"><?php esc_html_e( 'Ativar licença', 'woo-custom-installments' ); ?></button>
+							<button type="submit" id="woo_custom_installments_active_license" class="btn btn-primary" name="woo_custom_installments_active_license"><?php esc_html_e( 'Ativar licença', 'woo-custom-installments' ); ?></button>
 						</div>
 					</td>
 				</tr>
@@ -368,6 +383,8 @@ defined('ABSPATH') || exit; ?>
 			</td>
 		</tr>
 
+		<tr class="container-separator"></tr>
+
 		<tr>
 			<td>
 				<button id="wci_reset_settings_trigger" class="btn btn-sm btn-outline-warning d-flex align-items-center">
@@ -385,6 +402,7 @@ defined('ABSPATH') || exit; ?>
 								<div class="btn-icon rounded-circle p-2 mb-3 bg-translucent-danger">
 									<svg class="icon icon-xg icon-danger" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.953 2C6.465 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.493 2 11.953 2zM12 20c-4.411 0-8-3.589-8-8s3.567-8 7.953-8C16.391 4 20 7.589 20 12s-3.589 8-8 8z"></path><path d="M11 7h2v7h-2zm0 8h2v2h-2z"></path></svg>
 								</div>
+								
 								<h5 class="popup-title text-center my-2"><?php esc_html_e('Atenção! Você realmente deseja redefinir as configurações?', 'woo-custom-installments' ); ?></h5>
 								<span class="title-hightlight bg-danger mt-2 mb-3"></span>
 								<span class="text-muted fs-lg p-3"><?php esc_html_e( 'Ao redefinir as configurações do plugin, todas opções serão removidas, voltando ao estado original. Sua licença não será removida.', 'woo-custom-installments' ) ?></span>
@@ -397,14 +415,9 @@ defined('ABSPATH') || exit; ?>
 					</div>
 				</div>
 			</td>
-		</tr>
 
-		<tr class="container-separator"></tr>
-
-		<tr>
 			<td class="d-flex">
 				<a class="btn btn-sm btn-outline-danger d-flex align-items-center" target="_blank" href="https://meumouse.com/reportar-problemas/?wpf9053_2=<?php echo urlencode( WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL ); ?>&wpf9053_9=<?php echo urlencode( License::is_valid() ? 'Sim' : 'Não' ) ?>&wpf9053_7=<?php echo urlencode( License::get_domain() ) ?>&wpf9053_6=<?php echo urlencode( wp_get_theme()->get('Name') ) ?>"><?php esc_html_e( 'Reportar problemas', 'woo-custom-installments' ); ?></a>
-				<button class="btn btn-sm btn-outline-primary ms-2 d-flex align-items-center justify-content-center" id="woo_custom_installments_clear_activation_cache"><?php esc_html_e( 'Limpar cache de ativação', 'woo-custom-installments' ); ?></button>
 			</td>
 		</tr>
 	</table>
