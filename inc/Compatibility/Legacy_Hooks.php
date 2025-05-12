@@ -34,10 +34,35 @@ class Legacy_Hooks {
 	 */
 	protected static function map_legacy_hooks() {
 		$filters = array(
-		/*	'woo_custom_installments_group_custom_classes' => array(
-				'new_hook' => 'Woo_Custom_Installments/Price/Group_Classes',
+			'woo_custom_installments_before_installments_container' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/Before_Installments_Container',
 				'version' => '5.4.0',
-			),*/
+			),
+			'woo_custom_installments_after_installments_container' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/After_Installments_Container',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_popup_header' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/Modal_Header',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_popup_bottom' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/Modal_Footer',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_accordion_header' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/Accordion_Header',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_accordion_bottom' => array(
+				'new_hook' => 'Woo_Custom_Installments/Elements/Accordion_Footer',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_display_admin_notices' => array(
+				'new_hook' => 'Woo_Custom_Installments/Admin/Header',
+				'version' => '5.4.0',
+			),
+			
 		);
 	
 		// iterate for each hook

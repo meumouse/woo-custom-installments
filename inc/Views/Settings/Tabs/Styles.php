@@ -86,18 +86,6 @@ defined('ABSPATH') || exit; ?>
 
 		<tr>
 			<th>
-				<?php esc_html_e( 'Ativar atualização de valores em elementos em produtos variáveis', 'woo-custom-installments' ) ?>
-				<span class="woo-custom-installments-description"><?php esc_html_e('Ative esta opção para que elementos de preço dentro do popup ou sanfona em produtos variáveis sejam atualizados em AJAX.', 'woo-custom-installments' ) ?></span>
-			</th>
-			<td>
-				<div class="form-check form-switch">
-					<input type="checkbox" class="toggle-switch" id="enable_update_variation_prices_elements" name="enable_update_variation_prices_elements" value="yes" <?php checked( Admin_Options::get_setting('enable_update_variation_prices_elements') === 'yes' ); ?> />
-				</div>
-			</td>
-		</tr>
-
-		<tr>
-			<th>
 				<?php esc_html_e( 'Formato de ícones', 'woo-custom-installments' ) ?>
 				<span class="woo-custom-installments-description"><?php esc_html_e('Selecione o formato de exibição dos ícones dos elementos.', 'woo-custom-installments' ) ?></span>
 			</th>

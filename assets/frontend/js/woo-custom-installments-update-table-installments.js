@@ -39,7 +39,7 @@
 			let last_no_fee_installment = null;
 			let last_fee_installment = null;
 		
-			while (i <= params.max_installments) {
+			while ( i <= params.max_installments ) {
 				var fee = fees.hasOwnProperty(i) ? fees[i] : params.fee;
 		
 				if ( i <= params.max_installments_no_fee ) {
@@ -110,36 +110,6 @@
 					$('#woo-custom-installments-product-price').find('.woo-custom-installments-details-with-fee .best-value.fee-included .amount').html(last_fee_installment.price);
 				}
 			}
-
-			/**
-			 * Update price elements on popup and accordion on change variation
-			 *
-			 * @since 4.5.0
-			 * @version 5.1.0
-			 * @package MeuMouse.com
-			 */
-			$.ajax({
-				url: params.ajax_url,
-				type: 'POST',
-				dataType: 'json',
-				data: {
-					action: 'get_updated_variation_prices_action',
-					variation_id: get_variation_id,
-					direct_price: direct_price,
-				},
-				success: function(response) {
-					if ( response.success ) {
-						$.each( response.data, function(key, value) {
-							$.each(value.selectors, function(index, selector) {
-								$(selector).find('.amount').html(value.price);
-							});
-						});
-					}
-				},
-				error: function(error) {
-					console.log(error);
-				},
-			});
 		},
   
 		/**

@@ -131,47 +131,39 @@ class Calculate_Values {
      * Get discounted price based on product, price, and settings, including variations.
      *
      * @since 4.5.0
-     * @version 5.2.3
-     * @param mixed $product_or_price | Can be a WC_Product object or a numeric price.
+     * @version 5.4.0
+     * @param object $product | Product object
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
      */
-    public static function get_discounted_price( $product_or_price, $discount_type = 'main' ) {
-        if ( is_a( $product_or_price, 'WC_Product' ) ) {
-            $product = $product_or_price;
-    
-            // Get the correct price based on the product type
-            if ( $product->is_type( 'variation' ) ) {
-                $price = $product->get_sale_price() ?: $product->get_regular_price();
-            } elseif ( $product->is_type( 'variable' ) ) {
-                // For variable products, get the lowest price with discount
-                $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
-            } else {
-                $price = $product->get_sale_price() ?: $product->get_regular_price();
-            }
-    
-            $product_id = $product->get_id();
-            $parent_product_id = $product->get_parent_id() ?: $product_id;
-    
-        // If it is a numeric value
-        } elseif ( is_numeric( $product_or_price ) ) {
-            $price = floatval( $product_or_price );
-            $product_id = null;
-            $parent_product_id = null;
+    public static function get_discounted_price( $product, $discount_type = 'main' ) {
+        $price = 0;
+
+        // Get the correct price based on the product type
+        if ( $product->is_type( 'variation' ) ) {
+            $price = $product->get_sale_price() ?: $product->get_regular_price();
+        } elseif ( $product->is_type( 'variable' ) ) {
+            // For variable products, get the lowest price with discount
+            $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
         } else {
-            return 0; // Invalid input
+            $price = $product->get_sale_price() ?: $product->get_regular_price();
         }
+
+        $product_id = $product->get_id();
+        $parent_product_id = $product->get_parent_id() ?: $product_id;
     
         // Set discount amounts based on discount type
         switch ( $discount_type ) {
             case 'ticket':
-                $discount_value = Admin_Options::get_setting( 'discount_ticket' );
-                $discount_method = Admin_Options::get_setting( 'discount_method_ticket' );
+                $discount_value = Admin_Options::get_setting('discount_ticket');
+                $discount_method = Admin_Options::get_setting('discount_method_ticket');
+
                 break;
             case 'main':
             default:
-                $discount_value = Admin_Options::get_setting( 'discount_main_price' );
-                $discount_method = Admin_Options::get_setting( 'product_price_discount_method' );
+                $discount_value = Admin_Options::get_setting('discount_main_price');
+                $discount_method = Admin_Options::get_setting('product_price_discount_method');
+
                 break;
         }
     
@@ -323,4 +315,32 @@ class Calculate_Values {
 
         return [$discount_per_product, $discount_per_product_method, $discount_per_product_value];
     }
+
+
+    /**
+	 * Calculate Pix economy value
+	 *
+	 * @since 4.5.0
+	 * @version 5.4.0
+	 * @param object $product | WC_Product object
+	 * @return float | Economy value
+	 */
+	public static function get_pix_economy( $product ) {
+		$price = $product->get_sale_price() ?: $product->get_regular_price();
+
+		// Calculate the custom discounted price based on the "main" discount type
+		$custom_price = self::get_discounted_price( $product, 'main' );
+		
+		// Calculate the economy value (how much is saved with Pix)
+		$economy = (float) $price - (float) $custom_price;
+
+        /**
+         * Filter the calculated economy value
+         * 
+         * @since 4.5.0
+         * @version 5.4.0
+         * @param float $economy | Economy value
+         */
+		return apply_filters( 'Woo_Custom_Installments/Price/Economy_Pix_Price', $economy );
+	}
 }

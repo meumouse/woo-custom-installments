@@ -32,11 +32,12 @@ defined('ABSPATH') || exit; ?>
 
 <?php
 /**
- * Display admin notices
+ * Display custom content on header settings
  * 
  * @since 4.5.0
+ * @version 5.4.0
  */
-do_action('woo_custom_installments_display_admin_notices'); ?>
+do_action('Woo_Custom_Installments/Admin/Header'); ?>
 
 <div class="woo-custom-installments-wrapper">
     <div class="nav-tab-wrapper woo-custom-installments-tab-wrapper">

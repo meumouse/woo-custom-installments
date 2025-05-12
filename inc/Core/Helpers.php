@@ -3,7 +3,8 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
-use Elementor\Plugin as Elementor_Plugin;
+use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\Core\Calculate_Installments;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -61,7 +62,7 @@ class Helpers {
                 hexdec( str_repeat( substr( $hex, 2, 1 ), 2 ) ),
             ];
         } else {
-            throw new InvalidArgumentException('Formato de cor hexadecimal inválido');
+            throw new InvalidArgumentException('Invalid hexadecimal color format');
         }
     
         // Adjusts color based on adjustment factor
@@ -104,11 +105,11 @@ class Helpers {
      * Check if product is available
      * 
      * @since 1.0.0
-     * @version 4.5.0
-     * @param mixed $product | Product ID or false
+     * @version 5.4.0
+     * @param object $product | Product object
      * @return bool
      */
-    public static function is_available( $product = false ) {
+    public static function is_product_available( $product ) {
         $is_available = true;
         $price = wc_get_price_to_display( $product );
 
@@ -116,7 +117,15 @@ class Helpers {
             $is_available = false;
         }
 
-        return apply_filters( 'woo_custom_installments_is_available', $is_available, $product );
+        /**
+         * Filter to check if product is available
+         * 
+         * @since 1.0.0
+         * @version 5.4.0
+         * @param bool $is_available
+         * @param object $product | Product object
+         */
+        return apply_filters( 'Woo_Custom_Installments/Product/Is_Available', $is_available, $product );
     }
 
 
@@ -228,80 +237,10 @@ class Helpers {
 
 
     /**
-     * Check if the Elementor editor is currently editing a single product page.
-     * 
-     * @since 5.0.0
-     * @version 5.1.0
-     * @return bool True if editing a single product page in Elementor; false otherwise.
-     */
-    public static function is_editing_single_product_in_elementor() {
-        $is_editing = false;
-
-        // Check if Elementor is in edit mode
-        if ( self::elementor_is_editing_mode() ) {
-            $post_type = get_post_type();
-
-            // Checks whether we are editing a product page directly or a product template
-            if ( $post_type === 'product' ) {
-                // You are directly editing a product page
-                $is_editing = true;
-            } elseif ( $post_type === 'elementor_library' ) {
-                // Check if we are editing a product template
-                if ( isset( $_GET['post'] ) ) {
-                    $post_id = intval( $_GET['post'] );
-                    $template_type = get_post_meta( $post_id, '_elementor_template_type', true );
-
-                    if ( 'product' === $template_type ) {
-                        $is_editing = true;
-                    }
-                }
-            }
-
-            // Checks if the post content is in JSON format and contains a product
-            global $post;
-
-            if ( $post ) {
-                $post_content = $post->post_content;
-                $post_data = json_decode( $post_content, true );
-
-                // If the content is JSON and the post_type is 'product', we consider that we are editing a product
-                if ( json_last_error() === JSON_ERROR_NONE && isset( $post_data['post_type'] ) && $post_data['post_type'] === 'product' ) {
-                    $is_editing = true;
-                }
-            }
-        }
-
-        /**
-         * Filter to modify the condition for checking if editing a single product in Elementor
-         *
-         * @since 5.0.0
-         * @param bool $is_editing | Whether Elementor is editing a single product page
-         */
-        return apply_filters('woo_custom_installments_is_single_product_in_elementor', $is_editing);
-    }
-
-
-    /**
-     * Check if is editing mode on Elementor
-     * 
-     * @since 5.0.0
-     * @version 5.3.0
-     * @return bool
-     */
-    public static function elementor_is_editing_mode() {
-        if ( Elementor_Plugin::$instance->editor->is_edit_mode() ) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
      * Get product ID from post when editing with Elementor
      * 
      * @since 5.0.0
-     * @version 5.1.0
+     * @version 5.4.0
      * @param bool $product | Get product object for get id
      * @return mixed | Product ID or false
      */
@@ -319,7 +258,7 @@ class Helpers {
         }
 
         // Check if Elementor is in edit mode
-        if ( ! $product && self::elementor_is_editing_mode() && $post ) {
+        if ( ! $product && Elementor::is_edit_mode() && $post ) {
             $post_content = $post->post_content;
 
             // Checks if there is JSON content in post_content
@@ -365,4 +304,29 @@ class Helpers {
     
         return $original_data;
     }
+
+
+    /**
+	 * Replament strings in front-end
+	 * 
+	 * @since 1.3.0
+	 * @version 5.4.0
+	 * @param array $values | Value for replace
+	 * @return array
+	 */
+	public static function strings_to_replace( $values ) {
+		/**
+		 * Replace strings in front-end
+		 * 
+		 * @since 1.3.0
+		 * @version 5.4.0
+		 * @param array $values | Value for replace
+		 */
+		return apply_filters( 'Woo_Custom_Installments/Price/Strings_To_Replace', array(
+			'{{ parcelas }}' => $values['installments_total'],
+			'{{ valor }}' => wc_price( $values['installment_price'] ),
+			'{{ total }}' => wc_price( $values['final_price'] ),
+			'{{ juros }}' => Calculate_Installments::get_fee_info( $values ),
+		));
+	}
 }

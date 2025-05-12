@@ -1,20 +1,23 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Core;
+namespace MeuMouse\Woo_Custom_Installments\Views;
 
 use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\Core\Render_Elements;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
 /**
- * Include shortcodes for custom design
+ * Register shortcodes for custom design
  * 
  * @since 4.5.0
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Shortcodes extends Frontend {
+class Shortcodes extends Components {
 
     /**
      * Construct function
@@ -23,22 +26,27 @@ class Shortcodes extends Frontend {
      * @package MeuMouse.com
      */
     public function __construct() {
-        parent::__construct();
-
-        add_shortcode( 'woo_custom_installments_modal', array( $this, 'render_full_installment_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_card_info', array( $this, 'best_installments_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_group', array( $this, 'woo_custom_installments_group_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_table_installments', array( $this, 'installments_table_shortcode' ) );  
-        add_shortcode( 'woo_custom_installments_pix_container', array( $this, 'pix_flag_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_ticket_container', array( $this, 'ticket_flag_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_credit_card_container', array( $this, 'credit_card_flag_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_debit_card_container', array( $this, 'debit_card_flag_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_ticket_discount_badge', array( $this, 'discount_ticket_badge_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_pix_info', array( $this, 'discount_pix_info_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_economy_pix_badge', array( $this, 'economy_pix_badge_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_get_price_on_pix', array( $this, 'get_price_on_pix_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_get_price_on_ticket', array( $this, 'get_price_on_ticket_shortcode' ) );
-        add_shortcode( 'woo_custom_installments_get_economy_pix_price', array( $this, 'get_economy_pix_price_shortcode' ) );
+        $shortcodes = array(
+            'woo_custom_installments_modal' => 'render_full_installment_shortcode',
+            'woo_custom_installments_card_info' => 'best_installments_shortcode',
+            'woo_custom_installments_group' => 'woo_custom_installments_group_shortcode',
+            'woo_custom_installments_table_installments' => 'installments_table_shortcode',
+            'woo_custom_installments_pix_container' => 'pix_flag_shortcode',
+            'woo_custom_installments_ticket_container' => 'ticket_flag_shortcode',
+            'woo_custom_installments_credit_card_container' => 'credit_card_flag_shortcode',
+            'woo_custom_installments_debit_card_container' => 'debit_card_flag_shortcode',
+            'woo_custom_installments_ticket_discount_badge' => 'discount_ticket_badge_shortcode',
+            'woo_custom_installments_pix_info' => 'discount_pix_info_shortcode',
+            'woo_custom_installments_economy_pix_badge' => 'economy_pix_badge_shortcode',
+            'woo_custom_installments_get_price_on_pix' => 'get_price_on_pix_shortcode',
+            'woo_custom_installments_get_price_on_ticket' => 'get_price_on_ticket_shortcode',
+            'woo_custom_installments_get_economy_pix_price' => 'get_economy_pix_price_shortcode',
+        );
+        
+        // iterate for each shortcode
+        foreach ( $shortcodes as $tag => $callback ) {
+            add_shortcode( $tag, array( $this, $callback ) );
+        }        
     }
 
 
@@ -46,7 +54,7 @@ class Shortcodes extends Frontend {
      * Create a shortcode for modal container
      * 
      * @since 2.0.0
-     * @version 5.2.2
+     * @version 5.4.0
      * @return object
      */
     public function render_full_installment_shortcode() {
@@ -63,12 +71,10 @@ class Shortcodes extends Frontend {
             return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
 
-        $product_id = $product->get_id();
-
         ob_start();
 
         if ( License::is_valid() ) {
-            $this->full_installment( $product_id );
+            Render_Elements::display_payment_methods( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -81,7 +87,7 @@ class Shortcodes extends Frontend {
      * Create a shortcode best installments
      * 
      * @since 2.0.0
-     * @version 5.0.0
+     * @version 5.4.0
      * @return string
      */
     public function best_installments_shortcode() {

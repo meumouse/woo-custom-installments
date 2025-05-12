@@ -23,7 +23,7 @@ class Dynamic_Pricing_Discounts {
 	 * @return void
 	 */
 	public function __construct() {
-		add_filter( 'woo_custom_installments_set_values_price', array( $this, 'add_compatibility_wcdpd' ), 10, 2 );
+		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'add_compatibility_wcdpd' ), 10, 2 );
 	}
 
 

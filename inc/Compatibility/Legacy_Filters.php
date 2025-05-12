@@ -38,6 +38,50 @@ class Legacy_Filters {
 				'new_filter' => 'Woo_Custom_Installments/Price/Group_Classes',
 				'version' => '5.4.0',
 			),
+			'woo_custom_installments_strings_to_replace' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Strings_To_Replace',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_fee_label' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Fee_Label',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_installment_info' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Installment_Info',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_set_values_price' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Set_Values_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_card_flags' => array(
+				'new_filter' => 'Woo_Custom_Installments/Elements/Card_Flags',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_full_installment_product' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Set_Product',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_economy_pix_price' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Economy_Pix_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_all_installments' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/All_Installments',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_is_single_product_in_elementor' => array(
+				'new_filter' => 'Woo_Custom_Installments/Elementor/Editing_Single_Product',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_cart_total_title' => array(
+				'new_filter' => 'Woo_Custom_Installments/Cart/Total_Title',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_is_available' => array(
+				'new_filter' => 'Woo_Custom_Installments/Product/Is_Available',
+				'version' => '5.4.0',
+			)
 		);
 	
 		// iterate for each filter

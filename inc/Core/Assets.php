@@ -170,7 +170,6 @@ class Assets {
                 wp_localize_script('woo-custom-installments-range-price', 'wci_range_params', array(
                     'ajax_url' => admin_url('admin-ajax.php'),
                     'element_triggers' => Admin_Options::get_setting('update_range_price_triggers'),
-                    'update_method' => Admin_Options::get_setting('price_range_method'),
                     'debug_mode' => $this->debug_mode,
                 ));
             }

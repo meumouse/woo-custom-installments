@@ -148,6 +148,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'WOO_CUSTOM_INSTALLMENTS_URL' => $base_url,
 				'WOO_CUSTOM_INSTALLMENTS_ASSETS' => $base_url . 'assets/',
 				'WOO_CUSTOM_INSTALLMENTS_ABSPATH' => dirname( $base_file ) . '/',
+				'WOO_CUSTOM_INSTALLMENTS_TEMPLATES_DIR' => $base_dir . 'templates/',
 				'WOO_CUSTOM_INSTALLMENTS_SLUG' => self::$slug,
 				'WOO_CUSTOM_INSTALLMENTS_VERSION' => self::$version,
 				'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL' => get_option('admin_email'),

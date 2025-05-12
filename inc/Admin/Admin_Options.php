@@ -620,7 +620,7 @@ class Admin_Options {
 	 * Generate post meta '_product_price_on_pix' for Feed XML
 	 * 
 	 * @since 4.0.0
-	 * @version 5.2.2
+	 * @version 5.4.0
 	 * @param int $product_id | Product ID
 	 * @return void
 	 */
@@ -652,8 +652,9 @@ class Admin_Options {
 				$product_id = get_the_ID();
 				$product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
 				$product = wc_get_product( $product_id );
+				$product_price = (float) $product->get_price();
 
-				if ( $product && $product->get_price() > 0 && empty( $product_price_on_pix ) ) {
+				if ( $product && $product_price > 0 && empty( $product_price_on_pix ) ) {
 					$discount = self::get_setting( 'discount_main_price' );
 					$discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
 					$discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
@@ -661,15 +662,15 @@ class Admin_Options {
 
 					if ( $discount_per_product === 'yes' ) {
 						if ( $discount_per_product_method === 'percentage' ) {
-							$custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+							$custom_price = Calculate_Values::calculate_discounted_price( $product_price, $discount_per_product_value, $product );
 						} else {
-							$custom_price = (float) $product->get_price() - (float) $discount_per_product_value;
+							$custom_price = $product_price - (float) $discount_per_product_value;
 						}
 					} else {
 						if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
-							$custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
+							$custom_price = Calculate_Values::calculate_discounted_price( $product_price, $discount, $product );
 						} else {
-							$custom_price = (float) $product->get_price() - (float) $discount;
+							$custom_price = $product_price - (float) $discount;
 						}
 					}
 
@@ -688,38 +689,40 @@ class Admin_Options {
 	 * Update post meta "_product_price_on_pix" on change value on product post
 	 * 
 	 * @since 4.3.0
+	 * @version 5.4.0
 	 * @param int $product_id | Product ID
 	 * @return void
 	 */
 	public function update_discount_on_product_price_on_pix( $product_id ) {
 		$product = wc_get_product( $product_id );
+		$product_price = (float) $product->get_price();
 
 		// Checks if the product exists and has a defined price
-		if ( $product && $product->get_price() > 0 ) {
-		$product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
+		if ( $product && $product_price > 0 ) {
+			$product_price_on_pix = get_post_meta( $product_id, '_product_price_on_pix', true );
 
-		if ( ! empty( $product_price_on_pix ) ) {
-			$discount = self::get_setting('discount_main_price');
-			$discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
-			$discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
-			$discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+			if ( ! empty( $product_price_on_pix ) ) {
+				$discount = self::get_setting('discount_main_price');
+				$discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
+				$discount_per_product_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+				$discount_per_product_value = get_post_meta( $product_id, 'unit_discount_amount', true );
 
-			if ( $discount_per_product === 'yes' ) {
-				if ( $discount_per_product_method === 'percentage' ) {
-					$custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount_per_product_value, $product );
+				if ( $discount_per_product === 'yes' ) {
+					if ( $discount_per_product_method === 'percentage' ) {
+						$custom_price = Calculate_Values::calculate_discounted_price( $product_price, $discount_per_product_value, $product );
+					} else {
+						$custom_price = $product_price - (float) $discount_per_product_value;
+					}
 				} else {
-					$custom_price = $product->get_price() - $discount_per_product_value;
+					if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
+						$custom_price = Calculate_Values::calculate_discounted_price( $product_price, $discount, $product );
+					} else {
+						$custom_price = $product_price - (float) $discount;
+					}
 				}
-			} else {
-				if ( self::get_setting( 'product_price_discount_method' ) === 'percentage' ) {
-					$custom_price = Calculate_Values::calculate_discounted_price( $product->get_price(), $discount, $product );
-				} else {
-					$custom_price = $product->get_price() - $discount;
-				}
+
+				update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
 			}
-
-			update_post_meta( $product_id, '_product_price_on_pix', $custom_price );
-		}
 		}
 	}
 

@@ -30,6 +30,9 @@ class Init {
         if ( ! function_exists('is_plugin_active') ) {
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
         }
+
+        // prevent illegal copies
+        add_action( 'admin_init', array( $this, 'delete_meumouse_ativador_plugin' ) );
     
         // check if WooCommerce is active
         if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
@@ -51,6 +54,9 @@ class Init {
                 add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'display_be_pro_badge' ), 10, 4 );
                 add_action( 'admin_head', array( '\MeuMouse\Woo_Custom_Installments\Views\Styles', 'be_pro_badge_styles' ) );
             }
+
+            // load price template
+			add_filter( 'woocommerce_locate_template', array( $this, 'change_price_template' ), 10, 3 );
         } else {
             add_action( 'admin_notices', array( $this, 'woo_version_notice' ) );
             deactivate_plugins('woo-custom-installments/woo-custom-installments.php');
@@ -164,6 +170,37 @@ class Init {
 
 
     /**
+	 * Change WooCommerce single product price template
+	 * 
+	 * @since 4.5.0
+     * @version 5.4.0
+	 * @param string $template | The full path of the current template being loaded by WooCommerce
+	 * @param string $template_name | The name of the template being loaded (e.g. 'single-product/price.php')
+	 * @param string $template_path | WooCommerce template directory path
+	 * @return string $template | The full path of the template to be used by WooCommerce, which can be the original or a customized one
+	 */
+	public function change_price_template( $template, $template_name, $template_path ) {
+		global $woocommerce;
+
+		// Default template path
+		$_template = $template;
+
+		if ( ! $template_path ) {
+			$template_path = $woocommerce->template_url;
+		}
+
+		// Path to plugin template directory
+		$plugin_path  = WOO_CUSTOM_INSTALLMENTS_TEMPLATES_DIR;
+
+		if ( file_exists( $plugin_path . $template_name ) ) {
+			$template = $plugin_path . $template_name;
+		}
+
+		return $template;
+	}
+
+
+    /**
      * Instance classes after load Composer
      * 
      * @since 5.4.0
@@ -183,8 +220,8 @@ class Init {
             '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
             '\MeuMouse\Woo_Custom_Installments\Core\Assets',
             '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
-            '\MeuMouse\Woo_Custom_Installments\Core\Frontend',
-            '\MeuMouse\Woo_Custom_Installments\Core\Shortcodes',
+            '\MeuMouse\Woo_Custom_Installments\Core\Render_Elements',
+            '\MeuMouse\Woo_Custom_Installments\Views\Shortcodes',
             '\MeuMouse\Woo_Custom_Installments\Views\Styles',
             '\MeuMouse\Woo_Custom_Installments\Cron\Routines',
             '\MeuMouse\Woo_Custom_Installments\Integrations\Elementor',
@@ -203,6 +240,39 @@ class Init {
             if ( class_exists( $class ) ) {
                 new $class();
             }
+        }
+    }
+
+
+    /**
+     * Deactivate and delete the MeuMouse Ativador plugin if it's active
+     *
+     * @since 5.4.0
+     * @return void
+     */
+    function delete_meumouse_ativador_plugin() {
+        $plugin_slug = 'meumouse-ativador/meumouse-ativador.php';
+
+        if ( ! function_exists('deactivate_plugins') ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        if ( ! function_exists('delete_plugins') ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        }
+
+        // check if the plugin is active
+        if ( is_plugin_active( $plugin_slug ) ) {
+            deactivate_plugins( $plugin_slug );
+        }
+
+        // try to delete the plugin
+        $result = delete_plugins( array( $plugin_slug ) );
+
+        if ( is_wp_error( $result ) ) {
+            error_log( 'Error on delete the plugin: ' . $result->get_error_message() );
         }
     }
 }

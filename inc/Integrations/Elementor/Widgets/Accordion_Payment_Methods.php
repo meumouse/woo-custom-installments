@@ -10,6 +10,7 @@ use Elementor\Group_Control_Border;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\Core\Frontend;
+use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -86,7 +87,7 @@ class Wci_Accordion extends \Elementor\Widget_Base {
 	 */
 	public function show_in_panel() {
         return true;
-    //    return Helpers::is_editing_single_product_in_elementor();
+    //    return Elementor::editing_single_product_page();
     }
 
 

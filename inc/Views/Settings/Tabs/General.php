@@ -49,20 +49,6 @@ defined('ABSPATH') || exit; ?>
                      <div class="popup-body">
                         <table class="popup-table">
                            <tbody>
-                              <tr>
-                                 <th>
-                                    <?php esc_html_e( 'Método de atualização do preço', 'woo-custom-installments' ) ?>
-                                    <span class="woo-custom-installments-description"><?php esc_html_e('Define o método de atualização do preço da variação.', 'woo-custom-installments' ) ?></span>
-                                    <span class="woo-custom-installments-description mt-2"><?php esc_html_e('AJAX é um método de busca do preço através do servidor, ou método Dinâmico para obter o preço da variação existente e substituindo pelo preço atual (JavaScript).', 'woo-custom-installments' ) ?></span>
-                                 </th>
-                                 <td>
-                                    <select id="price_range_method" name="price_range_method" class="form-select <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
-                                    <option value="dynamic" <?php echo ( Admin_Options::get_setting('price_range_method') === 'dynamic' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Dinâmico (Padrão)', 'woo-custom-installments' ) ?></option>
-                                       <option value="ajax" <?php echo ( Admin_Options::get_setting('price_range_method') === 'ajax' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'AJAX', 'woo-custom-installments' ) ?></option>
-                                    </select>
-                                 </td>
-                              </tr>
-
                               <tr class="require-dynamic-method">
                                  <th>
                                     <?php esc_html_e( 'Gatilho para atualização', 'woo-custom-installments' ) ?>

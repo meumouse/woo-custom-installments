@@ -500,3 +500,7 @@ table tbody>tr:nth-child(odd)>th {
     margin-right: 0.5rem;
     display: flex;
 }
+
+.woo-custom-installments-group ins {
+    text-decoration: none;
+}

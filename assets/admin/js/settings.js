@@ -537,16 +537,16 @@
 		 * @since 5.4.0
 		 */
 		initializeModals: function() {
-			this.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
-			this.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
-			this.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
-			this.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
-			this.displayModal( $('.pro-version-notice'), $('#popup-pro-notice'), $('#close-pro-notice') );
-			this.displayModal( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
-			this.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
-			this.displayModal( $('#custom_product_price_trigger'), $('#custom_product_price_container'), $('#custom_product_price_close') );
-			this.displayModal( $('#center_group_elements_trigger'), $('#center_group_elements_container'), $('#center_group_elements_close') );
+			Settings.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
+			Settings.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
+			Settings.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
+			Settings.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
+			Settings.displayModal( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
+			Settings.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
+			Settings.displayModal( $('#custom_product_price_trigger'), $('#custom_product_price_container'), $('#custom_product_price_close') );
+			Settings.displayModal( $('#center_group_elements_trigger'), $('#center_group_elements_container'), $('#center_group_elements_close') );
 
+			// each modal for edit elements
 			$('.edit-elements-design').each( function() {
 				let trigger = $('#' + $(this).find('.modal-trigger').attr('id') );
 				let container = $('#' + $(this).find('.popup-container').attr('id') );
@@ -841,9 +841,6 @@
 			// Display remove price range settings
 			Settings.changeVisibility('#remove_price_range', '.require-remove-price-range');
 
-			// Display dynamic method settings for remove price range
-			Settings.selectVisibilityController('#price_range_method', ['dynamic'], '.require-dynamic-method');
-
 			// Display custom price modal settings
 			Settings.changeVisibility('#custom_text_after_price', '.require-custom-product-price');
 
@@ -894,6 +891,29 @@
 		},
 
 		/**
+		 * Display information when require license
+		 * 
+		 * @since 5.4.0
+		 */
+		requireLicenseInfo: function() {
+			// display require license modal
+			Settings.displayModal( $('.pro-version-notice'), $('#popup-pro-notice'), $('#close-pro-notice') );
+
+			// when click on has license button
+			$('#active_license_form').on('click', function(e) {
+				e.preventDefault();
+
+				$('#popup-pro-notice').removeClass('show'); // close modal
+				$('a.nav-tab[href="#about"]').click(); // active about tab
+
+				// scroll at the license form view
+				$('html, body').animate({
+					scrollTop: $('#enable_auto_updates').offset().top
+				}, 300);
+			});
+		},
+
+		/**
 		 * Initialize modules
 		 * 
 		 * @since 5.4.0
@@ -916,6 +936,7 @@
 			this.initializeModals();
 			this.initializeVisibilityControllers();
 			this.colorSelector();
+			this.requireLicenseInfo();
 		},
 	};
 

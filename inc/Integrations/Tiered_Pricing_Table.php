@@ -25,7 +25,7 @@ class Tiered_Pricing_Table {
 	 * @return void
 	 */
 	public function __construct() {
-		add_filter( 'woo_custom_installments_set_values_price', array( $this, 'adjust_price_based_on_tiered_pricing' ), 10, 2 );
+		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'adjust_price_based_on_tiered_pricing' ), 10, 2 );
         add_filter( 'woo_custom_installments_dynamic_table_params', array( $this, 'check_tiered_plugin' ), 10, 1 );
 	}
 

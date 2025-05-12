@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use Elementor\Plugin as Elementor_Plugin;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -108,5 +109,76 @@ class Elementor {
         wp_register_script( 'woo-custom-installments-front-accordion-preview', $this->assets_url . 'frontend/js/accordion.js', array('jquery'), $this->version );
         wp_enqueue_style('woo-custom-installments-front-accordion-styles-preview');
         wp_enqueue_script('woo-custom-installments-front-accordion-preview');
+    }
+
+
+    /**
+     * Check if the Elementor editor is currently editing a single product page.
+     * 
+     * @since 5.0.0
+     * @version 5.4.0
+     * @return bool True if editing a single product page in Elementor; false otherwise.
+     */
+    public static function editing_single_product_page() {
+        $is_editing = false;
+
+        // Check if Elementor is in edit mode
+        if ( self::is_edit_mode() ) {
+            $post_type = get_post_type();
+
+            // Checks whether we are editing a product page directly or a product template
+            if ( $post_type === 'product' ) {
+                // You are directly editing a product page
+                $is_editing = true;
+            } elseif ( $post_type === 'elementor_library' ) {
+                // Check if we are editing a product template
+                if ( isset( $_GET['post'] ) ) {
+                    $post_id = intval( $_GET['post'] );
+                    $template_type = get_post_meta( $post_id, '_elementor_template_type', true );
+
+                    if ( 'product' === $template_type ) {
+                        $is_editing = true;
+                    }
+                }
+            }
+
+            // Checks if the post content is in JSON format and contains a product
+            global $post;
+
+            if ( $post ) {
+                $post_content = $post->post_content;
+                $post_data = json_decode( $post_content, true );
+
+                // If the content is JSON and the post_type is 'product', we consider that we are editing a product
+                if ( json_last_error() === JSON_ERROR_NONE && isset( $post_data['post_type'] ) && $post_data['post_type'] === 'product' ) {
+                    $is_editing = true;
+                }
+            }
+        }
+
+        /**
+         * Filter to modify the condition for checking if editing a single product in Elementor
+         *
+         * @since 5.0.0
+         * @version 5.4.0
+         * @param bool $is_editing | Whether Elementor is editing a single product page
+         */
+        return apply_filters( 'Woo_Custom_Installments/Elementor/Editing_Single_Product', $is_editing );
+    }
+
+
+    /**
+     * Check if is editing mode on Elementor
+     * 
+     * @since 5.0.0
+     * @version 5.4.0
+     * @return bool
+     */
+    public static function is_edit_mode() {
+        if ( Elementor_Plugin::$instance->editor->is_edit_mode() ) {
+            return true;
+        }
+
+        return false;
     }
 }

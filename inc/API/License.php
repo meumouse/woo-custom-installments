@@ -80,6 +80,9 @@ class License {
         if ( get_option('woo_custom_installments_license_expired') ) {
             add_action( 'admin_notices', array( __CLASS__, 'license_expired_notice' ) );
         }
+
+        // display require license modal
+        add_action( 'Woo_Custom_Installments/Admin/Header', array( $this, 'display_modal_license_require' ) );
     }
 
 
