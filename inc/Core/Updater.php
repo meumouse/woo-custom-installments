@@ -23,12 +23,12 @@ defined('ABSPATH') || exit;
 class Updater {
 
     public $update_checker_file = 'https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/dist/update-checker.json';
-    public $plugin_slug;
-    public $version;
-    public $cache_key;
-    public $cache_data_base_key;
-    public $cache_allowed;
-    public $time_cache;
+    public $plugin_slug = WOO_CUSTOM_INSTALLMENTS_SLUG;
+    public $version = WOO_CUSTOM_INSTALLMENTS_VERSION;
+    public $cache_key = 'woo_custom_installments_check_updates';
+    public $cache_data_base_key = 'woo_custom_installments_remote_data';
+    public $cache_allowed = true;
+    public $time_cache = DAY_IN_SECONDS;
     public $update_available;
     public $download_url;
 
@@ -46,13 +46,6 @@ class Updater {
             add_filter( 'https_local_ssl_verify', '__return_false' );
             add_filter( 'http_request_host_is_external', '__return_true' );
         }
-
-        $this->plugin_slug = WOO_CUSTOM_INSTALLMENTS_SLUG;
-        $this->version = WOO_CUSTOM_INSTALLMENTS_VERSION;
-        $this->cache_key = 'woo_custom_installments_check_updates';
-        $this->cache_data_base_key = 'woo_custom_installments_remote_data';
-        $this->cache_allowed = true;
-        $this->time_cache = DAY_IN_SECONDS;
 
         add_filter( 'plugins_api', array( $this, 'plugin_info' ), 20, 3 );
         add_filter( 'site_transient_update_plugins', array( $this, 'update_plugin' ) );

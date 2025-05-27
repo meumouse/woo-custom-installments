@@ -1276,6 +1276,10 @@ span.discount-method-result-payment-method, span.interest-method-result-payment-
     margin-top: 0;
 }
 
+.popup-table {
+    width: 100%;
+}
+
 table.popup-table tr {
     padding-left: 0;
 }
@@ -1629,4 +1633,8 @@ input.set-border-radius:first-of-type {
 .icon-image-preview {
     width: 1rem;
     height: auto;
+}
+
+#selectors_group_for_center_elements {
+    min-height: 500px;
 }

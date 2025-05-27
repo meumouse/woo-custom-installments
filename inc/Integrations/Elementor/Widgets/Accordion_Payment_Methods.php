@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Elementor\Widgets;
+namespace MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -11,6 +11,7 @@ use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;

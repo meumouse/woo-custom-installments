@@ -44,12 +44,8 @@ class Admin_Options {
 		add_action( 'woocommerce_product_bulk_edit_save', array( $this, 'woo_custom_installments_save_bulk_edit_fields' ) );
 		add_action( 'admin_head', array( $this, 'inject_inline_js_product_edit_page' ) );
 
-		/**
-		 * Enable functions for discount per quantity in product edit
-		 * 
-		 * @since 2.7.2
-		 */
-		if ( self::get_setting( 'enable_discount_per_quantity_method' ) == 'product' && License::is_valid() ) {
+		// Enable functions for discount per quantity in product editor
+		if ( self::get_setting( 'enable_discount_per_quantity_method' ) === 'product' && License::is_valid() ) {
 			add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_options_discount_per_quantity_fields' ) );
 			add_action( 'woocommerce_process_product_meta', array( $this, 'save_options_discount_per_quantity_fields' ) );
 		}
@@ -220,10 +216,11 @@ class Admin_Options {
 	public function woo_custom_installments_output_bulk_edit_fields() {
 		?>
 		<div class="inline-edit-group woo-custom-installments-field">
-		<?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_installments', 'label'  => __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ) )); ?>
+			<?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_installments', 'label'  => __( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ) )); ?>
 		</div>
+
 		<div class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
-		<?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_discount_main_price', 'label'  =>  __( 'Desativar descontos neste produto', 'woo-custom-installments' ) ) ); ?>
+			<?php woocommerce_wp_checkbox( array( 'id'  =>  '__disable_discount_main_price', 'label'  =>  __( 'Desativar descontos neste produto', 'woo-custom-installments' ) ) ); ?>
 		</div>
 		<?php
 	}
@@ -243,12 +240,13 @@ class Admin_Options {
 		$disable_discount_checked = get_post_meta( $post->ID, '__disable_discount_main_price', true ); ?>
 
 		<label class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
-		<input type="checkbox" class="checkbox" name="__disable_installments" <?php checked( $disable_installments_checked === 'yes'); ?> >
-		<?php echo esc_html__( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ); ?>
+			<input type="checkbox" class="checkbox" name="__disable_installments" <?php checked( $disable_installments_checked === 'yes'); ?> >
+			<?php echo esc_html__( 'Desativar a exibição de parcelas neste produto', 'woo-custom-installments' ); ?>
 		</label>
+
 		<label class="inline-quick-edit woo-custom-installments-fields" style="display: block; clear: both;">
-		<input type="checkbox" class="checkbox" name="__disable_discount_main_price" <?php checked( $disable_discount_checked === 'yes'); ?> >
-		<?php echo esc_html__( 'Desativar descontos neste produto', 'woo-custom-installments' ); ?>
+			<input type="checkbox" class="checkbox" name="__disable_discount_main_price" <?php checked( $disable_discount_checked === 'yes'); ?> >
+			<?php echo esc_html__( 'Desativar descontos neste produto', 'woo-custom-installments' ); ?>
 		</label>
 		<?php
 	}
@@ -302,19 +300,19 @@ class Admin_Options {
 		$product_id = $post->ID;
 
 		if ( $column == 'name') {
-		$estMeta = get_post_meta( $product_id, '__disable_installments', true ); ?>
+			$estMeta = get_post_meta( $product_id, '__disable_installments', true ); ?>
 
-		<div class="hidden" id="woo_custom_installments_inline_<?php echo $product_id; ?>">
-			<div class="_woo_custom_installments_enable"><?php echo $estMeta; ?></div>
-		</div>
-		<?php
+			<div class="hidden" id="woo_custom_installments_inline_<?php echo $product_id; ?>">
+				<div class="_woo_custom_installments_enable"><?php echo $estMeta; ?></div>
+			</div>
+			<?php
 
-		$estMeta = get_post_meta( $product_id, '__disable_discount_main_price', true ); ?>
+			$estMeta = get_post_meta( $product_id, '__disable_discount_main_price', true ); ?>
 
-		<div class="hidden" id="woo_custom_installments_inline_<?php echo $product_id; ?>">
-			<div class="_woo_custom_installments_enable"><?php echo $estMeta; ?></div>
-		</div>
-		<?php
+			<div class="hidden" id="woo_custom_installments_inline_<?php echo $product_id; ?>">
+				<div class="_woo_custom_installments_enable"><?php echo $estMeta; ?></div>
+			</div>
+			<?php
 		}
 	}
 
@@ -435,8 +433,8 @@ class Admin_Options {
 			// Obtenha a lista de gateways do WooCommerce
 			$available_gateways = WC()->payment_gateways->payment_gateways();
 			
-			foreach ($available_gateways as $gateway_id => $gateway) {
-				echo '<option value="' . esc_attr($gateway_id) . '" ' . selected($selected_gateway, $gateway_id, false) . '>' . esc_html($gateway->get_title()) . '</option>';
+			foreach ( $available_gateways as $gateway_id => $gateway ) {
+				echo '<option value="' . esc_attr( $gateway_id ) . '" ' . selected( $selected_gateway, $gateway_id, false ) . '>' . esc_html( $gateway->get_title() ) . '</option>';
 			}
 		echo '</select>';
 		echo '</p>';

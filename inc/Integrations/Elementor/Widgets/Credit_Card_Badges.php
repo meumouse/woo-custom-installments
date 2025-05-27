@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Elementor\Widgets;
+namespace MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;

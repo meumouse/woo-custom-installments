@@ -21,7 +21,7 @@ class Schema {
 	 * Construct function
 	 * 
 	 * @since 2.0.0
-	 * @version 5.2.0
+	 * @version 5.4.0
 	 * @package MeuMouse.com
 	 */
 	public function __construct() {
@@ -40,7 +40,7 @@ class Schema {
 	 * @param \WC_Product $product | Product object
 	 */
 	public function schema_data_product( $markup, $product ) {
-		$price = self::get_price();
+		$price = $product->get_price();
 		$discounted_price = self::apply_discount( $price );
 		$prices = array( 'lowPrice', 'highPrice', 'price' );
 
@@ -78,12 +78,13 @@ class Schema {
 	 * @return float
 	 */
 	public static function apply_discount( $price ) {
-		$discount = $this->get_discount();
+		$discount = self::get_discount();
 
 		return wc_format_decimal( $price - ( $price * ( $discount / 100 ) ), wc_get_price_decimals() );
 	}
 }
 
+// check if Schema is enabled
 if ( Admin_Options::get_setting('display_discount_price_schema') === 'yes' ) {
   	new Schema();
 }

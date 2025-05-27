@@ -41,17 +41,17 @@ defined('ABSPATH') || exit; ?>
 
 							<div class="popup-body">
 								<table class="popup-table">
-								<tbody>
-									<tr>
-										<th>
-											<?php esc_html_e( 'Seletores alvo', 'woo-custom-installments' ) ?>
-											<span class="woo-custom-installments-description"><?php esc_html_e('Permite definir os seletores a serem centralizados ao centro.', 'woo-custom-installments' ) ?></span>
-										</th>
-										<td>
-											<textarea class="form-control" id="selectors_group_for_center_elements" name="selectors_group_for_center_elements"><?php echo Admin_Options::get_setting('selectors_group_for_center_elements'); ?></textarea>
-										</td>
-									</tr>
-								</tbody>
+									<tbody>
+										<tr>
+											<th>
+												<?php esc_html_e( 'Seletores alvo', 'woo-custom-installments' ) ?>
+												<span class="woo-custom-installments-description"><?php esc_html_e('Permite definir os seletores a serem centralizados ao centro. Use no formato de seletores CSS separando com vírgulas.', 'woo-custom-installments' ) ?></span>
+											</th>
+											<td>
+												<textarea class="form-control" id="selectors_group_for_center_elements" name="selectors_group_for_center_elements"><?php echo Admin_Options::get_setting('selectors_group_for_center_elements'); ?></textarea>
+											</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>

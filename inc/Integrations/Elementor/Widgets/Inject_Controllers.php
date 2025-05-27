@@ -1,12 +1,13 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Elementor\Widgets;
+namespace MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -35,6 +36,7 @@ class Inject_Controllers {
      * Add Woo Custom Installments element design controllers on Elementor Widgets in design section
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @param \Elementor\Controls_Stack $element | The element type
      * @param string $section_id | Section ID
      * @param array $args | Section arguments
@@ -43,7 +45,7 @@ class Inject_Controllers {
     public function inject_controllers( $element, $section_id, $args ) {
         // woocommerce-products = widget ID
         // section_design_box = section ID
-        $widgets = apply_filters( 'woo_custom_installments_inject_elementor_controllers', array(
+        $widgets = apply_filters( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array(
             'woocommerce-products' => 'section_design_box',
             'woocommerce-product-price' => 'section_price_style',
             'woocommerce-product-related' => 'section_design_box',

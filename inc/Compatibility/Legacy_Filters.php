@@ -81,7 +81,11 @@ class Legacy_Filters {
 			'woo_custom_installments_is_available' => array(
 				'new_filter' => 'Woo_Custom_Installments/Product/Is_Available',
 				'version' => '5.4.0',
-			)
+			),
+			'woo_custom_installments_inject_elementor_controllers' => array(
+				'new_filter' => 'Woo_Custom_Installments/Elementor/Inject_Controllers',
+				'version' => '5.4.0',
+			),
 		);
 	
 		// iterate for each filter

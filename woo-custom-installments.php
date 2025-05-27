@@ -10,9 +10,9 @@
  * Version: 					5.4.0
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
- * WC tested up to: 			9.8.1
+ * WC tested up to: 			9.8.5
  * Requires PHP: 				7.4
- * Tested up to:      			6.7.2
+ * Tested up to:      			6.8.1
  * Text Domain: 				woo-custom-installments
  * Domain Path: 				/languages
  * License: 					GPL2
