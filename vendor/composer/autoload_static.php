@@ -25,6 +25,7 @@ class ComposerStaticInit4e8314f581795aac1d4759fd7c46784b
         'MeuMouse\\Woo_Custom_Installments\\API\\License' => __DIR__ . '/../..' . '/inc/API/License.php',
         'MeuMouse\\Woo_Custom_Installments\\Admin\\Admin_Options' => __DIR__ . '/../..' . '/inc/Admin/Admin_Options.php',
         'MeuMouse\\Woo_Custom_Installments\\Admin\\Default_Options' => __DIR__ . '/../..' . '/inc/Admin/Default_Options.php',
+        'MeuMouse\\Woo_Custom_Installments\\Admin\\Product_Settings' => __DIR__ . '/../..' . '/inc/Admin/Product_Settings.php',
         'MeuMouse\\Woo_Custom_Installments\\Compatibility\\Legacy_Filters' => __DIR__ . '/../..' . '/inc/Compatibility/Legacy_Filters.php',
         'MeuMouse\\Woo_Custom_Installments\\Compatibility\\Legacy_Hooks' => __DIR__ . '/../..' . '/inc/Compatibility/Legacy_Hooks.php',
         'MeuMouse\\Woo_Custom_Installments\\Core\\Ajax' => __DIR__ . '/../..' . '/inc/Core/Ajax.php',

@@ -67,7 +67,7 @@ class Render_Elements {
 			}
 
 			if ( Admin_Options::get_setting('center_group_elements_loop') === 'yes' ) {
-				add_filter( 'woo_custom_installments_align_price_group_widgets', array( __CLASS__, 'align_center_group_prices' ) );
+				add_filter( 'Woo_Custom_Installments/Widgets/Align_Price_Group', array( __CLASS__, 'align_center_group_prices' ) );
 			}
 		}
     }

@@ -218,6 +218,7 @@ class Init {
             '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Filters',
             '\MeuMouse\Woo_Custom_Installments\API\License',
             '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
+            '\MeuMouse\Woo_Custom_Installments\Admin\Product_Settings',
             '\MeuMouse\Woo_Custom_Installments\Core\Assets',
             '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
             '\MeuMouse\Woo_Custom_Installments\Core\Render_Elements',

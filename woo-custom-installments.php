@@ -17,9 +17,9 @@
  * Domain Path: 				/languages
  * License: 					GPL2
  * 
- * @package						PCW - MeuMouse.com
+ * @package						Parcelas Customizadas para WooCommerce - MeuMouse.com
  * @author						MeuMouse.com
- * @copyright         			2023 MeuMouse.com
+ * @copyright         			2025 MeuMouse.com
  */
 
 namespace MeuMouse\Woo_Custom_Installments;

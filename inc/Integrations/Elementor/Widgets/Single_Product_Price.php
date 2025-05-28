@@ -93,7 +93,7 @@ class Price extends Widget_Base {
             'image_alt' => esc_attr__( 'Seja Pro', 'woo-custom-installments' ),
             'title' => esc_html__( 'Seja Pro - Parcelas Customizadas', 'woo-custom-installments' ),
             'description' => esc_html__( 'Adquira uma licença Pro do Parcelas Customizadas para WooCommerce para liberar todos os recursos e opções de estilização.', 'woo-custom-installments' ),
-            'upgrade_url' => esc_url( 'https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/#buy-pro' ),
+            'upgrade_url' => esc_url( 'https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=elementor_editor&utm_medium=widgets&utm_campaign=elementor_widgets#buy-pro' ),
             'upgrade_text' => esc_html__( 'Comprar agora', 'woo-custom-installments' ),
         );
 	}
@@ -278,7 +278,7 @@ class Price extends Widget_Base {
                     'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
                     'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
                     'return_value' => 'yes',
-                    'default' => apply_filters( 'woo_custom_installments_enable_grid_price_widgets', 'yes' ),
+                    'default' => apply_filters( 'Woo_Custom_Installments/Widgets/Enable_Grid_Price', 'yes' ),
                     'selectors' => array(
                         '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
                     ),
@@ -294,7 +294,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-price' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -306,7 +306,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-price' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -395,7 +395,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-offer' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -407,7 +407,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-offer' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -496,7 +496,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-ticket-discount' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -508,7 +508,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-ticket-discount' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -597,7 +597,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-card-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -609,7 +609,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-card-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -698,7 +698,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-economy-pix-badge' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -710,7 +710,7 @@ class Price extends Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-economy-pix-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -740,6 +740,7 @@ class Price extends Widget_Base {
 	 * Render the widget output on the frontend
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @return void
 	 */
 	protected function render() {
@@ -751,12 +752,12 @@ class Price extends Widget_Base {
             );
 
             $product_id = Helpers::get_product_id_from_post();
-            $product = wc_get_product( $product_id );
-
-            wc_get_template(
-                'single-product/price.php',
-                array( 'product' => $product ),
+            $template_name = 'single-product/price.php';
+            $args = array(
+                'product' => wc_get_product( $product_id ),
             );
+            
+            wc_get_template( $template_name, $args );
         } else {
             echo License::render_widget_license_message();
         }

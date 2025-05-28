@@ -31,7 +31,7 @@ class Elementor {
         if ( Admin_Options::get_setting('enable_elementor_widgets') === 'yes' ) {
             add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 3 );
             add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ), 10, 1 );
-            add_action( 'elementor/preview/enqueue_scripts', array( $this, 'wci_preview_assets' ) );
+            add_action( 'elementor/preview/enqueue_scripts', array( $this, 'preview_assets' ) );
         }
     }
 
@@ -99,7 +99,7 @@ class Elementor {
      * @version 5.4.0
      * @return void
      */
-    public function wci_preview_assets() {
+    public function preview_assets() {
         wp_register_style( 'woo-custom-installments-front-modal-styles-preview', $this->assets_url . 'frontend/css/modal.css', array(), $this->version );
         wp_register_script( 'woo-custom-installments-front-modal-preview', $this->assets_url . 'frontend/js/modal.js', array('jquery'), $this->version );
         wp_enqueue_style('woo-custom-installments-front-modal-styles-preview');

@@ -10,6 +10,7 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\API\\License' => $baseDir . '/inc/API/License.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Admin_Options' => $baseDir . '/inc/Admin/Admin_Options.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Default_Options' => $baseDir . '/inc/Admin/Default_Options.php',
+    'MeuMouse\\Woo_Custom_Installments\\Admin\\Product_Settings' => $baseDir . '/inc/Admin/Product_Settings.php',
     'MeuMouse\\Woo_Custom_Installments\\Compatibility\\Legacy_Filters' => $baseDir . '/inc/Compatibility/Legacy_Filters.php',
     'MeuMouse\\Woo_Custom_Installments\\Compatibility\\Legacy_Hooks' => $baseDir . '/inc/Compatibility/Legacy_Hooks.php',
     'MeuMouse\\Woo_Custom_Installments\\Core\\Ajax' => $baseDir . '/inc/Core/Ajax.php',

@@ -26,6 +26,8 @@ class Styles {
     public function __construct() {
         // add frontend styles on header
         add_action( 'wp_head', array( $this, 'render_styles' ) );
+
+        add_action( 'admin_head', array( $this, 'adjustment_styles_product_list' ) );
     }
 
 
@@ -357,4 +359,44 @@ class Styles {
 
         printf( __('<style>%s</style>'), $css );
     }
+
+    
+    /**
+	 * Hide installments info on WooCommerce product table on admin page
+	 * 
+	 * @since 4.3.5
+	 * @version 5.4.0
+	 * @return void
+	 */
+	public function adjustment_styles_product_list() {
+        ob_start(); ?>
+
+		.woo-custom-installments-offer,
+		.woo-custom-installments-economy-pix-badge,
+		.woo-custom-installments-ticket-discount,
+		.wci-sale-badge {
+			display: none;
+		}
+
+		.woo-custom-installments-starting-from {
+			margin-right: 0.25rem;
+		}
+
+		table.wp-list-table .column-price {
+			width: 10rem;
+		}
+
+		.woo-custom-installments-price {
+			display: block;
+		}
+
+		.woo-custom-installments-price.has-discount {
+			text-decoration: line-through;
+		}
+
+        <?php $css = ob_get_clean();
+        $css = wp_strip_all_tags( $css );
+
+		printf( __('<style>%s</style>'), $css );
+	}
 }

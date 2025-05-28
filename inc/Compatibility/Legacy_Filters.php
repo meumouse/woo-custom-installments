@@ -86,6 +86,22 @@ class Legacy_Filters {
 				'new_filter' => 'Woo_Custom_Installments/Elementor/Inject_Controllers',
 				'version' => '5.4.0',
 			),
+			'woo_custom_installments_set_default_options' => array(
+				'new_filter' => 'Woo_Custom_Installments/Admin/Set_Default_Options',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_hidden_old_price_widget' => array(
+				'new_filter' => 'Woo_Custom_Installments/Widgets/Hidden_Old_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_enable_grid_price_widgets' => array(
+				'new_filter' => 'Woo_Custom_Installments/Widgets/Enable_Grid_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_align_price_group_widgets' => array(
+				'new_filter' => 'Woo_Custom_Installments/Widgets/Align_Price_Group',
+				'version' => '5.4.0',
+			),
 		);
 	
 		// iterate for each filter

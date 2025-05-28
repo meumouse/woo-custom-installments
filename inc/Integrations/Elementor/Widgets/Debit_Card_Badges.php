@@ -101,7 +101,7 @@ class Debit_Card_Badges extends \Elementor\Widget_Base {
             'image_alt' => esc_attr__( 'Seja Pro', 'woo-custom-installments' ),
             'title' => esc_html__( 'Seja Pro - Parcelas Customizadas', 'woo-custom-installments' ),
             'description' => esc_html__( 'Adquira uma licença Pro do Parcelas Customizadas para WooCommerce para liberar todos os recursos e opções de estilização.', 'woo-custom-installments' ),
-            'upgrade_url' => esc_url( 'https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/#buy-pro' ),
+            'upgrade_url' => esc_url( 'https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?utm_source=elementor_editor&utm_medium=widgets&utm_campaign=elementor_widgets#buy-pro' ),
             'upgrade_text' => esc_html__( 'Comprar agora', 'woo-custom-installments' ),
         );
 	}
@@ -158,7 +158,7 @@ class Debit_Card_Badges extends \Elementor\Widget_Base {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .debit-card-container-badges' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -170,7 +170,7 @@ class Debit_Card_Badges extends \Elementor\Widget_Base {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .container-badge-icon.debit-card .size-badge-icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),

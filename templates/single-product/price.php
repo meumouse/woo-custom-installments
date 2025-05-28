@@ -22,19 +22,17 @@ use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-$product = wc_get_product( Helpers::get_product_id_from_post() );
-
-if ( $product === false ) {
+if ( ! $product ) {
     global $product;
 }
 
 // check if product is defined
-if ( ! $product || ! is_a( $product, 'WC_Product' ) ) :
+if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
     echo '<p>' . esc_html__( 'Produto não encontrado.', 'woo-custom-installments' ) . '</p>';
-    return;
-endif; ?>
 
-<?php
+    return;
+}
+
 /**
  * Custom hook for display content before price
  * 
@@ -45,7 +43,9 @@ endif; ?>
 do_action( 'Woo_Custom_Installments/Product/Before_Price', $product ); ?>
 
 <p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
-    <?php echo $product->get_price_html(); ?>
+    <?php 
+    var_dump( 'ID do produto: ' . $product->get_id() );
+    echo $product->get_price_html(); ?>
 </p>
 
 <?php

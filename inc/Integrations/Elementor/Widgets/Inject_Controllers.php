@@ -43,14 +43,23 @@ class Inject_Controllers {
      * @return void
      */
     public function inject_controllers( $element, $section_id, $args ) {
-        // woocommerce-products = widget ID
-        // section_design_box = section ID
+        /**
+         * Filter for enqueue widget ID and section ID for inject style controllers
+         * 
+         * woocommerce-products = widget ID
+         * section_design_box = section ID
+         * 
+         * @since 5.0.0
+         * @version 5.4.0
+         * @param array
+         */
         $widgets = apply_filters( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array(
             'woocommerce-products' => 'section_design_box',
             'woocommerce-product-price' => 'section_price_style',
             'woocommerce-product-related' => 'section_design_box',
             'woocommerce-product-upsell' => 'section_design_box',
             'wc-archive-products' => 'section_design_box',
+            'wd_single_product_price' => 'general_style_section',
         ));
 
         foreach ( $widgets as $widget_id => $section ) {
@@ -97,7 +106,7 @@ class Inject_Controllers {
                         'icon' => 'eicon-text-align-right',
                     ),
                 ),
-                'default' => apply_filters( 'woo_custom_installments_align_price_group_widgets', 'left' ),
+                'default' => apply_filters( 'Woo_Custom_Installments/Widgets/Align_Price_Group', 'left' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-group' => 'justify-items: {{VALUE}};',
                 ),
@@ -157,7 +166,7 @@ class Inject_Controllers {
 			array(
 				'label' => esc_html__( 'Tipografia', 'woo-custom-installments' ),
 				'name' => 'wci_old_price_typography',
-				'selector' => '{{WRAPPER}} .woo-custom-installments-price del, {{WRAPPER}} .woo-custom-installments-price del .amount',
+				'selector' => '{{WRAPPER}} .woo-custom-installments-price.has-discount, {{WRAPPER}} .woo-custom-installments-price.has-discount .amount',
 			)
 		);
 
@@ -167,7 +176,7 @@ class Inject_Controllers {
 				'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .woo-custom-installments-price del, {{WRAPPER}} .woo-custom-installments-price del .amount' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .woo-custom-installments-price.has-discount, {{WRAPPER}} .woo-custom-installments-price.has-discount .amount' => 'color: {{VALUE}}',
 				),
 			),
 		);
@@ -180,9 +189,9 @@ class Inject_Controllers {
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
-				'default' => apply_filters( 'woo_custom_installments_hidden_old_price_widget', 'block' ),
+				'default' => apply_filters( 'Woo_Custom_Installments/Widgets/Hidden_Old_Price', 'block' ),
                 'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-price.original-price del' => 'display: {{VALUE}}',
+                    '{{WRAPPER}} .woo-custom-installments-price.has-discount' => 'display: {{VALUE}} !important',
                 ),
             ),
 		);
@@ -228,12 +237,12 @@ class Inject_Controllers {
                     'label_on' => esc_html__( 'Ativo', 'woo-custom-installments' ),
                     'label_off' => esc_html__( 'Inativo', 'woo-custom-installments' ),
                     'return_value' => 'yes',
-                    'default' => apply_filters( 'woo_custom_installments_enable_grid_price_widgets', 'yes' ),
+                    'default' => apply_filters( 'Woo_Custom_Installments/Widgets/Enable_Grid_Price', 'yes' ),
                     'selectors' => array(
-                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
+                        '{{WRAPPER}} .woo-custom-installments-group .woo-custom-installments-group-main-price' => 'flex-direction: column; align-items: flex-start;',
                     ),
                     'selectors_off' => array(
-                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
+                        '{{WRAPPER}} .woo-custom-installments-group .woo-custom-installments-group-main-price' => 'flex-direction: row;',
                     ),
                 )
             );
@@ -244,7 +253,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-price' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -256,7 +265,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-price' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -333,7 +342,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Raio da borda', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', '%', 'em', 'rem' ],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-offer' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -345,7 +354,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-offer' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -357,7 +366,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-offer' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -434,7 +443,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Raio da borda', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', '%', 'em', 'rem' ],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-ticket-discount' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -446,7 +455,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-ticket-discount' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -458,7 +467,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-ticket-discount' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -535,7 +544,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Raio da borda', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', '%', 'em', 'rem' ],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-card-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -547,7 +556,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-card-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -559,7 +568,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-card-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -636,7 +645,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Raio da borda', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', '%', 'em', 'rem' ],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-economy-pix-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -648,7 +657,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-economy-pix-badge' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
@@ -660,7 +669,7 @@ class Inject_Controllers {
             array(
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em', 'rem'],
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
                     '{{WRAPPER}} .woo-custom-installments-economy-pix-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ),
