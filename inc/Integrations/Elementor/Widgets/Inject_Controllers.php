@@ -692,6 +692,108 @@ class Inject_Controllers {
 		);
     
         $element->end_controls_section();
+
+        // start badge sale controller
+        $element->start_controls_section(
+            'wci_sale_badge_style_section',
+            array(
+                'label' => esc_html__( 'Emblema de desconto', 'woo-custom-installments' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+            )
+        );
+
+        $element->add_group_control(
+            Group_Control_Typography::get_type(),
+            array(
+                'label' => esc_html__( 'Tipografia', 'woo-custom-installments' ),
+                'name' => 'wci_sale_badge_typography',
+                'selector' => '{{WRAPPER}} .wci-sale-badge',
+            )
+        );
+
+        $element->add_control(
+            'wci_sale_badge_text_color',
+            array(
+                'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'color: {{VALUE}}',
+                ),
+            )
+        );
+
+        $element->add_control(
+            'wci_sale_badge_background_color',
+            array(
+                'label' => esc_html__( 'Cor de fundo', 'woo-custom-installments' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'background-color: {{VALUE}}',
+                ),
+            )
+        );
+
+        $element->add_group_control(
+            Group_Control_Border::get_type(),
+            array(
+                'name' => 'wci_sale_badge_border',
+                'label' => esc_html__( 'Borda', 'woo-custom-installments' ),
+                'selector' => '{{WRAPPER}} .wci-sale-badge',
+            )
+        );
+
+        $element->add_control(
+            'wci_sale_badge_border_radius',
+            array(
+                'label' => esc_html__( 'Raio da borda', 'woo-custom-installments' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
+                'selectors' => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ),
+            )
+        );
+
+        $element->add_responsive_control(
+            'wci_sale_badge_margin',
+            array(
+                'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ),
+            )
+        );
+
+        $element->add_responsive_control(
+            'wci_sale_badge_padding',
+            array(
+                'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', '%', 'em', 'rem' ),
+                'selectors' => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ),
+            )
+        );
+
+        $element->add_control(
+            'wci_hidden_sale_badge',
+            array(
+                'label' => esc_html__( 'Ocultar emblema de desconto', 'woo-custom-installments' ),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
+                'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
+                'return_value' => 'none',
+                'default' => 'block',
+                'selectors' => array(
+                    '{{WRAPPER}} .wci-sale-badge' => 'display: {{VALUE}}',
+                ),
+            )
+        );
+
+        $element->end_controls_section();
     }
 }
 

@@ -21,17 +21,18 @@ class Woodmart {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.1.0
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
 		add_action( 'wp_head', array( __CLASS__, 'compat_woodmart' ) );
 
         if ( Helpers::check_theme_active('Woodmart') ) {
-            add_filter( 'woo_custom_installments_is_single_product_in_elementor', array( $this, 'check_layout_type' ) );
+            add_filter( 'Woo_Custom_Installments/Elementor/Editing_Single_Product', array( $this, 'check_layout_type' ) );
         }
 
-        add_filter( 'woo_custom_installments_inject_elementor_controllers', array( $this, 'inject_controllers' ), 10, 1 );
+        // inject widget controllers
+        add_filter( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array( $this, 'inject_controllers' ), 10, 1 );
 	}
 
 

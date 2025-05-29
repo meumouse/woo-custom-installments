@@ -242,7 +242,19 @@ class Calculate_Installments {
 				}
 			}
 
-			$html .= '<span class="woo-custom-installments-details best-value ' . $best_without_interest['class'] . '">' . apply_filters( 'woo_custom_installments_best_no_fee_' . $hook, $text, $best_without_interest, $product ) . '</span>';
+			/**
+			 * Filter to change the text of best installment without fee
+			 * 
+			 * @since 1.0.0
+			 * @version 5.4.0
+			 * @param string $text | Text to display
+			 * @param array $best_without_interest | Best installment without interest
+			 * @param object $product | Product object
+			 * @return string
+			 */
+			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_Without_Fee_' . $hook, $text, $best_without_interest, $product );
+
+			$html .= '<span class="woo-custom-installments-details best-value ' . $best_without_interest['class'] . '">' . $installments . '</span>';
 		$html .= '</span>';
 
 		return $html;
@@ -298,7 +310,19 @@ class Calculate_Installments {
 				}
 			}
 
-			$html .= '<span class="best-value '. $best_with_interest['class'] .'">'. apply_filters( 'woo_custom_installments_best_with_fee_'. $hook, $text, $best_with_interest, $product ) . '</span>';
+			/**
+			 * Filter to change the text of best installment with fee
+			 * 
+			 * @since 1.0.0
+			 * @version 5.4.0
+			 * @param string $text | Text to display
+			 * @param array $best_with_interest | Best installment with interest
+			 * @param object $product | Product object
+			 * @return string
+			 */
+			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_With_Fee_'. $hook, $text, $best_with_interest, $product );
+
+			$html .= '<span class="best-value '. $best_with_interest['class'] .'">'. $installments .'</span>';
 		$html .= '</span>';
 
 		return $html;

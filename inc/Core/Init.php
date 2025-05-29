@@ -222,6 +222,8 @@ class Init {
             '\MeuMouse\Woo_Custom_Installments\Core\Assets',
             '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
             '\MeuMouse\Woo_Custom_Installments\Core\Render_Elements',
+            '\MeuMouse\Woo_Custom_Installments\Core\Discounts',
+            '\MeuMouse\Woo_Custom_Installments\Core\Interests',
             '\MeuMouse\Woo_Custom_Installments\Views\Shortcodes',
             '\MeuMouse\Woo_Custom_Installments\Views\Styles',
             '\MeuMouse\Woo_Custom_Installments\Cron\Routines',

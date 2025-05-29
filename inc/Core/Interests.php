@@ -25,7 +25,7 @@ class Interests {
 	 * @return void
 	 */
 	public function __construct() {
-		if ( License::is_valid() ) {
+		if ( License::is_valid() && Admin_Options::get_setting('enable_all_interest_options') === 'yes' ) {
 			if ( ! is_admin() ) {
 				add_filter( 'woocommerce_gateway_title', array( $this, 'payment_method_title' ), 10, 2 );
 			}
@@ -70,29 +70,31 @@ class Interests {
 	 * Display the discount in payment method title
 	 * 
 	 * @since 2.3.5
-	 * @return string $title
+	 * @version 5.4.0
+	 * @param string $title | Payment method title
+	 * @param string $id | Payment method ID
+	 * @return string payment method title with discount
 	 */
 	public function payment_method_title( $title, $id ) {
 		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return $title;
 		}
 
-		$insterestSettings = get_option( 'woo_custom_installments_interests_setting' );
-		$insterestSettings = maybe_unserialize( $insterestSettings );
+		// If the option to display the interest in the checkout is not enabled, return the title
+		if ( Admin_Options::get_setting('display_tag_interest_checkout') === 'yes' ) {
+			$interest_settings = get_option( 'woo_custom_installments_interests_setting' );
+			$interest_settings = maybe_unserialize( $interest_settings );
 
-		if ( isset( $insterestSettings[ $id ]['amount'] ) && 0 < $insterestSettings[ $id ]['amount'] ) {
-			$discount = $insterestSettings[ $id ]['amount'];
+			if ( isset( $interest_settings[ $id ]['amount'] ) && 0 < $interest_settings[ $id ]['amount'] ) {
+				$discount = $interest_settings[ $id ]['amount'];
 
-			if ( $insterestSettings[ $id ]['type'] == 'percentage' ) {
-				$value = $discount . '%';
-			} else {
-				$value = wc_price( $discount );
-			}
+				if ( $interest_settings[ $id ]['type'] == 'percentage' ) {
+					$value = $discount . '%';
+				} else {
+					$value = wc_price( $discount );
+				}
 
-			if ( Admin_Options::get_setting('display_tag_interest_checkout') === 'yes' ) {
-				$title .= '<span class="badge-interest-checkout">' . sprintf( __( '%s juros', 'woo-custom-installments' ), $value ) . '</span>';
-			} else {
-				$title .= '';
+				return $title .= '<span class="badge-interest-checkout">' . sprintf( __( '%s juros', 'woo-custom-installments' ), $value ) . '</span>';
 			}
 		}
 
@@ -104,24 +106,37 @@ class Interests {
 	 * Add discount
 	 * 
 	 * @since 2.3.5
+	 * @version 5.4.0
 	 * @return void
 	 */
 	public function woo_custom_installments_add_interest( $cart ) {
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
+		if ( is_admin() && ! defined('DOING_AJAX') || is_cart() ) {
 			return;
 		}
 	
-		// Gets the discountSettings.
-		$gateways = get_option( 'woo_custom_installments_interests_setting' );
-		$gateways = maybe_unserialize( $gateways );
+		// Gets the payment gateways settings
+		$gateways = maybe_unserialize( get_option('woo_custom_installments_interests_setting') );
+		$selected_gateway = WC()->session->chosen_payment_method;
 
-		if ( isset( $gateways[ WC()->session->chosen_payment_method ] ) ) {
-			$value = $gateways[ WC()->session->chosen_payment_method ]['amount'];
-			$type = $gateways[ WC()->session->chosen_payment_method ]['type'];
+		if ( isset( $gateways[ $selected_gateway ] ) ) {
+			$value = $gateways[ $selected_gateway ]['amount'];
+			$type = $gateways[ $selected_gateway ]['type'];
 	
-			if ( apply_filters( 'woo_custom_installments_apply_interest', 0 < $value, $cart ) ) {
+			/**
+			 * Apply interest filter
+			 * 
+			 * @since 2.3.5
+			 * @version 5.4.0
+			 * @param float $value | Interest value
+			 * @param object $cart | Cart object
+			 * @return float $interest
+			 */
+			$interest = apply_filters( 'Woo_Custom_Installments/Cart/Apply_Interest', $value, $cart );
+
+			// If the interest is not numeric or less than or equal to 0, return
+			if ( is_numeric( $interest ) && $interest > 0 ) {
 				$payment_gateways = WC()->payment_gateways->payment_gateways();
-				$gateway = $payment_gateways[ WC()->session->chosen_payment_method ];
+				$gateway = $payment_gateways[ $selected_gateway ];
 				$discount_name = $this->discount_name( $value, $gateway );
 	
 				// Add the shipping total to the cart total to calculate the discount.
@@ -154,9 +169,4 @@ class Interests {
 			$order->set_payment_method_title( $clean_title );
 		}
 	}
-
-}
-
-if ( License::is_valid() && Admin_Options::get_setting('enable_all_interest_options') === 'yes' ) {
-	new Interests();
 }

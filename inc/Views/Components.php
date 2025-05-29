@@ -1048,4 +1048,40 @@ class Components {
 			}
 		}
 	}
+
+
+	/**
+	 * Display sale badge
+	 * 
+	 * @since 5.2.5
+     * @version 5.4.0
+	 * @param object $product | Product object
+	 * @return string
+	 */
+	public function sale_badge( $product ) {
+		if ( $product && $product->is_on_sale() ) {
+			if ( $product->is_type('variable') ) {
+				$percentages = array();
+				$prices = $product->get_variation_prices();
+				
+				foreach ( $prices['price'] as $key => $price ) {
+					if ( $prices['regular_price'][$key] !== $price ) {
+						$percentages[] = round( 100 - ( $prices['sale_price'][$key] / $prices['regular_price'][$key] * 100 ) );
+					}
+				}
+
+				if ( ! empty( $percentages ) ) {
+					$percentage = max( $percentages ) . '%';
+				} else {
+					$percentage = '0%';
+				}
+			} else {
+				$regular_price = (float) $product->get_regular_price();
+				$sale_price = (float) $product->get_sale_price();
+				$percentage = round( 100 - ( $sale_price / $regular_price * 100 ) ) . '%';
+			}
+		
+			return '<span class="wci-sale-badge">'. sprintf( __( '%s OFF', 'woo-custom-installments' ), $percentage ) .'</span>';
+		}
+	}
 }

@@ -182,7 +182,9 @@ class Helpers {
      * Get option interest of calc installments
      * 
      * @since 2.3.5
-     * @version 4.5.0
+     * @version 5.4.0
+     * @param object|bool $product | Product object or false
+     * @param int $installments | Number of installments
      * @return string
      */
     public static function get_fee( $product = false, $installments = 1 ) {
@@ -191,10 +193,20 @@ class Helpers {
         if ( Admin_Options::get_setting('set_fee_per_installment') === 'yes' ) {
             $fee = isset( $custom_fee[$installments]['amount'] ) ? floatval( $custom_fee[$installments]['amount'] ) : 0;
         } else {
-            $fee = Admin_Options::get_setting('fee_installments_global');
+            $fee = floatval( Admin_Options::get_setting('fee_installments_global') );
         }
         
-        return apply_filters( 'woo_custom_installments_fee', $fee, $product, $installments );
+        /**
+         * Filter to get fee for installments
+         * 
+         * @since 2.3.5
+         * @version 5.4.0
+         * @param float $fee | Fee value
+         * @param object $product | Product object
+         * @param int $installments | Number of installments
+         * @return float
+         */
+        return apply_filters( 'Woo_Custom_Installments/Installments/Get_Fee', $fee, $product, $installments );
     }
 
 

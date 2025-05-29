@@ -21,11 +21,11 @@ class Discounts {
 	 * Construct function
 	 * 
 	 * @since 2.0.0
-	 * @version 5.2.5
+	 * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
-		if ( License::is_valid() ) {
+		if ( License::is_valid() && Admin_Options::get_setting('enable_all_discount_options') === 'yes' ) {
 			if ( ! is_admin() ) {
 				add_filter( 'woocommerce_gateway_title', array( $this, 'payment_method_title' ), 10, 2 );
 			}
@@ -33,11 +33,7 @@ class Discounts {
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'set_original_payment_title' ), 10 );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'add_discounts' ), 10 );
 
-			/**
-			 * Enable discount per quantity for all products
-			 * 
-			 * @since 2.7.2
-			 */
+			// Enable discount per quantity for all products
 			if ( Admin_Options::get_setting('enable_functions_discount_per_quantity') === 'yes' ) {
 				add_action( 'woocommerce_before_calculate_totals', array( $this, 'set_discount_per_quantity' ) );
 			}
@@ -84,82 +80,78 @@ class Discounts {
 	 * Display the discount in payment method title
 	 * 
 	 * @since 2.0.0
-	 * @version 5.2.5
+	 * @version 5.4.0
 	 * @param $title | Payment gateway title
 	 * @param $id | Payment gateway ID
 	 * @return string | $title
 	 */
 	public function payment_method_title( $title, $id ) {
 		if ( ! is_object( WC()->cart ) || ! is_checkout() ) {
-			 return $title;
+			return $title;
 		}
-  
-		$discount_settings = maybe_unserialize( get_option('woo_custom_installments_discounts_setting') );
-		$product_discount = 0;
-		$product_discount_method = '';
-  
+
+		// Check if the option to display discount price in checkout is enabled
 		if ( Admin_Options::get_setting('display_tag_discount_price_checkout') !== 'yes' ) {
-			 return $title;
+			return $title;
 		}
   
-		// Inicializa como falso
 		$is_discount_eligible_product_exists = false;
 		$current_payment_method = $id;
-  
-		// Itera sobre os produtos no carrinho
+
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			 $product = $cart_item['data'];
-			 $enable_discount = get_post_meta( $product->get_id(), 'enable_discount_per_unit', true ) === 'yes';
-			 $disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
-			 $discount_gateway = get_post_meta( $product->get_id(), 'discount_gateway', true );
-  
-			 if ( $enable_discount && ! $disable_discount ) {
-				  if ( $discount_gateway === $current_payment_method ) {
-						$product_discount = get_post_meta( $product->get_id(), 'unit_discount_amount', true );
-						$product_discount_method = get_post_meta( $product->get_id(), 'discount_per_unit_method', true );
-  
-						if ( $product_discount_method === 'percentage' ) {
-							 $value = $product_discount . '%';
-						} else {
-							 $value = wc_price( $product_discount );
-						}
-  
-						// Adiciona o HTML ao título
-						$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
-  
-						return $title;
-				  }
-  
-				  $is_discount_eligible_product_exists = true;
-			 }
+			$product = $cart_item['data'];
+			$product_id = $product->get_id();
+			$enable_discount = get_post_meta( $product_id, 'enable_discount_per_unit', true ) === 'yes';
+			$disable_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
+			$discount_gateway = get_post_meta( $product_id, 'discount_gateway', true );
+
+			if ( $enable_discount && ! $disable_discount ) {
+				if ( $discount_gateway === $current_payment_method ) {
+					$product_discount = get_post_meta( $product_id, 'unit_discount_amount', true );
+					$product_discount_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+
+					if ( $product_discount_method === 'percentage' ) {
+						$value = $product_discount . '%';
+					} else {
+						$value = wc_price( $product_discount );
+					}
+
+					$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
+
+					return $title;
+				}
+
+				$is_discount_eligible_product_exists = true;
+			}
 		}
-  
+
 		if ( $is_discount_eligible_product_exists ) {
-			 return $title;
+			return $title;
 		}
-  
+
+		$discount_settings = maybe_unserialize( get_option('woo_custom_installments_discounts_setting') );
+
 		if ( isset( $discount_settings[ $id ]['amount'] ) && $discount_settings[ $id ]['amount'] > 0 ) {
-			 $discount = $discount_settings[ $id ]['amount'];
-  
-			 if ( $discount_settings[ $id ]['type'] == 'percentage' ) {
-				  $value = $discount . '%';
-			 } else {
-				  $value = wc_price( $discount );
-			 }
-  
-			 // Adiciona o HTML ao título
-			 $title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
+			$discount = $discount_settings[ $id ]['amount'];
+
+			if ( $discount_settings[ $id ]['type'] == 'percentage' ) {
+				$value = $discount . '%';
+			} else {
+				$value = wc_price( $discount );
+			}
+
+			$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
 		}
-  
+
 		return $title;
-  }  
+  	}
 
 
 	/**
 	 * Add discount
 	 * 
 	 * @since 2.6.0
-	 * @version 4.5.3
+	 * @version 5.4.0
 	 * @param $cart | WC_Cart object
 	 * @return void
 	 */
@@ -175,7 +167,7 @@ class Discounts {
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = $cart_item['data'];
 			$product_id = $product->get_id();
-			$discount_per_product = get_post_meta($product->get_id(), 'enable_discount_per_unit', true);
+			$discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
 	
 			if ( $discount_per_product === 'yes' ) {
 				// If the product has an individual discount, add it to the list of discounted products
@@ -187,7 +179,7 @@ class Discounts {
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = $cart_item['data'];
 			$product_id = $product->get_id();
-			$discount_per_product = get_post_meta( $product->get_id(), 'enable_discount_per_unit', true );
+			$discount_per_product = get_post_meta( $product_id, 'enable_discount_per_unit', true );
 			$product_discount = get_post_meta( $product_id, 'unit_discount_amount', true );
 			$product_discount_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
 			$discount_gateway = get_post_meta( $product_id, 'discount_gateway', true );
@@ -222,8 +214,19 @@ class Discounts {
 			if ( isset( $gateways[WC()->session->chosen_payment_method] ) ) {
 				$value = $gateways[WC()->session->chosen_payment_method]['amount'];
 				$type = $gateways[WC()->session->chosen_payment_method]['type'];
-	
-				if ( apply_filters('woo_custom_installments_apply_discount', 0 < $value, $cart ) ) {
+
+				/**
+				 * Filter to allow custom discount logic
+				 * 
+				 * @since 2.0.0
+				 * @version 5.4.0
+				 * @param float $value | Discount value
+				 * @param WC_Cart $cart | Cart object
+				 * @return float $discount | Discount value
+				 */
+				$discount = apply_filters('Woo_Custom_Installments/Cart/Apply_Discount', $value, $cart );
+
+				if ( is_numeric( $discount ) && $discount > 0 ) {
 					$payment_gateways = WC()->payment_gateways->payment_gateways();
 					$gateway = $payment_gateways[WC()->session->chosen_payment_method];
 					$discount_name = $this->discount_name( $value, $gateway );
@@ -234,8 +237,7 @@ class Discounts {
 					foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 						$product = $cart_item['data'];
 						$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) == 'yes';
-						$parent_id = $product->get_parent_id();
-						$disable_discount_in_parent = get_post_meta( $parent_id, '__disable_discount_main_price', true ) == 'yes';
+						$disable_discount_in_parent = get_post_meta( $product->get_parent_id(), '__disable_discount_main_price', true ) == 'yes';
 	
 						// Check if the product or its parent has the discount disabled
 						if ( ! $disable_discount && ! $disable_discount_in_parent ) {
@@ -304,9 +306,9 @@ class Discounts {
 	
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = $cart_item['data'];
-			$disable_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) == 'yes';
-			$parent_id = $product->get_parent_id();
-			$disable_discount_in_parent = get_post_meta( $parent_id, '__disable_discount_main_price', true ) == 'yes';
+			$product_id = $product->get_id();
+			$disable_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) == 'yes';
+			$disable_discount_in_parent = get_post_meta( $product->get_parent_id(), '__disable_discount_main_price', true ) == 'yes';
 	
 			// check if the product or its parent has the discount disabled
 			if ( ! $disable_discount && ! $disable_discount_in_parent ) {
@@ -318,9 +320,9 @@ class Discounts {
 				$minimum_quantity = Admin_Options::get_setting('set_quantity_enable_discount');
 	
 				// single product discount options
-				$discount_method_single = get_post_meta( $product->get_id(), 'discount_per_quantity_method', true );
-				$discount_value_single = get_post_meta( $product->get_id(), 'quantity_discount_amount', true );
-				$minimum_quantity_single = get_post_meta( $product->get_id(), 'minimum_quantity_discount', true );
+				$discount_method_single = get_post_meta( $product_id, 'discount_per_quantity_method', true );
+				$discount_value_single = get_post_meta( $product_id, 'quantity_discount_amount', true );
+				$minimum_quantity_single = get_post_meta( $product_id, 'minimum_quantity_discount', true );
 	
 				if ( $quantity >= $minimum_quantity_single && $discount_value_single ) {
 					$price = $product->get_price();
@@ -343,8 +345,8 @@ class Discounts {
 					$price = $product->get_price();
 	
 					// check discount method
-					if ($discount_method == 'percentage') {
-						$discounted_price = $price - ($price * ($discount_value / 100));
+					if ( $discount_method == 'percentage' ) {
+						$discounted_price = $price - ( $price * ( $discount_value / 100 ) );
 					} else {
 						$discounted_price = $price - $discount_value;
 					}
@@ -372,9 +374,4 @@ class Discounts {
 			}
 		}
 	}
-	
-}
-
-if ( License::is_valid() && Admin_Options::get_setting('enable_all_discount_options') === 'yes' ) {
-	new Discounts();
 }

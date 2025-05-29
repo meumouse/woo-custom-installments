@@ -134,7 +134,14 @@ class Assets {
             if ( get_post_meta( $post_id, 'enable_discount_per_unit', true ) === 'yes' ) {
                 wp_enqueue_script( 'woo-custom-installments-front-scripts', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts.js', array('jquery'), $this->version );
 
-                $params = apply_filters( 'woo_custom_installments_front_params', array(
+                /**
+                 * Filter to add parameters for front scripts
+                 * 
+                 * @since 1.0.0
+                 * @version 5.4.0
+                 * @param array $params
+                 */
+                $params = apply_filters( 'Woo_Custom_Installments/Assets/Front_Params', array(
                     'enable_discount_per_unit' => get_post_meta( $post_id, 'enable_discount_per_unit', true ),
                     'discount_per_unit_method' => get_post_meta( $post_id, 'discount_per_unit_method', true ),
                     'unit_discount_amount' => get_post_meta( $post_id, 'unit_discount_amount', true ),
@@ -183,22 +190,32 @@ class Assets {
                 $installments_fee[$i] = Helpers::get_fee( false, $i );
             }
 
-            wp_localize_script( 'woo-custom-installments-update-table-installments', 'wci_update_table_params', apply_filters( 'woo_custom_installments_dynamic_table_params', array(
-                'currency_format_num_decimals' => wc_get_price_decimals(),
-                'currency_format_symbol' => get_woocommerce_currency_symbol(),
-                'currency_format_decimal_sep' => esc_attr( wc_get_price_decimal_separator() ),
-                'currency_format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
-                'currency_format' => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ), // For accounting JS
-                'rounding_precision' => wc_get_rounding_precision(),
-                'max_installments' => Admin_Options::get_setting('max_qtd_installments'),
-                'max_installments_no_fee' => Admin_Options::get_setting('max_qtd_installments_without_fee'),
-                'min_installment' => Admin_Options::get_setting('min_value_installments'),
-                'fee' => Helpers::get_fee(),
-                'fees' => $installments_fee,
-                'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
-                'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
-                'ajax_url' => admin_url('admin-ajax.php'),
-            )));
+            wp_localize_script( 'woo-custom-installments-update-table-installments', 'wci_update_table_params',
+                /**
+                 * Filter to add parameters for installments table
+                 * 
+                 * @since 1.0.0
+                 * @version 5.4.0
+                 * @param array $params
+                 * @return array
+                 */
+                apply_filters( 'Woo_Custom_Installments/Assets/Dynamic_Table_Params', array(
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'currency_format_num_decimals' => wc_get_price_decimals(),
+                    'currency_format_symbol' => get_woocommerce_currency_symbol(),
+                    'currency_format_decimal_sep' => esc_attr( wc_get_price_decimal_separator() ),
+                    'currency_format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
+                    'currency_format' => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ), // For accounting JS
+                    'rounding_precision' => wc_get_rounding_precision(),
+                    'max_installments' => Admin_Options::get_setting('max_qtd_installments'),
+                    'max_installments_no_fee' => Admin_Options::get_setting('max_qtd_installments_without_fee'),
+                    'min_installment' => Admin_Options::get_setting('min_value_installments'),
+                    'fee' => Helpers::get_fee(),
+                    'fees' => $installments_fee,
+                    'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
+                    'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
+                ))
+            );
         }
     }
 }

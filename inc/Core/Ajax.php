@@ -17,8 +17,29 @@ defined('ABSPATH') || exit;
  */
 class Ajax {
 
+    /**
+     * Save the license response object
+     * 
+     * @since 5.4.0
+     * @return object
+     */
     public $response_obj;
+
+    /**
+     * Save the license message
+     * 
+     * @since 5.4.0
+     * @return string
+     */
     public $license_message;
+
+    /**
+     * Plugin file constant
+     * 
+     * @since 5.4.0
+     * @return string
+     */
+    public $plugin_file = WOO_CUSTOM_INSTALLMENTS_FILE;
 
 	/**
 	 * Construct function
@@ -179,7 +200,7 @@ class Ajax {
             update_option( 'woo_custom_installments_temp_license_key', $license_key ) || add_option('woo_custom_installments_temp_license_key', $license_key );
     
             // Check on the server if the license is valid and update responses and options
-            if ( License::check_license( $license_key, $this->license_message, $this->response_obj, WOO_CUSTOM_INSTALLMENTS_FILE ) ) {
+            if ( License::check_license( $license_key, $this->license_message, $this->response_obj, $this->plugin_file ) ) {
                 if ( $this->response_obj && $this->response_obj->is_valid ) {
                     update_option( 'woo_custom_installments_license_status', 'valid' );
                     delete_option('woo_custom_installments_temp_license_key');
@@ -294,7 +315,7 @@ class Ajax {
     public function deactive_license_callback() {
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_deactive_license_action' ) {
             $message = '';
-            $deactivation = License::deactive_license( WOO_CUSTOM_INSTALLMENTS_FILE, $message );
+            $deactivation = License::deactive_license( $this->plugin_file, $message );
 
             if ( $deactivation ) {
                 update_option( 'woo_custom_installments_license_status', 'invalid' );

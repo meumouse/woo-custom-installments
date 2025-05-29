@@ -59,7 +59,7 @@ class Legacy_Filters {
 				'version' => '5.4.0',
 			),
 			'woo_custom_installments_full_installment_product' => array(
-				'new_filter' => 'Woo_Custom_Installments/Installments/Set_Product',
+				'new_filter' => 'Woo_Custom_Installments/Payment_Methods/Set_Product',
 				'version' => '5.4.0',
 			),
 			'woo_custom_installments_economy_pix_price' => array(
@@ -100,6 +100,54 @@ class Legacy_Filters {
 			),
 			'woo_custom_installments_align_price_group_widgets' => array(
 				'new_filter' => 'Woo_Custom_Installments/Widgets/Align_Price_Group',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_calculate_total_discount' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Calculate_Total_Discount',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_with_fees' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/With_Fees',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_no_fee' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Without_Fee',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_final_price' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Final_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_discounted_price' => array(
+				'new_filter' => 'Woo_Custom_Installments/Price/Discounted_Price',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_front_params' => array(
+				'new_filter' => 'Woo_Custom_Installments/Assets/Front_Params',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_dynamic_table_params' => array(
+				'new_filter' => 'Woo_Custom_Installments/Assets/Dynamic_Table_Params',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_best_no_fee_' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Best_Without_Fee_',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_best_with_fee_' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Best_With_Fee_',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_apply_discount' => array(
+				'new_filter' => 'Woo_Custom_Installments/Cart/Apply_Discount',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_fee' => array(
+				'new_filter' => 'Woo_Custom_Installments/Installments/Get_Fee',
+				'version' => '5.4.0',
+			),
+			'woo_custom_installments_apply_interest' => array(
+				'new_filter' => 'Woo_Custom_Installments/Cart/Apply_Interest',
 				'version' => '5.4.0',
 			),
 		);

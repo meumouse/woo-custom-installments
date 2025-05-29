@@ -20,7 +20,7 @@ class Calculate_Values {
      * Calculate total value of single installment with interest
      *
      * @since 2.1.0
-     * @version 5.2.0
+     * @version 5.4.0
      * @param float $value (Base value for calc)
      * @param float $fee (Fee of interest)
      * @param int $installments (Total of installments)
@@ -45,7 +45,18 @@ class Calculate_Values {
             $installment_price = $value * $percentage * ( ( 1 + $percentage ) ** $installments ) / $denominator;
         }
     
-        return apply_filters( 'woo_custom_installments_with_fee', $installment_price, $value, $fee, $installments );
+        /**
+         * Filter the installment price with fees
+         * 
+         * @since 2.1.0
+         * @version 5.2.0
+         * @param float $installment_price | Calculated installment price
+         * @param float $value | Base value for calculation
+         * @param float $fee | Interest fee percentage
+         * @param int $installments | Total number of installments
+         * @return float
+         */
+        return apply_filters( 'Woo_Custom_Installments/Installments/With_Fees', $installment_price, $value, $fee, $installments );
     }    
 
 
@@ -53,6 +64,7 @@ class Calculate_Values {
      * Calculate total value of single installment without interest
      *
      * @since 1.0.0
+     * @version 5.4.0
      * @param float $value (Base value for calc)
      * @param int $installments (Total of installments)
      * @return float (Value of installment)
@@ -60,7 +72,17 @@ class Calculate_Values {
     public static function calculate_installment_no_fee( $value, $installments ) {
         $installment_price = $value / $installments;
 
-        return apply_filters( 'woo_custom_installments_no_fee', $installment_price, $value, $installments );
+        /**
+         * Filter the installment price without fees
+         * 
+         * @since 1.0.0
+         * @version 5.4.0
+         * @param float $installment_price | Calculated installment price
+         * @param float $value | Base value for calculation
+         * @param int $installments | Total number of installments
+         * @return float
+         */
+        return apply_filters( 'Woo_Custom_Installments/Installments/Without_Fee', $installment_price, $value, $installments );
     }
 
     
@@ -68,12 +90,22 @@ class Calculate_Values {
      * Calculate final price in the installments
      *
      * @since 1.0.0
+     * @version 5.4.0
      * @param float $value (Value of installment)
      * @param int $installments_total (Number total of installments)
      * @return float (Total value to be paid in installments without interest)
      */
     public static function calculate_final_price( $value, $installments_total ) {
-        return apply_filters( 'woo_custom_installments_final_price', round( $value, 2 ) * $installments_total, $value, $installments_total );
+        /**
+         * Filter the final price of installments
+         * 
+         * @since 1.0.0
+         * @version 5.4.0
+         * @param float $value (Value of installment)
+         * @param int $installments_total (Number total of installments)
+         * @return float (Total value to be paid in installments)
+         */
+        return apply_filters( 'Woo_Custom_Installments/Installments/Final_Price', round( $value, 2 ) * $installments_total, $value, $installments_total );
     }
     
 
@@ -81,7 +113,7 @@ class Calculate_Values {
      * Calculate product value after applying a discount
      *
      * @since 1.0.0
-     * @version 5.2.5
+     * @version 5.4.0
      * @param float $value (Original value)
      * @param int|float $discount (Discount value)
      * @return float (Final value with discount)
@@ -91,7 +123,18 @@ class Calculate_Values {
         $value = (float) $value;
         $price = $discount ? $value * ( ( 100 - $discount ) / 100 ) : $value;
 
-        return apply_filters( 'woo_custom_installments_discounted_price', $price, $value, $discount, $product );
+        /**
+         * Filter the discounted price
+         * 
+         * @since 1.0.0
+         * @version 5.4.0
+         * @param float $price | Calculated discounted price
+         * @param float $value | Original value
+         * @param float $discount | Discount value
+         * @param object $product | Product object (optional)
+         * @return float (Final value with discount)
+         */
+        return apply_filters( 'Woo_Custom_Installments/Price/Discounted_Price', $price, $value, $discount, $product );
     }
 
 
@@ -268,7 +311,16 @@ class Calculate_Values {
             }
         }
     
-        return apply_filters( 'woo_custom_installments_calculate_total_discount', round( $total_discount, 2 ), $cart, $include_shipping );
+        /**
+         * Filter the total discount applied to the cart
+         * 
+         * @since 4.5.2
+         * @version 5.4.0
+         * @param float $total_discount | Total discount value
+         * @param WC_Cart $cart | Cart object
+         * @param bool $include_shipping | Whether to include shipping cost in the calculation
+         */
+        return apply_filters( 'Woo_Custom_Installments/Price/Calculate_Total_Discount', round( $total_discount, 2 ), $cart, $include_shipping );
     }
 
 

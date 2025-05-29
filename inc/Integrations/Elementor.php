@@ -24,12 +24,12 @@ class Elementor {
      * Construct function
      * 
      * @since 5.0.0
-     * @version 5.2.0
+     * @version 5.4.0
      * @return void
      */
     public function __construct() {
         if ( Admin_Options::get_setting('enable_elementor_widgets') === 'yes' ) {
-            add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 3 );
+            add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 10, 3 );
             add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ), 10, 1 );
             add_action( 'elementor/preview/enqueue_scripts', array( $this, 'preview_assets' ) );
         }

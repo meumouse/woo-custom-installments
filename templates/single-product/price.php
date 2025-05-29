@@ -1,7 +1,5 @@
 <?php
 
-use MeuMouse\Woo_Custom_Installments\Core\Helpers;
-
 /**
  * Single Product Price
  *
@@ -40,9 +38,18 @@ if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
  * @param object $product | Product object
  * @return void
  */
-do_action( 'Woo_Custom_Installments/Product/Before_Price', $product ); ?>
+do_action( 'Woo_Custom_Installments/Product/Before_Price', $product );
 
-<p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
+/**
+ * Add custom classes on woo-custom-installments-group element
+ * 
+ * @since 5.3.0
+ * @version 5.4.0
+ * @return string
+ */
+$group_classes = apply_filters( 'Woo_Custom_Installments/Price/Group_Classes', '', $product ); ?>
+
+<p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( $group_classes ) ?> <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
     <?php 
     var_dump( 'ID do produto: ' . $product->get_id() );
     echo $product->get_price_html(); ?>

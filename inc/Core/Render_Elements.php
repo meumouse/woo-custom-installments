@@ -27,6 +27,7 @@ class Render_Elements {
         if ( Admin_Options::get_setting('enable_installments_all_products') === 'yes' ) {
             // display wci elements on main price html
 			add_filter( 'woocommerce_get_price_html', array( $this, 'display_price_group' ), 30, 2 );
+			add_filter( 'Woo_Custom_Installments/Price/Group_Classes', array( $this, 'add_group_classes' ), 10, 2 );
 
             // display discount on Pix on cart page
 			add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_discount_on_cart' ) );
@@ -74,6 +75,143 @@ class Render_Elements {
 
 
 	/**
+	 * Display group elements
+	 * 
+	 * @since 2.0.0
+	 * @version 5.4.0
+	 * @param string $price | Product price
+	 * @param object $product | Product object
+	 * @return string
+	 */
+	public function display_price_group( $price, $product ) {
+		// Start buffer
+		ob_start();
+
+		/**
+		 * Hook for display custom content before group
+		 * 
+		 * @since 5.4.0
+		 * @param object $product | Product object
+		 */
+		do_action( 'Woo_Custom_Installments/Price/Before_Group', $product );
+
+		/**
+		 * Add custom classes on woo-custom-installments-group element
+		 * 
+		 * @since 5.3.0
+		 * @version 5.4.0
+		 * @return string
+		 */
+		$group_classes = apply_filters( 'Woo_Custom_Installments/Price/Group_Classes', '', $product ); ?>
+
+		<div class="woo-custom-installments-group <?php echo esc_attr( $group_classes ) ?>">
+			<?php
+			/**
+			 * Hook for display custom content in prepend group
+			 * 
+			 * @since 5.4.0
+			 * @param object $product | Product object
+			 */
+			do_action( 'Woo_Custom_Installments/Price/Prepend_Group', $product ); ?>
+
+			<div class="woo-custom-installments-group-main-price">
+				<?php
+				$price_icon_base = Admin_Options::get_setting('elements_design')['price']['icon'];
+				$format = Admin_Options::get_setting('icon_format_elements');
+
+				// add icon before price
+				if ( $format === 'class' && ! empty( $price_icon_base['class'] ) ) {
+					echo sprintf( '<i class="wci-icon-price icon-class %s"></i>', esc_attr( $price_icon_base['class'] ) );
+				} elseif ( $format !== 'class' && ! empty( $price_icon_base['image'] ) ) {
+					echo sprintf( '<img class="wci-icon-price icon-image" src="%s"/>', esc_url( $price_icon_base['image'] ) );
+				}
+
+				if ( $product && $product->is_type('variable') ) {
+					// Get variation prices
+					$min_sale_price = $product->get_variation_sale_price( 'min', true );
+
+					// check if variations has different price between variations
+					if ( ! Helpers::variations_has_same_price( $product ) ) :
+						// display modern price range
+						if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) :
+							$starting_from_text = Admin_Options::get_setting('text_initial_variables');
+							
+							if ( ! empty( $starting_from_text ) ) : ?>
+								<span class="woo-custom-installments-starting-from"><?php echo $starting_from_text ?></span>
+							<?php endif; ?>
+
+							<span class="woo-custom-installments-price sale-price"><?php echo wc_price( $min_sale_price ) ?></span>
+						<?php else : ?>
+							<span class="woo-custom-installments-price"><?php echo $price ?></span>
+						<?php endif; ?>
+					<?php else : ?>
+						<span class="woo-custom-installments-price"><?php echo $price ?></span>
+					<?php endif;
+				} else {
+					// Check if the product has a sale price for simple products
+					if ( $product && $product->is_on_sale() ) : ?>
+						<span class="woo-custom-installments-price original-price has-discount"><?php echo wc_price( $product->get_regular_price() ) ?></span>
+						<span class="woo-custom-installments-price sale-price"><?php echo wc_price( $product->get_sale_price() ) ?></span>
+					<?php else : ?>
+						<span class="woo-custom-installments-price"><?php echo $price ?></span>
+					<?php endif;
+				}
+
+				// instance components class
+				$components = new Components();
+
+				// display sale badge
+				if ( Admin_Options::get_setting('enable_sale_badge') === 'yes' ) :
+					echo $components->sale_badge( $product );
+				endif; ?>
+			</div>
+
+			<?php
+			/**
+			 * Hook for display custom content in append group
+			 * 
+			 * @since 5.4.0
+			 * @param object $product | Product object
+			 */
+			do_action( 'Woo_Custom_Installments/Price/Append_Group', $product );
+		
+			echo $components->display_best_installments( $product );
+			echo $components->discount_main_price_single( $product );
+			echo $components->economy_pix_badge( $product );
+			echo $components->discount_ticket_badge( $product ); ?>
+		</div>
+
+		<?php
+		/**
+		 * Hook for display custom content after group
+		 * 
+		 * @since 5.4.0
+		 * @param object $product | Product object
+		 */
+		do_action( 'Woo_Custom_Installments/Price/After_Group', $product );
+
+		return ob_get_clean();
+	}
+
+	
+	/**
+	 * Add classes on group element
+	 * 
+	 * @since 5.4.0
+	 * @param string $classes | Current group classes
+	 * @param object $product | Product object
+	 * @return string
+	 */
+	public function add_group_classes( $classes, $product ) {
+		if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+			$classes .= ' variable-range-price';
+		}
+
+		return $classes;
+	}
+
+
+	/**
 	 * Display payment methods on modal or accordion
 	 * 
 	 * @since 2.0.0
@@ -82,6 +220,13 @@ class Render_Elements {
 	 * @return string
 	 */
 	public static function display_payment_methods( $product ) {
+		$display_method = Admin_Options::get_setting('display_installment_type');
+
+		// check if display method is accordion or popup
+		if ( $display_method !== 'accordion' && $display_method !== 'popup' ) {
+			return;
+		}
+
 		/**
 		 * Filter to change product object on installments table
 		 * 
@@ -89,24 +234,22 @@ class Render_Elements {
 		 * @version 5.4.0
 		 * @param object $product | Product object
 		 */
-		$product = apply_filters( 'Woo_Custom_Installments/Installments/Set_Product', $product );
+		$product = apply_filters( 'Woo_Custom_Installments/Payment_Methods/Set_Product', $product );
 
 		if ( ! $product ) {
 			return;
 		}
 
-		$installments = array(); 
-		$all_installments = array();
+		// base product ID on product object
+		$product_id = $product->get_id();
 
 		// check if product is variation e get your parent id
 		if ( $product->is_type('variation') ) {
-			$disable_installments = get_post_meta( $product->get_parent_id(), '__disable_installments', true ) === 'yes';
-		} else {
-			$disable_installments = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
+			$product_id = $product->get_parent_id();
 		}
 
 		// check if '__disable_installments' is true or not purchasable and hide for the simple or variation products
-		if ( $disable_installments === 'yes' || ! $product->is_purchasable() ) {
+		if ( get_post_meta( $product_id, '__disable_installments', true ) === 'yes' || ! $product->is_purchasable() ) {
 			return;
 		}
 
@@ -119,13 +262,8 @@ class Render_Elements {
 		 */
 		do_action( 'Woo_Custom_Installments/Elements/Before_Installments_Container', $product );
 		
-		if ( Admin_Options::get_setting('display_installment_type') === 'accordion' ) {
-			echo apply_filters( 'woo_custom_installments_table', self::payment_methods_accordion( $product ), $all_installments );
-		} elseif ( Admin_Options::get_setting('display_installment_type') === 'popup' ) {
-			echo apply_filters( 'woo_custom_installments_table', self::payment_methods_modal( $product ), $all_installments );
-		} else {
-			return;
-		}
+		// render payment methods based on selected method
+		echo $display_method === 'accordion' ? self::payment_methods_accordion( $product ) : self::payment_methods_modal( $product );
 
 		/**
 		 * Hook for display custom content after installments container
@@ -299,101 +437,6 @@ class Render_Elements {
 	}
 
 
-	/**
-	 * Display group elements
-	 * 
-	 * @since 2.0.0
-	 * @version 5.4.0
-	 * @param string $price | Product price
-	 * @param object $product | Product object
-	 * @return string
-	 */
-	public function display_price_group( $price, $product ) {
-		$price = apply_filters( 'woo_custom_installments_adjusted_price', $price, $product );
-
-		if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
-			return $price;
-		}
-
-		/**
-		 * Add custom classes on woo-custom-installments-group element
-		 * 
-		 * @since 5.3.0
-		 * @version 5.4.0
-		 * @return string
-		 */
-		$custom_classes = apply_filters( 'Woo_Custom_Installments/Price/Group_Classes', '' );
-
-		$html = '<div class="woo-custom-installments-group ' . $custom_classes;
-			if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
-				$html .= ' variable-range-price';
-			}
-		$html .= '">';
-
-			$html .= '<div class="woo-custom-installments-group-main-price">';
-				$price_icon_base = Admin_Options::get_setting('elements_design')['price']['icon'];
-
-				// add icon before price
-				if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-					if ( isset( $price_icon_base['class'] ) && ! empty( $price_icon_base['class'] ) ) {
-						$html .= sprintf( __( '<i class="wci-icon-price icon-class %s"></i>' ), esc_attr( $price_icon_base['class'] ) );
-					}
-				} else {
-					if ( isset( $price_icon_base['image'] ) && ! empty( $price_icon_base['image'] ) ) {
-						$html .= sprintf( __( '<img class="wci-icon-price icon-image" src="%s"/>' ), esc_url( $price_icon_base['image'] ) );
-					}
-				}
-
-				if ( $product && $product->is_type('variable') ) {
-					// Get variation prices
-					$min_regular_price = $product->get_variation_regular_price( 'min', true );
-					$min_sale_price = $product->get_variation_sale_price( 'min', true );
-					$regular_price = wc_price( $min_regular_price );
-					$sale_price = wc_price( $min_sale_price );
-
-					// check if variations has different price between variations
-					if ( ! Helpers::variations_has_same_price( $product ) ) {
-						if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
-							$html .= ! empty( Admin_Options::get_setting('text_initial_variables') ) ? '<span class="woo-custom-installments-starting-from">' . Admin_Options::get_setting('text_initial_variables') . '</span>' : '';
-							$html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price . '</span>';
-						} else {
-							$html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
-						}
-					} else {
-						$html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
-					}
-				} else {
-					// Check if the product has a sale price for simple products
-					if ( $product && $product->is_on_sale() ) {
-						$regular_price = wc_price( $product->get_regular_price() );
-						$sale_price = wc_price( $product->get_sale_price() );
-
-						$html .= '<span class="woo-custom-installments-price original-price has-discount">' . $regular_price . '</span>';
-						$html .= '<span class="woo-custom-installments-price sale-price">' . $sale_price . '</span>';
-					} else {
-						$html .= '<span class="woo-custom-installments-price">' . $price . '</span>';
-					}
-				}
-
-				// display sale badge
-				if ( Admin_Options::get_setting('enable_sale_badge') === 'yes' ) {
-					$html .= self::sale_badge( $product );
-				}
-			$html .= '</div>';
-
-			// instance components class
-			$components = new \MeuMouse\Woo_Custom_Installments\Views\Components();
-
-			$html .= $components->display_best_installments( $product );
-			$html .= $components->discount_main_price_single( $product );
-			$html .= $components->economy_pix_badge( $product );
-			$html .= $components->discount_ticket_badge( $product );
-		$html .= '</div>';
-
-		return $html;
-	}
-
-
     /**
 	 * Display discount in cart page
 	 * 
@@ -406,50 +449,24 @@ class Render_Elements {
 			return;
 		}
 
-		$total_cart_value = WC()->cart->get_cart_contents_total() + WC()->cart->get_shipping_total();
-		$total_discount = Calculate_Values::calculate_total_discount( WC()->cart, Admin_Options::get_setting('include_shipping_value_in_discounts') === 'yes' ); ?>
+		$total_cart_value = (float) WC()->cart->get_cart_contents_total() + WC()->cart->get_shipping_total();
+		$total_discount = (float) Calculate_Values::calculate_total_discount( WC()->cart, Admin_Options::get_setting('include_shipping_value_in_discounts') === 'yes' );
+		$row_title = sprintf( __( 'Total %s', 'woo-custom-installments' ), Admin_Options::get_setting('text_after_price') );
+		
+		/**
+		 * Filter for change total cart row title
+		 * 
+		 * @since 2.6.0
+		 * @version 5.4.0
+		 * @param string $row_title | Row title
+		 */
+		$title = apply_filters( 'Woo_Custom_Installments/Cart/Total_Title', $row_title ); ?>
 
 		<tr>
-			<th><?php echo apply_filters( 'Woo_Custom_Installments/Cart/Total_Title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Admin_Options::get_setting('text_after_price') ) ); ?></th>
-			<td data-title="<?php echo esc_attr( apply_filters( 'Woo_Custom_Installments/Cart/Total_Title', sprintf( __( 'Total %s', 'woo-custom-installments' ), Admin_Options::get_setting('text_after_price') ) ) ); ?>"><?php echo wc_price( $total_cart_value - $total_discount ); ?></td>
+			<th><?php echo $title; ?></th>
+			<td data-title="<?php echo esc_attr( $title ); ?>"><?php echo wc_price( $total_cart_value - $total_discount ); ?></td>
 		</tr>
 		<?php
-	}
-
-
-	/**
-	 * Display sale badge
-	 * 
-	 * @since 5.2.5
-     * @version 5.4.0
-	 * @param object $product | Product object
-	 * @return string
-	 */
-	public static function sale_badge( $product ) {
-		if ( $product && $product->is_on_sale() ) {
-			if ( $product->is_type('variable') ) {
-				$percentages = array();
-				$prices = $product->get_variation_prices();
-				
-				foreach ( $prices['price'] as $key => $price ) {
-					if ( $prices['regular_price'][$key] !== $price ) {
-						$percentages[] = round( 100 - ( $prices['sale_price'][$key] / $prices['regular_price'][$key] * 100 ) );
-					}
-				}
-
-				if ( ! empty( $percentages ) ) {
-					$percentage = max( $percentages ) . '%';
-				} else {
-					$percentage = '0%';
-				}
-			} else {
-				$regular_price = (float) $product->get_regular_price();
-				$sale_price = (float) $product->get_sale_price();
-				$percentage = round( 100 - ( $sale_price / $regular_price * 100 ) ) . '%';
-			}
-		
-			return '<span class="wci-sale-badge">'. sprintf( __( '%s OFF', 'woo-custom-installments' ), $percentage ) .'</span>';
-		}
 	}
 
 
@@ -556,19 +573,19 @@ class Render_Elements {
 				$discount_message = get_woocommerce_currency_symbol() . $value;
 			}
 
-			$text_discount_per_quantity_message = Admin_Options::get_setting('text_discount_per_quantity_message');
+			$text_message = Admin_Options::get_setting('text_discount_per_quantity_message');
 
-			if ( ! empty( $text_discount_per_quantity_message ) ) {
+			if ( ! empty( $text_message ) ) {
 				// Count the number of %s in the string
-				$placeholders_string_count = substr_count( $text_discount_per_quantity_message, '%s' );
-				$placeholders_number_count = substr_count( $text_discount_per_quantity_message, '%d' );
+				$placeholders_string_count = substr_count( $text_message, '%s' );
+				$placeholders_number_count = substr_count( $text_message, '%d' );
 
 				// Ensure that the number of arguments passed to sprintf matches the number of %s
 				if ( $placeholders_string_count === 1 && $placeholders_number_count === 1 ) {
-					$formatted_text = sprintf( $text_discount_per_quantity_message, $minimum_quantity, $discount_message );
+					$formatted_text = sprintf( $text_message, $minimum_quantity, $discount_message );
 				} else {
 					// If the amount of %s does not match, use the original text
-					$formatted_text = $text_discount_per_quantity_message;
+					$formatted_text = $text_message;
 				}
 
 				echo '<div class="woo-custom-installments-discount-per-quantity-message">';
