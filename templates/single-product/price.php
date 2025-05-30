@@ -20,7 +20,7 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-if ( ! $product ) {
+if ( ! isset( $product ) ) {
     global $product;
 }
 

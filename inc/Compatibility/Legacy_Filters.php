@@ -22,18 +22,119 @@ class Legacy_Filters {
 	public function __construct() {
 		if ( defined('WOO_CUSTOM_INSTALLMENTS_VERSION') && version_compare( WOO_CUSTOM_INSTALLMENTS_VERSION, '5.4.0', '>=' ) ) {
 			self::map_legacy_filters();
+			add_action( 'init', array( $this, 'check_legacy_filters_usage' ), 999 );
 		}
 	}
 
 
 	/**
-	 * Maps legacy filters to their new equivalents
+	 * Map legacy filters to their new equivalents
 	 *
 	 * @since 5.4.0
 	 * @return void
 	 */
 	protected static function map_legacy_filters() {
-		$filters = array(
+		$filters = self::get_legacy_filters();
+
+		foreach ( $filters as $old_filter => $data ) {
+			add_filter( $old_filter, array( self::class, 'deprecated_filter_callback' ), 9999, 99 );
+		}
+	}
+
+
+	/**
+	 * Callback to redirect deprecated filters
+	 *
+	 * @since 5.4.0
+	 * @return mixed
+	 */
+	public static function deprecated_filter_callback( $value, ...$args ) {
+		$called_filter = current_filter();
+		$filters = self::get_legacy_filters();
+
+		if ( isset( $filters[ $called_filter ] ) ) {
+			$new_filter = $filters[ $called_filter ]['new_filter'];
+			$version = $filters[ $called_filter ]['version'];
+
+			self::warn_deprecated_filter( $called_filter, $new_filter, $version );
+
+			// redirect to new filter
+			return apply_filters_ref_array( $new_filter, array_merge( [ $value ], $args ) );
+		}
+
+		return $value;
+	}
+
+
+	/**
+	 * Check if legacy filters are being used
+	 *
+	 * @since 5.4.0
+	 * @return void
+	 */
+	public function check_legacy_filters_usage() {
+		$filters = self::get_legacy_filters();
+
+		foreach ( $filters as $old_filter => $data ) {
+			global $wp_filter;
+
+			if ( ! isset( $wp_filter[ $old_filter ] ) ) {
+				continue;
+			}
+
+			$hook = $wp_filter[ $old_filter ];
+
+			if ( is_a( $hook, 'WP_Hook' ) ) {
+				$callbacks = $hook->callbacks ?? [];
+
+				// remove our own redirector
+				unset( $callbacks[9999] );
+
+				// if have other callbacks registered, emit warning
+				if ( ! empty( $callbacks ) ) {
+					self::warn_deprecated_filter( $old_filter, $data['new_filter'], $data['version'] );
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * Render a deprecation warning for old filters
+	 *
+	 * @since 5.4.0
+	 * @param string $old_filter
+	 * @param string $new_filter
+	 * @param string $version
+	 * @return void
+	 */
+	protected static function warn_deprecated_filter( $old_filter, $new_filter, $version ) {
+		if ( function_exists( '_doing_it_wrong' ) ) {
+			$message = sprintf(
+				__( 'O filtro "%1$s" está obsoleto desde a versão %3$s. Use "%2$s" em seu lugar.', 'woo-custom-installments' ),
+				$old_filter,
+				$new_filter,
+				$version
+			);
+
+			_doing_it_wrong( $old_filter, $message, $version );
+		}
+
+		// Log on debug.log
+		if ( defined('WP_DEBUG_LOG') && WP_DEBUG_LOG ) {
+			error_log( "[Woo_Custom_Installments] Obsolet filter detected: {$old_filter} → {$new_filter} (since version: {$version})" );
+		}
+	}
+
+
+	/**
+	 * Return legacy filters to their new equivalents
+	 *
+	 * @since 5.4.0
+	 * @return array
+	 */
+	protected static function get_legacy_filters() {
+		return array(
 			'woo_custom_installments_group_custom_classes' => array(
 				'new_filter' => 'Woo_Custom_Installments/Price/Group_Classes',
 				'version' => '5.4.0',
@@ -151,41 +252,5 @@ class Legacy_Filters {
 				'version' => '5.4.0',
 			),
 		);
-	
-		// iterate for each filter
-		foreach ( $filters as $old_filter => $data ) {
-			$new_hook = $data['new_filter'];
-			$version = $data['version'];
-	
-			add_filter( $old_filter, function( $value, ...$args ) use ( $old_filter, $new_hook, $version ) {
-				self::warn_deprecated_filter( $old_filter, $new_hook, $version );
-
-				return apply_filters_ref_array( $new_hook, array_merge( array( $value ), $args ) );
-			}, 10, 99 );
-		}
-	}
-
-
-	/**
-	 * Triggers a deprecation warning for old filters
-	 *
-	 * @since 5.4.0
-	 * @param string $old_filter | Old filter name
-	 * @param string $new_hook | New filter name
-	 * @param string $version | Version in which the filter was deprecated
-	 * @return void
-	 */
-	protected static function warn_deprecated_filter( $old_filter, $new_hook, $version ) {
-		if ( function_exists('doing_it_wrong') ) {
-			doing_it_wrong(
-				$old_filter,
-				sprintf( __( 'O filtro "%1$s" está obsoleto desde a versão %3$s. Use "%2$s" em seu lugar.', 'woo-custom-installments' ),
-					$old_filter,
-					$new_hook,
-					$version
-				),
-				$version
-			);
-		}
 	}
 }

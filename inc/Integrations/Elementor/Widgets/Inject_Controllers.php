@@ -59,7 +59,6 @@ class Inject_Controllers {
             'woocommerce-product-related' => 'section_design_box',
             'woocommerce-product-upsell' => 'section_design_box',
             'wc-archive-products' => 'section_design_box',
-            'wd_single_product_price' => 'general_style_section',
         ));
 
         foreach ( $widgets as $widget_id => $section ) {

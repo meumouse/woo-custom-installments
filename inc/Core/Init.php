@@ -214,8 +214,8 @@ class Init {
          * @param array $classes | Array with classes to instance
          */
         $classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array(
-            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Hooks',
             '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Filters',
+            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Hooks',
             '\MeuMouse\Woo_Custom_Installments\API\License',
             '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
             '\MeuMouse\Woo_Custom_Installments\Admin\Product_Settings',
