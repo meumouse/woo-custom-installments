@@ -280,12 +280,23 @@ class Calculate_Installments {
 			return;
 		}
 
-		$hook = self::hook();
+		// remove installment without fee if get type best installments is both
+		if ( Admin_Options::get_setting('get_type_best_installments') === 'both' ) {
+			foreach ( $installments as $key => $installment ) {
+				if ( 'fee-included' !== $installment['class'] ) {
+					unset( $installments[ $key ] );
+				}
+			}
+		}
+
+		$installments = array_values( $installments );
 		$best_with_interest = end( $installments );
 
-		if ( false === $best_with_interest ) {
+		if ( false === $best_with_interest ||  $best_with_interest['installment_price'] < (int) Admin_Options::get_setting('min_value_installments') ) {
 			return;
 		}
+
+		$hook = self::hook();
 
 		if ( 'main_price' === $hook ) {
 			$text = Admin_Options::get_setting('text_display_installments_single_product');

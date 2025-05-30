@@ -4,9 +4,13 @@ Extensão que permite adicionar detalhes de parcelamento, desconto e formas de p
 
 O melhor plugin de parcelas e descontos para WooCommerce!
 
+---
+
 #### Propriedade intelectual:
 O software Parcelas Customizadas para WooCommerce ® é uma propriedade registrada da MEUMOUSE.COM® – SOLUÇÕES DIGITAIS LTDA, em conformidade com o §2°, art. 2° da Lei 9.609, de 19 de Fevereiro de 1998.
 É expressamente proibido a distribuição ou cópia ilegal deste software, sujeita a penalidades conforme as leis de direitos autorais vigentes.
+
+---
 
 ### Instalação:
 
@@ -31,6 +35,8 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 * Vá para “Plugins” e clique em “Plugins Instalados”.
 * Localize o plugin que você acabou de instalar e clique em “Ativar”.
 * Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.
+
+---
 
 ### Registro de alterações (Changelogs):
 

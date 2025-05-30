@@ -34,14 +34,14 @@ class Render_Elements {
 
 			// get hook to display accordion or popup payment form in single product page
 			if ( Admin_Options::get_setting('hook_payment_form_single_product') === 'before_cart' ) {
-				add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10 );
+				add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
 			} elseif ( Admin_Options::get_setting('hook_payment_form_single_product') === 'after_cart' ) {
-				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10 );
+				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
 			} elseif ( Admin_Options::get_setting('hook_payment_form_single_product') === 'custom_hook' ) {
-				add_action( Admin_Options::get_setting('set_custom_hook_payment_form'), array( __CLASS__, 'display_payment_methods' ), 10 );
+				add_action( Admin_Options::get_setting('set_custom_hook_payment_form'), array( __CLASS__, 'display_payment_methods' ), 10, 1 );
 			} else {
-				remove_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10 );
-				remove_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10 );
+				remove_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
+				remove_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
 			}
 
 			// remove price range
