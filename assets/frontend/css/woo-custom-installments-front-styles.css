@@ -467,7 +467,7 @@ table tbody>tr:nth-child(odd)>th {
     align-items: center;
 }
 
-.woo-custom-installments-group-main-price .wci-sale-badge {
+.wci-sale-badge {
     order: 4;
     font-size: 0.785rem;
     font-weight: 600;

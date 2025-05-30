@@ -8,7 +8,6 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;

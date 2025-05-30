@@ -281,7 +281,7 @@ class Helpers {
             }
 
             // If the content is not JSON, try to search for the ID in HTML format
-            preg_match( '/data-product_id=["\']?(\d+)["\']?/', $post_content, $matches );
+            preg_match( '/data-product-id=["\']?(\d+)["\']?/', $post_content, $matches );
 
             if ( isset( $matches[1] ) ) {
                 return (int) $matches[1];

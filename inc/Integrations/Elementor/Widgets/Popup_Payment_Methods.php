@@ -9,9 +9,9 @@ use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -23,7 +23,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Wci_Popup extends \Elementor\Widget_Base {
+class Wci_Popup extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -262,6 +262,7 @@ class Wci_Popup extends \Elementor\Widget_Base {
 	 * Render the widget output on the frontend
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @return void
 	 */
 	protected function render() {
@@ -280,7 +281,10 @@ class Wci_Popup extends \Elementor\Widget_Base {
                     global $product;
                 }
     
-                echo Frontend::get_instance()->popup_trigger( $product );
+                // instance components class
+                $components = new Components();
+                
+                echo $components->payment_methods_modal( $product );
             }
         } else {
             echo License::render_widget_license_message();

@@ -9,8 +9,8 @@ use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -22,7 +22,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Discount_Per_Quantity extends \Elementor\Widget_Base {
+class Discount_Per_Quantity extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -224,6 +224,7 @@ class Discount_Per_Quantity extends \Elementor\Widget_Base {
 	 * Render the widget output on the frontend
      * 
      * @since 5.2.0
+     * @version 5.4.0
      * @return void
 	 */
 	protected function render() {
@@ -235,8 +236,12 @@ class Discount_Per_Quantity extends \Elementor\Widget_Base {
             );
 
             $product_id = Helpers::get_product_id_from_post();
+            $product = wc_get_product( $product_id );
 
-            echo Frontend::get_instance()->display_message_discount_per_quantity( $product_id );
+            // instance of components class
+            $components = new Components();
+
+            echo $components->message_for_discount_per_quantity( $product );
         } else {
             echo License::render_widget_license_message();
         }

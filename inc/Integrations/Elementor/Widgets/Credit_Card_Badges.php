@@ -8,7 +8,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Credit_Card_Badges extends \Elementor\Widget_Base {
+class Credit_Card_Badges extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -185,6 +185,7 @@ class Credit_Card_Badges extends \Elementor\Widget_Base {
 	 * Render the widget output on the frontend
      * 
      * @since 5.0.0
+	 * @version 5.4.0
      * @return void
 	 */
 	protected function render() {
@@ -196,7 +197,10 @@ class Credit_Card_Badges extends \Elementor\Widget_Base {
             );
 
             echo '<div class="credit-card-container-badges">';
-            echo Frontend::get_instance()->generate_card_flags( 'credit-card', 'credit' );
+				// instance components class
+				$components = new Components();
+
+				echo $components->render_credit_card_flags();
             echo '</div>';
         } else {
             echo License::render_widget_license_message();

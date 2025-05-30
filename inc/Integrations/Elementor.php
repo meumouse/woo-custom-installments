@@ -58,7 +58,7 @@ class Elementor {
      * Register Custom Installments Widget
      *
      * @since 5.0.0
-     * @version 5.2.0
+     * @version 5.4.0
      * @param object $widgets_manager | Elementor widgets manager
      * @return void
      */
@@ -80,6 +80,7 @@ class Elementor {
             'Installments_Table.php',
             'Price_Info_Box.php',
             'Discount_Per_Quantity.php',
+            'Discount_Badge.php',
         ));
 
         foreach ( $widgets as $file ) {

@@ -9,9 +9,9 @@ use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -23,7 +23,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Wci_Accordion extends \Elementor\Widget_Base {
+class Wci_Accordion extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -352,8 +352,11 @@ class Wci_Accordion extends \Elementor\Widget_Base {
                 if ( $product === false ) {
                     global $product;
                 }
+
+                // instance components class
+                $components = new Components();
                 
-                echo Frontend::get_instance()->accordion_container( $product );
+                echo $components->payment_methods_accordion( $product );
             }
         } else {
             echo License::render_widget_license_message();

@@ -578,7 +578,7 @@ class Components {
 	 * @param object $product | Product object
 	 * @return string
 	 */
-	public static function render_pix_flag( $product ) {
+	public function render_pix_flag( $product ) {
 		$price = wc_get_price_to_display( $product );
 		$economy_pix_active = Admin_Options::get_setting('enable_economy_pix_badge') === 'yes';
 		$pix_flag = '';
@@ -629,7 +629,7 @@ class Components {
 	 * @param object $product | Product object
 	 * @return string
 	 */
-	public static function render_ticket_flag( $product ) {
+	public function render_ticket_flag( $product ) {
 		$ticket_flag = '';
 		
 		if ( Admin_Options::get_setting('enable_ticket_method_payment_form') === 'yes' ) {
@@ -712,7 +712,7 @@ class Components {
 	 * @version 5.4.0
 	 * @return string
 	 */
-	public static function render_credit_card_flags() {
+	public function render_credit_card_flags() {
 		$credit_card_flag = '';
 
 		if ( Admin_Options::get_setting('enable_credit_card_method_payment_form') === 'yes' ) {
@@ -742,7 +742,7 @@ class Components {
 	 * @version 5.4.0
 	 * @return string
 	 */
-	public static function render_debit_card_flags() {
+	public function render_debit_card_flags() {
 		$html = '';
 
 		if ( Admin_Options::get_setting('enable_debit_card_method_payment_form') === 'yes') {
@@ -774,7 +774,7 @@ class Components {
 	 * @param object $product | Product object
 	 * @return string
 	 */
-	public static function render_installments_table( $product ) {
+	public function render_installments_table( $product ) {
 		if ( ! $product ) {
 			return;
 		}
@@ -1082,6 +1082,179 @@ class Components {
 			}
 		
 			return '<span class="wci-sale-badge">'. sprintf( __( '%s OFF', 'woo-custom-installments' ), $percentage ) .'</span>';
+		}
+	}
+
+
+	/**
+	 * Display all payment methods in accordion element
+	 * 
+	 * @since 4.1.0
+	 * @version 5.4.0
+	 * @param object $product | Product object
+	 * @return void
+	 */
+	public function payment_methods_accordion( $product ) {
+		if ( ! $product ) :
+			return;
+		endif; ?>
+
+		<div id="wci-accordion-installments" class="accordion">
+			<div class="wci-accordion-item">
+				<button type="button" class="wci-accordion-header"><?php echo Admin_Options::get_setting('text_button_installments'); ?></button>
+
+				<div class="wci-accordion-content">
+					<?php
+					/**
+					 * Hook for display custom content inside header accordion
+					 * 
+					 * @since 4.1.0
+					 * @version 5.4.0
+					 * @param object $product | Product object
+					 */
+					do_action( 'Woo_Custom_Installments/Elements/Accordion_Header', $product );
+
+					if ( License::is_valid() ) {
+						echo $this->render_pix_flag( $product );
+						echo $this->render_credit_card_flags();
+						echo $this->render_debit_card_flags();
+						echo $this->render_ticket_flag( $product );
+					}
+					
+					echo $this->render_installments_table( $product ); ?>
+				</div>
+
+				<?php
+				/**
+				 * Hook for display custom content inside bottom accordion
+				 * 
+				 * @since 4.1.0
+				 * @version 5.4.0
+				 * @param object $product | Product object
+				 */
+				do_action( 'Woo_Custom_Installments/Elements/Accordion_Footer', $product ); ?>
+			</div>
+		</div>
+		<?php
+	}
+
+
+	/**
+	 * Create container for display all payment methods in modal
+	 * 
+	 * @since 4.1.0
+	 * @version 5.4.0
+	 * @param object $product | Product object
+	 * @return void
+	 */
+	public function payment_methods_modal( $product ) {
+		if ( ! $product ) :
+			return;
+		endif; ?>
+
+		<button type="button" class="wci-open-popup">
+			<span class="open-popup-text"><?php echo Admin_Options::get_setting('text_button_installments'); ?></span>
+		</button>
+
+		<div class="wci-popup-container">
+			<div class="wci-popup-content">
+				<div class="wci-popup-header">
+					<h5 class="wci-popup-title"><?php echo Admin_Options::get_setting('text_container_payment_forms'); ?></h5>
+					<button type="button" class="btn-close wci-close-popup" aria-label="<?php echo esc_html__( 'Fechar', 'woo-custom-installments' ) ?>"></button>
+				</div>
+
+				<?php
+				/**
+				 * Hook for display custom content inside accordion container
+				 * 
+				 * @since 4.1.0
+				 * @version 5.4.0
+				 * @param object $product | Product object
+				 */
+				do_action( 'Woo_Custom_Installments/Elements/Modal_Header', $product ); ?>
+
+				<div id="wci-popup-body">
+					<?php
+
+					if ( License::is_valid() ) {
+						echo $this->render_pix_flag( $product );
+						echo $this->render_credit_card_flags();
+						echo $this->render_debit_card_flags();
+						echo $this->render_ticket_flag( $product );
+					}
+
+					echo $this->render_installments_table( $product ); ?>
+				</div>
+
+				<?php
+				/**
+				 * Hook for display custom content inside bottom popup
+				 * 
+				 * @since 4.1.0
+				 * @version 5.4.0
+				 * @param object $product | Product object
+				 */
+				do_action( 'Woo_Custom_Installments/Elements/Modal_Footer', $product ); ?>
+			</div>
+		</div>
+		<?php
+	}
+
+
+	/**
+	 * Display message on elegible products for discount per quantity
+	 * 
+	 * @since 5.4.0
+	 * @param object $product | Product object
+	 * @return void
+	 */
+	public function message_for_discount_per_quantity( $product ) {
+		if ( ! $product ) {
+			return;
+		}
+
+		$product_id = $product->get_id();
+		$current_quantity = $product->get_stock_quantity();
+		$enable_global_discount = Admin_Options::get_setting('enable_discount_per_quantity_method') === 'global';
+		$enable_product_discount = get_post_meta( $product_id, 'enable_discount_per_quantity', true );
+		
+		if ( $enable_global_discount || $enable_product_discount ) {
+			if ( $enable_global_discount ) {
+				$method = Admin_Options::get_setting('discount_per_quantity_method');
+				$value = Admin_Options::get_setting('value_for_discount_per_quantity');
+				$minimum_quantity = Admin_Options::get_setting('set_quantity_enable_discount');
+			} else {
+				$method = get_post_meta( $product_id, 'discount_per_quantity_method', true );
+				$value = get_post_meta( $product_id, 'quantity_discount_amount', true );
+				$minimum_quantity = get_post_meta( $product_id, 'minimum_quantity_discount', true );
+			}
+
+			if ( $method == 'percentage' ) {
+				$discount_message = $value . '%';
+			} else {
+				$discount_message = get_woocommerce_currency_symbol() . $value;
+			}
+
+			$text_message = Admin_Options::get_setting('text_discount_per_quantity_message');
+
+			if ( ! empty( $text_message ) ) {
+				// Count the number of %s in the string
+				$placeholders_string_count = substr_count( $text_message, '%s' );
+				$placeholders_number_count = substr_count( $text_message, '%d' );
+
+				// Ensure that the number of arguments passed to sprintf matches the number of %s
+				if ( $placeholders_string_count === 1 && $placeholders_number_count === 1 ) {
+					$formatted_text = sprintf( $text_message, $minimum_quantity, $discount_message );
+				} else {
+					// If the amount of %s does not match, use the original text
+					$formatted_text = $text_message;
+				}
+
+				echo '<div class="woo-custom-installments-discount-per-quantity-message">';
+				echo '<i class="fa-solid fa-circle-exclamation"></i>';
+				echo '<span>' . $formatted_text . '</span>';
+				echo '</div>';
+			}
 		}
 	}
 }

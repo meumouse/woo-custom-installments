@@ -9,8 +9,8 @@ use Elementor\Group_Control_Border;
 
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\Views\Components;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -22,7 +22,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Installments_Table extends \Elementor\Widget_Base {
+class Installments_Table extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -215,6 +215,7 @@ class Installments_Table extends \Elementor\Widget_Base {
 	 * Render the widget output on the frontend
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @return void
 	 */
 	protected function render() {
@@ -232,7 +233,10 @@ class Installments_Table extends \Elementor\Widget_Base {
                 global $product;
             }
 
-        	echo Frontend::get_instance()->generate_installments_table( $product );
+            // instance components class
+            $components = new Components();
+
+        	echo $components->render_installments_table( $product );
         } else {
             echo License::render_widget_license_message();
         }

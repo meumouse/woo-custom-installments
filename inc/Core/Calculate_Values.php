@@ -183,9 +183,9 @@ class Calculate_Values {
         $price = 0;
 
         // Get the correct price based on the product type
-        if ( $product->is_type( 'variation' ) ) {
+        if ( $product->is_type('variation') ) {
             $price = $product->get_sale_price() ?: $product->get_regular_price();
-        } elseif ( $product->is_type( 'variable' ) ) {
+        } elseif ( $product->is_type('variable') ) {
             // For variable products, get the lowest price with discount
             $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
         } else {

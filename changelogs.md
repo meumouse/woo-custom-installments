@@ -8,6 +8,7 @@ Versão 5.4.0 (30/05/2025)
 * Recurso removido: Ativar atualização de valores em elementos em produtos variáveis
 * Recurso removido: Método de atualização do preço -> Remover faixa de preço em produtos variáveis
 * Recurso adicionado: Controlador de estilos para widgets do Elementor para emblema de desconto
+* Recurso adicionado: Widget para Elementor "Emblema de desconto"
 
 Versão 5.3.0 (29/01/2025)
 * Correção de bugs

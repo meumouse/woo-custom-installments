@@ -10,7 +10,6 @@ use Elementor\Group_Control_Background;
 use Elementor\Icons_Manager;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Core\Frontend;
 use MeuMouse\Woo_Custom_Installments\Calculate_Values;
 
 // Exit if accessed directly.
@@ -23,7 +22,7 @@ defined('ABSPATH') || exit;
  * @version 5.4.0
  * @package MeuMouse.com
  */
-class Price_Info_Box extends \Elementor\Widget_Base {
+class Price_Info_Box extends Widget_Base {
 
     /**
      * Get widget name
@@ -243,7 +242,7 @@ class Price_Info_Box extends \Elementor\Widget_Base {
                     $price = wc_price( Calculate_Values::get_discounted_price( $product, 'ticket' ) );
                     break;
                 case 'economy_pix':
-                    $price = wc_price( Frontend::calculate_pix_economy( $product ) );
+                    $price = wc_price( Calculate_Values::get_pix_economy( $product ) );
                     break;
             }
 

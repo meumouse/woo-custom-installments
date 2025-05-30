@@ -21,7 +21,13 @@
 defined('ABSPATH') || exit;
 
 if ( ! isset( $product ) ) {
-    global $product;
+    /**
+     * Filter to set product object
+     * 
+     * @since 5.4.0
+     * @param object $product | Product object
+     */
+    $product = apply_filters( 'Woo_Custom_Installments/Product/Set_Product', wc_get_product( get_the_ID() ) );
 }
 
 // check if product is defined
@@ -50,9 +56,7 @@ do_action( 'Woo_Custom_Installments/Product/Before_Price', $product );
 $group_classes = apply_filters( 'Woo_Custom_Installments/Price/Group_Classes', '', $product ); ?>
 
 <p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( $group_classes ) ?> <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
-    <?php 
-    var_dump( 'ID do produto: ' . $product->get_id() );
-    echo $product->get_price_html(); ?>
+    <?php echo $product->get_price_html(); ?>
 </p>
 
 <?php

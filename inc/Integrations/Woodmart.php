@@ -2,8 +2,10 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
-use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use XTS\Modules\Layouts\Main;
+
+use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -33,6 +35,9 @@ class Woodmart {
 
         // inject widget controllers
         add_filter( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array( $this, 'inject_controllers' ), 10, 1 );
+
+        // set product object on Elementor editor
+        add_filter( 'Woo_Custom_Installments/Product/Set_Product', array( $this, 'set_product_object' ), 10, 1 );
 	}
 
 
@@ -89,9 +94,10 @@ class Woodmart {
      * Check Woodmart layout type
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @param bool $is_editing Whether Elementor is editing a single product page
      */
-    public function check_layout_type( $is_editing ) {
+    public function check_layout_type( $is_editing = true ) {
         if ( ! function_exists('woodmart_theme_setup') ) {
             return;
         }
@@ -121,5 +127,24 @@ class Woodmart {
         );
 
         return array_merge( $widgets, $new_widgets );
+    }
+
+
+    /**
+     * Set product object on Elementor editor
+     * 
+     * @since 5.4.0
+     * @param object $product | Product object
+     * @return object
+     */
+    public function set_product_object( $product ) {
+        if ( Elementor::is_edit_mode() && Main::is_layout_type('single_product') ) {
+            $product_id = Helpers::get_product_id_from_post();
+            $product = wc_get_product( $product_id );
+
+            return $product;
+        }
+
+        return $product;
     }
 }

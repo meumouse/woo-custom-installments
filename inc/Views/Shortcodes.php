@@ -23,7 +23,8 @@ class Shortcodes extends Components {
      * Construct function
      * 
      * @since 4.5.0
-     * @package MeuMouse.com
+     * @version 5.4.0
+     * @return void
      */
     public function __construct() {
         $shortcodes = array(
@@ -41,6 +42,7 @@ class Shortcodes extends Components {
             'woo_custom_installments_get_price_on_pix' => 'get_price_on_pix_shortcode',
             'woo_custom_installments_get_price_on_ticket' => 'get_price_on_ticket_shortcode',
             'woo_custom_installments_get_economy_pix_price' => 'get_economy_pix_price_shortcode',
+            'woo_custom_installments_sale_badge' => 'sale_badge_shortcode',
         );
         
         // iterate for each shortcode
@@ -55,7 +57,7 @@ class Shortcodes extends Components {
      * 
      * @since 2.0.0
      * @version 5.4.0
-     * @return object
+     * @return string
      */
     public function render_full_installment_shortcode() {
         // compatibility with Elementor editing mode
@@ -416,7 +418,34 @@ class Shortcodes extends Components {
         }
 
         if ( License::is_valid() ) {
-            return wc_price( self::calculate_pix_economy( $product ) );
+            return wc_price( Calculate_Values::get_pix_economy( $product ) );
+        } else {
+            return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
+        }
+    }
+
+
+    /**
+     * Create a shortcode for sale badge
+     * 
+     * @since 5.4.0
+     * @return string
+     */
+    public function sale_badge_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( $product === false ) {
+            global $product;
+        }
+
+        // check if local is product page for install shortcode
+        if ( ! $product || ! $product instanceof \WC_Product ) {
+            return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
+        }
+
+        if ( License::is_valid() ) {
+            return $this->sale_badge( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
