@@ -1,7 +1,8 @@
 Versão 5.4.0 (30/05/2025)
 * Correção de bugs
-* Otimizações
     - Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros
+    - ID do produto incorreto no editor Elementor
+* Otimizações
 * Mudança de arquitetura para MACI (Modular Autoload Class Initialization)
 * Recurso adicionado: Ativar atualizações automáticas
 * Recurso removido: Compatibilidade com tema EpicJungle

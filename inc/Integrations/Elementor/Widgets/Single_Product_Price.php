@@ -187,7 +187,7 @@ class Price extends Widget_Base {
 				'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .woo-custom-installments-price, {{WRAPPER}} .woo-custom-installments-price .amount, {{WRAPPER}} .woo-custom-installments-price del' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .woo-custom-installments-price, {{WRAPPER}} .woo-custom-installments-price .amount, {{WRAPPER}} .woo-custom-installments-price.has-discount' => 'color: {{VALUE}}',
 				),
 			)
 		);
@@ -206,7 +206,7 @@ class Price extends Widget_Base {
 			array(
 				'label' => esc_html__( 'Tipografia', 'woo-custom-installments' ),
 				'name' => 'old_price_typography',
-				'selector' => '{{WRAPPER}} .woo-custom-installments-price del, {{WRAPPER}} .woo-custom-installments-price del .amount',
+				'selector' => '{{WRAPPER}} .woo-custom-installments-price.has-discount, {{WRAPPER}} .woo-custom-installments-price.has-discount .amount',
 			)
 		);
 
@@ -216,7 +216,7 @@ class Price extends Widget_Base {
 				'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .woo-custom-installments-price del, {{WRAPPER}} .woo-custom-installments-price del .amount' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .woo-custom-installments-price.has-discount, {{WRAPPER}} .woo-custom-installments-price.has-discount .amount' => 'color: {{VALUE}}',
 				),
 			),
 		);
@@ -231,7 +231,7 @@ class Price extends Widget_Base {
 				'return_value' => 'none',
 				'default' => 'block',
                 'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-price.original-price del' => 'display: {{VALUE}}',
+                    '{{WRAPPER}} .woo-custom-installments-price.has-discount' => 'display: {{VALUE}} !important;',
                 ),
             ),
 		);
@@ -279,10 +279,10 @@ class Price extends Widget_Base {
                     'return_value' => 'yes',
                     'default' => apply_filters( 'Woo_Custom_Installments/Widgets/Enable_Grid_Price', 'yes' ),
                     'selectors' => array(
-                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: grid;',
+                        '{{WRAPPER}} .woo-custom-installments-group .woo-custom-installments-group-main-price' => 'flex-direction: column; align-items: flex-start;',
                     ),
                     'selectors_off' => array(
-                        '{{WRAPPER}} .woo-custom-installments-group:not(.variable-range-price) .woo-custom-installments-price' => 'display: block;',
+                        '{{WRAPPER}} .woo-custom-installments-group .woo-custom-installments-group-main-price' => 'flex-direction: row;',
                     ),
                 )
             );

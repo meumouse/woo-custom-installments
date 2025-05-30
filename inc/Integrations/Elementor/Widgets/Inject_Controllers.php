@@ -146,7 +146,7 @@ class Inject_Controllers {
 				'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .woo-custom-installments-price, {{WRAPPER}} .woo-custom-installments-price .amount, {{WRAPPER}} .woo-custom-installments-price del' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .woo-custom-installments-price, {{WRAPPER}} .woo-custom-installments-price .amount, {{WRAPPER}} .woo-custom-installments-price.has-discount' => 'color: {{VALUE}}',
 				),
 			)
 		);
