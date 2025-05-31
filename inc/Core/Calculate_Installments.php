@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -57,136 +58,86 @@ class Calculate_Installments {
 
 
 	/**
-	 * Calculate installments
-	 * 
-	 * @since 1.0.0
-	 * @version 5.4.0
-	 * @param array $return
-	 * @param mixed $price | Product price or false
-	 * @param mixed $product | Product ID or false
-	 * @param bool $echo
-	 * @return string
-	 */
-	public static function set_values( $return, $price = false, $product = false, $echo = true ) {
-		// check if is product
-		if ( ! $product ) {
-			return $return;
+     * Calculate all possible installment options
+     * 
+     * @since 1.0.0
+     * @version 5.4.0
+     * @param array $append | Additional installments arrays to merge
+     * @param float|null $price | Product price to use (if null, will fetch from product)
+     * @param WC_Product|null $product | Product object (if null, will retrieve from global)
+     * @return array List of installment info arrays
+     */
+    public static function installments_list( array $append = array(), float $price = null, $product = null ): array {
+        // Early return if no product provided or product not available
+        if ( ! $product ) {
+            $product = Helpers::get_product_id_from_post();
+        }
+
+		// Check Elementor edit mode
+		if ( ! Elementor::is_edit_mode() && ( ! $product || ! Helpers::is_product_available( $product ) ) ) {
+			return array();
 		}
 
-		$installments_info = array();
-		$custom_fee = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments') );
+        // Determine display price if not passed in
+        if ( $price === null ) {
+            $args = array();
 
-		if ( ! $price ) {
-			global $product;
+            if ( $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
+                $args['price'] = $product->get_variation_price('max');
+            }
 
-			$args = array();
+            $price = wc_get_price_to_display( $product, $args );
+        }
 
-			if ( ! $product ) {
-				return $return;
-			}
-
-			if ( $product && $product->is_type( 'variable', 'variation' ) && ! Helpers::variations_has_same_price( $product ) ) {
-				$args['price'] = $product->get_variation_price('max');
-			}
-
-			$price = wc_get_price_to_display( $product, $args );
-		}
-
-        /**
-         * Set price for display installments
+		/**
+		 * Allow external filters to adjust the base price
 		 * 
 		 * @since 1.0.0
 		 * @version 5.4.0
 		 * @param float $price | Product price
 		 * @param object $product | Product object
-         */
-		$price = apply_filters( 'Woo_Custom_Installments/Price/Set_Values_Price', $price, $product );
-
-		// check if product is different of available
-		if ( ! Helpers::is_product_available( $product ) ) {
-			return false;
-		}
-
-		// get max quantity of installments
-		$installments_limit = (int) Admin_Options::get_setting('max_qtd_installments');
-
-		// get all installments options till the limit
-		for ( $i = 1; $i <= $installments_limit; $i++ ) {
-			$interest_rate = 0; // start without fee
-
-			// check if option activated is set_fee_per_installment, else global fee is defined
-			if ( Admin_Options::get_setting('set_fee_per_installment') === 'yes' ) {
-				$interest_rate = isset( $custom_fee[$i]['amount'] ) ? floatval( $custom_fee[$i]['amount'] ) : 0;
-			} else {
-				$interest_rate = (float) Admin_Options::get_setting('fee_installments_global');
-			}
-
-			// If interest be zero, use one formula for all
-			if ( 0 == $interest_rate ) {
-				$installments_info[] = self::get_installments_without_interest( $price, $i );
-				continue;
-			}
-
-			// get max quantity of installments without fee
-			$max_installments_without_fee = (int) Admin_Options::get_setting('max_qtd_installments_without_fee');
-
-			// set the installments without fee
-			if ( $i <= $max_installments_without_fee ) {
-				// return values for this installment
-				$installments_info[] = self::get_installments_without_interest( $price, $i );
-			} else {
-				$installments_info[] = self::get_installments_with_interest( $price, $interest_rate, $i );
-			}
-		}
-
-		// get min value price of installment
-		$min_installment_value = (int) Admin_Options::get_setting('min_value_installments');
-
-		foreach ( $installments_info as $index => $installment ) {
-			if ( $installment['installment_price'] < $min_installment_value && 0 < $index ) {
-				unset( $installments_info[$index] );
-			}
-		}
-
-		// check if variable $return is array to merge with installments_info
-		if ( is_array( $return ) ) {
-			$return = array_merge( $installments_info, $return );
-		} else {
-			$return = $installments_info;
-		}
-
-		return self::formatting_display( $installments_info, $return, $echo );
-	}
-
-
-    /**
-	 * Format display prices
-	 * 
-	 * @since 1.0.0
-     * @version 5.4.0
-	 * @return string
-	 */
-	public static function formatting_display( $installments, $return, $echo = true ) {
-		// check if installments equal zero, if true return empty
-		if ( 0 === count( $installments ) ) {
-			return;
-		}
-
-		/**
-		 * Filter to change the installments
-		 * 
-		 * @since 1.0.0
-		 * @version 5.4.0
-		 * @param array $installments | Product installments
+		 * @return float
 		 */
-		$return = apply_filters( 'Woo_Custom_Installments/Installments/All_Installments', $installments );
+        $price = apply_filters( 'Woo_Custom_Installments/Price/Set_Values_Price', $price, $product );
 
-		if ( $echo ) {
-			echo $return;
-		} else {
-			return $return;
-		}
-	}
+        // Load settings once to avoid repeated calls
+        $limit = (int) Admin_Options::get_setting('max_qtd_installments');
+        $without_fee_limit = (int) Admin_Options::get_setting('max_qtd_installments_without_fee');
+        $global_fee = (float) Admin_Options::get_setting('fee_installments_global');
+        $fee_per_installment = Admin_Options::get_setting('set_fee_per_installment') === 'yes';
+        $min_value = (int) Admin_Options::get_setting('min_value_installments');
+        $custom_fees = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments') );
+        $installments = array();
+
+        // Build installments in a single loop
+        for ( $i = 1; $i <= $limit; $i++ ) {
+            // Determine interest rate per installment
+            $fee_rate = $fee_per_installment ? floatval( $custom_fees[ $i ]['amount'] ?? 0 ) : $global_fee;
+
+            // Choose calculation method based on free-fee limit
+            if ( $i <= $without_fee_limit || $fee_rate === 0 ) {
+                $info = self::get_installments_without_interest( $price, $i );
+            } else {
+                $info = self::get_installments_with_interest( $price, $fee_rate, $i );
+            }
+
+            // Only include if it's the first installment or above the minimum value
+            if ( $i === 1 || $info['installment_price'] >= $min_value ) {
+                $installments[] = $info;
+            }
+        }
+
+        // Merge with any externally provided installments
+        $result = array_merge( $installments, $append );
+
+        /**
+         * Allow external modification of the full installment list
+         *
+         * @param array $result | All installment info arrays
+         * @param WC_Product $product | Product object
+         */
+        return apply_filters( 'Woo_Custom_Installments/Installments/All_Installments', $result, $product );
+    }
 
 
     /**
@@ -200,7 +151,7 @@ class Calculate_Installments {
 	 */
 	public static function best_without_interest( $installments, $product ) {
 		// check if $installments is different of array or empty $installments or product price is zero
-		if ( ! is_array( $installments ) || empty( $installments ) || $product->get_price() <= 0 ) {
+		if ( ! is_array( $installments ) || empty( $installments ) || $product && $product->get_price() <= 0 ) {
 			return;
 		}
 
@@ -213,9 +164,9 @@ class Calculate_Installments {
 		}
 
 		// get end installment without fee loop foreach
-		$best_without_interest = end( $installments );
+		$get_installments = end( $installments );
 
-		if ( false === $best_without_interest ) {
+		if ( false === $get_installments ) {
 			return;
 		}
 
@@ -225,11 +176,11 @@ class Calculate_Installments {
 			$text = Admin_Options::get_setting('text_display_installments_loop');
 		}
 
-		$find = array_keys( Helpers::strings_to_replace( $best_without_interest ) );
-		$replace = array_values( Helpers::strings_to_replace( $best_without_interest ) );
+		$find = array_keys( Helpers::strings_to_replace( $get_installments ) );
+		$replace = array_values( Helpers::strings_to_replace( $get_installments ) );
 		$text = str_replace( $find, $replace, $text );
 
-		$html = '<span class="woo-custom-installments-details-without-fee" data-end-installments="'. esc_attr( $best_without_interest['installments_total'] ) .'">';
+		$html = '<span class="woo-custom-installments-details-without-fee" data-end-installments="'. esc_attr( $get_installments['installments_total'] ) .'">';
 			$card_icon_base = Admin_Options::get_setting('elements_design')['installments']['icon'];
 
 			if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
@@ -248,13 +199,13 @@ class Calculate_Installments {
 			 * @since 1.0.0
 			 * @version 5.4.0
 			 * @param string $text | Text to display
-			 * @param array $best_without_interest | Best installment without interest
+			 * @param array $get_installments | Best installment without interest
 			 * @param object $product | Product object
 			 * @return string
 			 */
-			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_Without_Fee_' . $hook, $text, $best_without_interest, $product );
+			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_Without_Fee_' . $hook, $text, $get_installments, $product );
 
-			$html .= '<span class="woo-custom-installments-details best-value ' . $best_without_interest['class'] . '">' . $installments . '</span>';
+			$html .= '<span class="woo-custom-installments-details best-value ' . $get_installments['class'] . '">' . $installments . '</span>';
 		$html .= '</span>';
 
 		return $html;
@@ -271,10 +222,6 @@ class Calculate_Installments {
 	 * @return string
 	 */
 	public static function best_with_interest( $installments, $product ) {
-		if ( $product === false || ! isset( $product ) ) {
-			global $product;
-		}
-
 		// check if $installments is different of array or empty $installments or product price is zero
 		if ( ! is_array( $installments ) || empty( $installments ) || $product->get_price() <= 0 ) {
 			return;
@@ -290,9 +237,9 @@ class Calculate_Installments {
 		}
 
 		$installments = array_values( $installments );
-		$best_with_interest = end( $installments );
+		$get_installments = end( $installments );
 
-		if ( false === $best_with_interest ||  $best_with_interest['installment_price'] < (int) Admin_Options::get_setting('min_value_installments') ) {
+		if ( false === $get_installments ||  $get_installments['installment_price'] < (int) Admin_Options::get_setting('min_value_installments') ) {
 			return;
 		}
 
@@ -304,11 +251,11 @@ class Calculate_Installments {
 			$text = Admin_Options::get_setting('text_display_installments_loop');
 		}
 
-		$find = array_keys( Helpers::strings_to_replace( $best_with_interest ) );
-		$replace = array_values( Helpers::strings_to_replace( $best_with_interest ) );
+		$find = array_keys( Helpers::strings_to_replace( $get_installments ) );
+		$replace = array_values( Helpers::strings_to_replace( $get_installments ) );
 		$text = str_replace( $find, $replace, $text );
 
-		$html = '<span class="woo-custom-installments-details-with-fee" data-end-installments="'. esc_attr( $best_with_interest['installments_total'] ) .'">';
+		$html = '<span class="woo-custom-installments-details-with-fee" data-end-installments="'. esc_attr( $get_installments['installments_total'] ) .'">';
 			$card_icon_base = Admin_Options::get_setting('elements_design')['installments']['icon'];
 
 			if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
@@ -327,13 +274,13 @@ class Calculate_Installments {
 			 * @since 1.0.0
 			 * @version 5.4.0
 			 * @param string $text | Text to display
-			 * @param array $best_with_interest | Best installment with interest
+			 * @param array $get_installments | Best installment with interest
 			 * @param object $product | Product object
 			 * @return string
 			 */
-			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_With_Fee_'. $hook, $text, $best_with_interest, $product );
+			$installments = apply_filters( 'Woo_Custom_Installments/Installments/Best_With_Fee_'. $hook, $text, $get_installments, $product );
 
-			$html .= '<span class="best-value '. $best_with_interest['class'] .'">'. $installments .'</span>';
+			$html .= '<span class="best-value '. $get_installments['class'] .'">'. $installments .'</span>';
 		$html .= '</span>';
 
 		return $html;

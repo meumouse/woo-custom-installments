@@ -787,7 +787,7 @@ class Components {
 			$price = wc_get_price_to_display( $product );
 		}
 		
-		$all_installments = Calculate_Installments::set_values( 'all', $price, $product, false );
+		$all_installments = Calculate_Installments::installments_list( array(), $price, $product );
 
 		if ( ! $all_installments ) {
 			return;
@@ -825,8 +825,8 @@ class Components {
 	 * @return string
 	 */
 	public function display_best_installments( $product ) {
-		if ( $product === false ) {
-			global $product;
+		if ( ! $product ) {
+			$product = Helpers::get_product_id_from_post();
 		}
 
 		// check if option __disable_installments in product is true
@@ -855,7 +855,8 @@ class Components {
 			$price = $product->get_sale_price() ?: $product->get_regular_price();
 		}
 
-		$installments = Calculate_Installments::set_values( array(), $price, $product, false );
+		$installments = Calculate_Installments::installments_list( array(), $price, $product );
+
 		$best_installments = '';
 	
 		if ( Admin_Options::get_setting('get_type_best_installments') === 'best_installment_without_fee' ) {
