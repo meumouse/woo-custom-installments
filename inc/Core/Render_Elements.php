@@ -126,8 +126,12 @@ class Render_Elements {
 					echo sprintf( '<img class="wci-icon-price icon-image" src="%s"/>', esc_url( $price_icon_base['image'] ) );
 				}
 
-				if ( $product && $product->is_type('variable') ) {
-					// Get variation prices
+				// instance components class
+				$components = new Components();
+				$display_sale_badge = Admin_Options::get_setting('enable_sale_badge');
+
+				if ( $product && $product->is_type('variable') ) :
+					// Get variation min price
 					$min_sale_price = $product->get_variation_sale_price( 'min', true );
 
 					// check if variations has different price between variations
@@ -140,29 +144,36 @@ class Render_Elements {
 								<span class="woo-custom-installments-starting-from"><?php echo $starting_from_text ?></span>
 							<?php endif; ?>
 
-							<span class="woo-custom-installments-price sale-price"><?php echo wc_price( $min_sale_price ) ?></span>
+							<span class="woo-custom-installments-price sale-price">
+								<?php echo wc_price( $min_sale_price );
+
+								// display sale badge
+								if ( $display_sale_badge === 'yes' ) :
+									echo $components->sale_badge( $product );
+								endif; ?>
+							</span>
 						<?php else : ?>
 							<span class="woo-custom-installments-price"><?php echo $price ?></span>
 						<?php endif; ?>
 					<?php else : ?>
 						<span class="woo-custom-installments-price"><?php echo $price ?></span>
-					<?php endif;
-				} else {
+					<?php endif; ?>
+				<?php else :
 					// Check if the product has a sale price for simple products
 					if ( $product && $product->is_on_sale() ) : ?>
 						<span class="woo-custom-installments-price original-price has-discount"><?php echo wc_price( $product->get_regular_price() ) ?></span>
-						<span class="woo-custom-installments-price sale-price"><?php echo wc_price( $product->get_sale_price() ) ?></span>
+						
+						<span class="woo-custom-installments-price sale-price">
+							<?php echo wc_price( $product->get_sale_price() );
+
+							// display sale badge
+							if ( $display_sale_badge === 'yes' ) :
+								echo $components->sale_badge( $product );
+							endif; ?>
+						</span>
 					<?php else : ?>
 						<span class="woo-custom-installments-price"><?php echo $price ?></span>
 					<?php endif;
-				}
-
-				// instance components class
-				$components = new Components();
-
-				// display sale badge
-				if ( Admin_Options::get_setting('enable_sale_badge') === 'yes' ) :
-					echo $components->sale_badge( $product );
 				endif; ?>
 			</div>
 

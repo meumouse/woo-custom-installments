@@ -315,6 +315,11 @@ table tbody>tr:nth-child(odd)>th {
     font-family: "Font Awesome 6 Free" !important;
 }
 
+.woo-custom-installments-group .fa-solid,
+.woo-custom-installments-group .fas {
+    font-weight: 900 !important;
+}
+
 .woo-custom-installments-text-after-price {
     margin-left: 0.15rem;
 }

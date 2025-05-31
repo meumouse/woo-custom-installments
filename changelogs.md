@@ -2,6 +2,8 @@ Versão 5.4.0 (30/05/2025)
 * Correção de bugs
     - Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros
     - ID do produto incorreto no editor Elementor
+    - Melhores parelas não aparecem de imediato ao editar com Elementor
+    - Desconto individual só é aplicado para o primeiro produto quando há multiplos produtos com descontos individuais
 * Otimizações
 * Mudança de arquitetura para MACI (Modular Autoload Class Initialization)
 * Recurso adicionado: Ativar atualizações automáticas

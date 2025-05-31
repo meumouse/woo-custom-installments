@@ -6,6 +6,7 @@ use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Installments;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -869,8 +870,13 @@ class Components {
 		}
 	
 		$html = ' <span class="woo-custom-installments-card-container">';
-		$html .= $best_installments;
+			$html .= $best_installments;
 		$html .= ' </span>';
+
+		// check if we are on Elementor edit mode
+		if ( Elementor::is_edit_mode() ) {
+			return $html;
+		}
 
 		// Check display conditions
 		if ( Admin_Options::get_setting('hook_display_best_installments') === 'display_loop_and_single_product'
@@ -926,6 +932,11 @@ class Components {
 
 		$html .= '</span>';
 
+		// check if we are on Elementor edit mode
+		if ( Elementor::is_edit_mode() ) {
+			return $html;
+		}
+
 		// Check display conditions
 		if ( Admin_Options::get_setting('display_discount_price_hook') === 'display_loop_and_single_product'
 			|| ( Admin_Options::get_setting('display_discount_price_hook') === 'only_single_product' && is_product() )
@@ -978,6 +989,11 @@ class Components {
 
 		$html .= '</span>';
 
+		// check if we are on Elementor edit mode
+		if ( Elementor::is_edit_mode() ) {
+			return $html;
+		}
+
 		if ( Admin_Options::get_setting('enable_ticket_method_payment_form') === 'yes' && Admin_Options::get_setting('enable_ticket_discount_main_price') === 'yes' ) {
 			// Check display conditions
 			if ( Admin_Options::get_setting('display_discount_ticket_hook') === 'global'
@@ -1025,21 +1041,25 @@ class Components {
 			}
 
 			$html = '<span class="woo-custom-installments-economy-pix-badge">';
+				$economy_pix_icon_base = Admin_Options::get_setting('elements_design')['pix_economy']['icon'];
 
-			$economy_pix_icon_base = Admin_Options::get_setting('elements_design')['pix_economy']['icon'];
-
-			if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-				if ( isset( $economy_pix_icon_base['class'] ) ) {
-					$html .= sprintf( __( '<i class="wci-icon-economy-pix icon-class %s"></i>' ), esc_attr( $economy_pix_icon_base['class'] ) );
+				if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
+					if ( isset( $economy_pix_icon_base['class'] ) ) {
+						$html .= sprintf( __( '<i class="wci-icon-economy-pix icon-class %s"></i>' ), esc_attr( $economy_pix_icon_base['class'] ) );
+					}
+				} else {
+					if ( isset( $economy_pix_icon_base['image'] ) ) {
+						$html .= sprintf( __( '<img class="wci-icon-economy-pix icon-image" src="%s"/>' ), esc_url( $economy_pix_icon_base['image'] ) );
+					}
 				}
-			} else {
-				if ( isset( $economy_pix_icon_base['image'] ) ) {
-					$html .= sprintf( __( '<img class="wci-icon-economy-pix icon-image" src="%s"/>' ), esc_url( $economy_pix_icon_base['image'] ) );
-				}
-			}
-			
-			$html .= '<span class="discount-before-economy-pix">' . $formatted_text . '</span>';
+				
+				$html .= '<span class="discount-before-economy-pix">' . $formatted_text . '</span>';
 			$html .= '</span>';
+
+			// check if we are on Elementor edit mode
+			if ( Elementor::is_edit_mode() ) {
+				return $html;
+			}
 
 			// Check display conditions
 			if ( Admin_Options::get_setting('display_economy_pix_hook') === 'global'
@@ -1097,7 +1117,7 @@ class Components {
 	 */
 	public function payment_methods_accordion( $product ) {
 		if ( ! $product ) :
-			return;
+			$product = Helpers::get_product_id_from_post();
 		endif; ?>
 
 		<div id="wci-accordion-installments" class="accordion">
@@ -1150,7 +1170,7 @@ class Components {
 	 */
 	public function payment_methods_modal( $product ) {
 		if ( ! $product ) :
-			return;
+			$product = Helpers::get_product_id_from_post();
 		endif; ?>
 
 		<button type="button" class="wci-open-popup">
@@ -1211,7 +1231,7 @@ class Components {
 	 */
 	public function message_for_discount_per_quantity( $product ) {
 		if ( ! $product ) {
-			return;
+			$product = Helpers::get_product_id_from_post();
 		}
 
 		$product_id = $product->get_id();
@@ -1230,7 +1250,7 @@ class Components {
 				$minimum_quantity = get_post_meta( $product_id, 'minimum_quantity_discount', true );
 			}
 
-			if ( $method == 'percentage' ) {
+			if ( $method === 'percentage' ) {
 				$discount_message = $value . '%';
 			} else {
 				$discount_message = get_woocommerce_currency_symbol() . $value;
@@ -1252,8 +1272,8 @@ class Components {
 				}
 
 				echo '<div class="woo-custom-installments-discount-per-quantity-message">';
-				echo '<i class="fa-solid fa-circle-exclamation"></i>';
-				echo '<span>' . $formatted_text . '</span>';
+					echo '<i class="fa-solid fa-circle-exclamation"></i>';
+					echo '<span>' . $formatted_text . '</span>';
 				echo '</div>';
 			}
 		}
