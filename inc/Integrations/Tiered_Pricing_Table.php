@@ -2,7 +2,9 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
-use \TierPricingTable\PriceManager;
+use TierPricingTable\PriceManager;
+use TierPricingTable\Services\ProductPageService;
+use TierPricingTable\Core\ServiceContainer;
 use \WC_Product;
 
 // Exit if accessed directly.
@@ -25,26 +27,33 @@ class Tiered_Pricing_Table {
 	 * @return void
 	 */
 	public function __construct() {
-		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'adjust_price_based_on_tiered_pricing' ), 10, 2 );
+        // set price for installments list
+		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'set_tier_price' ), 10, 2 );
+
+        // set params to installments table
         add_filter( 'Woo_Custom_Installments/Assets/Dynamic_Table_Params', array( $this, 'check_tiered_plugin' ), 10, 1 );
+
+        // Remove filters to avoid conflicts
+        add_action( 'init', array( $this, 'remove_actions' ), 20 );
 	}
 
 
 	/**
-     * Adjust product price based on tiered pricing rules
+     * Set product price based on tiered pricing rules
      * 
      * @since 4.5.2
-     * @version 5.1.0
+     * @version 5.4.0
      * @param float $price | Product price
      * @param WC_Product $product | Object product
      * @return float
      */
-    public function adjust_price_based_on_tiered_pricing( $price, $product ) {
+    public function set_tier_price( $price, $product ) {
         if ( ! self::check_plugin() ) {
             return $price;
         }
 
-        $pricing_rule = PriceManager::getPricingRule( $product->get_id() );
+        $product_id = $product->get_id();
+        $pricing_rule = PriceManager::getPricingRule( $product_id );
 
         if ( $pricing_rule ) {
             // Get the tier price for the minimum quantity set in the pricing rule
@@ -89,5 +98,25 @@ class Tiered_Pricing_Table {
         );
 
         return array_merge( $params, $new_params );
+    }
+
+
+    /**
+     * Remove actions and filters to avoid conflicts
+     * 
+     * @since 5.4.0
+     * @return void
+     */
+    public function remove_actions() {
+        $container = ServiceContainer::getInstance();
+        $service = $container->get( ProductPageService::class );
+
+        // Check if service is available
+        if ( ! $service ) {
+            return;
+        }
+
+        remove_action( 'woocommerce_get_price_html', array( $service, 'wrapPrice' ), 101 );
+        remove_filter( 'woocommerce_get_price_html', array( $service, 'renderTooltip' ), 999 );
     }
 }

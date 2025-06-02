@@ -101,15 +101,27 @@ class Elementor {
      * @return void
      */
     public function preview_assets() {
-        wp_register_style( 'woo-custom-installments-front-modal-styles-preview', $this->assets_url . 'frontend/css/modal.css', array(), $this->version );
-        wp_register_script( 'woo-custom-installments-front-modal-preview', $this->assets_url . 'frontend/js/modal.js', array('jquery'), $this->version );
-        wp_enqueue_style('woo-custom-installments-front-modal-styles-preview');
-        wp_enqueue_script('woo-custom-installments-front-modal-preview');
+        /**
+         * Filter to add cache option for front scripts
+         * 
+         * @since 5.4.0
+         */
+        $cache = apply_filters( 'Woo_Custom_Installments/Assets/Front_Scripts/Cache', true );
 
-        wp_register_style( 'woo-custom-installments-front-accordion-styles-preview', $this->assets_url . 'frontend/css/accordion.css', array(), $this->version );
-        wp_register_script( 'woo-custom-installments-front-accordion-preview', $this->assets_url . 'frontend/js/accordion.js', array('jquery'), $this->version );
-        wp_enqueue_style('woo-custom-installments-front-accordion-styles-preview');
-        wp_enqueue_script('woo-custom-installments-front-accordion-preview');
+        // If cache is enabled, set version to current timestamp
+        $set_version = $cache === true ? time() : $this->version;
+
+        // Enqueue accounting library for price formatting
+        wp_enqueue_script( 'accounting-lib', $this->assets_url . 'vendor/accounting/accounting.min.js', array(), '0.4.2', true );
+
+        // set dependencies
+        $deps = array( 'jquery', 'accounting-lib' );
+
+        wp_register_script( 'woo-custom-installments-front-scripts-preview', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts.js', $deps, $set_version, true );
+        wp_enqueue_script('woo-custom-installments-front-scripts-preview');
+
+        wp_register_style( 'woo-custom-installments-front-styles-preview', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles.css', array(), $this->version );
+        wp_enqueue_style('woo-custom-installments-front-styles-preview');
     }
 
 

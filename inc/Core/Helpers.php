@@ -116,12 +116,13 @@ class Helpers {
      * @version 5.4.0
      * @param object|bool $product | Product object or false
      * @param int $installments | Number of installments
-     * @return string
+     * @return float
      */
     public static function get_fee( $product = false, $installments = 1 ) {
-        $custom_fee = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments', array()) );
-
         if ( Admin_Options::get_setting('set_fee_per_installment') === 'yes' ) {
+            // get custom fee from database
+            $custom_fee = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments', array()) );
+
             $fee = isset( $custom_fee[$installments]['amount'] ) ? floatval( $custom_fee[$installments]['amount'] ) : 0;
         } else {
             $fee = floatval( Admin_Options::get_setting('fee_installments_global') );
