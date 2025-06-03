@@ -176,10 +176,14 @@ class Assets {
                 'active_price_range' => Admin_Options::get_setting('remove_price_range'),
                 'product_variation_with_range' => ! Helpers::variations_has_same_price( $product ),
                 'update_price_with_quantity' => Admin_Options::get_setting('update_price_with_quantity'),
+                'product' => array(
+                    'type' => $product->get_type(),
+                    'regular_price' => (float) $product->get_regular_price(),
+                    'current_price' => (float) $product->get_price(),
+                ),
                 'i18n' => array(
                     'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
                     'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
-                    'discount_tag' => esc_html__( '{{ discount }} OFF', 'woo-custom-installments' ),
                     'best_installments_sp' => Admin_Options::get_setting('text_display_installments_single_product'),
                 ),
                 'currency' => array(

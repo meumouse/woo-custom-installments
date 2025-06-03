@@ -18,6 +18,14 @@
 	 */
 	var current_price = {};
 
+	/**
+	 * Save current quantity
+	 * 
+	 * @since 5.4.0
+	 * @returns {int}
+	 */
+	var current_quantity = 1;
+
     /**
      * Woo Custom Installments object variable
      * 
@@ -126,6 +134,11 @@
 				return;
 			}
 
+			// on found or show variation
+			$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
+				Woo_Custom_Installments.rangeHandleVariationEvent( variation );
+            });
+
 			// select variation price html
            	$(document).on('change', 'input[name="variation_id"]', function() {
 				let variation_id = $(this).val();
@@ -133,20 +146,10 @@
 				Woo_Custom_Installments.rangeUpdatePrice( variation_id );
 			});
 
-			// on found or show variation
-			$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
-				Woo_Custom_Installments.rangeHandleVariationEvent( variation );
-            });
-
 			// hide variation price on reset
             $(document).on('click', 'a.reset_variation, a.reset_variations', function() {
                 Woo_Custom_Installments.rangeOnClearVariations();
             });
-
-			// trigger on change quantity
-            $(document).on('change', 'input[name="quantity"]', function() {
-				this.current_quantity = $('input[name="quantity"]').val() || 1;
-			});
 
 			// get trigger selectors
             var triggers = ( params.element_triggers || '' ).split(',');
@@ -163,7 +166,7 @@
 		 * @version 5.4.0
          */
         rangeOnClearVariations: function() {
-			let price_container = $('#woo-custom-installments-product-price');
+			let price_container = $('.woo-custom-installments-price-container');
 			let siblings_price = price_container.siblings('.woo-custom-installments-group');
 
             price_container.removeClass('active').addClass('d-none').html('');
@@ -198,7 +201,7 @@
 					new_price: variation.display_price,
 				};
 
-                Woo_Custom_Installments.updateAmounts( current_price );
+                Woo_Custom_Installments.updateAmounts( current_price, current_quantity );
             }
         },
 
@@ -213,7 +216,7 @@
             let price_html = $('#wci-variation-prices').find(`.wci-variation-item[data-variation-id="${variation_id}"]`).html();
 
 			// display variation price on price container
-            $('#woo-custom-installments-product-price').html(price_html).addClass('active').removeClass('d-none');
+            $('.woo-custom-installments-price-container').html(price_html).addClass('active').removeClass('d-none');
 
             Woo_Custom_Installments.rangePreventDuplicatePrices();
         },
@@ -225,7 +228,7 @@
 		 * @version 5.4.0
          */
         rangePreventDuplicatePrices: function() {
-			let price_container = $('#woo-custom-installments-product-price');
+			let price_container = $('.woo-custom-installments-price-container');
 			let siblings_price = price_container.siblings('.woo-custom-installments-group');
 
 			// check if price container is active and not empty
@@ -245,9 +248,16 @@
 		updateQuantity: function() {
 			// Get quantity input value
 			$(document).on( 'change', 'input[name="quantity"]', function() {
-				let quantity = $(this).val();
+				current_quantity = parseInt( $(this).val() ) || 1;
 
-				Woo_Custom_Installments.updateAmounts( current_price, quantity );
+				if ( params.product.type === 'simple' ) {
+					current_price = {
+						old_price: params.product.regular_price,
+						new_price: params.product.current_price,
+					};
+				}
+
+				Woo_Custom_Installments.updateAmounts( current_price, current_quantity );
 			});
 		},
 
@@ -259,7 +269,7 @@
 		 * @param {number} quantity | Quantity value
          */
         updateAmounts: function( price = {}, quantity = 1 ) {
-			let price_container = $('#woo-custom-installments-product-price');
+			var price_container = Woo_Custom_Installments.getPriceSelector();
 			var get_quantity = quantity;
 
             // update price with quantity
@@ -277,7 +287,7 @@
 			};
 
 			// update main prices
-			Woo_Custom_Installments.updateMainPriceElement( price_container, product_price );
+			Woo_Custom_Installments.updateMainPriceElement( product_price );
 
 			let enabled_discount_per_unit = params.discounts.enable_discount_per_unit;
 			let discount_per_unit_method = params.discounts.discount_per_unit_method;
@@ -295,14 +305,14 @@
 						// set pix economy value
 						economy = ( price.new_price - pix_discount_percentage_per_unit ) * get_quantity;
 
-						Woo_Custom_Installments.updatePixDiscountElement( price_container, pix_discount_percentage_per_unit * get_quantity );
+						Woo_Custom_Installments.updatePixDiscountElement( pix_discount_percentage_per_unit * get_quantity );
 					} else if ( discount_per_unit_method === 'fixed' ) {
 						let fixed_discount_pix_per_unit = ( price.new_price - discount_per_unit_value );
 
 						// set pix economy value
 						economy = ( price.new_price - fixed_discount_pix_per_unit ) * get_quantity;
 
-						Woo_Custom_Installments.updatePixDiscountElement( price_container, fixed_discount_pix_per_unit * get_quantity );
+						Woo_Custom_Installments.updatePixDiscountElement( fixed_discount_pix_per_unit * get_quantity );
 					}
 				} else if ( pix_discount ) {
 					if ( pix_discount_method === 'percentage' ) {
@@ -311,14 +321,14 @@
 						// set pix economy value
 						economy = ( price.new_price - pix_discount_percentage ) * get_quantity;
 
-						Woo_Custom_Installments.updatePixDiscountElement( price_container, pix_discount_percentage * get_quantity );
+						Woo_Custom_Installments.updatePixDiscountElement( pix_discount_percentage * get_quantity );
 					} else if ( pix_discount_method === 'fixed' ) {
 						let fixed_discount_pix = ( price.new_price - pix_discount );
 						
 						// set pix economy value
 						economy = ( price.new_price - fixed_discount_pix ) * get_quantity;
 
-						Woo_Custom_Installments.updatePixDiscountElement( price_container, fixed_discount_pix * get_quantity );
+						Woo_Custom_Installments.updatePixDiscountElement( fixed_discount_pix * get_quantity );
 					}
 				}
 			}
@@ -331,26 +341,41 @@
 				if ( slip_bank_discount_method === 'percentage' ) {
 					let slip_bank_discount_percentage = Woo_Custom_Installments.getPercentageDiscount( slip_bank_discount, price.new_price ) * get_quantity;
 
-					Woo_Custom_Installments.updateSlipBankElement( price_container, slip_bank_discount_percentage );
+					Woo_Custom_Installments.updateSlipBankElement( slip_bank_discount_percentage );
 				} else if ( slip_bank_discount_method === 'fixed' ) {
-					Woo_Custom_Installments.updateSlipBankElement( price_container, ( price.new_price - slip_bank_discount ) * get_quantity );
+					Woo_Custom_Installments.updateSlipBankElement( ( price.new_price - slip_bank_discount ) * get_quantity );
 				}
 			}
 
 			// update economy on Pix element
 			if ( price_container.find('.woo-custom-installments-economy-pix-badge').length > 0 ) {
-				Woo_Custom_Installments.updateEconomyElement( price_container, economy );
+				Woo_Custom_Installments.updateEconomyElement( economy );
 			}
         },
+
+		/**
+		 * Get price selector for display prices
+		 * 
+		 * @since 5.4.0
+		 * @returns {jQuery-object}
+		 */
+		getPriceSelector: function() {
+			if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
+				return $('.woo-custom-installments-price-container');
+			} else {
+				return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
+			}
+		},
 
 		/**
 		 * Update main price element
 		 * 
 		 * @since 5.4.0
-		 * @param {object} selector | Selector object
 		 * @param {object} price | Price value
 		 */
-		updateMainPriceElement: function( selector, price ) {
+		updateMainPriceElement: function( price ) {
+			let selector = Woo_Custom_Installments.getPriceSelector();
+
 			// has discount
 			if ( selector.find('.woo-custom-installments-price.has-discount').length > 0 ) {
 				// update old price
@@ -373,33 +398,50 @@
 		 * Update pix discount element
 		 * 
 		 * @since 5.4.0
-		 * @param {object} selector | Selector object
 		 * @param {float} price | Price value
 		 */
-		updatePixDiscountElement: function( selector, price ) {
+		updatePixDiscountElement: function( price ) {
+			// get main group selector
+			let selector = Woo_Custom_Installments.getPriceSelector();
+
+			// update discount on pix inside main group
 			selector.find('.woo-custom-installments-offer').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+
+			// update discount on pix inside modal
+			$('.wci-popup-body').find('.pix-method-container').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+
+			// update discount on pix inside accordion
+			$('.wci-accordion-content').find('.pix-method-container').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
 		},
 
 		/**
 		 * Update slip bank discount element
 		 * 
 		 * @since 5.4.0
-		 * @param {object} selector | Selector object
 		 * @param {float} price | Price value
 		 */
-		updateSlipBankElement: function( selector, price ) {
+		updateSlipBankElement: function( price ) {
+			// get main group selector
+			let selector = Woo_Custom_Installments.getPriceSelector();
+
 			selector.find('.woo-custom-installments-ticket-discount').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+			$('.wci-popup-body').find('.woo-custom-installments-ticket-section').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+			$('.wci-accordion-content').find('.woo-custom-installments-ticket-section').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
 		},
 
 		/**
 		 * Update economy on Pix element
 		 * 
 		 * @since 5.4.0
-		 * @param {object} selector | Selector object
 		 * @param {float} price | Price value
 		 */
-		updateEconomyElement: function( selector, price ) {
+		updateEconomyElement: function( price ) {
+			// get main group selector
+			let selector = Woo_Custom_Installments.getPriceSelector();
+
 			selector.find('.woo-custom-installments-economy-pix-badge').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+			$('.wci-popup-body').find('.woo-custom-installments-economy-pix-badge').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
+			$('.wci-accordion-content').find('.woo-custom-installments-economy-pix-badge').find('.amount').html( Woo_Custom_Installments.getFormattedPrice( price ) );
 		},
 
 		/**
@@ -456,7 +498,11 @@
             var fees = params.installments.fees;
             var last_installment_without_fee = null;
             var last_installment_with_fee = null;
-			let container_price = $('#woo-custom-installments-product-price');
+
+			// get main group selector
+			var price_container = Woo_Custom_Installments.getPriceSelector();
+
+			// get best installments label with variables for single product page
 			let best_installments_label = params.i18n.best_installments_sp;
 
 			// loop through installments
@@ -487,7 +533,7 @@
 					if ( best_installments_label ) {
 						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.without_fee_label);
 					
-						container_price.find('.woo-custom-installments-details.best-value.no-fee').html(installments_details);
+						price_container.find('.woo-custom-installments-details.best-value.no-fee').html(installments_details);
 					}
                 } else {
                     fee = fee.toString().replace(',', '.') / 100;
@@ -522,7 +568,7 @@
             		if ( best_installments_label ) {
 						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.with_fee_label);
 					
-						container_price.find('.woo-custom-installments-details-with-fee.best-value.fee-included').html(installments_details);
+						price_container.find('.woo-custom-installments-details-with-fee .best-value.fee-included').html(installments_details);
 					}
                 }
 
@@ -557,7 +603,7 @@
             this.initModal();
 
 			// Initialize price range
-			if ( params.active_price_range === 'yes' ) {
+			if ( params.active_price_range === 'yes' && params.product.type !== 'simple' ) {
 				this.replaceRangePrice();
 			}
 

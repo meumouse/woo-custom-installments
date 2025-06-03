@@ -651,7 +651,7 @@ button.wci-open-popup:hover {
     padding: 1rem 1.5rem 0.5rem 1.5rem;
 }
 
-#wci-popup-body {
+.wci-popup-body {
     padding: 0rem 1.5rem 0rem 1.5rem;
 }
 

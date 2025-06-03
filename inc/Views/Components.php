@@ -1195,7 +1195,7 @@ class Components {
 				 */
 				do_action( 'Woo_Custom_Installments/Elements/Modal_Header', $product ); ?>
 
-				<div id="wci-popup-body">
+				<div class="wci-popup-body">
 					<?php
 
 					if ( License::is_valid() ) {
