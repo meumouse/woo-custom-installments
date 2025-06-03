@@ -355,7 +355,7 @@ class Updater {
      * @since 5.4.0
      * @return void
      */
-    public static function auto_update_plugin() {
+    public function auto_update_plugin() {
         delete_transient('woo_custom_installments_api_request_cache');
         delete_transient('woo_custom_installments_api_response_cache');
         delete_transient( $this->cache_key );
@@ -398,8 +398,8 @@ class Updater {
      * @return void
      */
     public static function check_daily_updates() {
-        delete_transient( 'woo_custom_installments_check_updates' );
-        delete_transient( 'woo_custom_installments_remote_data' );
+        delete_transient('woo_custom_installments_check_updates');
+        delete_transient('woo_custom_installments_remote_data');
 
         $updater = new self();
         $remote_data = $updater->request();

@@ -198,13 +198,13 @@ class Calculate_Values {
         // Set discount amounts based on discount type
         switch ( $discount_type ) {
             case 'ticket':
-                $discount_value = Admin_Options::get_setting('discount_ticket');
+                $discount_value = (float) Admin_Options::get_setting('discount_ticket');
                 $discount_method = Admin_Options::get_setting('discount_method_ticket');
 
                 break;
             case 'main':
             default:
-                $discount_value = Admin_Options::get_setting('discount_main_price');
+                $discount_value = (float) Admin_Options::get_setting('discount_main_price');
                 $discount_method = Admin_Options::get_setting('product_price_discount_method');
 
                 break;

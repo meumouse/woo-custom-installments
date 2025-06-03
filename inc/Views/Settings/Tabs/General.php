@@ -8,74 +8,94 @@ defined('ABSPATH') || exit; ?>
 
 <div id="general" class="nav-content">
    <table class="form-table">
-      <tr>
-        <th>
-           <?php esc_html_e( 'Ativar Parcelas Customizadas', 'woo-custom-installments' ) ?>
-           <span class="woo-custom-installments-description"><?php esc_html_e('Ative esta opção para que o plugin será inicializado.', 'woo-custom-installments' ) ?></span>
-        </th>
-        <td>
-           <div class="form-check form-switch">
-              <input type="checkbox" class="toggle-switch" id="enable_installments_all_products" name="enable_installments_all_products" value="yes" <?php checked( Admin_Options::get_setting('enable_installments_all_products') == 'yes' ); ?> />
-           </div>
-        </td>
-      </tr>
+		<tr>
+			<th>
+				<?php esc_html_e( 'Ativar Parcelas Customizadas', 'woo-custom-installments' ) ?>
+				<span class="woo-custom-installments-description"><?php esc_html_e('Ative esta opção para que o plugin será inicializado.', 'woo-custom-installments' ) ?></span>
+			</th>
+			<td>
+				<div class="form-check form-switch">
+					<input type="checkbox" class="toggle-switch" id="enable_installments_all_products" name="enable_installments_all_products" value="yes" <?php checked( Admin_Options::get_setting('enable_installments_all_products') == 'yes' ); ?> />
+				</div>
+			</td>
+      	</tr>
 
-      <tr>
-         <th>
-            <?php esc_html_e( 'Remover faixa de preço em produtos variáveis', 'woo-custom-installments' );
+		<tr>
+			<th>
+				<?php esc_html_e( 'Remover faixa de preço em produtos variáveis', 'woo-custom-installments' );
 
-            if ( ! License::is_valid() ) : ?>
-               <span class="badge pro bg-primary rounded-pill ms-2">
-                  <svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
-                  <?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
-               </span>
-            <?php endif; ?>
+				if ( ! License::is_valid() ) : ?>
+					<span class="badge pro bg-primary rounded-pill ms-2">
+						<svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+						<?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+					</span>
+				<?php endif; ?>
 
-            <span class="woo-custom-installments-description"><?php esc_html_e('Se ativo, irá remover a faixa de preço em produtos variáveis e o preço será alterado dinâmicamente ao selecionar uma variação.', 'woo-custom-installments' ) ?></span>
-         </th>
-         <td>
-            <div class="form-check form-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
-               <input type="checkbox" class="toggle-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" id="remove_price_range" name="remove_price_range" value="yes" <?php checked( Admin_Options::get_setting('remove_price_range') == 'yes' && License::is_valid() ); ?> />
-            
-               <button id="remove_price_range_settings_trigger" class="btn btn-outline-primary ms-3 require-remove-price-range"><?php esc_html_e( 'Configurar', 'woo-custom-installments' ) ?></button>
-            
-               <div id="remove_price_range_settings_container" class="popup-container">
-                  <div class="popup-content">
-                     <div class="popup-header">
-                        <h5 class="popup-title"><?php esc_html_e( 'Configurar remoção da faixa de preço', 'woo-custom-installments' ); ?></h5>
-                        <button id="remove_price_range_settings_close" class="btn-close fs-lg" aria-label="<?php esc_html_e( 'Fechar', 'woo-custom-installments' ) ?>"></button>
-                     </div>
+				<span class="woo-custom-installments-description"><?php esc_html_e('Se ativo, irá remover a faixa de preço em produtos variáveis e o preço será alterado dinâmicamente ao selecionar uma variação.', 'woo-custom-installments' ) ?></span>
+			</th>
+			<td>
+				<div class="form-check form-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+					<input type="checkbox" class="toggle-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" id="remove_price_range" name="remove_price_range" value="yes" <?php checked( Admin_Options::get_setting('remove_price_range') == 'yes' && License::is_valid() ); ?> />
+					
+					<button id="remove_price_range_settings_trigger" class="btn btn-outline-primary ms-3 require-remove-price-range"><?php esc_html_e( 'Configurar', 'woo-custom-installments' ) ?></button>
+					
+					<div id="remove_price_range_settings_container" class="popup-container">
+						<div class="popup-content">
+							<div class="popup-header">
+								<h5 class="popup-title"><?php esc_html_e( 'Configurar remoção da faixa de preço', 'woo-custom-installments' ); ?></h5>
+								<button id="remove_price_range_settings_close" class="btn-close fs-lg" aria-label="<?php esc_html_e( 'Fechar', 'woo-custom-installments' ) ?>"></button>
+							</div>
 
-                     <div class="popup-body">
-                        <table class="popup-table">
-                           <tbody>
-                              <tr class="require-dynamic-method">
-                                 <th>
-                                    <?php esc_html_e( 'Gatilho para atualização', 'woo-custom-installments' ) ?>
-                                    <span class="woo-custom-installments-description"><?php esc_html_e('Permite definir elementos que ao serem clicados acionam a atualização do preço. Informe a classe ou ID separado por vírgulas: .elemento-1, .elemento-2', 'woo-custom-installments' ) ?></span>
-                                 </th>
-                                 <td>
-                                    <input type="text" id="update_range_price_triggers" class="form-control" name="update_range_price_triggers" value="<?php echo Admin_Options::get_setting('update_range_price_triggers') ?>" placeholder=".elemento-1, .elemento-2"/>
-                                 </td>
-                              </tr>
+							<div class="popup-body">
+								<table class="popup-table">
+									<tbody>
+										<tr class="require-dynamic-method">
+											<th>
+												<?php esc_html_e( 'Gatilho para atualização', 'woo-custom-installments' ) ?>
+												<span class="woo-custom-installments-description"><?php esc_html_e('Permite definir elementos que ao serem clicados acionam a atualização do preço. Informe a classe ou ID separado por vírgulas: .elemento-1, .elemento-2', 'woo-custom-installments' ) ?></span>
+											</th>
+											<td>
+												<input type="text" id="update_range_price_triggers" class="form-control" name="update_range_price_triggers" value="<?php echo Admin_Options::get_setting('update_range_price_triggers') ?>" placeholder=".elemento-1, .elemento-2"/>
+											</td>
+										</tr>
 
-                              <tr class="starting-from">
-                                    <th>
-                                       <?php esc_html_e( 'Texto inicial em produtos variáveis (A partir de)', 'woo-custom-installments' ) ?>
-                                       <span class="woo-custom-installments-description"><?php esc_html_e( 'Deixe em branco para não exibir.', 'woo-custom-installments' ) ?></span>
-                                    </th>
-                                    <td>
-                                       <input type="text" class="form-control input-control-wd-20" name="text_initial_variables" value="<?php echo Admin_Options::get_setting( 'text_initial_variables' ) ?>"/>
-                                    </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </td>
-      </tr>
+										<tr class="starting-from">
+											<th>
+												<?php esc_html_e( 'Texto inicial em produtos variáveis (A partir de)', 'woo-custom-installments' ) ?>
+												<span class="woo-custom-installments-description"><?php esc_html_e( 'Deixe em branco para não exibir.', 'woo-custom-installments' ) ?></span>
+											</th>
+											<td>
+												<input type="text" class="form-control input-control-wd-20" name="text_initial_variables" value="<?php echo Admin_Options::get_setting( 'text_initial_variables' ) ?>"/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				<?php esc_html_e( 'Atualizar preço do produto a partir da quantidade', 'woo-custom-installments' );
+
+				if ( ! License::is_valid() ) : ?>
+					<span class="badge pro bg-primary rounded-pill ms-2">
+						<svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+						<?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+					</span>
+				<?php endif; ?>
+
+				<span class="woo-custom-installments-description"><?php esc_html_e('Ative esta opção para atualizar o preço do produto e seus derivados a partir do seletor de quantidade.', 'woo-custom-installments' ) ?></span>
+			</th>
+			<td>
+				<div class="form-check form-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+					<input type="checkbox" class="toggle-switch <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" id="update_price_with_quantity" name="update_price_with_quantity" value="yes" <?php checked( Admin_Options::get_setting('update_price_with_quantity') === 'yes' && License::is_valid() ); ?> />
+				</div>
+			</td>
+		</tr>
 
       <tr>
          <th>

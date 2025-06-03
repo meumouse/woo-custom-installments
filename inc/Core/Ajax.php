@@ -119,6 +119,7 @@ class Ajax {
                 'enable_economy_pix_badge',
                 'enable_post_meta_feed_xml_price',
                 'enable_sale_badge',
+                'update_price_with_quantity',
             );
     
             // update switch options without license

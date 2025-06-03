@@ -7,6 +7,7 @@ use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Installments;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -580,7 +581,6 @@ class Components {
 	 * @return string
 	 */
 	public function render_pix_flag( $product ) {
-		$price = wc_get_price_to_display( $product );
 		$economy_pix_active = Admin_Options::get_setting('enable_economy_pix_badge') === 'yes';
 		$pix_flag = '';
 		
@@ -609,7 +609,7 @@ class Components {
 					
 					if ( $economy_pix_active ) {
 						$pix_flag .= '<div class="economy-pix-info">';
-						$pix_flag .= $this->economy_pix_badge( $product );
+							$pix_flag .= $this->economy_pix_badge( $product );
 						$pix_flag .= '</div>';
 					}
 				}
@@ -640,11 +640,11 @@ class Components {
 				$ticket_flag .= '<span class="ticket-method-name">'. sprintf( __( '%s %s' ), Admin_Options::get_setting('text_ticket_container'), wc_price( Calculate_Values::get_discounted_price( $product, 'ticket' ) ) ) .'</span>';
 
 				$ticket_flag .= '<div class="ticket-method-container">';
-				$ticket_flag .= '<span class="ticket-instructions">'. Admin_Options::get_setting('text_instructions_ticket_container') .'</span>';
+					$ticket_flag .= '<span class="ticket-instructions">'. Admin_Options::get_setting('text_instructions_ticket_container') .'</span>';
 				$ticket_flag .= '</div>';
 
 				$ticket_flag .= '<div class="container-badge-icon ticket-flag">';
-				$ticket_flag .= '<img class="size-badge-icon" src="'. $this->assets_url . 'front/img/boleto-badge.svg"/>';
+					$ticket_flag .= '<img class="size-badge-icon" src="'. $this->assets_url . 'frontend/img/boleto-badge.svg"/>';
 				$ticket_flag .= '</div>';
 
 			$ticket_flag .= '</div>';
@@ -665,19 +665,19 @@ class Components {
 	 */
 	public function get_card_flags( $card_type, $type ) {
 		$default_flags = array(
-			'mastercard' => $this->assets_url . 'front/img/mastercard-badge.svg',
-			'visa' => $this->assets_url . 'front/img/visa-badge.svg',
-			'elo' => $this->assets_url . 'front/img/elo-badge.svg',
-			'hipercard' => $this->assets_url . 'front/img/hipercard-badge.svg',
-			'diners_club' => $this->assets_url . 'front/img/diners-club-badge.svg',
-			'discover' => $this->assets_url . 'front/img/discover-badge.svg',
-			'american_express' => $this->assets_url . 'front/img/american-express-badge.svg',
-			'paypal' => $this->assets_url . 'front/img/paypal-badge.svg',
-			'stripe' => $this->assets_url . 'front/img/stripe-badge.svg',
-			'mercado_pago' => $this->assets_url . 'front/img/mercado-pago-badge.svg',
-			'pagseguro' => $this->assets_url . 'front/img/pagseguro-badge.svg',
-			'pagarme' => $this->assets_url . 'front/img/pagarme-badge.svg',
-			'cielo' => $this->assets_url . 'front/img/cielo-badge.svg',
+			'mastercard' => $this->assets_url . 'frontend/img/mastercard-badge.svg',
+			'visa' => $this->assets_url . 'frontend/img/visa-badge.svg',
+			'elo' => $this->assets_url . 'frontend/img/elo-badge.svg',
+			'hipercard' => $this->assets_url . 'frontend/img/hipercard-badge.svg',
+			'diners_club' => $this->assets_url . 'frontend/img/diners-club-badge.svg',
+			'discover' => $this->assets_url . 'frontend/img/discover-badge.svg',
+			'american_express' => $this->assets_url . 'frontend/img/american-express-badge.svg',
+			'paypal' => $this->assets_url . 'frontend/img/paypal-badge.svg',
+			'stripe' => $this->assets_url . 'frontend/img/stripe-badge.svg',
+			'mercado_pago' => $this->assets_url . 'frontend/img/mercado-pago-badge.svg',
+			'pagseguro' => $this->assets_url . 'frontend/img/pagseguro-badge.svg',
+			'pagarme' => $this->assets_url . 'frontend/img/pagarme-badge.svg',
+			'cielo' => $this->assets_url . 'frontend/img/cielo-badge.svg',
 		);
 
 		/**
@@ -697,7 +697,7 @@ class Components {
 		foreach( $flags as $key => $flag_url ) {
 			if ( isset( $options['enable_' . $key . '_flag_' . $type] ) && $options['enable_' . $key . '_flag_' . $type] === 'yes' ) {
 				$card_flags .= '<div class="container-badge-icon ' . esc_attr( $card_type ) . ' ' . esc_attr( $key ) . '-flag">';
-				$card_flags .= '<img class="size-badge-icon" src="' . esc_url( $flag_url ) . '"/>';
+					$card_flags .= '<img class="size-badge-icon" src="' . esc_url( $flag_url ) . '"/>';
 				$card_flags .= '</div>';
 			}
 		}
@@ -796,21 +796,22 @@ class Components {
 
 		// Installments table
 		$table = '<h4 class="installments-title">'. Admin_Options::get_setting('text_table_installments') .'</h4>';
+		
 		$table .= '<div id="table-installments">';
-		$table .= '<table class="table table-hover woo-custom-installments-table">';
-			$table .= '<tbody data-default-text="'. Admin_Options::get_setting('text_display_installments_payment_forms') .'">';
-			foreach ( $all_installments as $installment ) {
-				$find = array_keys( Helpers::strings_to_replace( $installment ) );
-				$replace = array_values( Helpers::strings_to_replace( $installment ) );
-				$final_text = str_replace( $find, $replace, Admin_Options::get_setting('text_display_installments_payment_forms') );
+			$table .= '<table class="table table-hover woo-custom-installments-table">';
+				$table .= '<tbody data-default-text="'. Admin_Options::get_setting('text_display_installments_payment_forms') .'">';
+					foreach ( $all_installments as $installment ) {
+						$find = array_keys( Helpers::strings_to_replace( $installment ) );
+						$replace = array_values( Helpers::strings_to_replace( $installment ) );
+						$final_text = str_replace( $find, $replace, Admin_Options::get_setting('text_display_installments_payment_forms') );
 
-				$table .= '<tr class="'. $installment['class'] .'">';
-				$table .= '<th class="final-text">'. $final_text .'</th>';
-				$table .= '<th class="final-price">'. wc_price( $installment['final_price'] ) .'</th>';
-				$table .= '</tr>';
-			}
-			$table .= '</tbody>';
-		$table .= '</table>';
+						$table .= '<tr class="'. $installment['class'] .'">';
+							$table .= '<th class="final-text">'. $final_text .'</th>';
+							$table .= '<th class="final-price">'. wc_price( $installment['final_price'] ) .'</th>';
+						$table .= '</tr>';
+					}
+				$table .= '</tbody>';
+			$table .= '</table>';
 		$table .= '</div>';
 
 		return $table;

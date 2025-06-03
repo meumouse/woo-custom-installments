@@ -492,6 +492,7 @@ class Default_Options extends Admin_Options {
             'selectors_group_for_center_elements' => '.archive .woo-custom-installments-group, .loop .woo-custom-installments-group, li.product .woo-custom-installments-group, li.wc-block-grid__product .woo-custom-installments-group, .product-grid-item .woo-custom-installments-group, .e-loop-item.product .woo-custom-installments-group, .swiper-slide .type-product .woo-custom-installments-group, .shopengine-single-product-item .woo-custom-installments-group, .products-list.grid .item-product .woo-custom-installments-group, .product-item.grid .woo-custom-installments-group, .card-product .woo-custom-installments-group, .owl-item .woo-custom-installments-group, .jet-woo-products__inner-box .woo-custom-installments-group',
             'enable_force_styles' => 'no',
             'enable_auto_updates' => 'no',
+            'update_price_with_quantity' => 'yes',
         ));
     }
 }

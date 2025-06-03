@@ -64,48 +64,41 @@ class Helpers {
      * Check if variations have equal price
      * 
      * @since 1.0.0
-     * @version 5.2.7
+     * @version 5.4.0
      * @param object $product | Product object
      * @return bool
      */
     public static function variations_has_same_price( $product ) {
-        // get the product object, if id is passed
-        if ( ! $product instanceof WC_Product ) {
-            $product = wc_get_product( $product );
-        }
-
-        // check if is a product variable
+        // check if product is variable
         if ( ! $product || ! $product->is_type('variable') ) {
-            return false; // it not product variable
+            return false;
         }
 
-        // get all variations from product
-        $variations = $product->get_children();
-        
-        if ( empty( $variations ) ) {
-            return false; // there are no variations
+        // get variation prices
+        $variation_prices = $product->get_variation_prices( true );
+
+        if ( empty( $variation_prices['price'] ) ) {
+            return false;
         }
 
-        // get price from first variation as a referrer
         $first_price = null;
 
-        foreach ( $variations as $variation_id ) {
-            $variation = wc_get_product( $variation_id );
-
-            if ( ! $variation || ! $variation->is_purchasable() ) {
-                continue; // ignore invalid variations
+        foreach ( $variation_prices['price'] as $price_final ) {
+            // skip empty prices and null prices
+            if ( '' === $price_final || is_null( $price_final ) ) {
+                continue;
             }
 
-            $price = (float) $variation->get_regular_price();
+            $price_final = (float) $price_final;
 
-            if ( is_null( $first_price ) ) {
-                $first_price = $price; // set initial price
-            } elseif ( $price !== $first_price ) {
-                return false; // find a different price
+            if ( $first_price === null ) {
+                $first_price = $price_final;
+            } elseif ( $price_final !== $first_price ) {
+                return false;
             }
         }
 
-        return true;
+        return ( $first_price !== null );
     }
 
 

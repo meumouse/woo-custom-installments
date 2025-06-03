@@ -31,7 +31,7 @@ class Tiered_Pricing_Table {
 		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'set_tier_price' ), 10, 2 );
 
         // set params to installments table
-        add_filter( 'Woo_Custom_Installments/Assets/Dynamic_Table_Params', array( $this, 'check_tiered_plugin' ), 10, 1 );
+        add_filter( 'Woo_Custom_Installments/Assets/Frontend_Params', array( $this, 'check_tiered_plugin' ), 10, 1 );
 
         // Remove filters to avoid conflicts
         add_action( 'init', array( $this, 'remove_actions' ), 20 );

@@ -224,11 +224,11 @@ class Legacy_Filters {
 				'version' => '5.4.0',
 			),
 			'woo_custom_installments_front_params' => array(
-				'new_filter' => 'Woo_Custom_Installments/Assets/Front_Params',
+				'new_filter' => 'Woo_Custom_Installments/Assets/Frontend_Params',
 				'version' => '5.4.0',
 			),
 			'woo_custom_installments_dynamic_table_params' => array(
-				'new_filter' => 'Woo_Custom_Installments/Assets/Dynamic_Table_Params',
+				'new_filter' => 'Woo_Custom_Installments/Assets/Frontend_Params',
 				'version' => '5.4.0',
 			),
 			'woo_custom_installments_best_no_fee_' => array(

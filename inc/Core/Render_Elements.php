@@ -34,14 +34,14 @@ class Render_Elements {
 
 			// get hook to display accordion or popup payment form in single product page
 			if ( Admin_Options::get_setting('hook_payment_form_single_product') === 'before_cart' ) {
-				add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
+				add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ) );
 			} elseif ( Admin_Options::get_setting('hook_payment_form_single_product') === 'after_cart' ) {
-				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
+				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ) );
 			} elseif ( Admin_Options::get_setting('hook_payment_form_single_product') === 'custom_hook' ) {
-				add_action( Admin_Options::get_setting('set_custom_hook_payment_form'), array( __CLASS__, 'display_payment_methods' ), 10, 1 );
+				add_action( Admin_Options::get_setting('set_custom_hook_payment_form'), array( __CLASS__, 'display_payment_methods' ) );
 			} else {
-				remove_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
-				remove_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ), 10, 1 );
+				remove_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ) );
+				remove_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'display_payment_methods' ) );
 			}
 
 			// remove price range
@@ -230,7 +230,7 @@ class Render_Elements {
 	 * @param object $product | Product object
 	 * @return string
 	 */
-	public static function display_payment_methods( $product ) {
+	public static function display_payment_methods( $product = null ) {
 		$display_method = Admin_Options::get_setting('display_installment_type');
 
 		// check if display method is accordion or popup
@@ -247,8 +247,9 @@ class Render_Elements {
 		 */
 		$product = apply_filters( 'Woo_Custom_Installments/Payment_Methods/Set_Product', $product );
 
+		// check if product object exists
 		if ( ! $product ) {
-			return;
+			global $product;
 		}
 
 		// base product ID on product object

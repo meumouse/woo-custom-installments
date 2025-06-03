@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Cron;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Core\Updater;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -29,8 +30,10 @@ class Routines {
                 wp_schedule_event( time(), 'daily', 'Woo_Custom_Installments/Updates/Auto_Updates' );
             }
 
+            $updater = new Updater();
+
             // auto update plugin action
-            add_action( 'Woo_Custom_Installments/Updates/Auto_Updates', array( '\MeuMouse\Woo_Custom_Installments\Core\Updater', 'auto_update_plugin' ) );
+            add_action( 'Woo_Custom_Installments/Updates/Auto_Updates', array( $updater, 'auto_update_plugin' ) );
         }
 
         // schedule daily updates
