@@ -6,15 +6,15 @@
 	"version" : "5.4.0",
 	"download_url" : "https://github.com/meumouse/woo-custom-installments/raw/main/dist/woo-custom-installments.zip",
 	"requires" : "5.6",
-	"tested" : "6.7.1",
+	"tested" : "6.8.1",
 	"requires_php" : "7.4",
 	"added" : "2023-09-18 12:00:00",
-	"last_updated" : "2025-06-04 10:27:00",
+	"last_updated" : "2025-06-04 10:15:00",
 	"homepage" : "https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/",
 	"sections": {
 	    "description": "Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.",
 	    "installation": "Instalação:<br><br><strong>Instalação via painel de administração:</strong><br>Você pode instalar um plugin WordPress de duas maneiras: via o painel de administração do WordPress ou via FTP. Aqui estão as etapas para ambos os métodos:<br><ol><li>Acesse o painel de administração do seu site WordPress.</li><li>Vá para “Plugins” e clique em “Adicionar Novo”.</li><li>Digite o nome do plugin que você deseja instalar na barra de pesquisa ou carregue o arquivo ZIP do plugin baixado.</li><li>Clique em “Instalar Agora” e espere até que o plugin seja instalado.</li><li>Clique em “Ativar Plugin”.</li></ol><br><strong>Instalação via FTP:</strong><br><ol><li>Baixe o arquivo ZIP do plugin que você deseja instalar.</li><li>Descompacte o arquivo ZIP em seu computador.</li><li>Conecte-se ao seu servidor via FTP.</li><li>Navegue até a pasta “wp-content/plugins”.</li><li>Envie a pasta do plugin descompactada para a pasta “plugins” no seu servidor.</li><li>Acesse o painel de administração do seu site WordPress.</li><li>Vá para “Plugins” e clique em “Plugins Instalados”.</li><li>Localize o plugin que você acabou de instalar e clique em “Ativar”.</li></ol><br>Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.",
-	    "changelog": "<strong>Versão 5.3.0 (29/01/2025)</strong><ul><li>Correção de bugs</li><li>Otimizações</li></ul>"
+	    "changelog": "<strong>Versão 5.4.0 (04/06/2025)</strong><ul><li><strong>Correção de bugs</strong><ul><li>Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros</li><li>ID do produto incorreto no editor Elementor</li><li>Melhores parcelas não aparecem de imediato ao editar com Elementor</li><li>Desconto individual só é aplicado para o primeiro produto quando há múltiplos produtos com descontos individuais</li></ul></li><li><strong>Otimizações</strong></li><li><strong>Mudança de arquitetura</strong><ul><li>MACI (Modular Autoload Class Initialization)</li></ul></li><li><strong>Recursos adicionados</strong><ul><li>Ativar atualizações automáticas</li><li>Controlador de estilos para widgets do Elementor para emblema de desconto</li><li>Widget para Elementor: Emblema de desconto</li><li>Shortcode [woo_custom_installments_sale_badge]: Emblema de desconto</li><li>Atualizar preço do produto a partir da quantidade</li></ul></li><li><strong>Recursos removidos</strong><ul><li>Compatibilidade com tema EpicJungle</li><li>Ativar atualização de valores em elementos em produtos variáveis</li><li>Método de atualização do preço → Remover faixa de preço em produtos variáveis</li></ul></li><li><strong>Recursos modificados</strong><ul><li>Local de exibição do preço com desconto no Pix</li><li>Local de exibição da informação de economia no Pix</li><li>Local de exibição das melhores parcelas</li><li>Arquivo de tradução em inglês (en_US) atualizado</li><li>Arquivo de tradução em espanhol (es_ES) atualizado</li></ul></li></ul>"
 	},
 	"banners" : {
 		"low" : "https://github.com/meumouse/woo-custom-installments/blob/main/dist/images/banner-low-woo-custom-installments.png",
