@@ -6,6 +6,7 @@ use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\Views\Components;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
 use MeuMouse\Woo_Custom_Installments\Core\Render_Elements;
+use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -69,7 +70,7 @@ class Shortcodes extends Components {
         }
 
         // check if product is valid
-        if ( ! $product || ! $product instanceof WC_Product || $product === null ) {
+        if ( ! $product ) {
             return __( 'O local do shortcode inserido é inválido. É permitido apenas para produtos.', 'woo-custom-installments' );
         }
 
@@ -117,14 +118,16 @@ class Shortcodes extends Components {
      * Create a shortcode for discount main price
      * 
      * @since 2.0.0
-     * @version 5.2.6
+     * @version 5.4.0
      * @return string
      */
     public function woo_custom_installments_group_shortcode() {
-        global $product;
-
         // compatibility with Elementor editing mode
         $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( ! $product ) {
+            global $product;
+        }
 
         $price = $product->get_price();
 
@@ -134,31 +137,10 @@ class Shortcodes extends Components {
         }
 
         if ( License::is_valid() ) {
-            $price = apply_filters( 'woo_custom_installments_adjusted_price', $price, $product );
+            // instance render elements class
+            $elements = new Render_Elements();
 
-            if ( strpos( $price, 'woo-custom-installments-group' ) !== false ) {
-                return $price;
-            }
-
-            $html = '<div class="woo-custom-installments-group';
-
-            if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) {
-                $html .= ' variable-range-price';
-            }
-
-            $html .= '">';
-
-            // Original price
-            $html .= '<span class="woo-custom-installments-price original-price">' . wc_price( $price ) . '</span>';
-
-            $html .= $this->discount_main_price_single( $product );
-            $html .= $this->discount_ticket_badge( $product );
-            $html .= $this->display_best_installments( $product );
-            $html .= $this->economy_pix_badge( $product );
-
-            $html .= '</div>';
-
-            return $html;
+            return $elements->display_price_group( $price, $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -169,14 +151,14 @@ class Shortcodes extends Components {
      * Create a shortcode installments table
      * 
      * @since 2.0.0
-     * @version 5.0.0
+     * @version 5.4.0
      * @return string
      */
     public function installments_table_shortcode() {
         // compatibility with Elementor editing mode
         $product = wc_get_product( Helpers::get_product_id_from_post() );
 
-        if ( $product === false ) {
+        if ( ! $product ) {
             global $product;
         }
 
@@ -186,7 +168,7 @@ class Shortcodes extends Components {
         }
 
         if ( License::is_valid() ) {
-            echo $this->generate_installments_table( $product );
+            echo $this->render_installments_table( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -197,12 +179,24 @@ class Shortcodes extends Components {
      * Create shortcode for pix flag
      * 
      * @since 2.8.0
-     * @version 4.5.0
+     * @version 5.4.0
      * @return string
      */
     public function pix_flag_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( ! $product ) {
+            global $product;
+        }
+
+        // check if local is product page for install shortcode
+        if ( ! $product ) {
+            return __( 'O local do shortcode inserido é inválido. Insira em um modelo de página de produto individual, ou em um local onde consiga obter o ID de um produto.', 'woo-custom-installments' );
+        }
+
         if ( License::is_valid() ) {
-            return $this->woo_custom_installments_pix_flag();
+            return $this->render_pix_flag( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -217,8 +211,20 @@ class Shortcodes extends Components {
      * @return string
      */
     public function ticket_flag_shortcode() {
+        // compatibility with Elementor editing mode
+        $product = wc_get_product( Helpers::get_product_id_from_post() );
+
+        if ( ! $product ) {
+            global $product;
+        }
+
+        // check if local is product page for install shortcode
+        if ( ! $product ) {
+            return __( 'O local do shortcode inserido é inválido. Insira em um modelo de página de produto individual, ou em um local onde consiga obter o ID de um produto.', 'woo-custom-installments' );
+        }
+
         if ( License::is_valid() ) {
-            return $this->woo_custom_installments_ticket_flag();
+            return $this->render_ticket_flag( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -234,7 +240,7 @@ class Shortcodes extends Components {
      */
     public function credit_card_flag_shortcode() {
         if ( License::is_valid() ) {
-            return $this->woo_custom_installments_credit_card_flags();
+            return $this->render_credit_card_flags();
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -250,7 +256,7 @@ class Shortcodes extends Components {
      */
     public function debit_card_flag_shortcode() {
         if ( License::is_valid() ) {
-            return $this->woo_custom_installments_debit_card_flags();
+            return $this->render_debit_card_flags();
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
@@ -261,7 +267,7 @@ class Shortcodes extends Components {
      * Create a shortcode for discount ticket badge
      * 
      * @since 2.8.0
-     * @version 5.0.0
+     * @version 5.4.0
      * @return string
      */
     public function discount_ticket_badge_shortcode() {
@@ -278,7 +284,7 @@ class Shortcodes extends Components {
         }
 
         if ( License::is_valid() ) {
-            return $this->discount_ticket_badge( $price, $product );
+            return $this->discount_ticket_badge( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }
