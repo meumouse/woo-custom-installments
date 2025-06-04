@@ -184,6 +184,11 @@ class Assets {
         // Get product object
         $product = wc_get_product( $product_id );
 
+        // Get product object if empty on Elementor editor
+        if ( ! $product ) {
+            $product = Helpers::get_first_product();
+        }
+
         // Prepare installments fees array
         $installments_fee = array();
         $max_installments = (int) Admin_Options::get_setting('max_qtd_installments');
@@ -199,7 +204,7 @@ class Assets {
          * @version 5.4.0
          * @param array $params
          */
-        return apply_filters( 'Woo_Custom_Installments/Assets/Frontend_Params', array(
+        $params = apply_filters( 'Woo_Custom_Installments/Assets/Frontend_Params', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'debug_mode' => $this->debug_mode,
             'license_valid' => License::is_valid(),
@@ -207,11 +212,6 @@ class Assets {
             'active_price_range' => Admin_Options::get_setting('remove_price_range'),
             'product_variation_with_range' => ! Helpers::variations_has_same_price( $product ),
             'update_price_with_quantity' => Admin_Options::get_setting('update_price_with_quantity'),
-            'product' => array(
-                'type' => $product->get_type(),
-                'regular_price' => (float) $product->get_regular_price(),
-                'current_price' => (float) $product->get_price(),
-            ),
             'i18n' => array(
                 'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
                 'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
@@ -241,5 +241,18 @@ class Assets {
                 'fees' => $installments_fee,
             ),
         ));
+
+        // check if product object exists for prevent conflicts
+        if ( $product ) {
+            $params['product'] = array(
+                'id' => $product->get_id(),
+                'type' => $product->get_type(),
+                'regular_price' => (float) $product->get_regular_price(),
+                'sale_price' => (float) $product->get_sale_price(),
+                'current_price' => $product->get_price(),
+            );
+        }
+
+        return $params;
     }
 }

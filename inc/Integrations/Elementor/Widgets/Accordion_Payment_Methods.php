@@ -216,7 +216,7 @@ class Wci_Accordion extends Widget_Base {
 			'wci_accordion_payment_methods_height',
 			[
 				'label' => esc_html__( 'Altura do botão', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [

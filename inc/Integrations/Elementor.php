@@ -2,9 +2,11 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
+use Elementor\Plugin as Elementor_Plugin;
+use ElementorPro\Modules\Woocommerce\Documents\Product as Product_Document;
+
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 use MeuMouse\Woo_Custom_Installments\Core\Assets;
-use Elementor\Plugin as Elementor_Plugin;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -30,9 +32,17 @@ class Elementor {
      */
     public function __construct() {
         if ( Admin_Options::get_setting('enable_elementor_widgets') === 'yes' ) {
+            // register widgets categories
             add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 10, 3 );
+
+            // register widgets
             add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ), 10, 1 );
+
+            // enqueue assets on Elementor editor
             add_action( 'elementor/preview/enqueue_scripts', array( $this, 'preview_assets' ) );
+
+            // set product id on Elementor editor
+            add_filter( 'Woo_Custom_Installments/Assets/Set_Product_Id', array( $this, 'set_product_preview' ), 10, 1 );
         }
     }
 
@@ -200,5 +210,48 @@ class Elementor {
         }
 
         return false;
+    }
+
+
+    /**
+     * Get product id from preview settings on Elementor editor single product
+     * 
+     * @since 5.4.0
+     * @param int $product_id | Current product id
+     * @return int
+     */
+    public function set_product_preview( $product_id ) {
+        // Check if we are in Elementor edit mode
+        if ( ! Elementor_Plugin::instance()->preview->is_preview_mode() ) {
+            return $product_id;
+        }
+
+        // get the current template ID
+        $template_id = get_the_ID();
+
+        if ( ! $template_id ) {
+            return $product_id;
+        }
+
+        // get the document object from template
+        $document = Elementor_Plugin::instance()->documents->get( $template_id );
+
+        if ( ! $document ) {
+            return $product_id;
+        }
+
+        // check if the document is a product document
+        if ( ! ( $document instanceof Product_Document ) ) {
+            return $product_id;
+        }
+
+        // get the preview product ID
+        $preview_id = (int) $document->get_settings('preview_id');
+
+        if ( $preview_id ) {
+            return $preview_id;
+        }
+
+        return $product_id;
     }
 }

@@ -123,7 +123,7 @@ class Installments_Table extends Widget_Base {
             'wci_installments_table_style_section',
             [
                 'label' => esc_html__( 'Estilos da tabela de parcelamento', 'woo-custom-installments' ),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
@@ -149,7 +149,7 @@ class Installments_Table extends Widget_Base {
             'wci_installments_table_text_color',
             [
                 'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .woo-custom-installments-table th' => 'color: {{VALUE}};',
                     '{{WRAPPER}} .woo-custom-installments-table td' => 'color: {{VALUE}};',
@@ -161,7 +161,7 @@ class Installments_Table extends Widget_Base {
             'wci_installments_table_price_color',
             [
                 'label' => esc_html__( 'Cor do preço', 'woo-custom-installments' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .woo-custom-installments-table .amount' => 'color: {{VALUE}};',
                 ],
@@ -172,7 +172,7 @@ class Installments_Table extends Widget_Base {
             'wci_installments_table_padding',
             [
                 'label' => esc_html__( 'Margem interna', 'woo-custom-installments' ),
-                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors' => [
                     '{{WRAPPER}} .woo-custom-installments-table th' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
@@ -184,7 +184,7 @@ class Installments_Table extends Widget_Base {
             'wci_installments_table_margin',
             [
                 'label' => esc_html__( 'Margem externa', 'woo-custom-installments' ),
-                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors' => [
                     '{{WRAPPER}} .woo-custom-installments-table' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -196,7 +196,7 @@ class Installments_Table extends Widget_Base {
 			'wci_hidden_installments_table',
 			array(
 				'label' => esc_html__( 'Ocultar título', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',

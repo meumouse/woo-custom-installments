@@ -8,9 +8,10 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Icons_Manager;
+
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
 use MeuMouse\Woo_Custom_Installments\API\License;
-use MeuMouse\Woo_Custom_Installments\Calculate_Values;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -247,7 +248,7 @@ class Price_Info_Box extends Widget_Base {
             }
 
             echo '<div class="wci-price-info-box">';
-            echo '<span class="wci-price-info-text">' . sprintf( __( '%s %s %s' ), esc_html( $text_before ), $price, esc_html( $text_after ) ). '</span>';
+                echo '<span class="wci-price-info-text">' . sprintf( __( '%s %s %s' ), esc_html( $text_before ), $price, esc_html( $text_after ) ). '</span>';
             echo '</div>';
         } else {
             echo License::render_widget_license_message();

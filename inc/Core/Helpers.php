@@ -266,4 +266,34 @@ class Helpers {
 			'{{ juros }}' => Calculate_Installments::get_fee_info( $values ),
 		));
 	}
+
+
+    /**
+     * Get the first product in the store
+     * 
+     * @since 5.4.0
+     * @return object | Product object or false
+     */
+    public static function get_first_product() {
+        /**
+         * Query to get the first product
+         * 
+         * @since 5.4.0
+         */
+        $query_args = array(
+            'limit' => 1,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'status' => 'publish',
+        );
+
+        $product_query = new \WC_Product_Query( $query_args );
+        $products = $product_query->get_products();
+
+        if ( ! empty( $products ) ) {
+            return $products[0];
+        }
+
+        return false;
+    }
 }

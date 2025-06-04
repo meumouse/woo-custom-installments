@@ -126,7 +126,7 @@ class Debit_Card_Badges extends Widget_Base {
 			'wci_debit_card_badges_width',
 			[
 				'label' => esc_html__( 'Tamanho da bandeira', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [

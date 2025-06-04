@@ -28,20 +28,22 @@ class Woodmart {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'wp_head', array( __CLASS__, 'compat_woodmart' ) );
-
         if ( Helpers::check_theme_active('Woodmart') ) {
-            add_filter( 'Woo_Custom_Installments/Elementor/Editing_Single_Product', array( $this, 'check_layout_type' ) );
+            // styles for compatibility
+            add_action( 'wp_head', array( __CLASS__, 'compat_woodmart' ) );
+
+            // check if is single product template
+            add_filter( 'Woo_Custom_Installments/Elementor/Editing_Single_Product', array( $this, 'check_layout_type' ), 10, 1 );
+
+            // inject widget controllers
+            add_filter( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array( $this, 'inject_controllers' ), 10, 1 );
+
+            // set product object on Elementor editor
+            add_filter( 'Woo_Custom_Installments/Product/Set_Product', array( $this, 'set_product_object' ), 10, 1 );
+            
+            // set product id on Elementor editor
+            add_filter( 'Woo_Custom_Installments/Assets/Set_Product_Id', array( $this, 'set_product_preview' ), 10, 1 );
         }
-
-        // inject widget controllers
-        add_filter( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array( $this, 'inject_controllers' ), 10, 1 );
-
-        // set product object on Elementor editor
-        add_filter( 'Woo_Custom_Installments/Product/Set_Product', array( $this, 'set_product_object' ), 10, 1 );
-        
-        // set product id on Elementor editor
-        add_filter( 'Woo_Custom_Installments/Assets/Set_Product_Id', array( $this, 'set_product_preview' ), 10, 1 );
 	}
 
 

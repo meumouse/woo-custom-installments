@@ -40,7 +40,7 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
-Versão 5.4.0 (03/06/2025)
+Versão 5.4.0 (04/06/2025)
 * Correção de bugs
     - Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros
     - ID do produto incorreto no editor Elementor
