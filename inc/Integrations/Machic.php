@@ -18,10 +18,13 @@ class Machic {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'wp_head', array( __CLASS__, 'compat_machic' ) );
+        if ( function_exists('machic_get_option') ) {
+		    add_action( 'wp_head', array( __CLASS__, 'compat_machic' ) );
+        }
 	}
 
 
@@ -29,13 +32,10 @@ class Machic {
 	 * Add compatibility styles for Machic theme
      * 
      * @since 4.5.0
+     * @version 5.4.0
      * @return string
 	 */
 	public static function compat_machic() {
-        if ( ! function_exists('machic_get_option') ) {
-            return;
-        }
-
         ob_start(); ?>
 
         .theme-machic .single-product-container .product-price .woo-custom-installments-group {

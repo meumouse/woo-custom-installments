@@ -18,10 +18,13 @@ class Astra {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'wp_head', array( __CLASS__, 'compat_astra' ) );
+        if ( class_exists('Astra_Theme_Options') ) {
+		    add_action( 'wp_head', array( __CLASS__, 'compat_astra' ) );
+        }
 	}
 
 
@@ -29,13 +32,10 @@ class Astra {
 	 * Add compatibility styles for Astra theme
      * 
      * @since 4.5.0
+     * @version 5.4.0
      * @return string
 	 */
 	public static function compat_astra() {
-        if ( ! class_exists('Astra_Theme_Options') ) {
-            return;
-        }
-
         ob_start(); ?>
 
         .ast-sticky-add-to-cart-action-wrap button.wci-open-popup {

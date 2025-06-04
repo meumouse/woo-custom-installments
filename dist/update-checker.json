@@ -9,7 +9,7 @@
 	"tested" : "6.8.1",
 	"requires_php" : "7.4",
 	"added" : "2023-09-18 12:00:00",
-	"last_updated" : "2025-06-04 10:15:00",
+	"last_updated" : "2025-06-04 10:33:00",
 	"homepage" : "https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/",
 	"sections": {
 	    "description": "Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.",

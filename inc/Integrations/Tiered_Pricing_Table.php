@@ -27,14 +27,16 @@ class Tiered_Pricing_Table {
 	 * @return void
 	 */
 	public function __construct() {
-        // set price for installments list
-		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'set_tier_price' ), 10, 2 );
+        if ( class_exists('TierPricingTable\PriceManager') ) {
+            // set price for installments list
+            add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'set_tier_price' ), 10, 2 );
 
-        // set params to installments table
-        add_filter( 'Woo_Custom_Installments/Assets/Frontend_Params', array( $this, 'check_tiered_plugin' ), 10, 1 );
+            // set params to installments table
+            add_filter( 'Woo_Custom_Installments/Assets/Frontend_Params', array( $this, 'check_tiered_plugin' ), 10, 1 );
 
-        // Remove filters to avoid conflicts
-        add_action( 'init', array( $this, 'remove_actions' ), 20 );
+            // Remove filters to avoid conflicts
+            add_action( 'init', array( $this, 'remove_actions' ), 20 );
+        }
 	}
 
 

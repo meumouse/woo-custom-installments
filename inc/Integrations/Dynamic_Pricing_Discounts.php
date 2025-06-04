@@ -20,10 +20,13 @@ class Dynamic_Pricing_Discounts {
 	 * Construct function
 	 * 
 	 * @since 4.5.2
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
-		add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'add_compatibility_wcdpd' ), 10, 2 );
+        if ( class_exists('RP_WCDPD') ) {
+		    add_filter( 'Woo_Custom_Installments/Price/Set_Values_Price', array( $this, 'add_compatibility_wcdpd' ), 10, 2 );
+        }
 	}
 
 
@@ -31,7 +34,7 @@ class Dynamic_Pricing_Discounts {
      * Integration with plugin wc-dynamic-pricing-and-discounts
      * 
      * @since 1.0.0
-     * @version 4.5.2
+     * @version 5.4.0
      * @param float $price | Product price
      * @param WC_Product $product | Object product
      * @return float

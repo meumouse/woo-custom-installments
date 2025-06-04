@@ -31,7 +31,7 @@ class Elementor {
      * @return void
      */
     public function __construct() {
-        if ( Admin_Options::get_setting('enable_elementor_widgets') === 'yes' ) {
+        if ( Admin_Options::get_setting('enable_elementor_widgets') === 'yes' && defined('ELEMENTOR_VERSION') ) {
             // register widgets categories
             add_action( 'elementor/elements/categories_registered', array( $this, 'add_custom_widget_categories' ), 10, 3 );
 

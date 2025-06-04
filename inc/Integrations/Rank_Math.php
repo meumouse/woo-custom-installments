@@ -25,7 +25,7 @@ class Rank_Math extends Schema {
 	public function __construct() {
         parent::__construct();
         
-		if ( License::is_valid() ) {
+		if ( License::is_valid() && class_exists('RankMath') ) {
 			add_filter( 'rank_math/json_ld', array( $this, 'rank_math_json_ld' ), 99, 2 );
 		}
 	}

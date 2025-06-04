@@ -18,10 +18,13 @@ class Ricky {
 	 * Construct function
 	 * 
 	 * @since 5.2.1
+     * @version 5.4.0
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'wp_head', array( __CLASS__, 'compat_ricky_scripts' ) );
+        if ( function_exists('ideapark_setup_woocommerce') ) {
+		    add_action( 'wp_head', array( __CLASS__, 'compat_ricky_scripts' ) );
+        }
 	}
 
 
@@ -32,10 +35,6 @@ class Ricky {
      * @return string
 	 */
 	public static function compat_ricky_scripts() {
-        if ( ! function_exists('ideapark_setup_woocommerce') ) {
-            return;
-        }
-
         ob_start(); ?>
 
         .c-product-grid__item .wci-open-popup,
