@@ -1,7 +1,5 @@
 <?php
 
-use MeuMouse\Woo_Custom_Installments\Helpers;
-
 /**
  * Single Product Price
  *
@@ -16,24 +14,57 @@ use MeuMouse\Woo_Custom_Installments\Helpers;
  * @see https://woocommerce.com/document/template-structure/
  * @package MeuMouse.com
  * @since 4.5.0
- * @version 5.2.6
+ * @version 5.4.0
  */
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-$product = wc_get_product( Helpers::get_product_id_from_post() );
-
-if ( $product === false ) {
-    global $product;
+if ( ! isset( $product ) ) {
+    /**
+     * Filter to set product object
+     * 
+     * @since 5.4.0
+     * @param object $product | Product object
+     */
+    $product = apply_filters( 'Woo_Custom_Installments/Product/Set_Product', wc_get_product( get_the_ID() ) );
 }
 
 // check if product is defined
-if ( ! $product || ! is_a( $product, 'WC_Product' ) ) :
+if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
     echo '<p>' . esc_html__( 'Produto não encontrado.', 'woo-custom-installments' ) . '</p>';
-    return;
-endif; ?>
 
-<p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
+    return;
+}
+
+/**
+ * Custom hook for display content before price
+ * 
+ * @since 5.4.0
+ * @param object $product | Product object
+ * @return void
+ */
+do_action( 'Woo_Custom_Installments/Product/Before_Price', $product );
+
+/**
+ * Add custom classes on woo-custom-installments-group element
+ * 
+ * @since 5.3.0
+ * @version 5.4.0
+ * @return string
+ */
+$group_classes = apply_filters( 'Woo_Custom_Installments/Price/Group_Classes', '', $product ); ?>
+
+<p id="woo-custom-installments-product-price" class="woo-custom-installments-price-container <?php echo esc_attr( $group_classes ) ?> <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>">
     <?php echo $product->get_price_html(); ?>
 </p>
+
+<?php
+/**
+ * Custom hook for display content after price
+ * 
+ * @since 5.4.0
+ * @param object $product | Product object
+ * @return void
+ */
+do_action( 'Woo_Custom_Installments/Product/After_Price', $product ); ?>

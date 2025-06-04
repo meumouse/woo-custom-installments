@@ -4,9 +4,13 @@ Extensão que permite adicionar detalhes de parcelamento, desconto e formas de p
 
 O melhor plugin de parcelas e descontos para WooCommerce!
 
+---
+
 #### Propriedade intelectual:
 O software Parcelas Customizadas para WooCommerce ® é uma propriedade registrada da MEUMOUSE.COM® – SOLUÇÕES DIGITAIS LTDA, em conformidade com o §2°, art. 2° da Lei 9.609, de 19 de Fevereiro de 1998.
 É expressamente proibido a distribuição ou cópia ilegal deste software, sujeita a penalidades conforme as leis de direitos autorais vigentes.
+
+---
 
 ### Instalação:
 
@@ -32,7 +36,31 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 * Localize o plugin que você acabou de instalar e clique em “Ativar”.
 * Após seguir essas etapas, o plugin deve estar instalado e funcionando corretamente em seu site WordPress.
 
+---
+
 ### Registro de alterações (Changelogs):
+
+Versão 5.4.0 (04/06/2025)
+* Correção de bugs
+    - Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros
+    - ID do produto incorreto no editor Elementor
+    - Melhores parelas não aparecem de imediato ao editar com Elementor
+    - Desconto individual só é aplicado para o primeiro produto quando há multiplos produtos com descontos individuais
+* Otimizações
+* Mudança de arquitetura para MACI (Modular Autoload Class Initialization)
+* Recurso adicionado: Ativar atualizações automáticas
+* Recurso removido: Compatibilidade com tema EpicJungle
+* Recurso removido: Ativar atualização de valores em elementos em produtos variáveis
+* Recurso removido: Método de atualização do preço -> Remover faixa de preço em produtos variáveis
+* Recurso adicionado: Controlador de estilos para widgets do Elementor para emblema de desconto
+* Recurso adicionado: Widget para Elementor: Emblema de desconto
+* Recurso adicionado: Shortcode [woo_custom_installments_sale_badge]: Emblema de desconto
+* Recurso adicionado: Atualizar preço do produto a partir da quantidade
+* Recurso modificado: Local de exibição do preço com desconto no Pix
+* Recurso modificado: Local de exibição da informação de economia no Pix
+* Recurso modificado: Local de exibição das melhores parcelas
+* Recurso modificado: Arquivo de tradução em ingês en_US atualizado
+* Recurso modificado: Arquivo de tradução em espanhol es_ES atualizado
 
 Versão 5.3.0 (29/01/2025)
 * Correção de bugs

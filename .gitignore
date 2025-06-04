@@ -1,0 +1,4 @@
+# Ignore Git files
+composer.json
+composer.lock
+.env
