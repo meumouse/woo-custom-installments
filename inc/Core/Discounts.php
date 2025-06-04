@@ -253,7 +253,7 @@ class Discounts {
 		}
 		
 		// Build fee label
-		if ( $raw_gateway_title ) {
+		if ( (string) $raw_gateway_title ) {
 			$label = sprintf( esc_html__( 'Desconto individual para %s', 'woo-custom-installments' ), $raw_gateway_title );
 		} else {
 			$label = esc_html__( 'Desconto individual', 'woo-custom-installments' );
@@ -339,8 +339,8 @@ class Discounts {
 			}
 		}
 
-		if ( $current_gateway ) {
-			$label = sprintf( esc_html__( 'Desconto para %s', 'woo-custom-installments' ), $current_gateway );
+		if ( (string) $raw_gateway_title ) {
+			$label = sprintf( esc_html__( 'Desconto para %s', 'woo-custom-installments' ), $raw_gateway_title );
 		} else {
 			$label = esc_html__( 'Desconto de pagamento', 'woo-custom-installments' );
 		}

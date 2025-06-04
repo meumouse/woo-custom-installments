@@ -748,18 +748,17 @@ class Components {
 
 		if ( Admin_Options::get_setting('enable_debit_card_method_payment_form') === 'yes') {
 			$html .= '<div class="woo-custom-installments-debit-card-section">';
-			$html .= '<h4 class="debit-card-method-title">' . Admin_Options::get_setting('text_debit_card_container') . '</h4>';
-			
-			if ( Admin_Options::get_setting('enable_instant_approval_badge') === 'yes' ) {
-				$html .= '<div class="debit-card-method-container">';
-				$html .= '<span class="instant-approval-badge">' . esc_html__('Aprovação imediata', 'woo-custom-installments') . '</span>';
+				$html .= '<h4 class="debit-card-method-title">' . Admin_Options::get_setting('text_debit_card_container') . '</h4>';
+				
+				if ( Admin_Options::get_setting('enable_instant_approval_badge') === 'yes' ) {
+					$html .= '<div class="debit-card-method-container">';
+						$html .= '<span class="instant-approval-badge">' . esc_html__('Aprovação imediata', 'woo-custom-installments') . '</span>';
+					$html .= '</div>';
+				}
+
+				$html .= '<div class="debit-card-container-badges">';
+					$html .= $this->get_card_flags( 'debit-card', 'debit' );
 				$html .= '</div>';
-			}
-
-			$html .= '<div class="debit-card-container-badges">';
-				$html .= $this->get_card_flags( 'debit-card', 'debit' );
-			$debit_carhtmld_flag .= '</div>';
-
 			$html .= '</div>';
 		}
 
