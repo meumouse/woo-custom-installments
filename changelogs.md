@@ -1,4 +1,4 @@
-Versão 5.4.0 (02/06/2025)
+Versão 5.4.0 (03/06/2025)
 * Correção de bugs
     - Removido a duplicidade de parcelas quando a exibição das melhores parcelas são com juros e sem juros
     - ID do produto incorreto no editor Elementor
@@ -14,6 +14,11 @@ Versão 5.4.0 (02/06/2025)
 * Recurso adicionado: Widget para Elementor: Emblema de desconto
 * Recurso adicionado: Shortcode [woo_custom_installments_sale_badge]: Emblema de desconto
 * Recurso adicionado: Atualizar preço do produto a partir da quantidade
+* Recurso modificado: Local de exibição do preço com desconto no Pix
+* Recurso modificado: Local de exibição da informação de economia no Pix
+* Recurso modificado: Local de exibição das melhores parcelas
+* Recurso modificado: Arquivo de tradução em ingês en_US atualizado
+* Recurso modificado: Arquivo de tradução em espanhol es_ES atualizado
 
 Versão 5.3.0 (29/01/2025)
 * Correção de bugs

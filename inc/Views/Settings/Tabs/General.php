@@ -299,57 +299,89 @@ defined('ABSPATH') || exit; ?>
 
       <tr>
         <th>
-           <?php esc_html_e( 'Local de exibição do preço com desconto no Pix', 'woo-custom-installments' ) ?>
+           <?php esc_html_e( 'Local de exibição do preço com desconto no Pix', 'woo-custom-installments' );
+
+           if ( ! License::is_valid() ) : ?>
+               <span class="badge pro bg-primary rounded-pill ms-2">
+                  <svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+                  <?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+               </span>
+            <?php endif; ?>
+
            <span class="woo-custom-installments-description"><?php esc_html_e( 'Selecione onde o preço com desconto no Pix será exibido.', 'woo-custom-installments' ) ?></span>
         </th>
         <td>
-           <select name="display_discount_price_hook" class="form-select">
-              <option value="display_loop_and_single_product" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'display_loop_and_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
-              <option value="only_single_product" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'only_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
-              <option value="only_loop_products" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'only_loop_products' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
-              <option value="hide" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'hide' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Ocultar', 'woo-custom-installments' ) ?></option>
+           <select name="display_discount_price_hook" class="form-select <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+              <option value="display_loop_and_single_product" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'display_loop_and_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
+              <option value="only_single_product" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'only_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
+              <option value="only_loop_products" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'only_loop_products' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
+              <option value="hide" <?php echo ( Admin_Options::get_setting('display_discount_price_hook') === 'hide' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Ocultar', 'woo-custom-installments' ) ?></option>
            </select>
         </td>
       </tr>
 
       <tr class="economy-pix-dependency">
         <th>
-           <?php esc_html_e( 'Local de exibição da informação de economia no Pix', 'woo-custom-installments' ) ?>
+           <?php esc_html_e( 'Local de exibição da informação de economia no Pix', 'woo-custom-installments' );
+
+           if ( ! License::is_valid() ) : ?>
+               <span class="badge pro bg-primary rounded-pill ms-2">
+                  <svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+                  <?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+               </span>
+            <?php endif; ?>
+
            <span class="woo-custom-installments-description"><?php esc_html_e( 'Selecione onde o preço com desconto será exibido.', 'woo-custom-installments' ) ?></span>
         </th>
         <td>
-           <select name="display_economy_pix_hook" class="form-select">
-               <option value="only_single_product" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) == 'only_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual (Padrão)', 'woo-custom-installments' ) ?></option>
-              <option value="global" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) == 'global' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site', 'woo-custom-installments' ) ?></option>
-              <option value="only_loop_products" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) == 'only_loop_products' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
+           <select name="display_economy_pix_hook" class="form-select <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+               <option value="only_single_product" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) === 'only_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual (Padrão)', 'woo-custom-installments' ) ?></option>
+              <option value="global" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) === 'global' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site', 'woo-custom-installments' ) ?></option>
+              <option value="only_loop_products" <?php echo (Admin_Options::get_setting( 'display_economy_pix_hook' ) === 'only_loop_products' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
            </select>
         </td>
       </tr>
 
       <tr class="admin-discount-ticket-option">
-        <th>
-           <?php esc_html_e( 'Local de exibição desconto no boleto bancário', 'woo-custom-installments' ) ?>
-           <span class="woo-custom-installments-description"><?php esc_html_e( 'Selecione onde o preço com desconto será exibido.', 'woo-custom-installments' ) ?></span>
-        </th>
-        <td>
-           <select name="display_discount_ticket_hook" class="form-select">
-               <option value="global" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) == 'global' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
-               <option value="only_single_product" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) == 'only_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
-               <option value="only_loop_products" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) == 'only_loop_products' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
-           </select>
-        </td>
+         <th>
+            <?php esc_html_e( 'Local de exibição desconto no boleto bancário', 'woo-custom-installments' );
+
+            if ( ! License::is_valid() ) : ?>
+                  <span class="badge pro bg-primary rounded-pill ms-2">
+                     <svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+                     <?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+                  </span>
+               <?php endif; ?>
+
+            <span class="woo-custom-installments-description"><?php esc_html_e( 'Selecione onde o preço com desconto será exibido.', 'woo-custom-installments' ) ?></span>
+         </th>
+         <td>
+            <select name="display_discount_ticket_hook" class="form-select <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+				<option value="global" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) === 'global' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
+				<option value="only_single_product" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) === 'only_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
+				<option value="only_loop_products" <?php echo (Admin_Options::get_setting( 'display_discount_ticket_hook' ) === 'only_loop_products' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
+            </select>
+         </td>
       </tr>
 
       <tr>
          <th>
-            <?php esc_html_e( 'Local de exibição das melhores parcelas', 'woo-custom-installments' ) ?>
+            <?php esc_html_e( 'Local de exibição das melhores parcelas', 'woo-custom-installments' );
+
+            if ( ! License::is_valid() ) : ?>
+               <span class="badge pro bg-primary rounded-pill ms-2">
+                  <svg class="icon-pro" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.336"></g><g><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 3C12.3334 3 12.6449 3.16613 12.8306 3.443L16.6106 9.07917L21.2523 3.85213C21.5515 3.51525 22.039 3.42002 22.4429 3.61953C22.8469 3.81904 23.0675 4.26404 22.9818 4.70634L20.2956 18.5706C20.0223 19.9812 18.7872 21 17.3504 21H6.64977C5.21293 21 3.97784 19.9812 3.70454 18.5706L1.01833 4.70634C0.932635 4.26404 1.15329 3.81904 1.55723 3.61953C1.96117 3.42002 2.44865 3.51525 2.74781 3.85213L7.38953 9.07917L11.1696 3.443C11.3553 3.16613 11.6667 3 12.0001 3ZM12.0001 5.79533L8.33059 11.2667C8.1582 11.5237 7.8765 11.6865 7.56772 11.7074C7.25893 11.7283 6.95785 11.6051 6.75234 11.3737L3.67615 7.90958L5.66802 18.1902C5.75913 18.6604 6.17082 19 6.64977 19H17.3504C17.8293 19 18.241 18.6604 18.3321 18.1902L20.324 7.90958L17.2478 11.3737C17.0423 11.6051 16.7412 11.7283 16.4324 11.7074C16.1236 11.6865 15.842 11.5237 15.6696 11.2667L12.0001 5.79533Z"></path> </g></svg>
+                  <?php esc_html_e( 'Pro', 'woo-custom-installments' ) ?>
+               </span>
+            <?php endif; ?>
+
             <span class="woo-custom-installments-description"><?php esc_html_e( 'Selecione o local para exibir a informação das melhores parcelas.', 'woo-custom-installments' ) ?></span>
          </th>
          <td>
-            <select name="hook_display_best_installments" class="form-select">
-               <option value="display_loop_and_single_product" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) == 'display_loop_and_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
-               <option value="only_single_product" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) == 'only_single_product' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
-               <option value="only_loop_products" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) == 'only_loop_products' ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
+            <select name="hook_display_best_installments" class="form-select <?php echo ( License::is_valid() ) ? '' : 'pro-version-notice'; ?>">
+               <option value="display_loop_and_single_product" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) === 'display_loop_and_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Mostrar em todo o site (Padrão)', 'woo-custom-installments' ) ?></option>
+               <option value="only_single_product" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) === 'only_single_product' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas página do produto individual', 'woo-custom-installments' ) ?></option>
+               <option value="only_loop_products" <?php echo ( Admin_Options::get_setting( 'hook_display_best_installments' ) === 'only_loop_products' && License::is_valid() ) ? "selected=selected" : ""; ?>><?php esc_html_e( 'Apenas arquivos de produtos', 'woo-custom-installments' ) ?></option>
             </select>
          </td>
       </tr>

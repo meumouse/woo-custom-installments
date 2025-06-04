@@ -1070,6 +1070,7 @@ class License {
      * Display be Pro license message for Elementor widgets
      * 
      * @since 5.0.0
+     * @version 5.4.0
      * @return void
      */
     public static function render_widget_license_message() {
@@ -1080,7 +1081,7 @@ class License {
                 </div>
 
                 <h5><?php echo esc_html__('Este recurso está disponível na versão Pro', 'woo-custom-installments'); ?></h5>
-                <span class="message-cta"><?php echo esc_html__( 'Uma licença permite que você desbloqueie todos os recursos Pro que o plugin tem a oferecer.', 'woo-custom-installments' ) ?></span>
+                <span class="message-cta"><?php echo esc_html__( 'Uma licença permite que você desbloqueie todos os recursos Pro que o Parcelas Customizadas tem a oferecer.', 'woo-custom-installments' ) ?></span>
             </div>
         <?php endif;
     }

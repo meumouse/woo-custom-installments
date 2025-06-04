@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Core\Assets;
 use Elementor\Plugin as Elementor_Plugin;
 
 // Exit if accessed directly.
@@ -120,7 +121,13 @@ class Elementor {
         wp_register_script( 'woo-custom-installments-front-scripts-preview', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts.js', $deps, $set_version, true );
         wp_enqueue_script('woo-custom-installments-front-scripts-preview');
 
-        wp_register_style( 'woo-custom-installments-front-styles-preview', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles.css', array(), $this->version );
+        // instance assets class
+        $assets = new Assets();
+
+        // send params to script
+        wp_localize_script( 'woo-custom-installments-front-scripts-preview', 'wci_front_params', $assets->frontend_params() );
+
+        wp_register_style( 'woo-custom-installments-front-styles-preview', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles.css', array(), $set_version );
         wp_enqueue_style('woo-custom-installments-front-styles-preview');
     }
 

@@ -2,10 +2,11 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
-use XTS\Modules\Layouts\Main;
-
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+
+use XTS\Modules\Layouts\Main;
+use XTS\Modules\Layouts\Single_Product;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -38,6 +39,9 @@ class Woodmart {
 
         // set product object on Elementor editor
         add_filter( 'Woo_Custom_Installments/Product/Set_Product', array( $this, 'set_product_object' ), 10, 1 );
+        
+        // set product id on Elementor editor
+        add_filter( 'Woo_Custom_Installments/Assets/Set_Product_Id', array( $this, 'set_product_preview' ), 10, 1 );
 	}
 
 
@@ -146,5 +150,19 @@ class Woodmart {
         }
 
         return $product;
+    }
+
+
+    /**
+     * Get product id from Elementor preview from Woodmart
+     * 
+     * @since 5.4.0
+     * @param int $product_id | Current product id
+     * @return int
+     */
+    public function set_product_preview( $product_id ) {
+        $product_id = Single_Product::get_preview_product_id();
+
+        return $product_id;
     }
 }

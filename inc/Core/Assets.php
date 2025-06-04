@@ -133,7 +133,7 @@ class Assets {
         $set_version = $cache === true ? time() : $this->version;
 
         // Enqueue front-end styles
-        wp_enqueue_style( 'woo-custom-installments-front-styles', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles.css', array(), $set_version );
+        wp_enqueue_style( 'woo-custom-installments-front-styles', $this->assets_url . 'frontend/css/woo-custom-installments-front-styles'. $this->min .'.css', array(), $set_version );
 
         // If icons are set to use Font Awesome classes, enqueue Font Awesome
         if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
@@ -144,82 +144,102 @@ class Assets {
 
         // Prepare front‐params if discount per unit is enabled on a product page
         if ( is_product() || is_singular('product') ) {
-            $product_id = Helpers::get_product_id_from_post();
-            $product = wc_get_product( $product_id );
-
             // Enqueue accounting library for price formatting
             wp_enqueue_script( 'accounting-lib', $this->assets_url . 'vendor/accounting/accounting.min.js', array(), '0.4.2', true );
 
             // set accounting library as dependency
             $deps[] = 'accounting-lib';
 
-            // Prepare installments fees array
-            $installments_fee = array();
-            $max_installments = (int) Admin_Options::get_setting('max_qtd_installments');
-
-            for ( $i = 1; $i <= $max_installments; $i++ ) {
-                $installments_fee[ $i ] = Helpers::get_fee( false, $i );
-            }
-
-            /**
-             * Filter to add parameters on frontend scripts
-             *
-             * @since 1.0.0
-             * @version 5.4.0
-             * @param array $params
-             */
-            $front_params = apply_filters( 'Woo_Custom_Installments/Assets/Frontend_Params', array(
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'debug_mode' => $this->debug_mode,
-                'license_valid' => License::is_valid(),
-                'element_triggers'=> Admin_Options::get_setting('update_range_price_triggers'),
-                'active_price_range' => Admin_Options::get_setting('remove_price_range'),
-                'product_variation_with_range' => ! Helpers::variations_has_same_price( $product ),
-                'update_price_with_quantity' => Admin_Options::get_setting('update_price_with_quantity'),
-                'product' => array(
-                    'type' => $product->get_type(),
-                    'regular_price' => (float) $product->get_regular_price(),
-                    'current_price' => (float) $product->get_price(),
-                ),
-                'i18n' => array(
-                    'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
-                    'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
-                    'best_installments_sp' => Admin_Options::get_setting('text_display_installments_single_product'),
-                ),
-                'currency' => array(
-                    'format_num_decimals' => wc_get_price_decimals(),
-                    'symbol' => get_woocommerce_currency_symbol(),
-                    'format_decimal_sep' => esc_attr( wc_get_price_decimal_separator() ),
-                    'format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
-                    'format' => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ),
-                ),
-                'discounts' => array(
-                    'enable_discount_per_unit' => get_post_meta( $product_id, 'enable_discount_per_unit', true ),
-                    'discount_per_unit_method' => get_post_meta( $product_id, 'discount_per_unit_method', true ),
-                    'unit_discount_amount' => get_post_meta( $product_id, 'unit_discount_amount', true ),
-                    'pix_discount' => (float) Admin_Options::get_setting('discount_main_price'),
-                    'pix_discount_method' => Admin_Options::get_setting('product_price_discount_method'),
-                    'slip_bank_discount' => (float) Admin_Options::get_setting('discount_ticket'),
-                    'slip_bank_method' => Admin_Options::get_setting('discount_method_ticket'),
-                ),
-                'installments' => array(
-                    'max_installments' => $max_installments,
-                    'max_installments_no_fee' => (int) Admin_Options::get_setting('max_qtd_installments_without_fee'),
-                    'min_installment' => (float) Admin_Options::get_setting('min_value_installments'),
-                    'fee' => Helpers::get_fee(),
-                    'fees' => $installments_fee,
-                ),
-            ));
-
-            wp_enqueue_script( 'woo-custom-installments-front-scripts', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts.js', $deps, $set_version, true );
+            wp_enqueue_script( 'woo-custom-installments-front-scripts', $this->assets_url . 'frontend/js/woo-custom-installments-front-scripts'. $this->min .'.js', $deps, $set_version, true );
 
             // send params to script
-            wp_localize_script( 'woo-custom-installments-front-scripts', 'wci_front_params', $front_params );
+            wp_localize_script( 'woo-custom-installments-front-scripts', 'wci_front_params', $this->frontend_params() );
         }
 
         // update checkout on change payment methods
         if ( is_checkout() && Admin_Options::get_setting('enable_all_discount_options') === 'yes' && ! class_exists('Flexify_Checkout') ) {
-            wp_enqueue_script( 'woo-custom-installments-update-checkout', $this->assets_url . 'frontend/js/update-checkout.js', array('jquery'), $set_version );
+            wp_enqueue_script( 'woo-custom-installments-update-checkout', $this->assets_url . 'frontend/js/update-checkout'. $this->min .'.js', array('jquery'), $set_version );
         }
+    }
+
+
+    /**
+     * Get frontend params to script
+     * 
+     * @since 5.4.0
+     * @return array
+     */
+    public function frontend_params() {
+        $product_id = Helpers::get_product_id_from_post();
+
+        /**
+         * Filter to set product id on frontend params
+         * 
+         * @since 5.4.0
+         * @param int $product_id | Product ID
+         * @return int
+         */
+        $product_id = apply_filters( 'Woo_Custom_Installments/Assets/Set_Product_Id', $product_id );
+
+        // Get product object
+        $product = wc_get_product( $product_id );
+
+        // Prepare installments fees array
+        $installments_fee = array();
+        $max_installments = (int) Admin_Options::get_setting('max_qtd_installments');
+
+        for ( $i = 1; $i <= $max_installments; $i++ ) {
+            $installments_fee[ $i ] = Helpers::get_fee( false, $i );
+        }
+
+        /**
+         * Filter to add parameters on frontend scripts
+         *
+         * @since 1.0.0
+         * @version 5.4.0
+         * @param array $params
+         */
+        return apply_filters( 'Woo_Custom_Installments/Assets/Frontend_Params', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'debug_mode' => $this->debug_mode,
+            'license_valid' => License::is_valid(),
+            'element_triggers'=> Admin_Options::get_setting('update_range_price_triggers'),
+            'active_price_range' => Admin_Options::get_setting('remove_price_range'),
+            'product_variation_with_range' => ! Helpers::variations_has_same_price( $product ),
+            'update_price_with_quantity' => Admin_Options::get_setting('update_price_with_quantity'),
+            'product' => array(
+                'type' => $product->get_type(),
+                'regular_price' => (float) $product->get_regular_price(),
+                'current_price' => (float) $product->get_price(),
+            ),
+            'i18n' => array(
+                'without_fee_label' => Admin_Options::get_setting('text_without_fee_installments'),
+                'with_fee_label' => Admin_Options::get_setting('text_with_fee_installments'),
+                'best_installments_sp' => Admin_Options::get_setting('text_display_installments_single_product'),
+            ),
+            'currency' => array(
+                'format_num_decimals' => wc_get_price_decimals(),
+                'symbol' => get_woocommerce_currency_symbol(),
+                'format_decimal_sep' => esc_attr( wc_get_price_decimal_separator() ),
+                'format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
+                'format' => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ),
+            ),
+            'discounts' => array(
+                'enable_discount_per_unit' => get_post_meta( $product_id, 'enable_discount_per_unit', true ),
+                'discount_per_unit_method' => get_post_meta( $product_id, 'discount_per_unit_method', true ),
+                'unit_discount_amount' => get_post_meta( $product_id, 'unit_discount_amount', true ),
+                'pix_discount' => (float) Admin_Options::get_setting('discount_main_price'),
+                'pix_discount_method' => Admin_Options::get_setting('product_price_discount_method'),
+                'slip_bank_discount' => (float) Admin_Options::get_setting('discount_ticket'),
+                'slip_bank_method' => Admin_Options::get_setting('discount_method_ticket'),
+            ),
+            'installments' => array(
+                'max_installments' => $max_installments,
+                'max_installments_no_fee' => (int) Admin_Options::get_setting('max_qtd_installments_without_fee'),
+                'min_installment' => (float) Admin_Options::get_setting('min_value_installments'),
+                'fee' => Helpers::get_fee(),
+                'fees' => $installments_fee,
+            ),
+        ));
     }
 }

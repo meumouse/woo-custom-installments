@@ -90,7 +90,7 @@ class Inject_Controllers {
             'wci_alignment_price_group',
             array(
                 'label' => esc_html__( 'Alinhamento do grupo de preços', 'woo-custom-installments' ),
-                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'type' => Controls_Manager::CHOOSE,
                 'options' => array(
                     'left' => array(
                         'title' => esc_html__( 'Esquerda', 'woo-custom-installments' ),
@@ -184,7 +184,7 @@ class Inject_Controllers {
 			'wci_hidden_old_product_price',
 			array(
 				'label' => esc_html__( 'Ocultar preço antigo', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
@@ -275,13 +275,13 @@ class Inject_Controllers {
 			'wci_hidden_product_price',
 			array(
 				'label' => esc_html__( 'Ocultar preço do produto', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
 				'default' => 'block',
                 'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-price' => 'display: {{VALUE}}',
+                    '{{WRAPPER}} .woo-custom-installments-group-main-price' => 'display: {{VALUE}} !important;',
                 ),
             ),
 		);
@@ -376,7 +376,7 @@ class Inject_Controllers {
 			'wci_hidden_pix_discount',
 			array(
 				'label' => esc_html__( 'Ocultar desconto no Pix', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
@@ -477,7 +477,7 @@ class Inject_Controllers {
 			'wci_hidden_ticket_discount',
 			array(
 				'label' => esc_html__( 'Ocultar desconto no boleto', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
@@ -578,7 +578,7 @@ class Inject_Controllers {
 			'wci_hidden_best_installments',
 			array(
 				'label' => esc_html__( 'Ocultar melhores parcelas', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
@@ -679,7 +679,7 @@ class Inject_Controllers {
 			'wci_hidden_pix_economy',
 			array(
 				'label' => esc_html__( 'Ocultar economia no Pix', 'woo-custom-installments' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',

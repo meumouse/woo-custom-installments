@@ -75,34 +75,34 @@
          * Function for display popups based on Bootstrap
          * 
          * @since 1.3.0
-         * @param {object} trigger | jQuery object for trigger button
-         * @param {object} container | jQuery object for modal container
-         * @param {object} close | jQuery object for close button
+         * @param {string} trigger | Trigger selector
+         * @param {string} container | Container element selector
+         * @param {string} close | Close button selector
          */
         displayModal: function(trigger, container, close) {
             // open modal on click to trigger
-            trigger.on('click touchstart', function(e) {
-                e.preventDefault();
+			$(document).on('click touchstart', trigger, function(e) {
+				e.preventDefault();
 
-                container.addClass('show');
-                $('body').addClass('wci-modal-active');
-            });
+				$(this).siblings('.wci-popup-container').addClass('show');
+				$('body').addClass('wci-modal-active');
+			});
 
-            // close modal on click outside container
-            container.on('click', function(e) {
-                if (e.target === this) {
-                    container.removeClass('show');
-                    $('body').removeClass('wci-modal-active');
-                }
-            });
+			// close modal on click outside container
+            $(document).on('click touchstart', container, function(e) {
+				if (e.target === this) {
+					$(this).removeClass('show');
+					$('body').removeClass('wci-modal-active');
+				}
+			});
 
             // close modal on click close button
-            close.on('click touchstart', function(e) {
-                e.preventDefault();
-
-                container.removeClass('show');
-                $('body').removeClass('wci-modal-active');
-            });
+            $(document).on('click touchstart', close, function(e) {
+				e.preventDefault();
+				
+				$('.wci-popup-container').removeClass('show');
+				$('body').removeClass('wci-modal-active');
+			});
         },
 
         /**
@@ -112,11 +112,7 @@
          * @version 5.4.0
          */
         initModal: function() {
-			let trigger = $('button.wci-open-popup');
-            let container = $('.wci-popup-container');
-            let close = $('button.wci-close-popup');
-
-            Woo_Custom_Installments.displayModal( trigger, container, close );
+            Woo_Custom_Installments.displayModal( '.wci-open-popup', '.wci-popup-container', '.wci-close-popup' );
         },
 
         /**
