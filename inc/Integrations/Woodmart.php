@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Woodmart theme
  *
  * @since 4.5.0
- * @version 5.4.0
+ * @version 5.4.2
  * @package MeuMouse.com
  */
 class Woodmart {
@@ -24,11 +24,11 @@ class Woodmart {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.4.0
+     * @version 5.4.2
 	 * @return void
 	 */
 	public function __construct() {
-        if ( Helpers::check_theme_active('Woodmart') ) {
+        if ( defined('WOODMART_VERSION') ) {
             // styles for compatibility
             add_action( 'wp_head', array( __CLASS__, 'compat_woodmart' ) );
 
@@ -51,13 +51,10 @@ class Woodmart {
 	 * Add compatibility styles for Woodmart theme
      * 
      * @since 4.5.0
+     * @version 5.4.2
      * @return string
 	 */
 	public static function compat_woodmart() {
-        if ( ! function_exists('woodmart_theme_setup') ) {
-            return;
-        }
-
         ob_start(); ?>
 
         .wd-sticky-btn-cart button.wci-open-popup {
@@ -100,11 +97,11 @@ class Woodmart {
      * Check Woodmart layout type
      * 
      * @since 5.0.0
-     * @version 5.4.0
-     * @param bool $is_editing Whether Elementor is editing a single product page
+     * @version 5.4.2
+     * @param bool $is_editing | Whether Elementor is editing a single product page
      */
     public function check_layout_type( $is_editing = true ) {
-        if ( ! function_exists('woodmart_theme_setup') ) {
+        if ( ! function_exists('woodmart_theme_setup') || ! defined('WOODMART_VERSION') ) {
             return;
         }
         
