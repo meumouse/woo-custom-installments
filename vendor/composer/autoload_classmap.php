@@ -32,6 +32,7 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Machic' => $baseDir . '/inc/Integrations/Machic.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Rank_Math' => $baseDir . '/inc/Integrations/Rank_Math.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Ricky' => $baseDir . '/inc/Integrations/Ricky.php',
+    'MeuMouse\\Woo_Custom_Installments\\Integrations\\Shoptimizer' => $baseDir . '/inc/Integrations/Shoptimizer.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Tiered_Pricing_Table' => $baseDir . '/inc/Integrations/Tiered_Pricing_Table.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Woodmart' => $baseDir . '/inc/Integrations/Woodmart.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Components' => $baseDir . '/inc/Views/Components.php',

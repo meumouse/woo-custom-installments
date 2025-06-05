@@ -96,15 +96,15 @@ th.final-price .amount  {
     display: block;
 }
 
-.variation-price,
-.discount-before-price,
-.wci-icon-ticket-discount,
-.discounted-price,
-.wci-icon-main-price,
-.wci-icon-best-installments,
-.variation-text,
-.discount-before-discount-ticket,
-.wci-icon-economy-pix {
+.woo-custom-installments-group .variation-price,
+.woo-custom-installments-group .discount-before-price,
+.woo-custom-installments-group .wci-icon-ticket-discount,
+.woo-custom-installments-group .discounted-price,
+.woo-custom-installments-group .wci-icon-main-price,
+.woo-custom-installments-group .wci-icon-best-installments,
+.woo-custom-installments-group .variation-text,
+.woo-custom-installments-group .discount-before-discount-ticket,
+.woo-custom-installments-group .wci-icon-economy-pix {
     margin-right: 0.25rem;
 }
 

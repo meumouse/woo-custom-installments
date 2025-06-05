@@ -1,3 +1,10 @@
+Versão 5.4.2 (05/06/2025)
+* Correção de bugs
+    - Verificação com tema Woodmart Child
+    - Preço antigo não é atualizado com Tiered Price Table
+* Otimizações
+* Recurso adicionado: Compatibilidade com tema Shoptimizer
+
 Versão 5.4.1 (05/06/2025)
 * Correção de bugs
     - Uncaught Error: Class "Elementor\Plugin" not found

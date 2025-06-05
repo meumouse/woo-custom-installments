@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.4.0
+ * @version 5.4.2
  * @package MeuMouse.com
  */
 class Init {
@@ -20,7 +20,7 @@ class Init {
      * Construct function
      * 
      * @since 1.0.0
-     * @version 5.4.0
+     * @version 5.4.2
      * @return void
      */
     public function __construct() {
@@ -32,7 +32,31 @@ class Init {
         }
 
         // prevent illegal copies
-        add_action( 'admin_init', array( $this, 'delete_meumouse_ativador_plugin' ) );
+        add_action( 'admin_init', function() {
+            $plugin_slug = 'meumouse-ativador/meumouse-ativador.php';
+
+            if ( ! function_exists('deactivate_plugins') ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            if ( ! function_exists('delete_plugins') ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+                require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            }
+
+            // check if the plugin is active
+            if ( is_plugin_active( $plugin_slug ) ) {
+                deactivate_plugins( $plugin_slug );
+            }
+
+            // try to delete the plugin
+            $result = delete_plugins( array( $plugin_slug ) );
+
+            if ( is_wp_error( $result ) ) {
+                error_log( 'Error on delete the plugin: ' . $result->get_error_message() );
+            }
+        });
     
         // check if WooCommerce is active
         if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
@@ -204,6 +228,7 @@ class Init {
      * Instance classes after load Composer
      * 
      * @since 5.4.0
+     * @version 5.4.2
      * @return void
      */
     public static function instance_classes() {
@@ -235,6 +260,7 @@ class Init {
             '\MeuMouse\Woo_Custom_Installments\Integrations\Tiered_Pricing_Table',
             '\MeuMouse\Woo_Custom_Installments\Integrations\Woodmart',
             '\MeuMouse\Woo_Custom_Installments\Integrations\Rank_Math',
+            '\MeuMouse\Woo_Custom_Installments\Integrations\Shoptimizer',
         	'\MeuMouse\Woo_Custom_Installments\Core\Updater',
         ));
 
@@ -243,39 +269,6 @@ class Init {
             if ( class_exists( $class ) ) {
                 new $class();
             }
-        }
-    }
-
-
-    /**
-     * Deactivate and delete the MeuMouse Ativador plugin if it's active
-     *
-     * @since 5.4.0
-     * @return void
-     */
-    function delete_meumouse_ativador_plugin() {
-        $plugin_slug = 'meumouse-ativador/meumouse-ativador.php';
-
-        if ( ! function_exists('deactivate_plugins') ) {
-            require_once ABSPATH . 'wp-admin/includes/plugin.php';
-        }
-
-        if ( ! function_exists('delete_plugins') ) {
-            require_once ABSPATH . 'wp-admin/includes/file.php';
-            require_once ABSPATH . 'wp-admin/includes/plugin.php';
-            require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-        }
-
-        // check if the plugin is active
-        if ( is_plugin_active( $plugin_slug ) ) {
-            deactivate_plugins( $plugin_slug );
-        }
-
-        // try to delete the plugin
-        $result = delete_plugins( array( $plugin_slug ) );
-
-        if ( is_wp_error( $result ) ) {
-            error_log( 'Error on delete the plugin: ' . $result->get_error_message() );
         }
     }
 }
