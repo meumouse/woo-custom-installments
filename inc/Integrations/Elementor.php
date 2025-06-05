@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * Add Woo Custom Installments widgets on Elementor
  *
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.4.1
  * @package MeuMouse.com
  */
 class Elementor {
@@ -201,11 +201,11 @@ class Elementor {
      * Check if is editing mode on Elementor
      * 
      * @since 5.0.0
-     * @version 5.4.0
+     * @version 5.4.1
      * @return bool
      */
     public static function is_edit_mode() {
-        if ( Elementor_Plugin::$instance->editor->is_edit_mode() ) {
+        if ( defined('ELEMENTOR_VERSION') && Elementor_Plugin::$instance->editor->is_edit_mode() ) {
             return true;
         }
 
@@ -217,12 +217,13 @@ class Elementor {
      * Get product id from preview settings on Elementor editor single product
      * 
      * @since 5.4.0
+     * @version 5.4.1
      * @param int $product_id | Current product id
      * @return int
      */
     public function set_product_preview( $product_id ) {
         // Check if we are in Elementor edit mode
-        if ( ! Elementor_Plugin::instance()->preview->is_preview_mode() ) {
+        if ( defined('ELEMENTOR_VERSION') && ! Elementor_Plugin::instance()->preview->is_preview_mode() ) {
             return $product_id;
         }
 
