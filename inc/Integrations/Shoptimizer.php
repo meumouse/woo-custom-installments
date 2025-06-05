@@ -2,6 +2,8 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Integrations;
 
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
@@ -20,9 +22,9 @@ class Shoptimizer {
 	 * @return void
 	 */
 	public function __construct() {
-        if ( defined('SHOPTIMIZER_CORE') ) {
+        if ( defined('SHOPTIMIZER_VERSION') || Helpers::check_theme_active('shoptimizer') ) {
             // remove actions on init hook
-            add_action( 'after_setup_theme', array( $this, 'remove_actions' ), 99 );
+            add_action( 'init', array( $this, 'remove_actions' ), 99 );
         }
 	}
 
