@@ -353,10 +353,13 @@
 		 * Get price selector for display prices
 		 * 
 		 * @since 5.4.0
-		 * @returns {jQuery-object}
+		 * @version 5.4.2
+		 * @returns {object} jQuery object
 		 */
 		getPriceSelector: function() {
-			if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
+			if ( params.active_price_range !== 'yes' || $('.woo-custom-installments-price-container').length === 0 ) {
+				return $('.woocommerce-variation-price').find('.woo-custom-installments-group');
+			} else if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
 				return $('.woo-custom-installments-price-container');
 			} else {
 				return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
@@ -456,19 +459,25 @@
 		 * Compat with Tiered Price Table plugin
 		 * 
 		 * @since 5.4.0
+		 * @version 5.4.2
 		 */
 		updatedTieredPrice: function() {
+			// on found or show variation
+			$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
+				current_price.old_price = variation.display_regular_price;
+			});
+
 			/**
              * On change of tiered price, update the amounts
              * 
              * @since 5.1.0
-			 * @version 5.4.0
+			 * @version 5.4.2
              * @param {object} e | Event object
              * @param {object} variation | Variation product object
              */
             $(document).on('tiered_price_update', function(e, variation) {
 				current_price = {
-					old_price: null,
+					old_price: current_price.old_price,
 					new_price: variation.price,
 				};
 
