@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Connect to license authentication server
  * 
  * @since 2.0.0
- * @version 5.4.0
+ * @version 5.4.3
  * @package MeuMouse.com
  */
 class License {
@@ -324,7 +324,7 @@ class License {
      * Request on API server
      * 
      * @since 2.0.0
-     * @version 5.4.0
+     * @version 5.4.3
      * @param string $relative_url | API URL to concat
      * @param object $data | Object data to encode and add to body request
      * @param string $error | Error message
@@ -406,6 +406,7 @@ class License {
                     CURLOPT_SSL_VERIFYPEER => false,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_CONNECTTIMEOUT => 20,
                     CURLOPT_TIMEOUT => 120,
                     CURLOPT_CUSTOMREQUEST => "POST",
                     CURLOPT_POSTFIELDS => $final_data,

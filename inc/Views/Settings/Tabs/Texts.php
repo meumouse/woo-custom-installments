@@ -1,18 +1,21 @@
 <?php
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Admin\Default_Options;
 use MeuMouse\Woo_Custom_Installments\API\License;
 
 /**
  * Text settings tab
  * 
  * @since 2.0.0
- * @version 5.4.0
+ * @version 5.4.3
  * @package MeuMouse.com
  */
 
 // Exit if accessed directly.
-defined('ABSPATH') || exit; ?>
+defined('ABSPATH') || exit;
+
+$default_options = Default_Options::set_default_data_options(); ?>
 
 <div id="texts" class="nav-content">
     <table class="form-table">
@@ -219,7 +222,7 @@ defined('ABSPATH') || exit; ?>
             </th>
 
             <td>
-               <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" name="text_display_installments_payment_forms" value="<?php echo ( Admin_Options::get_setting('text_display_installments_payment_forms') && License::is_valid() ) ? Admin_Options::get_setting('text_display_installments_payment_forms') : ''; ?>"/>
+                <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" <?php disabled( ! License::is_valid() ); ?> name="text_display_installments_payment_forms" value="<?php echo ( ! empty( Admin_Options::get_setting('text_display_installments_payment_forms') ) ? Admin_Options::get_setting('text_display_installments_payment_forms') : $default_options['text_display_installments_payment_forms'] ); ?>"/>
             </td>
         </tr>
 
@@ -258,7 +261,7 @@ defined('ABSPATH') || exit; ?>
             </th>
 
             <td>
-               <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" name="text_display_installments_loop" value="<?php echo ( Admin_Options::get_setting('text_display_installments_loop') && License::is_valid() ) ? Admin_Options::get_setting('text_display_installments_loop') : '' ?>"/>
+                <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" <?php disabled( ! License::is_valid() ); ?> name="text_display_installments_loop" value="<?php echo ( ! empty( Admin_Options::get_setting('text_display_installments_loop') ) ) ? Admin_Options::get_setting('text_display_installments_loop') : $default_options['text_display_installments_loop']; ?>"/>
             </td>
         </tr>
         
@@ -297,7 +300,7 @@ defined('ABSPATH') || exit; ?>
             </th>
 
             <td>
-               <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" name="text_display_installments_single_product" value="<?php echo ( Admin_Options::get_setting('text_display_installments_single_product') && License::is_valid() ) ? Admin_Options::get_setting('text_display_installments_single_product') : ''; ?>"/>
+                <input type="text" class="form-control input-control-wd-20 <?php echo ( License::is_valid() ) ? '' : 'pro-version'; ?>" <?php disabled( ! License::is_valid() ); ?> name="text_display_installments_single_product" value="<?php echo ( ! empty( Admin_Options::get_setting('text_display_installments_single_product') ) ) ? Admin_Options::get_setting('text_display_installments_single_product') : $default_options['text_display_installments_single_product']; ?>"/>
             </td>
         </tr>
     </table>
