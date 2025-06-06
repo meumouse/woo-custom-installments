@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Views;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Admin\Default_Options;
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Values;
 use MeuMouse\Woo_Custom_Installments\Core\Calculate_Installments;
 use MeuMouse\Woo_Custom_Installments\Core\Helpers;
@@ -16,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.4.0
+ * @version 5.4.3
  * @package MeuMouse.com
  */
 class Components {
@@ -770,7 +771,7 @@ class Components {
 	 * Generate table of installments
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.0
+	 * @version 5.4.3
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -793,16 +794,22 @@ class Components {
 			return;
 		}
 
+		// get default options
+		$default_options = Default_Options::set_default_data_options();
+
+		$placeholder = Admin_Options::get_setting('text_display_installments_payment_forms');
+		$text = ! License::is_valid() && empty( $placeholder ) ? $default_options['text_display_installments_payment_forms'] : $placeholder;
+
 		// Installments table
 		$table = '<h4 class="installments-title">'. Admin_Options::get_setting('text_table_installments') .'</h4>';
 		
 		$table .= '<div id="table-installments">';
 			$table .= '<table class="table table-hover woo-custom-installments-table">';
-				$table .= '<tbody data-default-text="'. Admin_Options::get_setting('text_display_installments_payment_forms') .'">';
+				$table .= '<tbody data-default-text="'. $text .'">';
 					foreach ( $all_installments as $installment ) {
 						$find = array_keys( Helpers::strings_to_replace( $installment ) );
 						$replace = array_values( Helpers::strings_to_replace( $installment ) );
-						$final_text = str_replace( $find, $replace, Admin_Options::get_setting('text_display_installments_payment_forms') );
+						$final_text = str_replace( $find, $replace, $text );
 
 						$table .= '<tr class="'. $installment['class'] .'">';
 							$table .= '<th class="final-text">'. $final_text .'</th>';

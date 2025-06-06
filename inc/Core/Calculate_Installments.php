@@ -3,7 +3,9 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Admin\Default_Options;
 use MeuMouse\Woo_Custom_Installments\Integrations\Elementor;
+use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -144,7 +146,7 @@ class Calculate_Installments {
 	 * Get best installment without interest
 	 * 
 	 * @since 1.0.0
-	 * @version 5.4.0
+	 * @version 5.4.3
 	 * @param array $installments | Product installments
 	 * @param object $product | Product object
 	 * @return string
@@ -170,10 +172,19 @@ class Calculate_Installments {
 			return;
 		}
 
+		// get default options
+		$default_options = Default_Options::set_default_data_options();
+
+		$text = '';
+
 		if ( 'main_price' === $hook ) {
-			$text = Admin_Options::get_setting('text_display_installments_single_product');
+			$placeholder = Admin_Options::get_setting('text_display_installments_single_product');
+
+			$text = ! License::is_valid() && empty( $placeholder ) ? $default_options['text_display_installments_single_product'] : $placeholder;
 		} else {
-			$text = Admin_Options::get_setting('text_display_installments_loop');
+			$placeholder = Admin_Options::get_setting('text_display_installments_loop');
+
+			$text = ! License::is_valid() && empty( $placeholder ) ? $default_options['text_display_installments_loop'] : $placeholder;
 		}
 
 		$find = array_keys( Helpers::strings_to_replace( $get_installments ) );
@@ -216,7 +227,7 @@ class Calculate_Installments {
 	 * Get best installment with interest
 	 * 
 	 * @since 1.0.0
-	 * @version 5.4.0
+	 * @version 5.4.3
 	 * @param array $installments | Product installments
 	 * @param object $product | Product object
 	 * @return string
@@ -244,11 +255,20 @@ class Calculate_Installments {
 		}
 
 		$hook = self::hook();
+		
+		// get default options
+		$default_options = Default_Options::set_default_data_options();
+
+		$text = '';
 
 		if ( 'main_price' === $hook ) {
-			$text = Admin_Options::get_setting('text_display_installments_single_product');
+			$placeholder = Admin_Options::get_setting('text_display_installments_single_product');
+
+			$text = ! License::is_valid() && empty( $placeholder ) ? $default_options['text_display_installments_single_product'] : $placeholder;
 		} else {
-			$text = Admin_Options::get_setting('text_display_installments_loop');
+			$placeholder = Admin_Options::get_setting('text_display_installments_loop');
+
+			$text = ! License::is_valid() && empty( $placeholder ) ? $default_options['text_display_installments_loop'] : $placeholder;
 		}
 
 		$find = array_keys( Helpers::strings_to_replace( $get_installments ) );

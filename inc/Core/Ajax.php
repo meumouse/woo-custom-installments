@@ -3,6 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Admin\Default_Options;
 use MeuMouse\Woo_Custom_Installments\API\License;
 
 // Exit if accessed directly.
@@ -87,7 +88,7 @@ class Ajax {
             // get current options
             $options = get_option( 'woo-custom-installments-setting', array() );
 
-            $fields_without_license = array(
+            $switchs_without_license = array(
                 'enable_installments_all_products',
                 'custom_text_after_price',
                 'enable_all_discount_options',
@@ -111,7 +112,7 @@ class Ajax {
                 'enable_force_styles',
             );
 
-            $fields_with_license = array(
+            $switchs_with_license = array(
                 'remove_price_range',
                 'set_fee_per_installment',
                 'display_discount_price_schema',
@@ -123,13 +124,27 @@ class Ajax {
             );
     
             // update switch options without license
-            foreach ( $fields_without_license as $field ) {
+            foreach ( $switchs_without_license as $field ) {
                 $options[$field] = isset( $form_data[$field] ) ? 'yes' : 'no';
             }
     
             // update switch options with license
-            foreach ( $fields_with_license as $field ) {
+            foreach ( $switchs_with_license as $field ) {
                 $options[$field] = ( isset( $form_data[$field] ) && License::is_valid() ) ? 'yes' : 'no';
+            }
+
+            $fields_with_license = array(
+                'text_display_installments_payment_forms',
+                'text_display_installments_loop',
+                'text_display_installments_single_product',
+            );
+
+            // get default options
+            $default_options = Default_Options::set_default_data_options();
+
+            // update switch options with license
+            foreach ( $fields_with_license as $field ) {
+                $options[$field] = ( isset( $form_data[$field] ) && License::is_valid() ) ? $form_data[$field] : $default_options[$field];
             }
     
             // Update discount payments methods settings

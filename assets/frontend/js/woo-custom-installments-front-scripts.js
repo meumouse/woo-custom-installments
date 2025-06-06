@@ -353,16 +353,21 @@
 		 * Get price selector for display prices
 		 * 
 		 * @since 5.4.0
-		 * @version 5.4.2
+		 * @version 5.4.3
 		 * @returns {object} jQuery object
 		 */
 		getPriceSelector: function() {
-			if ( params.active_price_range !== 'yes' || $('.woo-custom-installments-price-container').length === 0 ) {
-				return $('.woocommerce-variation-price').find('.woo-custom-installments-group');
-			} else if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
-				return $('.woo-custom-installments-price-container');
-			} else {
+			// check product type
+			if ( params.product.type === 'simple' ) {
 				return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
+			} else {
+				if ( params.active_price_range !== 'yes' || $('.woo-custom-installments-price-container').length === 0 ) {
+					return $('.woocommerce-variation-price').find('.woo-custom-installments-group');
+				} else if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
+					return $('.woo-custom-installments-price-container');
+				} else {
+					return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
+				}
 			}
 		},
 
