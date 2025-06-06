@@ -74,7 +74,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.4.0
+     * @version 5.4.3
      * @return void
      */
     public function save_options_callback() {

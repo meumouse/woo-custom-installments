@@ -828,7 +828,7 @@ class Components {
 	 * Display best installments
 	 * 
 	 * @since 2.1.0
-	 * @version 5.4.0
+	 * @version 5.4.3
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -837,30 +837,27 @@ class Components {
 			$product = Helpers::get_product_id_from_post();
 		}
 
-		// check if option __disable_installments in product is true
-		$disable_installments_in_product = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
+		// set default product id
+		$product_id = $product->get_id();
 	
 		// check if product is variation e get the id of parent product
-		if ( $product && $product->is_type( 'variation', 'variable' ) ) {
-			$parent_id = $product->get_parent_id();
-			$disable_installments_in_parent = get_post_meta( $parent_id, '__disable_installments', true ) === 'yes';
-		} else {
-			$disable_installments_in_parent = false;
+		if ( $product && $product->is_type('variable') ) {
+			$product_id = $product->get_parent_id();
 		}
-	
-		// check if '__disable_installments' is true for the simple or variation products
-		if ( $disable_installments_in_product || $disable_installments_in_parent || ! $product->is_purchasable() ) {
+
+		$disabled_installments = get_post_meta( $product_id, '__disable_installments', true ) === 'yes';
+
+		// check is disabled display installments on product
+		if ( $disabled_installments ) {
 			return;
 		}
 
 		// Get the correct price based on the product type
-		if ( $product->is_type('variation') ) {
-			$price = $product->get_sale_price() ?: $product->get_regular_price();
-		} elseif ( $product->is_type( 'variable' ) ) {
+		if ( $product->is_type('variable') ) {
 			// For variable products, get the lowest price with discount
-			$price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
+			$price = (float) $product->get_variation_sale_price( 'min', true ) ?: (float) $product->get_variation_regular_price( 'min', true );
 		} else {
-			$price = $product->get_sale_price() ?: $product->get_regular_price();
+			$price = (float) $product->get_sale_price() ?: (float) $product->get_regular_price();
 		}
 
 		$installments = Calculate_Installments::installments_list( array(), $price, $product );

@@ -234,7 +234,7 @@ class Calculate_Installments {
 	 */
 	public static function best_with_interest( $installments, $product ) {
 		// check if $installments is different of array or empty $installments or product price is zero
-		if ( ! is_array( $installments ) || empty( $installments ) || $product->get_price() <= 0 ) {
+		if ( ! is_array( $installments ) || empty( $installments ) || $product && $product->get_price() <= 0 ) {
 			return;
 		}
 
