@@ -365,6 +365,7 @@ class Ajax {
             'status' => 'success',
             'toast_header' => __( 'Licença ativa', 'woo-custom-installments' ),
             'toast_body' => __( 'A licença foi ativada com sucesso!', 'woo-custom-installments' ),
+            'dropfile_message' => __( 'Licença processada com sucesso!', 'woo-custom-installments' ),
         ]);
     }
 

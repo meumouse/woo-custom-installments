@@ -40,6 +40,13 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.4.3 (06/06/2025)
+* Correção de bugs
+    - Parcelamento não é renderizado em produtos diferentes de simples ou variável
+    - Texto de parcelamento não é exibido
+    - Preço do produto não é atualizado ao alterar quantidade em produtos simples
+* Otimizações
+
 Versão 5.4.2 (05/06/2025)
 * Correção de bugs
     - Verificação com tema Woodmart Child
