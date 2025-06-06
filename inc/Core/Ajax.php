@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.4.0
+ * @version 5.4.3
  * @package MeuMouse.com
  */
 class Ajax {
@@ -253,7 +253,7 @@ class Ajax {
      * Handle alternative activation license file .key
      * 
      * @since 4.3.0
-     * @version 4.5.0
+     * @version 5.4.3
      * @return void
      */
     public function alternative_activation_callback() {
@@ -298,26 +298,74 @@ class Ajax {
             'B729F2659393EE27', // Clube M
         );
 
+        // Decrypt the file content
         $decrypted_data = License::decrypt_alternative_license( $file_content, $decrypt_keys );
 
-        if ( $decrypted_data !== null ) {
-            update_option( 'woo_custom_installments_alternative_license_decrypted', $decrypted_data );
-            
-            $response = array(
-                'status' => 'success',
-                'dropfile_message' => __( 'Arquivo enviado com sucesso.', 'woo-custom-installments' ),
-                'toast_header' => __( 'Licença enviada e decriptografada com sucesso.', 'woo-custom-installments' ),
-                'toast_body' => __( 'Licença enviada e decriptografada com sucesso.', 'woo-custom-installments' ),
-            );
-        } else {
-            $response = array(
+        if ( $decrypted_data === null ) {
+            wp_send_json([
                 'status' => 'error',
                 'toast_header' => __( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
                 'toast_body' => __( 'Não foi possível descriptografar o arquivo de licença.', 'woo-custom-installments' ),
-            );
+            ]);
         }
 
-        wp_send_json( $response );
+        $license_data_array = json_decode( stripslashes( $decrypted_data ) );
+        $this_domain = License::get_domain();
+
+        if ( ! $license_data_array ) {
+            wp_send_json([
+                'status' => 'error',
+                'toast_header' => __( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                'toast_body' => __( 'O arquivo de licença não contém dados válidos.', 'woo-custom-installments' ),
+            ]);
+        }
+
+        if ( $this_domain !== $license_data_array->site_domain ) {
+            wp_send_json([
+                'status' => 'error',
+                'toast_header' => __( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                'toast_body' => __( 'O domínio de ativação não é permitido.', 'woo-custom-installments' ),
+            ]);
+        }
+
+        if ( ! in_array( $license_data_array->selected_product, array( '1', '7' ), true ) ) {
+            wp_send_json([
+                'status' => 'error',
+                'toast_header' => __( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                'toast_body' => __( 'A licença informada não é permitida para este produto', 'woo-custom-installments' ),
+            ]);
+        }
+
+        delete_transient( 'woo_custom_installments_api_request_cache' );
+        delete_transient( 'woo_custom_installments_api_response_cache' );
+        delete_transient( 'woo_custom_installments_license_status_cached' );
+
+        $license_object = $license_data_array->license_object;
+
+        // build object
+        $obj = (object) array(
+            'license_key' => $license_data_array->license_code,
+            'email' => $license_data_array->user_email,
+            'domain' => $this_domain,
+            'app_version' => WOO_CUSTOM_INSTALLMENTS_VERSION,
+            'product_id' => $license_data_array->selected_product,
+            'product_base' => $license_data_array->product_base,
+            'is_valid' => $license_object->is_valid,
+            'license_title'=> $license_object->license_title,
+            'expire_date' => $license_object->expire_date,
+        );
+
+        update_option( 'woo_custom_installments_alternative_license', 'active' );
+        update_option( 'woo_custom_installments_license_response_object', $obj );
+        update_option( 'woo_custom_installments_license_key', $obj->license_key );
+        update_option( 'woo_custom_installments_license_status', 'valid' );
+
+        // send response
+        wp_send_json([
+            'status' => 'success',
+            'toast_header' => __( 'Licença ativa', 'woo-custom-installments' ),
+            'toast_body' => __( 'A licença foi ativada com sucesso!', 'woo-custom-installments' ),
+        ]);
     }
 
 
@@ -325,7 +373,7 @@ class Ajax {
      * Deactive license on AJAX callback
      * 
      * @since 4.5.0
-     * @version 5.0.0
+     * @version 5.4.3
      * @return void
      */
     public function deactive_license_callback() {
@@ -337,7 +385,6 @@ class Ajax {
                 update_option( 'woo_custom_installments_license_status', 'invalid' );
                 delete_option('woo_custom_installments_license_key');
                 delete_option('woo_custom_installments_license_response_object');
-                delete_option('woo_custom_installments_alternative_license_decrypted');
                 delete_option('woo_custom_installments_alternative_license');
                 delete_option('woo_custom_installments_temp_license_key');
                 delete_option('woo_custom_installments_alternative_license_activation');

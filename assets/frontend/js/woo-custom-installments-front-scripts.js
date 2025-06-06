@@ -14,9 +14,13 @@
 	 * Save current price
 	 * 
 	 * @since 5.4.0
+	 * @version 5.4.3
 	 * @returns {Object}
 	 */
-	var current_price = {};
+	var current_price = {
+		old_price: params.product.current_price || 0,
+		new_price: params.product.current_price || 0,
+	};
 
 	/**
 	 * Save current quantity
@@ -240,17 +244,22 @@
 		 * On update quantity for product
 		 * 
 		 * @since 5.4.0
+		 * @version 5.4.3
 		 */
 		updateQuantity: function() {
 			// Get quantity input value
 			$(document).on( 'change', 'input[name="quantity"]', function() {
 				current_quantity = parseInt( $(this).val() ) || 1;
 
-				if ( params.product.type === 'simple' ) {
-					current_price = {
-						old_price: params.product.regular_price,
-						new_price: params.product.current_price,
-					};
+				if ( params.product.type === 'variable' ) {
+					// on found or show variation
+					$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
+						current_price.old_price = variation.display_regular_price;
+						current_price.new_price = variation.display_price;
+					});
+				} else {
+					current_price.old_price = params.product.regular_price;
+					current_price.new_price = params.product.current_price;
 				}
 
 				Woo_Custom_Installments.updateAmounts( current_price, current_quantity );
@@ -357,16 +366,23 @@
 		 * @returns {object} jQuery object
 		 */
 		getPriceSelector: function() {
+			const selector = $('.woo-custom-installments-price-container');
+			const siblings = selector.siblings('.woo-custom-installments-group');
+
 			// check product type
 			if ( params.product.type === 'simple' ) {
-				return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
+				return siblings;
 			} else {
-				if ( params.active_price_range !== 'yes' || $('.woo-custom-installments-price-container').length === 0 ) {
+				if ( params.active_price_range === 'yes' ) {
+					if ( selector.hasClass('active') ) {
+						return selector;
+					} else {
+						return siblings;
+					}
+				} else if ( selector.length === 0 ) {
 					return $('.woocommerce-variation-price').find('.woo-custom-installments-group');
-				} else if ( params.product.type === 'variable' || params.product.type === 'variation' ) {
-					return $('.woo-custom-installments-price-container');
 				} else {
-					return $('.woo-custom-installments-price-container').siblings('.woo-custom-installments-group');
+					return siblings;
 				}
 			}
 		},
@@ -470,6 +486,7 @@
 			// on found or show variation
 			$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
 				current_price.old_price = variation.display_regular_price;
+				current_price.new_price = variation.display_price;
 			});
 
 			/**
@@ -612,13 +629,21 @@
             this.initAccordion();
             this.initModal();
 
+			// on found or show variation
+			$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
+				current_price.old_price = variation.display_regular_price;
+				current_price.new_price = variation.display_price;
+			});
+
 			// Initialize price range
 			if ( params.active_price_range === 'yes' && params.product.type !== 'simple' ) {
 				this.replaceRangePrice();
 			}
 
 			// Initialize tiered price compatibility
-            this.updatedTieredPrice();
+			if ( params.check_tiered_plugin ) {
+				this.updatedTieredPrice();
+			}
 
 			// update price with quantity
 			if ( params.update_price_with_quantity === 'yes' ) {

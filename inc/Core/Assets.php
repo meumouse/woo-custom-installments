@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 5.4.0
+ * @version 5.4.3
  * @package MeuMouse.com
  */
 class Assets {
@@ -21,6 +21,7 @@ class Assets {
     public $min = WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE ? '' : '.min';
     public $assets_url = WOO_CUSTOM_INSTALLMENTS_ASSETS;
     public $debug_mode = WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE;
+    public $dev_mode = WOO_CUSTOM_INSTALLMENTS_DEV_MODE;
 
     /**
      * Construct function
@@ -167,6 +168,7 @@ class Assets {
      * Get frontend params to script
      * 
      * @since 5.4.0
+     * @version 5.4.3
      * @return array
      */
     public function frontend_params() {
@@ -201,12 +203,13 @@ class Assets {
          * Filter to add parameters on frontend scripts
          *
          * @since 1.0.0
-         * @version 5.4.0
+         * @version 5.4.3
          * @param array $params
          */
         $params = apply_filters( 'Woo_Custom_Installments/Assets/Frontend_Params', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'debug_mode' => $this->debug_mode,
+            'dev_mode' => $this->dev_mode,
             'license_valid' => License::is_valid(),
             'element_triggers'=> Admin_Options::get_setting('update_range_price_triggers'),
             'active_price_range' => Admin_Options::get_setting('remove_price_range'),
