@@ -7,6 +7,8 @@ use TierPricingTable\Services\ProductPageService;
 use TierPricingTable\Core\ServiceContainer;
 use \WC_Product;
 
+use MeuMouse\Woo_Custom_Installments\Core\Helpers;
+
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
@@ -14,7 +16,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Tiered Pricing Table plugin
  *
  * @since 4.5.2
- * @version 5.4.0
+ * @version 5.4.4
  * @package MeuMouse.com
  */
 class Tiered_Pricing_Table {
@@ -91,12 +93,17 @@ class Tiered_Pricing_Table {
      * Add param to update table script
      * 
      * @since 5.1.0
+     * @version 5.4.4
      * @param array $params | Current params
      * @return array
      */
     public function check_tiered_plugin( $params ) {
+        $product_id = Helpers::get_product_id_from_post();
+        $pricing_rule = PriceManager::getPricingRule( $product_id );
+
         $new_params = array(
             'check_tiered_plugin' => self::check_plugin(),
+            'tiered_get_rules' => $pricing_rule->getRules(),
         );
 
         return array_merge( $params, $new_params );
