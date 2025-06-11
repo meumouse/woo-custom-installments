@@ -18,7 +18,7 @@
 	 * @returns {Object}
 	 */
 	var current_price = {
-		old_price: params.product.current_price || 0,
+		old_price: params.product.regular_price ? params.product.regular_price : 0,
 		new_price: params.product.current_price || 0,
 	};
 
@@ -244,7 +244,7 @@
 		 * On update quantity for product
 		 * 
 		 * @since 5.4.0
-		 * @version 5.4.3
+		 * @version 5.4.4
 		 */
 		updateQuantity: function() {
 			// Get quantity input value
@@ -260,6 +260,11 @@
 				} else {
 					current_price.old_price = params.product.regular_price;
 					current_price.new_price = params.product.current_price;
+				}
+
+				// check if product was tiered price rules
+				if ( params.tiered_get_rules && typeof params.tiered_get_rules === 'object' && Object.keys( params.tiered_get_rules ).length > 0 ) {
+					return;
 				}
 
 				Woo_Custom_Installments.updateAmounts( current_price, current_quantity );
@@ -480,7 +485,7 @@
 		 * Compat with Tiered Price Table plugin
 		 * 
 		 * @since 5.4.0
-		 * @version 5.4.2
+		 * @version 5.4.4
 		 */
 		updatedTieredPrice: function() {
 			// on found or show variation
@@ -493,15 +498,12 @@
              * On change of tiered price, update the amounts
              * 
              * @since 5.1.0
-			 * @version 5.4.2
+			 * @version 5.4.4
              * @param {object} e | Event object
              * @param {object} variation | Variation product object
              */
             $(document).on('tiered_price_update', function(e, variation) {
-				current_price = {
-					old_price: current_price.old_price,
-					new_price: variation.price,
-				};
+				current_price.new_price = variation.price;
 
                 Woo_Custom_Installments.updateAmounts( current_price, variation.quantity );
             });
@@ -624,6 +626,7 @@
          * Initialize all modules
          * 
          * @since 5.4.0
+		 * @version 5.4.4
          */
         init: function() {
             this.initAccordion();
@@ -640,14 +643,14 @@
 				this.replaceRangePrice();
 			}
 
-			// Initialize tiered price compatibility
-			if ( params.check_tiered_plugin ) {
-				this.updatedTieredPrice();
-			}
-
 			// update price with quantity
 			if ( params.update_price_with_quantity === 'yes' ) {
 				this.updateQuantity();
+			}
+
+			// Initialize tiered price compatibility
+			if ( params.check_tiered_plugin ) {
+				this.updatedTieredPrice();
 			}
         },
     };

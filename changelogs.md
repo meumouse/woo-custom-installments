@@ -1,3 +1,8 @@
+Versão 5.4.4 (10/06/2025)
+* Correção de bugs
+    - Notificação de atualização disponível não some após plugin atualizado
+    - Atualização de preços em produtos simples com Tiered Price Table
+
 Versão 5.4.3 (06/06/2025)
 * Correção de bugs
     - Parcelamento não é renderizado em produtos diferentes de simples ou variável
