@@ -1,3 +1,6 @@
+Versão 5.4.5 (12/06/2025)
+* Otimizações
+
 Versão 5.4.4 (10/06/2025)
 * Correção de bugs
     - Notificação de atualização disponível não some após plugin atualizado
