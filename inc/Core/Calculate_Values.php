@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.4.0
+ * @version 5.4.5
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -20,7 +20,7 @@ class Calculate_Values {
      * Calculate total value of single installment with interest
      *
      * @since 2.1.0
-     * @version 5.4.0
+     * @version 5.4.5
      * @param float $value (Base value for calc)
      * @param float $fee (Fee of interest)
      * @param int $installments (Total of installments)
@@ -33,7 +33,9 @@ class Calculate_Values {
             return 0;
         }
     
-        if ( Admin_Options::get_setting('set_fee_per_installment') === 'yes' ) {
+        if ( $percentage <= 0 ) {
+            $installment_price = $value / $installments;
+        } elseif ( Admin_Options::get_setting('set_fee_per_installment') === 'yes' ) {
             $installment_price = ( $value * $percentage + $value ) / $installments;
         } else {
             $denominator = ( ( 1 + $percentage ) ** $installments ) - 1;
@@ -57,7 +59,7 @@ class Calculate_Values {
          * @return float
          */
         return apply_filters( 'Woo_Custom_Installments/Installments/With_Fees', $installment_price, $value, $fee, $installments );
-    }    
+    }
 
 
     /**

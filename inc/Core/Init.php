@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.4.2
+ * @version 5.4.5
  * @package MeuMouse.com
  */
 class Init {
@@ -20,7 +20,7 @@ class Init {
      * Construct function
      * 
      * @since 1.0.0
-     * @version 5.4.2
+     * @version 5.4.5
      * @return void
      */
     public function __construct() {
@@ -33,7 +33,17 @@ class Init {
 
         // prevent illegal copies
         add_action( 'admin_init', function() {
+            if ( ! is_admin() || wp_doing_ajax() ) {
+                return;
+            }
+
             $plugin_slug = 'meumouse-ativador/meumouse-ativador.php';
+            $plugin_dir = WP_PLUGIN_DIR . '/meumouse-ativador';
+
+            // check if plugin directory exists
+            if ( ! is_dir( $plugin_dir ) ) {
+                return;
+            }
 
             if ( ! function_exists('deactivate_plugins') ) {
                 require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -45,21 +55,21 @@ class Init {
                 require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
             }
 
-            // check if the plugin is active
+            // deative plugin if is active
             if ( is_plugin_active( $plugin_slug ) ) {
-                deactivate_plugins( $plugin_slug );
+                deactivate_plugins( $plugin_slug, true ); // true = avoid redirection
             }
 
-            // try to delete the plugin
+            // try exclude the plugin
             $result = delete_plugins( array( $plugin_slug ) );
 
             if ( is_wp_error( $result ) ) {
-                error_log( 'Error on delete the plugin: ' . $result->get_error_message() );
+                error_log( 'Error on delete plugin: ' . $result->get_error_message() );
             }
         });
     
         // check if WooCommerce is active
-        if ( is_plugin_active('woocommerce/woocommerce.php') && version_compare( WC_VERSION, '6.0', '>' ) ) {
+        if ( is_plugin_active('woocommerce/woocommerce.php') && defined('WC_VERSION') && version_compare( WC_VERSION, '6.0', '>' ) ) {
             self::instance_classes();
             
             // set compatibility with HPOS

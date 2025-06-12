@@ -1,3 +1,8 @@
+Versão 5.4.5 (12/06/2025)
+* Correção de bugs
+    - •	Uncaught DivisionByZeroError: Division by zero in /inc/Core/Calculate_Values.php:45
+* Otimizações
+
 Versão 5.4.4 (10/06/2025)
 * Correção de bugs
     - Notificação de atualização disponível não some após plugin atualizado

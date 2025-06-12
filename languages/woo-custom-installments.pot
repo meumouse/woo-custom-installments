@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-03 20:23+0000\n"
+"POT-Creation-Date: 2025-06-12 21:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Loco-Version: 2.6.4; wp-6.2\n"
 "X-Domain: woo-custom-installments"
 
-#: inc/Views/Components.php:43
+#: inc/Views/Components.php:44
 msgid "%"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "%s juros"
 msgstr ""
 
-#: inc/Views/Components.php:1106
+#: inc/Views/Components.php:1109
 #, php-format
 msgid "%s OFF"
 msgstr ""
@@ -35,56 +35,56 @@ msgstr ""
 msgid "%s off"
 msgstr ""
 
-#: inc/Views/Components.php:56
+#: inc/Views/Components.php:57
 msgid "100"
 msgstr ""
 
-#: inc/Views/Components.php:57
+#: inc/Views/Components.php:58
 msgid "200"
 msgstr ""
 
-#: inc/Views/Components.php:58
+#: inc/Views/Components.php:59
 msgid "300"
 msgstr ""
 
-#: inc/Views/Components.php:59
+#: inc/Views/Components.php:60
 msgid "400"
 msgstr ""
 
-#: inc/Views/Components.php:60
+#: inc/Views/Components.php:61
 msgid "500"
 msgstr ""
 
-#: inc/Views/Components.php:61
+#: inc/Views/Components.php:62
 msgid "600"
 msgstr ""
 
-#: inc/Views/Components.php:62
+#: inc/Views/Components.php:63
 msgid "700"
 msgstr ""
 
-#: inc/Views/Components.php:63
+#: inc/Views/Components.php:64
 msgid "800"
 msgstr ""
 
-#: inc/Views/Components.php:64
+#: inc/Views/Components.php:65
 msgid "900"
 msgstr ""
 
-#: woo-custom-installments.php:110
+#: woo-custom-installments.php:111
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do "
 "PHP 7.4 ou maior. Contate o suporte da sua hospedagem para realizar a "
 "atualização."
 msgstr ""
 
-#: inc/Core/Init.php:93
+#: inc/Core/Init.php:127
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do "
 "WooCommerce 6.0 ou maior. Faça a atualização do plugin WooCommerce."
 msgstr ""
 
-#: inc/Core/Init.php:109
+#: inc/Core/Init.php:143
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>"
 "WooCommerce</strong> esteja instalado e ativado."
@@ -98,8 +98,16 @@ msgstr ""
 msgid "A extensão cURL está faltando."
 msgstr ""
 
-#: inc/Core/Ajax.php:335
+#: inc/Core/Ajax.php:367
+msgid "A licença foi ativada com sucesso!"
+msgstr ""
+
+#: inc/Core/Ajax.php:398
 msgid "A licença foi desativada"
+msgstr ""
+
+#: inc/Core/Ajax.php:335
+msgid "A licença informada não é permitida para este produto"
 msgstr ""
 
 #: inc/Core/Updater.php:240
@@ -116,7 +124,7 @@ msgstr ""
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr ""
 
-#: inc/Views/Components.php:413
+#: inc/Views/Components.php:414
 msgid "Acessar Font Awesome"
 msgstr ""
 
@@ -131,14 +139,14 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:105
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:108
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:108
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:80
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:81
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:94
 msgid ""
 "Adquira uma licença Pro do Parcelas Customizadas para WooCommerce para "
 "liberar todos os recursos e opções de estilização."
 msgstr ""
 
-#: inc/Core/Ajax.php:218
+#: inc/Core/Ajax.php:233
 msgid "Agora todos os recursos estão ativos!"
 msgstr ""
 
@@ -187,16 +195,12 @@ msgstr ""
 msgid "Aplicar desconto para o gateway"
 msgstr ""
 
-#: inc/Views/Components.php:594 inc/Views/Components.php:725
-#: inc/Views/Components.php:755
+#: inc/Views/Components.php:595 inc/Views/Components.php:726
+#: inc/Views/Components.php:756
 msgid "Aprovação imediata"
 msgstr ""
 
-#: inc/Core/Ajax.php:293
-msgid "Arquivo enviado com sucesso."
-msgstr ""
-
-#: inc/Core/Ajax.php:273
+#: inc/Core/Ajax.php:288
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr ""
 
@@ -204,19 +208,19 @@ msgstr ""
 msgid "Arredondamento do botão de parcelas"
 msgstr ""
 
-#: inc/Core/Assets.php:79
+#: inc/Core/Assets.php:80
 msgid "As alterações não serão salvas."
 msgstr ""
 
-#: inc/Core/Ajax.php:160
+#: inc/Core/Ajax.php:175
 msgid "As configurações foram atualizadas!"
 msgstr ""
 
-#: inc/Core/Ajax.php:395
+#: inc/Core/Ajax.php:458
 msgid "As opções foram redefinidas"
 msgstr ""
 
-#: inc/Core/Ajax.php:396
+#: inc/Core/Ajax.php:459
 msgid "As opções foram redefinidas com sucesso!"
 msgstr ""
 
@@ -551,15 +555,15 @@ msgstr ""
 msgid "Básicos"
 msgstr ""
 
-#: inc/Core/Ajax.php:367
+#: inc/Core/Ajax.php:430
 msgid "Cache de ativação limpo"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:43
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:44
 msgid "Caixa de informação de preço"
 msgstr ""
 
-#: inc/Views/Components.php:473
+#: inc/Views/Components.php:474
 msgid "Celular"
 msgstr ""
 
@@ -584,7 +588,7 @@ msgstr ""
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr ""
 
-#: inc/Views/Components.php:638
+#: inc/Views/Components.php:639
 msgid "Cobranças:"
 msgstr ""
 
@@ -599,7 +603,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:107
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:110
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:110
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:82
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:83
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:96
 msgid "Comprar agora"
 msgstr ""
@@ -608,15 +612,15 @@ msgstr ""
 msgid "Comprar licença"
 msgstr ""
 
-#: inc/API/License.php:1059
+#: inc/API/License.php:1060
 msgid "Comprar uma licença"
 msgstr ""
 
-#: inc/Views/Components.php:466
+#: inc/Views/Components.php:467
 msgid "Computador"
 msgstr ""
 
-#: inc/Core/Init.php:125 inc/Views/Settings/Tabs/Discounts.php:158
+#: inc/Core/Init.php:159 inc/Views/Settings/Tabs/Discounts.php:158
 #: inc/Views/Settings/Tabs/General.php:40
 #: inc/Views/Settings/Tabs/General.php:130
 #: inc/Views/Settings/Tabs/General.php:259
@@ -646,7 +650,7 @@ msgstr ""
 msgid "Configurar remoção da faixa de preço"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:97
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:98
 msgid "Configurações"
 msgstr ""
 
@@ -682,7 +686,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:625
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:727
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:162
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:167
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:168
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:363
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:464
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:565
@@ -700,7 +704,7 @@ msgstr ""
 msgid "Cor de fundo do botão ativo"
 msgstr ""
 
-#: inc/Views/Components.php:223
+#: inc/Views/Components.php:224
 msgid "Cor de fundo:"
 msgstr ""
 
@@ -725,7 +729,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:716
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:151
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:151
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:155
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:156
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:187
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:216
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:260
@@ -746,7 +750,7 @@ msgstr ""
 msgid "Cor do texto do botão ativo"
 msgstr ""
 
-#: inc/Views/Components.php:251
+#: inc/Views/Components.php:252
 msgid "Cor do texto:"
 msgstr ""
 
@@ -758,7 +762,7 @@ msgstr ""
 msgid "Código da licença"
 msgstr ""
 
-#: inc/API/License.php:755
+#: inc/API/License.php:756
 msgid "Dados inválidos."
 msgstr ""
 
@@ -793,9 +797,9 @@ msgid "Definir taxa de juros por parcela"
 msgstr ""
 
 #: inc/Views/Settings/Tabs/General.php:65
-#: inc/Views/Settings/Tabs/General.php:167 inc/Views/Settings/Tabs/Texts.php:22
-#: inc/Views/Settings/Tabs/Texts.php:32 inc/Views/Settings/Tabs/Texts.php:106
-#: inc/Views/Settings/Tabs/Texts.php:116 inc/Views/Settings/Tabs/Texts.php:180
+#: inc/Views/Settings/Tabs/General.php:167 inc/Views/Settings/Tabs/Texts.php:25
+#: inc/Views/Settings/Tabs/Texts.php:35 inc/Views/Settings/Tabs/Texts.php:109
+#: inc/Views/Settings/Tabs/Texts.php:119 inc/Views/Settings/Tabs/Texts.php:183
 msgid "Deixe em branco para não exibir."
 msgstr ""
 
@@ -876,14 +880,14 @@ msgstr ""
 msgid "Desligado"
 msgstr ""
 
-#: inc/Views/Components.php:94 inc/Views/Components.php:158
-#: inc/Views/Components.php:331
+#: inc/Views/Components.php:95 inc/Views/Components.php:159
+#: inc/Views/Components.php:332
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:104
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:145
 msgid "Direita"
 msgstr ""
 
-#: inc/Core/Init.php:146
+#: inc/Core/Init.php:180
 msgid "Documentação"
 msgstr ""
 
@@ -893,7 +897,7 @@ msgstr ""
 
 #: inc/Admin/Default_Options.php:349
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:597
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:110
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:111
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:638
 msgid "Economia no Pix"
 msgstr ""
@@ -912,7 +916,7 @@ msgid ""
 "elementos arrastando e soltando."
 msgstr ""
 
-#: inc/Views/Components.php:41
+#: inc/Views/Components.php:42
 msgid "EM"
 msgstr ""
 
@@ -940,19 +944,19 @@ msgstr ""
 msgid "Enviar ícones"
 msgstr ""
 
-#: inc/Core/Ajax.php:249
+#: inc/Core/Ajax.php:264
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr ""
 
-#: inc/Core/Ajax.php:260
+#: inc/Core/Ajax.php:275
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr ""
 
-#: inc/API/License.php:377 inc/API/License.php:430
+#: inc/API/License.php:377 inc/API/License.php:431
 msgid "Erro cURL 35: Problema de comunicação SSL/TLS."
 msgstr ""
 
-#: inc/API/License.php:432
+#: inc/API/License.php:433
 #, php-format
 msgid "Erro cURL: %s"
 msgstr ""
@@ -962,30 +966,30 @@ msgstr ""
 msgid "Erro JSON: %s"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:105
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:106
 msgid "Escolha o preço"
 msgstr ""
 
-#: inc/Core/Assets.php:80
+#: inc/Core/Assets.php:81
 msgid "Escolher imagem de ícone"
 msgstr ""
 
-#: inc/Views/Components.php:306
+#: inc/Views/Components.php:307
 msgid "Espessura do texto:"
 msgstr ""
 
-#: inc/Views/Components.php:96 inc/Views/Components.php:160
-#: inc/Views/Components.php:333
+#: inc/Views/Components.php:97 inc/Views/Components.php:161
+#: inc/Views/Components.php:334
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:96
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:137
 msgid "Esquerda"
 msgstr ""
 
-#: inc/API/License.php:1051 inc/API/License.php:1083
+#: inc/API/License.php:1052 inc/API/License.php:1084
 msgid "Este recurso está disponível na versão Pro"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:139
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:140
 msgid "Estilo"
 msgstr ""
 
@@ -1058,7 +1062,7 @@ msgid ""
 "pagamento para lojas WooCommerce."
 msgstr ""
 
-#: inc/Core/Assets.php:77 inc/Core/Assets.php:98 inc/Views/Components.php:1185
+#: inc/Core/Assets.php:78 inc/Core/Assets.php:99 inc/Views/Components.php:1188
 #: inc/Views/Settings/Tabs/Discounts.php:164
 #: inc/Views/Settings/Tabs/General.php:46
 #: inc/Views/Settings/Tabs/General.php:136
@@ -1140,8 +1144,8 @@ msgstr ""
 msgid "Incluir valor de frete no desconto do pedido"
 msgstr ""
 
-#: inc/Views/Components.php:95 inc/Views/Components.php:159
-#: inc/Views/Components.php:332
+#: inc/Views/Components.php:96 inc/Views/Components.php:160
+#: inc/Views/Components.php:333
 msgid "Inferior"
 msgstr ""
 
@@ -1212,16 +1216,16 @@ msgstr ""
 msgid "Juros por método de pagamento"
 msgstr ""
 
-#: inc/API/License.php:1057
+#: inc/API/License.php:1058
 msgid "Já tenho uma licença"
 msgstr ""
 
-#: inc/Core/Ajax.php:217
-msgid "Licença ativada com sucesso."
+#: inc/Core/Ajax.php:366
+msgid "Licença ativa"
 msgstr ""
 
-#: inc/Core/Ajax.php:294 inc/Core/Ajax.php:295
-msgid "Licença enviada e decriptografada com sucesso."
+#: inc/Core/Ajax.php:232
+msgid "Licença ativada com sucesso."
 msgstr ""
 
 #: inc/Views/Settings/Tabs/About.php:56
@@ -1229,8 +1233,12 @@ msgstr ""
 msgid "Licença expira em: %s"
 msgstr ""
 
-#: inc/API/License.php:911
+#: inc/API/License.php:912
 msgid "Licença expirada"
+msgstr ""
+
+#: inc/Core/Ajax.php:368
+msgid "Licença processada com sucesso!"
 msgstr ""
 
 #: inc/Views/Settings/Tabs/About.php:377
@@ -1278,7 +1286,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:759
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:186
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:194
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:188
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:189
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:294
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:395
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:496
@@ -1305,7 +1313,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:771
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:174
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:206
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:176
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:177
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:306
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:407
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:508
@@ -1319,7 +1327,7 @@ msgstr ""
 msgid "Margem superior do popup/sanfona de parcelas"
 msgstr ""
 
-#: inc/Views/Components.php:100
+#: inc/Views/Components.php:101
 msgid "Margem:"
 msgstr ""
 
@@ -1436,7 +1444,7 @@ msgstr ""
 msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
 msgstr ""
 
-#: inc/API/License.php:902
+#: inc/API/License.php:903
 msgid "Nunca expira"
 msgstr ""
 
@@ -1445,15 +1453,15 @@ msgstr ""
 msgid "Não"
 msgstr ""
 
-#: inc/API/License.php:886 inc/Views/Settings/Tabs/About.php:62
+#: inc/API/License.php:887 inc/Views/Settings/Tabs/About.php:62
 msgid "Não disponível"
 msgstr ""
 
-#: inc/Core/Ajax.php:301
+#: inc/Core/Ajax.php:308
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr ""
 
-#: inc/Core/Ajax.php:166
+#: inc/Core/Ajax.php:181
 msgid "Não foi possível salvar as configurações"
 msgstr ""
 
@@ -1463,8 +1471,16 @@ msgid ""
 "Customizadas para WooCommerce.</strong>"
 msgstr ""
 
-#: inc/Core/Ajax.php:368
+#: inc/Core/Ajax.php:319
+msgid "O arquivo de licença não contém dados válidos."
+msgstr ""
+
+#: inc/Core/Ajax.php:431
 msgid "O cache de ativação foi limpo com sucesso!"
+msgstr ""
+
+#: inc/Core/Ajax.php:327
+msgid "O domínio de ativação não é permitido."
 msgstr ""
 
 #: inc/Compatibility/Legacy_Filters.php:114
@@ -1481,17 +1497,18 @@ msgid ""
 "lugar."
 msgstr ""
 
-#: inc/Views/Shortcodes.php:185
+#: inc/Views/Shortcodes.php:167 inc/Views/Shortcodes.php:195
+#: inc/Views/Shortcodes.php:223
 msgid ""
 "O local do shortcode inserido é inválido. Insira em um modelo de página de "
 "produto individual, ou em um local onde consiga obter o ID de um produto."
 msgstr ""
 
-#: inc/Views/Shortcodes.php:73 inc/Views/Shortcodes.php:105
-#: inc/Views/Shortcodes.php:133 inc/Views/Shortcodes.php:277
-#: inc/Views/Shortcodes.php:305 inc/Views/Shortcodes.php:333
-#: inc/Views/Shortcodes.php:361 inc/Views/Shortcodes.php:389
-#: inc/Views/Shortcodes.php:417 inc/Views/Shortcodes.php:444
+#: inc/Views/Shortcodes.php:74 inc/Views/Shortcodes.php:106
+#: inc/Views/Shortcodes.php:136 inc/Views/Shortcodes.php:283
+#: inc/Views/Shortcodes.php:311 inc/Views/Shortcodes.php:339
+#: inc/Views/Shortcodes.php:367 inc/Views/Shortcodes.php:395
+#: inc/Views/Shortcodes.php:423 inc/Views/Shortcodes.php:450
 msgid ""
 "O local do shortcode inserido é inválido. É permitido apenas para produtos."
 msgstr ""
@@ -1500,11 +1517,11 @@ msgstr ""
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr ""
 
-#: inc/Core/Ajax.php:342
+#: inc/Core/Ajax.php:405
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr ""
 
-#: inc/Core/Ajax.php:402
+#: inc/Core/Ajax.php:465
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr ""
 
@@ -1576,46 +1593,47 @@ msgstr ""
 msgid "Ocultar título"
 msgstr ""
 
-#: inc/Core/Assets.php:78
+#: inc/Core/Assets.php:79
 msgid "Ops! Não há conexão com a internet"
 msgstr ""
 
-#: inc/Core/Ajax.php:165 inc/Core/Ajax.php:225 inc/Core/Ajax.php:248
-#: inc/Core/Ajax.php:259 inc/Core/Ajax.php:272 inc/Core/Ajax.php:300
-#: inc/Core/Ajax.php:341 inc/Core/Ajax.php:401
+#: inc/Core/Ajax.php:180 inc/Core/Ajax.php:240 inc/Core/Ajax.php:263
+#: inc/Core/Ajax.php:274 inc/Core/Ajax.php:287 inc/Core/Ajax.php:307
+#: inc/Core/Ajax.php:318 inc/Core/Ajax.php:326 inc/Core/Ajax.php:334
+#: inc/Core/Ajax.php:404 inc/Core/Ajax.php:464
 msgid "Ops! Ocorreu um erro."
 msgstr ""
 
-#: inc/Views/Shortcodes.php:81 inc/Views/Shortcodes.php:111
-#: inc/Views/Shortcodes.php:163 inc/Views/Shortcodes.php:191
-#: inc/Views/Shortcodes.php:207 inc/Views/Shortcodes.php:223
-#: inc/Views/Shortcodes.php:239 inc/Views/Shortcodes.php:255
-#: inc/Views/Shortcodes.php:283 inc/Views/Shortcodes.php:311
-#: inc/Views/Shortcodes.php:339 inc/Views/Shortcodes.php:367
-#: inc/Views/Shortcodes.php:395 inc/Views/Shortcodes.php:423
-#: inc/Views/Shortcodes.php:450
+#: inc/Views/Shortcodes.php:82 inc/Views/Shortcodes.php:112
+#: inc/Views/Shortcodes.php:145 inc/Views/Shortcodes.php:173
+#: inc/Views/Shortcodes.php:201 inc/Views/Shortcodes.php:229
+#: inc/Views/Shortcodes.php:245 inc/Views/Shortcodes.php:261
+#: inc/Views/Shortcodes.php:289 inc/Views/Shortcodes.php:317
+#: inc/Views/Shortcodes.php:345 inc/Views/Shortcodes.php:373
+#: inc/Views/Shortcodes.php:401 inc/Views/Shortcodes.php:429
+#: inc/Views/Shortcodes.php:456
 msgid ""
 "Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para "
 "WooCommerce."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:202 inc/Views/Settings/Tabs/Texts.php:241
-#: inc/Views/Settings/Tabs/Texts.php:280
+#: inc/Views/Settings/Tabs/Texts.php:205 inc/Views/Settings/Tabs/Texts.php:244
+#: inc/Views/Settings/Tabs/Texts.php:283
 msgid "Para recuperar o número de parcelas."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:207 inc/Views/Settings/Tabs/Texts.php:246
-#: inc/Views/Settings/Tabs/Texts.php:285
+#: inc/Views/Settings/Tabs/Texts.php:210 inc/Views/Settings/Tabs/Texts.php:249
+#: inc/Views/Settings/Tabs/Texts.php:288
 msgid "Para recuperar o valor da parcela."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:217 inc/Views/Settings/Tabs/Texts.php:256
-#: inc/Views/Settings/Tabs/Texts.php:295
+#: inc/Views/Settings/Tabs/Texts.php:220 inc/Views/Settings/Tabs/Texts.php:259
+#: inc/Views/Settings/Tabs/Texts.php:298
 msgid "Para recuperar o valor total da soma das parcelas."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:212 inc/Views/Settings/Tabs/Texts.php:251
-#: inc/Views/Settings/Tabs/Texts.php:290
+#: inc/Views/Settings/Tabs/Texts.php:215 inc/Views/Settings/Tabs/Texts.php:254
+#: inc/Views/Settings/Tabs/Texts.php:293
 msgid "Para recuperar se a parcela é com ou sem juros."
 msgstr ""
 
@@ -1624,7 +1642,7 @@ msgid "Para todos os produtos"
 msgstr ""
 
 #. page title
-#: inc/Admin/Admin_Options.php:67 inc/Integrations/Elementor.php:50
+#: inc/Admin/Admin_Options.php:67 inc/Integrations/Elementor.php:61
 msgid "Parcelas Customizadas"
 msgstr ""
 
@@ -1672,12 +1690,12 @@ msgstr ""
 msgid "Personalizar preço do produto"
 msgstr ""
 
-#: inc/Views/Components.php:591
+#: inc/Views/Components.php:592
 #, php-format
 msgid "Pix: %s"
 msgstr ""
 
-#: inc/Views/Components.php:40
+#: inc/Views/Components.php:41
 msgid "Pixel"
 msgstr ""
 
@@ -1694,7 +1712,7 @@ msgid ""
 "Posição das formas de pagamento e parcelas na página de produto individual"
 msgstr ""
 
-#: inc/Views/Components.php:164
+#: inc/Views/Components.php:165
 msgid "Preenchimento:"
 msgstr ""
 
@@ -1723,7 +1741,7 @@ msgstr ""
 msgid "Preço com desconto no Pix"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:121
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:122
 msgid "Preço com desconto:"
 msgstr ""
 
@@ -1732,11 +1750,11 @@ msgstr ""
 msgid "Preço do produto"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:109
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:110
 msgid "Preço no Boleto"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:108
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:109
 msgid "Preço no Pix"
 msgstr ""
 
@@ -1792,12 +1810,12 @@ msgstr ""
 #: inc/Views/Settings/Tabs/Payment_Methods.php:633
 #: inc/Views/Settings/Tabs/Payment_Methods.php:654
 #: inc/Views/Settings/Tabs/Payment_Methods.php:675
-#: inc/Views/Settings/Tabs/Texts.php:194 inc/Views/Settings/Tabs/Texts.php:233
-#: inc/Views/Settings/Tabs/Texts.php:272
+#: inc/Views/Settings/Tabs/Texts.php:197 inc/Views/Settings/Tabs/Texts.php:236
+#: inc/Views/Settings/Tabs/Texts.php:275
 msgid "Pro"
 msgstr ""
 
-#: inc/Views/Components.php:410
+#: inc/Views/Components.php:411
 msgid "Procurar"
 msgstr ""
 
@@ -1805,7 +1823,7 @@ msgstr ""
 msgid "Produto não encontrado."
 msgstr ""
 
-#: inc/Views/Components.php:431
+#: inc/Views/Components.php:432
 msgid "Pré-visualizar:"
 msgstr ""
 
@@ -1843,7 +1861,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:645
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:747
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:182
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:208
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:209
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:383
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:484
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:585
@@ -1856,7 +1874,7 @@ msgstr ""
 msgid "Raio da borda do botão de popup de parcelas."
 msgstr ""
 
-#: inc/Views/Components.php:337
+#: inc/Views/Components.php:338
 msgid "Raio da borda:"
 msgstr ""
 
@@ -1868,12 +1886,12 @@ msgstr ""
 msgid "Redefinir configurações"
 msgstr ""
 
-#: inc/Views/Components.php:228 inc/Views/Components.php:256
+#: inc/Views/Components.php:229 inc/Views/Components.php:257
 #: inc/Views/Settings/Tabs/Styles.php:168
 msgid "Redefinir para cor padrão"
 msgstr ""
 
-#: inc/Views/Components.php:42
+#: inc/Views/Components.php:43
 msgid "REM"
 msgstr ""
 
@@ -1903,7 +1921,7 @@ msgstr ""
 msgid "Salvar alterações"
 msgstr ""
 
-#: inc/Core/Ajax.php:159
+#: inc/Core/Ajax.php:174
 msgid "Salvo com sucesso"
 msgstr ""
 
@@ -2003,7 +2021,7 @@ msgid ""
 "pagamento configurada."
 msgstr ""
 
-#: inc/Core/Init.php:165
+#: inc/Core/Init.php:199
 msgid "Seja PRO"
 msgstr ""
 
@@ -2014,7 +2032,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:103
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:106
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:106
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:78
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:79
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:92
 msgid "Seja Pro"
 msgstr ""
@@ -2026,7 +2044,7 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:104
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:107
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:107
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:79
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:80
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:93
 msgid "Seja Pro - Parcelas Customizadas"
 msgstr ""
@@ -2114,14 +2132,14 @@ msgstr ""
 msgid "Sua chave de licença:"
 msgstr ""
 
-#: inc/API/License.php:1100
+#: inc/API/License.php:1101
 msgid ""
 "Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> "
 "expirou, realize a renovação para continuar aproveitando os recursos Pro."
 msgstr ""
 
-#: inc/Views/Components.php:93 inc/Views/Components.php:157
-#: inc/Views/Components.php:330
+#: inc/Views/Components.php:94 inc/Views/Components.php:158
+#: inc/Views/Components.php:331
 msgid "Superior"
 msgstr ""
 
@@ -2134,7 +2152,7 @@ msgstr ""
 msgid "Tamanho da bandeira"
 msgstr ""
 
-#: inc/Views/Components.php:278
+#: inc/Views/Components.php:279
 msgid "Tamanho do texto:"
 msgstr ""
 
@@ -2154,55 +2172,55 @@ msgstr ""
 msgid "Taxa de juros padrão"
 msgstr ""
 
-#: inc/Core/Assets.php:99
+#: inc/Core/Assets.php:100
 msgid "Tem certeza que deseja desativar sua licença?"
 msgstr ""
 
-#: inc/Core/Assets.php:82
+#: inc/Core/Assets.php:83
 msgid "Tem certeza que deseja redefinir suas configurações?"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:119
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:120
 msgid "Texto antes do preço"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:21
+#: inc/Views/Settings/Tabs/Texts.php:24
 msgid "Texto antes do preço com desconto"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:105
+#: inc/Views/Settings/Tabs/Texts.php:108
 msgid "Texto antes do preço com desconto no boleto bancário"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:228
+#: inc/Views/Settings/Tabs/Texts.php:231
 msgid "Texto de exibição das parcelas (Arquivos de produtos)"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:189
+#: inc/Views/Settings/Tabs/Texts.php:192
 msgid "Texto de exibição das parcelas (Formas de pagamento)"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:267
+#: inc/Views/Settings/Tabs/Texts.php:270
 msgid "Texto de exibição das parcelas (Produto individual)"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:95
+#: inc/Views/Settings/Tabs/Texts.php:98
 msgid "Texto de instruções de boleto bancário"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:96
+#: inc/Views/Settings/Tabs/Texts.php:99
 msgid "Texto de instruções que será exibido no container de boleto bancário."
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:128
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:129
 msgid "Texto depois do preço"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:31
+#: inc/Views/Settings/Tabs/Texts.php:34
 msgid "Texto depois do preço com desconto"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:115
+#: inc/Views/Settings/Tabs/Texts.php:118
 msgid "Texto depois do preço com desconto no boleto bancário"
 msgstr ""
 
@@ -2210,19 +2228,19 @@ msgstr ""
 msgid "Texto depois do preço do produto"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:159
+#: inc/Views/Settings/Tabs/Texts.php:162
 msgid "Texto informativo de parcelas com juros"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:169
+#: inc/Views/Settings/Tabs/Texts.php:172
 msgid "Texto informativo de parcelas sem juros"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:51
+#: inc/Views/Settings/Tabs/Texts.php:54
 msgid "Texto informativo para desconto por quantidade"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:41
+#: inc/Views/Settings/Tabs/Texts.php:44
 msgid "Texto informativo para economia no Pix"
 msgstr ""
 
@@ -2230,19 +2248,19 @@ msgstr ""
 msgid "Texto inicial em produtos variáveis (A partir de)"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:150
+#: inc/Views/Settings/Tabs/Texts.php:153
 msgid "Texto que será exibido antes da tabela de parcelas no popup ou sanfona."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:160 inc/Views/Settings/Tabs/Texts.php:170
+#: inc/Views/Settings/Tabs/Texts.php:163 inc/Views/Settings/Tabs/Texts.php:173
 msgid "Texto que será exibido depois da parcela."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:62
+#: inc/Views/Settings/Tabs/Texts.php:65
 msgid "Texto que será exibido no botão do popup ou sanfona de parcelas."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:52
+#: inc/Views/Settings/Tabs/Texts.php:55
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de desconto por quantidade. Obs.: É "
@@ -2250,26 +2268,26 @@ msgid ""
 "para exibir o valor."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:42
+#: inc/Views/Settings/Tabs/Texts.php:45
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de economia ao pagar com Pix. Obs.: É "
 "necessário que a variável %s esteja na frase para exibir o valor."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:86
+#: inc/Views/Settings/Tabs/Texts.php:89
 msgid "Texto que será usado como título do container de boleto bancário."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:126
+#: inc/Views/Settings/Tabs/Texts.php:129
 msgid "Texto que será usado como título do container de cartões de crédito."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:136
+#: inc/Views/Settings/Tabs/Texts.php:139
 msgid "Texto que será usado como título do container de cartões de débito."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:76
+#: inc/Views/Settings/Tabs/Texts.php:79
 msgid "Texto que será usado como título do container de transferências."
 msgstr ""
 
@@ -2313,7 +2331,7 @@ msgstr ""
 msgid "Tipografia da tabela"
 msgstr ""
 
-#: inc/Core/Ajax.php:336
+#: inc/Core/Ajax.php:399
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr ""
 
@@ -2322,51 +2340,51 @@ msgstr ""
 msgid "Total %s"
 msgstr ""
 
-#: woo-custom-installments.php:176 woo-custom-installments.php:187
+#: woo-custom-installments.php:177 woo-custom-installments.php:188
 msgid "Trapaceando?"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:149
+#: inc/Views/Settings/Tabs/Texts.php:152
 msgid "Título da tabela de parcelas"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:61
+#: inc/Views/Settings/Tabs/Texts.php:64
 msgid "Título do botão acionador de parcelas"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:179
+#: inc/Views/Settings/Tabs/Texts.php:182
 msgid "Título do container das formas de pagamento"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:85
+#: inc/Views/Settings/Tabs/Texts.php:88
 msgid "Título do container de boleto bancário"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:125
+#: inc/Views/Settings/Tabs/Texts.php:128
 msgid "Título do container de cartões de crédito"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:135
+#: inc/Views/Settings/Tabs/Texts.php:138
 msgid "Título do container de cartões de débito"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:75
+#: inc/Views/Settings/Tabs/Texts.php:78
 msgid "Título do container de transferências"
 msgstr ""
 
-#: inc/API/License.php:1084
+#: inc/API/License.php:1085
 msgid ""
 "Uma licença permite que você desbloqueie todos os recursos Pro que o "
 "Parcelas Customizadas tem a oferecer."
 msgstr ""
 
-#: inc/API/License.php:1053
+#: inc/API/License.php:1054
 msgid ""
 "Uma licença permite que você desbloqueie todos os recursos Pro que o plugin "
 "tem a oferecer."
 msgstr ""
 
-#: inc/Core/Updater.php:439
+#: inc/Core/Updater.php:454
 #, php-format
 msgid ""
 "Uma nova versão do plugin <strong>Parcelas Customizadas para "
@@ -2379,12 +2397,12 @@ msgid ""
 "WooCommerce</strong> está disponível."
 msgstr ""
 
-#: inc/Core/Assets.php:81
+#: inc/Core/Assets.php:82
 msgid "Usar esta imagem"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Texts.php:198 inc/Views/Settings/Tabs/Texts.php:237
-#: inc/Views/Settings/Tabs/Texts.php:276
+#: inc/Views/Settings/Tabs/Texts.php:201 inc/Views/Settings/Tabs/Texts.php:240
+#: inc/Views/Settings/Tabs/Texts.php:279
 msgid "Utilize as variáveis:"
 msgstr ""
 
@@ -2502,10 +2520,10 @@ msgstr ""
 msgid "À vista R$87,30 no Pix"
 msgstr ""
 
-#: inc/Views/Components.php:393
+#: inc/Views/Components.php:394
 msgid "Ícone:"
 msgstr ""
 
-#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:130
+#: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:131
 msgid "à vista"
 msgstr ""
