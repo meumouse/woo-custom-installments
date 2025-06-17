@@ -188,7 +188,7 @@ class Render_Elements {
 			do_action( 'Woo_Custom_Installments/Price/Append_Group', $product );
 		
 			echo $components->display_best_installments( $product );
-			echo $components->discount_main_price_single( $product );
+			echo $components->discount_main_price( $product );
 			echo $components->economy_pix_badge( $product );
 			echo $components->discount_ticket_badge( $product ); ?>
 		</div>
@@ -317,12 +317,12 @@ class Render_Elements {
 	 * Display product variations for replace on remove price range
 	 * 
 	 * @since 5.2.6
-	 * @version 5.4.0
+	 * @version 5.4.6
 	 * @param object $product | Product object
 	 * @return void
 	 */
 	public function variation_prices_group( $product ) {
-		if ( $product && $product->is_type('variable') && ! Helpers::variations_has_same_price( $product ) ) :
+		if ( ! Helpers::variations_has_same_price( $product ) ) :
 			$variations = $product->get_available_variations(); ?>
 
 			<ul id="wci-variation-prices">

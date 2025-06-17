@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
- * @version 5.4.0
+ * @version 5.4.6
  * @package MeuMouse.com
  */
 class Helpers {
@@ -64,13 +64,13 @@ class Helpers {
      * Check if variations have equal price
      * 
      * @since 1.0.0
-     * @version 5.4.0
+     * @version 5.4.6
      * @param object $product | Product object
      * @return bool
      */
     public static function variations_has_same_price( $product ) {
         // check if product is variable
-        if ( ! $product || ! $product->is_type('variable') ) {
+        if ( ! $product || ! in_array( $product->get_type(), array( 'variable', 'variable-subscription' ), true ) ) {
             return false;
         }
 
