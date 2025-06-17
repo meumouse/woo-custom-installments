@@ -40,6 +40,10 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.4.7 (17/06/2025)
+* Correção de bugs:
+    - Call to undefined method get_available_variations() in Render_Elements.php on line 326
+
 Versão 5.4.6 (17/06/2025)
 * Correção de bugs
     - Variável {{ total }} não atualiza o preço total de parcelas
