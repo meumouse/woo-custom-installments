@@ -13,6 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
+ * @version 5.4.6
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -78,7 +79,7 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.0
+	 * @version 5.4.6
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
@@ -153,10 +154,10 @@ class Render_Elements {
 								endif; ?>
 							</span>
 						<?php else : ?>
-							<span class="woo-custom-installments-price"><?php echo $price ?></span>
+							<span class="woo-custom-installments-price"><?php echo wc_price( $product->get_price() ) ?></span>
 						<?php endif; ?>
 					<?php else : ?>
-						<span class="woo-custom-installments-price"><?php echo $price ?></span>
+						<span class="woo-custom-installments-price"><?php echo wc_price( $product->get_price() ) ?></span>
 					<?php endif; ?>
 				<?php else :
 					// Check if the product has a sale price for simple products
@@ -172,7 +173,7 @@ class Render_Elements {
 							endif; ?>
 						</span>
 					<?php else : ?>
-						<span class="woo-custom-installments-price"><?php echo $price ?></span>
+						<span class="woo-custom-installments-price"><?php echo wc_price( $product->get_price() ) ?></span>
 					<?php endif;
 				endif; ?>
 			</div>
