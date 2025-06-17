@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.4.3
+ * @version 5.4.6
  * @package MeuMouse.com
  */
 class Components {
@@ -828,7 +828,7 @@ class Components {
 	 * Display best installments
 	 * 
 	 * @since 2.1.0
-	 * @version 5.4.3
+	 * @version 5.4.6
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -837,15 +837,18 @@ class Components {
 			$product = Helpers::get_product_id_from_post();
 		}
 
-		// set default product id
-		$product_id = $product->get_id();
-	
-		// check if product is variation e get the id of parent product
-		if ( $product && $product->is_type('variable') ) {
-			$product_id = $product->get_parent_id();
-		}
+		// check is disabled display installments on product
+		$disabled_installments = get_post_meta( $product->get_id(), '__disable_installments', true ) === 'yes';
 
-		$disabled_installments = get_post_meta( $product_id, '__disable_installments', true ) === 'yes';
+		// Check if parent product has installments disabled (for variations)
+		if ( $product->is_type('variation') ) {
+			$parent_id = $product->get_parent_id();
+			$parent_disable = get_post_meta( $parent_id, '__disable_installments', true );
+
+			if ( $parent_disable === 'yes' ) {
+				return;
+			}
+		}
 
 		// check is disabled display installments on product
 		if ( $disabled_installments ) {
@@ -895,45 +898,61 @@ class Components {
 	 * Discount product main price
 	 * 
 	 * @since 3.6.0
-	 * @version 5.4.0
+	 * @version 5.4.6
 	 * @param object $product | Product object
-	 * @return string $html
+	 * @return string
 	 */
-	public function discount_main_price_single( $product ) {
-		if ( $product === false ) {
-			global $product;
+	public function discount_main_price( $product ) {
+		if ( ! $product ) {
+			$product = Helpers::get_product_id_from_post();
 		}
 
 		if ( Admin_Options::get_setting('display_discount_price_hook') === 'hide' || Admin_Options::get_setting('enable_all_discount_options') !== 'yes' ) {
 			return;
 		}
 
+		// check is disabled display discount on product
+		$disabled_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
+
+		// Check if parent product has discount disabled (for variations)
+		if ( $product->is_type('variation') ) {
+			$parent_id = $product->get_parent_id();
+			$parent_disable = get_post_meta( $parent_id, '__disable_discount_main_price', true );
+
+			if ( $parent_disable === 'yes' ) {
+				return;
+			}
+		}
+
+		// check is disabled display installments on product
+		if ( $disabled_discount ) {
+			return;
+		}
+
 		$html = '<span class="woo-custom-installments-offer">';
+			$pix_icon_base = Admin_Options::get_setting('elements_design')['discount_pix']['icon'];
 
-		$pix_icon_base = Admin_Options::get_setting('elements_design')['discount_pix']['icon'];
-
-		if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-			if ( isset( $pix_icon_base['class'] ) ) {
-				$html .= sprintf( __( '<i class="wci-icon-main-price icon-class %s"></i>' ), esc_attr( $pix_icon_base['class'] ) );
+			if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
+				if ( isset( $pix_icon_base['class'] ) ) {
+					$html .= sprintf( __( '<i class="wci-icon-main-price icon-class %s"></i>' ), esc_attr( $pix_icon_base['class'] ) );
+				}
+			} else {
+				if ( isset( $pix_icon_base['image'] ) ) {
+					$html .= sprintf( __( '<img class="wci-icon-main-price icon-image" src="%s"/>' ), esc_url( $pix_icon_base['image'] ) );
+				}
 			}
-		} else {
-			if ( isset( $pix_icon_base['image'] ) ) {
-				$html .= sprintf( __( '<img class="wci-icon-main-price icon-image" src="%s"/>' ), esc_url( $pix_icon_base['image'] ) );
+
+			// check if exists text before price for display
+			if ( ! empty( Admin_Options::get_setting('text_before_price') ) ) {
+				$html .= '<span class="discount-before-price">'. Admin_Options::get_setting('text_before_price') .'</span>';
 			}
-		}
 
-		// check if exists text before price for display
-		if ( ! empty( Admin_Options::get_setting('text_before_price') ) ) {
-			$html .= '<span class="discount-before-price">'. Admin_Options::get_setting('text_before_price') .'</span>';
-		}
+			$html .= '<span class="discounted-price">'. wc_price( Calculate_Values::get_discounted_price( $product, 'main' ) ) .'</span>';
 
-		$html .= '<span class="discounted-price">'. wc_price( Calculate_Values::get_discounted_price( $product, 'main' ) ) .'</span>';
-
-		// check if exists text after price for display
-		if ( ! empty( Admin_Options::get_setting('text_after_price') ) ) {
-			$html .= '<span class="discount-after-price">'. Admin_Options::get_setting('text_after_price') .'</span>';
-		}
-
+			// check if exists text after price for display
+			if ( ! empty( Admin_Options::get_setting('text_after_price') ) ) {
+				$html .= '<span class="discount-after-price">'. Admin_Options::get_setting('text_after_price') .'</span>';
+			}
 		$html .= '</span>';
 
 		// check if we are on Elementor edit mode
@@ -956,41 +975,57 @@ class Components {
 	 * Create a ticket discount badge
 	 * 
 	 * @since 2.8.0
-	 * @version 5.4.0
+	 * @version 5.4.6
 	 * @param object $product | Product object
-	 * @return string $html
+	 * @return string
 	 */
 	public function discount_ticket_badge( $product ) {
-		if ( $product === false ) {
-			global $product;
+		if ( ! $product ) {
+			$product = Helpers::get_product_id_from_post();
+		}
+
+		// check is disabled display discount on product
+		$disabled_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
+
+		// Check if parent product has discount disabled (for variations)
+		if ( $product->is_type('variation') ) {
+			$parent_id = $product->get_parent_id();
+			$parent_disable = get_post_meta( $parent_id, '__disable_discount_main_price', true );
+
+			if ( $parent_disable === 'yes' ) {
+				return;
+			}
+		}
+
+		// check is disabled display installments on product
+		if ( $disabled_discount ) {
+			return;
 		}
 
 		$html = '<span class="woo-custom-installments-ticket-discount">';
+			$ticket_icon_base = Admin_Options::get_setting('elements_design')['discount_slip_bank']['icon'];
 
-		$ticket_icon_base = Admin_Options::get_setting('elements_design')['discount_slip_bank']['icon'];
-
-		if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
-			if ( isset( $ticket_icon_base['class'] ) ) {
-				$html .= sprintf( __( '<i class="wci-icon-ticket-discount icon-class %s"></i>' ), esc_attr( $ticket_icon_base['class'] ) );
+			if ( Admin_Options::get_setting('icon_format_elements') === 'class' ) {
+				if ( isset( $ticket_icon_base['class'] ) ) {
+					$html .= sprintf( __( '<i class="wci-icon-ticket-discount icon-class %s"></i>' ), esc_attr( $ticket_icon_base['class'] ) );
+				}
+			} else {
+				if ( isset( $ticket_icon_base['image'] ) ) {
+					$html .= sprintf( __( '<img class="wci-icon-ticket-discount icon-image" src="%s"/>' ), esc_url( $ticket_icon_base['image'] ) );
+				}
 			}
-		} else {
-			if ( isset( $ticket_icon_base['image'] ) ) {
-				$html .= sprintf( __( '<img class="wci-icon-ticket-discount icon-image" src="%s"/>' ), esc_url( $ticket_icon_base['image'] ) );
+
+			// check if exists text before price for display
+			if ( ! empty( Admin_Options::get_setting('text_before_discount_ticket') ) ) {
+				$html .= '<span class="discount-before-discount-ticket">'. Admin_Options::get_setting('text_before_discount_ticket') .'</span>';
 			}
-		}
 
-		// check if exists text before price for display
-		if ( ! empty( Admin_Options::get_setting('text_before_discount_ticket') ) ) {
-			$html .= '<span class="discount-before-discount-ticket">'. Admin_Options::get_setting('text_before_discount_ticket') .'</span>';
-		}
+			$html .= '<span class="discounted-price">'. wc_price( Calculate_Values::get_discounted_price( $product, 'ticket' ) ) .'</span>';
 
-		$html .= '<span class="discounted-price">'. wc_price( Calculate_Values::get_discounted_price( $product, 'ticket' ) ) .'</span>';
-
-		// check if exists text after price for display
-		if ( ! empty( Admin_Options::get_setting('text_after_discount_ticket') ) ) {
-			$html .= '<span class="discount-after-discount-ticket">'. Admin_Options::get_setting('text_after_discount_ticket') .'</span>';
-		}
-
+			// check if exists text after price for display
+			if ( ! empty( Admin_Options::get_setting('text_after_discount_ticket') ) ) {
+				$html .= '<span class="discount-after-discount-ticket">'. Admin_Options::get_setting('text_after_discount_ticket') .'</span>';
+			}
 		$html .= '</span>';
 
 		// check if we are on Elementor edit mode
@@ -1013,16 +1048,34 @@ class Components {
 	 * Create a economy Pix badge
 	 * 
 	 * @since 3.6.0
-	 * @version 5.4.0
+	 * @version 5.4.6
 	 * @param WC_Product $product | Product object
 	 * @return string
 	 */
 	public function economy_pix_badge( $product ) {
-		if ( $product === false || ! isset( $product ) ) {
-			global $product;
+		if ( ! $product ) {
+			$product = Helpers::get_product_id_from_post();
 		}
 		
 		if ( Admin_Options::get_setting('enable_economy_pix_badge') !== 'yes' || Admin_Options::get_setting('enable_all_discount_options') !== 'yes' ) {
+			return;
+		}
+
+		// check is disabled display discount on product
+		$disabled_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
+
+		// Check if parent product has discount disabled (for variations)
+		if ( $product->is_type('variation') ) {
+			$parent_id = $product->get_parent_id();
+			$parent_disable = get_post_meta( $parent_id, '__disable_discount_main_price', true );
+
+			if ( $parent_disable === 'yes' ) {
+				return;
+			}
+		}
+
+		// check is disabled display installments on product
+		if ( $disabled_discount ) {
 			return;
 		}
 

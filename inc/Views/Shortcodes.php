@@ -312,7 +312,7 @@ class Shortcodes extends Components {
         }
 
         if ( License::is_valid() ) {
-            return $this->discount_main_price_single( $product );
+            return $this->discount_main_price( $product );
         } else {
             return __( 'Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' );
         }

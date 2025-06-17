@@ -40,6 +40,14 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.4.6 (17/06/2025)
+* Correção de bugs
+    - Variável {{ total }} não atualiza o preço total de parcelas
+    - Duplicidade de elementos de parcelamento e descontos
+* Otimizações
+* Recurso adicionado: Mostrar notificação de atualização disponível
+* Compatibilidade com assinaturas variáveis
+
 Versão 5.4.5 (12/06/2025)
 * Correção de bugs
     - •	Uncaught DivisionByZeroError: Division by zero in /inc/Core/Calculate_Values.php:45

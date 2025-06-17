@@ -20,6 +20,18 @@ defined('ABSPATH') || exit; ?>
 			</td>
 		</tr>
 
+		<tr>
+			<th>
+				<?php esc_html_e( 'Mostrar notificação de atualização disponível', 'woo-custom-installments' ); ?>
+				<span class="woo-custom-installments-description"><?php esc_html_e( 'Ative essa opção para que seja exibido uma notificação de atualização disponível.', 'woo-custom-installments' ); ?></span>
+			</th>
+			<td>
+				<div class="form-check form-switch">
+					<input type="checkbox" class="toggle-switch" id="enable_update_notices" name="enable_update_notices" value="yes" <?php checked( Admin_Options::get_setting('enable_update_notices') === 'yes' ); ?> />
+				</div>
+			</td>
+		</tr>
+
 		<tr class="container-separator"></tr>
 		
 		<tr>

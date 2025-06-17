@@ -513,7 +513,7 @@
          * Update table installments based on variation or direct price
          * 
          * @since 2.3.5
-         * @version 5.4.0
+         * @version 5.4.6
          * @param {float} price | Product price
          */
         updateTableInstallments: function( price ) {
@@ -525,8 +525,6 @@
 
             var i = 1;
             var fees = params.installments.fees;
-            var last_installment_without_fee = null;
-            var last_installment_with_fee = null;
 
 			// get main group selector
 			var price_container = Woo_Custom_Installments.getPriceSelector();
@@ -542,6 +540,7 @@
                 if ( i <= params.installments.max_installments_no_fee ) {
                     price = get_price / i;
 
+					// check if price is less than minimum installment value
                     if ( price < params.installments.min_installment ) {
                         break;
                     }
@@ -549,18 +548,13 @@
                     // Append row without fee (no interest)
                     if ( default_text ) {
                         tbody.append('<tr class="no-fee"><th>' +
-							default_text.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.without_fee_label) +
+							default_text.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.without_fee_label).replace('{{ total }}', Woo_Custom_Installments.getFormattedPrice(price * i)) +
 							'</th><th>' + Woo_Custom_Installments.getFormattedPrice(get_price) + '</th></tr>');
                     }
 
-                    last_installment_without_fee = {
-                        installments: i,
-                        price: Woo_Custom_Installments.getFormattedPrice(price),
-                    };
-
 					// Update best installments without fee
 					if ( best_installments_label ) {
-						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.without_fee_label);
+						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.without_fee_label).replace('{{ total }}', Woo_Custom_Installments.getFormattedPrice(price * i));
 					
 						price_container.find('.woo-custom-installments-details.best-value.no-fee').html(installments_details);
 					}
@@ -584,22 +578,25 @@
                     // Append row with fee (with interest)
                     if ( default_text ) {
                         tbody.append('<tr class="fee-included"><th>' +
-							default_text.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice(price)).replace('{{ juros }}', params.i18n.with_fee_label) +
+							default_text.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice(price)).replace('{{ juros }}', params.i18n.with_fee_label).replace('{{ total }}', Woo_Custom_Installments.getFormattedPrice(final_cost)) +
 							'</th><th>' + Woo_Custom_Installments.getFormattedPrice(final_cost) + '</th></tr>');
                     }
 
-                    last_installment_with_fee = {
-                        installments: i,
-                        price: Woo_Custom_Installments.getFormattedPrice(price),
-                    };
-
 					// Update best installments with fee
             		if ( best_installments_label ) {
-						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.with_fee_label);
+						let installments_details = best_installments_label.replace('{{ parcelas }}', i).replace('{{ valor }}', Woo_Custom_Installments.getFormattedPrice( price )).replace('{{ juros }}', params.i18n.with_fee_label).replace('{{ total }}', Woo_Custom_Installments.getFormattedPrice(final_cost) );
 					
 						price_container.find('.woo-custom-installments-details-with-fee .best-value.fee-included').html(installments_details);
 					}
                 }
+
+				// display console details on development mode
+				if ( params.dev_mode ) {
+					console.log( 'Fees: ', fees );
+					console.log( 'Price: ', get_price );
+					console.log( 'Fee: ', fee );
+					console.log( 'Final cost: ', final_cost );
+				}
 
                 i++;
             }
