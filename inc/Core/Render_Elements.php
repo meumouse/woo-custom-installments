@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.4.6
+ * @version 5.4.7
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -317,11 +317,16 @@ class Render_Elements {
 	 * Display product variations for replace on remove price range
 	 * 
 	 * @since 5.2.6
-	 * @version 5.4.6
+	 * @version 5.4.7
 	 * @param object $product | Product object
 	 * @return void
 	 */
 	public function variation_prices_group( $product ) {
+		// check product type
+		if ( ! $product || ! in_array( $product->get_type(), array( 'variable', 'variable-subscription' ), true ) ) {
+			return;
+		}
+
 		if ( ! Helpers::variations_has_same_price( $product ) ) :
 			$variations = $product->get_available_variations(); ?>
 
