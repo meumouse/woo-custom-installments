@@ -9,6 +9,7 @@ defined('ABSPATH') || exit;
  * Set default options
  * 
  * @since 5.4.0
+ * @version 5.4.6
  * @package MeuMouse.com
  */
 class Default_Options extends Admin_Options {
@@ -17,7 +18,7 @@ class Default_Options extends Admin_Options {
      * Set default options
      * 
      * @since 2.0.0
-     * @version 5.4.0
+     * @version 5.4.6
      * @return array
      */
     public static function set_default_data_options() {
@@ -493,6 +494,7 @@ class Default_Options extends Admin_Options {
             'enable_force_styles' => 'no',
             'enable_auto_updates' => 'no',
             'update_price_with_quantity' => 'yes',
+            'enable_update_notices' => 'yes',
         ));
     }
 }

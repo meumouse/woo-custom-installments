@@ -2,6 +2,7 @@ Versão 5.4.6 (17/06/2025)
 * Correção de bugs
     - Variável {{ total }} não atualiza o preço total de parcelas
     - Duplicidade de elementos de parcelamento e descontos
+* Recurso adicionado: Mostrar notificação de atualização disponível
 
 Versão 5.4.5 (12/06/2025)
 * Correção de bugs
