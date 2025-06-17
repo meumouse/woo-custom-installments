@@ -1,3 +1,7 @@
+Versão 5.4.6 (17/06/2025)
+* Correção de bugs
+    - Variável {{ total }} não atualiza o preço total de parcelas
+
 Versão 5.4.5 (12/06/2025)
 * Correção de bugs
     - •	Uncaught DivisionByZeroError: Division by zero in /inc/Core/Calculate_Values.php:45
