@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Class for add discounts in the cart
  * 
  * @since 2.0.0
- * @version 5.4.0
+ * @version 5.4.8
  * @package MeuMouse.com
  */
 class Discounts {
@@ -233,6 +233,7 @@ class Discounts {
 	 * Apply a single fee line for the sum of all individual product discounts
 	 *
 	 * @since 5.4.0
+	 * @version 5.4.8
 	 * @param float $amount | Total discount amount to apply (positive number)
 	 * @return void
 	 */
@@ -254,9 +255,9 @@ class Discounts {
 		
 		// Build fee label
 		if ( (string) $raw_gateway_title ) {
-			$label = sprintf( esc_html__( 'Desconto individual para %s', 'woo-custom-installments' ), $raw_gateway_title );
+			$label = sprintf( __( 'Desconto individual para %s', 'woo-custom-installments' ), $raw_gateway_title );
 		} else {
-			$label = esc_html__( 'Desconto individual', 'woo-custom-installments' );
+			$label = __( 'Desconto individual', 'woo-custom-installments' );
 		}
 
 		// Add fee as negative value; taxes disabled (false)
@@ -268,6 +269,7 @@ class Discounts {
 	 * Calculate and apply discount based on chosen payment gateway settings
 	 *
 	 * @since 5.4.0
+	 * @version 5.4.8
 	 * @param WC_Cart $cart | Cart object
 	 * @return void
 	 */
@@ -340,9 +342,9 @@ class Discounts {
 		}
 
 		if ( (string) $raw_gateway_title ) {
-			$label = sprintf( esc_html__( 'Desconto para %s', 'woo-custom-installments' ), $raw_gateway_title );
+			$label = sprintf( __( 'Desconto para %s', 'woo-custom-installments' ), $raw_gateway_title );
 		} else {
-			$label = esc_html__( 'Desconto de pagamento', 'woo-custom-installments' );
+			$label = __( 'Desconto de pagamento', 'woo-custom-installments' );
 		}
 
 		// Add fee as negative value; taxes enabled (true)

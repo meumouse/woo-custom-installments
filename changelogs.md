@@ -2,6 +2,8 @@ Versão 5.4.8 (25/06/2025)
 * Correção de bugs
     - Retornando preço 0,00 quando o preço não está informado
     - Unsupported operand type: string - float: /inc/Core/Calculate_Values.php:345
+* Otimizações
+    - Ícone da sanfona de métodos de pagamento
 
 Versão 5.4.7 (17/06/2025)
 * Correção de bugs:

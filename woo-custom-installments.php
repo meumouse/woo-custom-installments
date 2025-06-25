@@ -161,8 +161,8 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'WOO_CUSTOM_INSTALLMENTS_VERSION' => self::$version,
 				'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL' => get_option('admin_email'),
 				'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK' => 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview',
-				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => false,
-				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => false,
+				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => true,
+				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => true,
 			);
 
 			// iterate for each constant item
