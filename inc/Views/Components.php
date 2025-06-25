@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.4.6
+ * @version 5.4.8
  * @package MeuMouse.com
  */
 class Components {
@@ -1168,7 +1168,7 @@ class Components {
 	 * Display all payment methods in accordion element
 	 * 
 	 * @since 4.1.0
-	 * @version 5.4.0
+	 * @version 5.4.8
 	 * @param object $product | Product object
 	 * @return void
 	 */
@@ -1179,7 +1179,10 @@ class Components {
 
 		<div id="wci-accordion-installments" class="accordion">
 			<div class="wci-accordion-item">
-				<button type="button" class="wci-accordion-header"><?php echo Admin_Options::get_setting('text_button_installments'); ?></button>
+				<button type="button" class="wci-accordion-header">
+					<?php echo Admin_Options::get_setting('text_button_installments'); ?>
+					<svg class="wci-accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M18 14L12 20L6 14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+				</button>
 
 				<div class="wci-accordion-content">
 					<?php

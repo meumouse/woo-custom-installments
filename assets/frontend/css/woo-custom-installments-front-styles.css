@@ -695,9 +695,9 @@ button.wci-close-popup:hover {
 
 .wci-accordion-header {
     position: relative;
-    display: flex;
+    display: flex !important;
     align-items: center;
-    width: 100%;
+    width: 100% !important;
     height: 55px;
     padding: 1rem 1.25rem !important;
     font-size: 1rem;
@@ -719,20 +719,19 @@ button.wci-close-popup:hover {
     background-color: #E9ECEF;
 }
 
-.wci-accordion-header::after {
+.wci-accordion-header .wci-accordion-icon {
+    stroke: #212529;
     flex-shrink: 0;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.825em;
+    height: auto;
     margin-left: auto;
-    content: "";
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-size: 1.25rem;
+    margin-bottom: 0.625rem;
     transition: transform .2s ease-in-out;
 }
 
-.wci-accordion-item.active .wci-accordion-header::after {
+.wci-accordion-item.active .wci-accordion-header .wci-accordion-icon {
     transform: rotate(-180deg);
+    margin-bottom: -0.625rem;
 }
 
 .wci-accordion-content {

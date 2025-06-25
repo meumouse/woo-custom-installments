@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Class for add discounts in the cart
  * 
  * @since 2.0.0
- * @version 5.4.0
+ * @version 5.4.8
  * @package MeuMouse.com
  */
 class Discounts {
@@ -42,136 +42,145 @@ class Discounts {
 
 
 	/**
-	 * Calcule the discount amount
-	 * 
-	 * @since 2.0.0
-	 * @param $type | percentage or fixed
-	 * @param $value | Cart value
-	 * @param $subtotal | Cart subtotal
-	 * @return string
-	 */
-	protected function calculate_discount( $type, $value, $subtotal ) {
-		if ( $type == 'percentage' ) {
-			$value = ( $subtotal / 100 ) * ( $value );
-		}
-
-		return $value;
-	}
-
-
-	/**
-	 * Generate the discount name
-	 * 
-	 * @since 2.0.0
-	 * @param $value | Discount value
-	 * @param $gateway | Payment gateway
-	 * @return string
-	 */
-	protected function discount_name( $value, $gateway ) {
-		if ( strstr( $value, '%' ) ) {
-			return sprintf( __( 'Desconto para %s (%s off)', 'woo-custom-installments' ), esc_attr( $gateway->title ), $value );
-		}
-
-		return sprintf( __( 'Desconto para %s', 'woo-custom-installments' ), esc_attr( $gateway->title ) );
-	}
-
-
-	/**
 	 * Display the discount in payment method title
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.0
+	 * @version 5.4.8
 	 * @param $title | Payment gateway title
-	 * @param $id | Payment gateway ID
+	 * @param $gateway_id | Payment gateway ID
 	 * @return string | $title
 	 */
-	public function payment_method_title( $title, $id ) {
-		if ( ! is_object( WC()->cart ) || ! is_checkout() ) {
+	public function payment_method_title( $title, $gateway_id ) {
+		if ( ! is_object( WC()->cart ) || ! is_checkout() || Admin_Options::get_setting('display_tag_discount_price_checkout') !== 'yes' ) {
 			return $title;
 		}
 
-		// Check if the option to display discount price in checkout is enabled
-		if ( Admin_Options::get_setting('display_tag_discount_price_checkout') !== 'yes' ) {
-			return $title;
-		}
-  
-		$is_discount_eligible_product_exists = false;
-		$current_payment_method = $id;
+		$total_discount = $this->get_combined_discount_total( $gateway_id );
 
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			$product = $cart_item['data'];
-			$product_id = $product->get_id();
-			$enable_discount = get_post_meta( $product_id, 'enable_discount_per_unit', true ) === 'yes';
-			$disable_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
-			$discount_gateway = get_post_meta( $product_id, 'discount_gateway', true );
-
-			if ( $enable_discount && ! $disable_discount ) {
-				if ( $discount_gateway === $current_payment_method ) {
-					$product_discount = get_post_meta( $product_id, 'unit_discount_amount', true );
-					$product_discount_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
-
-					if ( $product_discount_method === 'percentage' ) {
-						$value = $product_discount . '%';
-					} else {
-						$value = wc_price( $product_discount );
-					}
-
-					$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
-
-					return $title;
-				}
-
-				$is_discount_eligible_product_exists = true;
-			}
-		}
-
-		if ( $is_discount_eligible_product_exists ) {
-			return $title;
-		}
-
-		$discount_settings = maybe_unserialize( get_option('woo_custom_installments_discounts_setting') );
-
-		if ( isset( $discount_settings[ $id ]['amount'] ) && $discount_settings[ $id ]['amount'] > 0 ) {
-			$discount = $discount_settings[ $id ]['amount'];
-
-			if ( $discount_settings[ $id ]['type'] == 'percentage' ) {
-				$value = $discount . '%';
-			} else {
-				$value = wc_price( $discount );
-			}
-
-			$title .= '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), $value ) . '</span>';
+		if ( $total_discount > 0 ) {
+			$badge = '<span class="badge-discount-checkout">' . sprintf( __( '%s off', 'woo-custom-installments' ), wc_price( $total_discount ) ) . '</span>';
+			
+			return $title . ' ' . $badge;
 		}
 
 		return $title;
-  	}
+	}
+
+
+	/**
+	 * Get total discount amount for the given payment method
+	 * 
+	 * @since 5.4.8
+	 * @param string $gateway_id
+	 * @return float
+	 */
+	protected function get_combined_discount_total( $gateway_id ) {
+		$cart = WC()->cart;
+		$total_discount = 0;
+		$global_base = 0;
+
+		if ( ! $cart || empty( $gateway_id ) ) {
+			return 0;
+		}
+
+		foreach ( $cart->get_cart() as $item ) {
+			$product = $item['data'];
+			$product_id = $product->is_type('variation') ? $product->get_parent_id() : $product->get_id();
+			$qty = (int) $item['quantity'];
+			$price = (float) $product->get_price();
+
+			// Individual discount
+			$enabled = get_post_meta( $product_id, 'enable_discount_per_unit', true ) === 'yes';
+			$method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+			$amount = get_post_meta( $product_id, 'unit_discount_amount', true );
+			$target_gateway = get_post_meta( $product_id, 'discount_gateway', true );
+			$disabled = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
+
+			if ( $enabled && $target_gateway === $gateway_id && is_numeric( $amount ) ) {
+				if ( $method === 'percentage' ) {
+					$total_discount += $price * (float) $amount / 100 * $qty;
+				} elseif ( $method === 'fixed' ) {
+					$total_discount += (float) $amount * $qty;
+				}
+			} elseif ( ! $disabled ) {
+				$global_base += $price * $qty;
+			}
+		}
+
+		// Apply global gateway discount
+		$settings = maybe_unserialize( get_option('woo_custom_installments_discounts_setting') );
+
+		if ( isset( $settings[ $gateway_id ]['amount'] ) && $global_base > 0 ) {
+			$value = (float) $settings[ $gateway_id ]['amount'];
+			$type  = $settings[ $gateway_id ]['type'];
+			$global_discount = ( $type === 'percentage' ) ? $global_base * $value / 100 : $value;
+
+			$total_discount += $global_discount;
+		}
+
+		return $total_discount;
+	}
 
 
 	/**
 	 * Add discount
 	 *
 	 * @since 2.6.0
-	 * @version 5.4.0
+	 * @version 5.4.8
 	 * @param WC_Cart $cart | Cart object
 	 * @return void
 	 */
 	public function add_discounts( $cart ) {
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
+		if ( is_admin() && ! defined('DOING_AJAX') || is_cart() ) {
 			return;
 		}
 
-		// Calculate total individual discounts for cart items
-		$total_individual = $this->get_total_individual_discount( $cart );
+		$gateway_id = WC()->session->chosen_payment_method;
+		$individual_discount_total = 0;
+		$global_discount_base = 0;
 
-		// If there is any individual discount, apply it and stop (no gateway fallback)
-		if ( $total_individual > 0 ) {
-			$this->apply_individual_discount_fee( $total_individual );
+		foreach ( $cart->get_cart() as $cart_item ) {
+			$product = $cart_item['data'];
+			$product_id = $product->is_type('variation') ? $product->get_parent_id() : $product->get_id();
+			$quantity = $cart_item['quantity'];
+			$unit_price = (float) $product->get_price();
+			$line_total = $unit_price * $quantity;
 
-			return;
+			// Individual discount
+			$enable = get_post_meta( $product_id, 'enable_discount_per_unit', true ) === 'yes';
+			$gateway_for_product = get_post_meta( $product_id, 'discount_gateway', true );
+			$discount_method = get_post_meta( $product_id, 'discount_per_unit_method', true );
+			$discount_value = get_post_meta( $product_id, 'unit_discount_amount', true );
+
+			if (
+				$enable &&
+				$gateway_for_product === $gateway_id &&
+				in_array( $discount_method, [ 'percentage', 'fixed' ], true ) &&
+				is_numeric( $discount_value )
+			) {
+				if ( $discount_method === 'percentage' ) {
+					$individual_discount_total += ( $unit_price * (float) $discount_value / 100 ) * $quantity;
+				} else {
+					$individual_discount_total += (float) $discount_value * $quantity;
+				}
+			} else {
+				// check if the product is disabled in global
+				$disable_main = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
+				$disable_parent = get_post_meta( $product->get_parent_id(), '__disable_discount_main_price', true ) === 'yes';
+
+				if ( ! $disable_main && ! $disable_parent ) {
+					$global_discount_base += $line_total;
+				}
+			}
 		}
 
-		// Otherwise, apply gateway-based discount (fallback)
-		$this->apply_gateway_discount( $cart );
+		if ( $individual_discount_total > 0 ) {
+			$this->apply_individual_discount_fee( $individual_discount_total );
+		}
+
+		if ( $global_discount_base > 0 ) {
+			$this->apply_gateway_discount_on_amount( $global_discount_base, $gateway_id );
+		}
 	}
 
 
@@ -179,17 +188,18 @@ class Discounts {
 	 * Calculate and return the sum of all individual product discounts
 	 *
 	 * @since 5.4.0
+	 * @version 5.4.8
 	 * @param WC_Cart $cart | Cart object
 	 * @return float Total discount amount for individual products
 	 */
 	protected function get_total_individual_discount( $cart ) {
-		$total_discount = 0.0;
+		$total_discount = 0;
 		$gateway_id = WC()->session->chosen_payment_method;
 
 		// Loop through each cart item to compute per-item discount
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = $cart_item['data'];
-			$product_id = $product->get_id();
+			$product_id = $product->is_type('variation') ? $product->get_parent_id() : $product->get_id();
 
 			// Check if this product has individual discount enabled
 			$enable_flag = get_post_meta( $product_id, 'enable_discount_per_unit', true ) === 'yes';
@@ -233,31 +243,12 @@ class Discounts {
 	 * Apply a single fee line for the sum of all individual product discounts
 	 *
 	 * @since 5.4.0
+	 * @version 5.4.8
 	 * @param float $amount | Total discount amount to apply (positive number)
 	 * @return void
 	 */
 	protected function apply_individual_discount_fee( $amount ) {
-		$gateway_id = WC()->session->chosen_payment_method;
-		$payment_gateways = WC()->payment_gateways->get_available_payment_gateways();
-		$raw_gateway_title = '';
-
-		// check if gateway exists in array
-		if ( isset( $payment_gateways[ $gateway_id ] ) ) {
-			$current_gateway = $payment_gateways[ $gateway_id ];
-
-			if ( isset( $current_gateway->settings['title'] ) && $current_gateway->settings['title'] !== '' ) {
-				$raw_gateway_title = $current_gateway->settings['title'];
-			} else {
-				$raw_gateway_title = $current_gateway->get_title();
-			}
-		}
-		
-		// Build fee label
-		if ( (string) $raw_gateway_title ) {
-			$label = sprintf( esc_html__( 'Desconto individual para %s', 'woo-custom-installments' ), $raw_gateway_title );
-		} else {
-			$label = esc_html__( 'Desconto individual', 'woo-custom-installments' );
-		}
+		$label = esc_html__( 'Desconto exclusivo', 'woo-custom-installments' );
 
 		// Add fee as negative value; taxes disabled (false)
 		wc()->cart->add_fee( $label, -1 * $amount, false );
@@ -265,9 +256,49 @@ class Discounts {
 
 
 	/**
+	 * Apply a single fee line for the sum of all individual product discounts
+	 * 
+	 * @since 5.4.8
+	 * @param float $amount_base | Total amount to apply discount on
+	 * @param string $gateway_id | Gateway ID
+	 * @return void
+	 */
+	protected function apply_gateway_discount_on_amount( $amount_base, $gateway_id ) {
+		$gateways_settings = maybe_unserialize( get_option('woo_custom_installments_discounts_setting') );
+
+		if ( ! isset( $gateways_settings[ $gateway_id ] ) ) {
+			return;
+		}
+
+		$value = $gateways_settings[ $gateway_id ]['amount'];
+		$type = $gateways_settings[ $gateway_id ]['type'];
+
+		if ( ! is_numeric( $value ) || $value <= 0 ) {
+			return;
+		}
+
+		if ( $type === 'percentage' ) {
+			$discount = ( $amount_base * $value ) / 100;
+		} else {
+			$discount = (float) $value;
+		}
+
+		if ( $discount <= 0 ) {
+			return;
+		}
+
+		$label = esc_html__( 'Desconto por forma de pagamento', 'woo-custom-installments' );
+
+		// apply discount
+		wc()->cart->add_fee( $label, -1 * $discount, true );
+	}
+
+
+	/**
 	 * Calculate and apply discount based on chosen payment gateway settings
 	 *
 	 * @since 5.4.0
+	 * @version 5.4.8
 	 * @param WC_Cart $cart | Cart object
 	 * @return void
 	 */
@@ -340,9 +371,9 @@ class Discounts {
 		}
 
 		if ( (string) $raw_gateway_title ) {
-			$label = sprintf( esc_html__( 'Desconto para %s', 'woo-custom-installments' ), $raw_gateway_title );
+			$label = sprintf( __( 'Desconto para %s', 'woo-custom-installments' ), $raw_gateway_title );
 		} else {
-			$label = esc_html__( 'Desconto de pagamento', 'woo-custom-installments' );
+			$label = __( 'Desconto por forma de pagamento', 'woo-custom-installments' );
 		}
 
 		// Add fee as negative value; taxes enabled (true)
@@ -376,6 +407,7 @@ class Discounts {
 	 * Set discount per quantity
 	 * 
 	 * @since 2.7.2
+	 * @version 5.4.8
 	 * @param $cart | WC_Cart object
 	 * @return void
 	 */
@@ -447,12 +479,13 @@ class Discounts {
 		}
 	
 		if ( $total_discount > 0 ) {
+			$label = esc_html__('Desconto por quantidade', 'woo-custom-installments');
 	
 			// Check if the option to disable discounts is active for the product
 			if ( $disable_discount || $disable_discount_in_parent ) {
-				wc()->cart->remove_fee( __('Desconto por quantidade', 'woo-custom-installments') );
+				wc()->cart->remove_fee( $label );
 			} else {
-				wc()->cart->add_fee( __('Desconto por quantidade', 'woo-custom-installments'), - $total_discount );
+				wc()->cart->add_fee( $label, - $total_discount );
 			}
 		}
 	}

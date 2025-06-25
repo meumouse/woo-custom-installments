@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add payment methods popup on single product page
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.4.8
  * @package MeuMouse.com
  */
 class Wci_Accordion extends Widget_Base {
@@ -116,6 +116,7 @@ class Wci_Accordion extends Widget_Base {
 	 * Register the widget controls
      * 
      * @since 5.0.0
+     * @version 5.4.8
      * @return void
 	 */
 	protected function register_controls() {
@@ -151,7 +152,8 @@ class Wci_Accordion extends Widget_Base {
                 'label' => esc_html__( 'Cor do texto', 'woo-custom-installments' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .wci-accordion-header' => 'color: {{VALUE}} !important;',
+                    '{{WRAPPER}} .wci-accordion-header' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .wci-accordion-header .wci-accordion-icon' => 'stroke: {{VALUE}};',
                 ),
             )
         );
@@ -162,7 +164,7 @@ class Wci_Accordion extends Widget_Base {
                 'label' => esc_html__( 'Cor de fundo', 'woo-custom-installments' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .wci-accordion-header' => 'background-color: {{VALUE}} !important;',
+                    '{{WRAPPER}} .wci-accordion-header' => 'background-color: {{VALUE}};',
                 ),
             )
         );
@@ -183,7 +185,7 @@ class Wci_Accordion extends Widget_Base {
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors' => array(
-                    '{{WRAPPER}} .wci-accordion-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .wci-accordion-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -195,7 +197,7 @@ class Wci_Accordion extends Widget_Base {
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => array( 'px', '%', 'em', 'rem' ),
                 'selectors' => array(
-                    '{{WRAPPER}} #wci-accordion-installments' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                    '{{WRAPPER}} #wci-accordion-installments' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -258,7 +260,8 @@ class Wci_Accordion extends Widget_Base {
                 'label' => esc_html__( 'Cor do texto ao passar o mouse', 'woo-custom-installments' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .wci-accordion-header:hover' => 'color: {{VALUE}} !important;',
+                    '{{WRAPPER}} .wci-accordion-header:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .wci-accordion-header:hover .wci-accordion-icon' => 'stroke: {{VALUE}};',
                 ),
             )
         );
@@ -269,7 +272,7 @@ class Wci_Accordion extends Widget_Base {
                 'label' => esc_html__( 'Cor de fundo ao passar o mouse', 'woo-custom-installments' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .wci-accordion-header:hover' => 'background-color: {{VALUE}} !important;',
+                    '{{WRAPPER}} .wci-accordion-header:hover' => 'background-color: {{VALUE}};',
                 ),
             )
         );

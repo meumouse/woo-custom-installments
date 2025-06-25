@@ -7,10 +7,10 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.4.7
+ * Version: 					5.4.8
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
- * WC tested up to: 			9.8.5
+ * WC tested up to: 			9.9.5
  * Requires PHP: 				7.4
  * Tested up to:      			6.8.1
  * Text Domain: 				woo-custom-installments
@@ -29,7 +29,6 @@ namespace MeuMouse\Woo_Custom_Installments;
 defined('ABSPATH') || exit;
 
 if ( ! class_exists('Woo_Custom_Installments') ) {
-  
 	/**
 	 * Main class for load plugin
 	 *
@@ -61,17 +60,24 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.4.7';
+		public static $version = '5.4.8';
 
 		/**
 		 * Constructor function
 		 *
 		 * @since 1.0.0
-		 * @version 5.2.0
+		 * @version 5.4.8
 		 * @return void
 		 */
 		public function __construct() {
-			add_action( 'plugins_loaded', array( $this, 'init' ), 99 );
+			// hook before plugin init
+			do_action('Woo_Custom_Installments/Before_Init');
+
+			// load plugin after wooocommerce is loaded
+			add_action( 'woocommerce_loaded', array( $this, 'init' ), 99 );
+
+			// hook after plugin init
+			do_action('Woo_Custom_Installments/Init');
 		}
 		
 
@@ -83,12 +89,13 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @return void
 		 */
 		public function init() {
-			// Display notice if PHP version is bottom 7.4
+			// display notice if PHP version is bottom 7.4
 			if ( version_compare( phpversion(), '7.4', '<' ) ) {
 				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 				return;
 			}
 
+			// define constants
 			self::setup_constants();
 
 			// load Composer
@@ -118,7 +125,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Ensures only one instance of Woo_Custom_Installments class is loaded or can be loaded
 		 *
 		 * @since 1.0.0
-		 * @return Main Woo_Custom_Installments instance
+		 * @return object | Woo_Custom_Installments instance
 		 */
 		public static function run() {
 			if ( is_null( self::$instance ) ) {
@@ -195,5 +202,6 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
  * Initialise the plugin
  * 
  * @since 1.0.0
+ * @return object Woo_Custom_Installments
  */
 Woo_Custom_Installments::run();
