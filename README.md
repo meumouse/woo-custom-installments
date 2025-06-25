@@ -40,6 +40,15 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.4.8 (25/06/2025)
+* Correção de bugs
+    - Retornando preço 0,00 quando o preço não está informado
+    - Unsupported operand type: string - float: /inc/Core/Calculate_Values.php:345
+    - Cálculo de descontos quando há produtos com descontos diferentes no carrinho
+* Otimizações
+    - Ícone da sanfona de métodos de pagamento
+* Recurso modificado: Emblema de desconto da forma de pagamento: Valor total de descontos
+
 Versão 5.4.7 (17/06/2025)
 * Correção de bugs:
     - Call to undefined method get_available_variations() in Render_Elements.php on line 326
