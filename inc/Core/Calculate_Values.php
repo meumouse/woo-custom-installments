@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.4.5
+ * @version 5.4.8
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -330,7 +330,7 @@ class Calculate_Values {
      * Helper function to calculate price with discount method
      *
      * @since 4.5.2
-     * @version 5.0.0
+     * @version 5.4.8
      * @param float $price | Original price
      * @param string $discount_method | Discount method ('percentage', 'fixed')
      * @param float $discount_value | Discount value
@@ -340,9 +340,9 @@ class Calculate_Values {
         $discount_value = floatval( $discount_value );
 
         if ( $discount_method === 'percentage' ) {
-            return self::calculate_discounted_price( $price, $discount_value );
+            return self::calculate_discounted_price( (float) $price, $discount_value );
         } else {
-            return $price - $discount_value;
+            return (float) $price - $discount_value;
         }
     }
 

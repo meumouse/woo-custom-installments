@@ -695,9 +695,9 @@ button.wci-close-popup:hover {
 
 .wci-accordion-header {
     position: relative;
-    display: flex;
+    display: flex !important;
     align-items: center;
-    width: 100%;
+    width: 100% !important;
     height: 55px;
     padding: 1rem 1.25rem !important;
     font-size: 1rem;

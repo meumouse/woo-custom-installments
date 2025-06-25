@@ -79,12 +79,16 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.6
+	 * @version 5.4.8
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
 	 */
 	public function display_price_group( $price, $product ) {
+		if ( empty( $price ) ) {
+			return $price;
+		}
+
 		// Start buffer
 		ob_start();
 
