@@ -10,7 +10,7 @@
  * Version: 					5.4.8
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
- * WC tested up to: 			9.8.5
+ * WC tested up to: 			9.9.5
  * Requires PHP: 				7.4
  * Tested up to:      			6.8.1
  * Text Domain: 				woo-custom-installments
@@ -29,7 +29,6 @@ namespace MeuMouse\Woo_Custom_Installments;
 defined('ABSPATH') || exit;
 
 if ( ! class_exists('Woo_Custom_Installments') ) {
-  
 	/**
 	 * Main class for load plugin
 	 *
@@ -90,12 +89,13 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @return void
 		 */
 		public function init() {
-			// Display notice if PHP version is bottom 7.4
+			// display notice if PHP version is bottom 7.4
 			if ( version_compare( phpversion(), '7.4', '<' ) ) {
 				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 				return;
 			}
 
+			// define constants
 			self::setup_constants();
 
 			// load Composer
@@ -125,7 +125,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * Ensures only one instance of Woo_Custom_Installments class is loaded or can be loaded
 		 *
 		 * @since 1.0.0
-		 * @return Main Woo_Custom_Installments instance
+		 * @return object | Woo_Custom_Installments instance
 		 */
 		public static function run() {
 			if ( is_null( self::$instance ) ) {
@@ -161,8 +161,8 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'WOO_CUSTOM_INSTALLMENTS_VERSION' => self::$version,
 				'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL' => get_option('admin_email'),
 				'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK' => 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview',
-				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => true,
-				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => true,
+				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => false,
+				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => false,
 			);
 
 			// iterate for each constant item
