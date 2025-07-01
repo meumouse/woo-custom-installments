@@ -40,6 +40,11 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.4.9 (01/07/2025)
+* Otimizações
+    - Prioridade de estilos
+* Recurso removido: Forçar prioridade dos estilos
+
 Versão 5.4.8 (25/06/2025)
 * Correção de bugs
     - Retornando preço 0,00 quando o preço não está informado

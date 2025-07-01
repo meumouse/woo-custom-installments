@@ -15,7 +15,6 @@
  * Tested up to:      			6.8.1
  * Text Domain: 				woo-custom-installments
  * Domain Path: 				/languages
- * License: 					GPL2
  * 
  * @package						Parcelas Customizadas para WooCommerce - MeuMouse.com
  * @author						MeuMouse.com
