@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Change colors on front-end
  *
  * @since 2.1.0
- * @version 5.4.0
+ * @version 5.4.9
  * @package MeuMouse.com
  */
 class Styles {
@@ -35,7 +35,7 @@ class Styles {
      * Custom CSS for frontend
      * 
      * @since 2.0.0
-     * @version 5.4.0
+     * @version 5.4.9
      * @return string
      */
     public function render_styles() {
@@ -46,123 +46,122 @@ class Styles {
         $installments_styles = Admin_Options::get_setting('elements_design')['installments']['styles'];
         $ticket_styles = Admin_Options::get_setting('elements_design')['discount_slip_bank']['styles'];
         $price_styles = Admin_Options::get_setting('elements_design')['price']['styles'];
-        $force_priority_styles = Admin_Options::get_setting('enable_force_styles') === 'yes' ? '!important' : '';
 
         $css = "
             @media screen and (max-width: 992px) {
-                .woo-custom-installments-offer {
-                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $discount_pix_styles['mobile']['font_color'] . $force_priority_styles .";
-                    background-color: ". $discount_pix_styles['mobile']['background_color'] . $force_priority_styles .";
-                    margin: ". Components::format_box_property( $discount_pix_styles['mobile']['margin'], $discount_pix_styles['mobile']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    padding: ". Components::format_box_property( $discount_pix_styles['mobile']['padding'], $discount_pix_styles['mobile']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    border-radius: ". Components::format_box_property( $discount_pix_styles['mobile']['border_radius'], $discount_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-offer {
+                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] .";
+                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] .";
+                    color: ". $discount_pix_styles['mobile']['font_color'] .";
+                    background-color: ". $discount_pix_styles['mobile']['background_color'] .";
+                    margin: ". Components::format_box_property( $discount_pix_styles['mobile']['margin'], $discount_pix_styles['mobile']['margin']['unit'] ?? 'px' ) .";
+                    padding: ". Components::format_box_property( $discount_pix_styles['mobile']['padding'], $discount_pix_styles['mobile']['padding']['unit'] ?? 'px' ) .";
+                    border-radius: ". Components::format_box_property( $discount_pix_styles['mobile']['border_radius'], $discount_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) .";
                 }
 
-                .woo-custom-installments-offer .amount {
-                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $discount_pix_styles['mobile']['font_color'] . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-offer .amount {
+                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] .";
+                    font-weight: ". $discount_pix_styles['mobile']['font_weight'] .";
+                    color: ". $discount_pix_styles['mobile']['font_color'] .";
                 }
 
-                .woo-custom-installments-economy-pix-badge {
-                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $economy_pix_styles['mobile']['font_color'] . $force_priority_styles .";
-                    background-color: ". $economy_pix_styles['mobile']['background_color'] . $force_priority_styles .";
-                    margin: ". Components::format_box_property( $economy_pix_styles['mobile']['margin'], $economy_pix_styles['mobile']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    padding: ". Components::format_box_property( $economy_pix_styles['mobile']['padding'], $economy_pix_styles['mobile']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    border-radius: ". Components::format_box_property( $economy_pix_styles['mobile']['border_radius'], $economy_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-economy-pix-badge {
+                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] .";
+                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] .";
+                    color: ". $economy_pix_styles['mobile']['font_color'] .";
+                    background-color: ". $economy_pix_styles['mobile']['background_color'] .";
+                    margin: ". Components::format_box_property( $economy_pix_styles['mobile']['margin'], $economy_pix_styles['mobile']['margin']['unit'] ?? 'px' ) .";
+                    padding: ". Components::format_box_property( $economy_pix_styles['mobile']['padding'], $economy_pix_styles['mobile']['padding']['unit'] ?? 'px' ) .";
+                    border-radius: ". Components::format_box_property( $economy_pix_styles['mobile']['border_radius'], $economy_pix_styles['mobile']['border_radius']['unit'] ?? 'px' ) .";
                 }
 
-                .woo-custom-installments-economy-pix-badge .amount {
-                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $economy_pix_styles['mobile']['font_color'] . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-economy-pix-badge .amount {
+                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] .";
+                    font-weight: ". $economy_pix_styles['mobile']['font_weight'] .";
+                    color: ". $economy_pix_styles['mobile']['font_color'] .";
                 }
 
-                .woo-custom-installments-card-container {
-                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $installments_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $installments_styles['mobile']['font_color'] . $force_priority_styles .";
-                    background-color: ". $installments_styles['mobile']['background_color'] . $force_priority_styles .";
-                    margin: ". Components::format_box_property( $installments_styles['mobile']['margin'], $installments_styles['mobile']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    padding: ". Components::format_box_property( $installments_styles['mobile']['padding'], $installments_styles['mobile']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    border-radius: ". Components::format_box_property( $installments_styles['mobile']['border_radius'], $installments_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-card-container {
+                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] .";
+                    font-weight: ". $installments_styles['mobile']['font_weight'] .";
+                    color: ". $installments_styles['mobile']['font_color'] .";
+                    background-color: ". $installments_styles['mobile']['background_color'] .";
+                    margin: ". Components::format_box_property( $installments_styles['mobile']['margin'], $installments_styles['mobile']['margin']['unit'] ?? 'px' ) .";
+                    padding: ". Components::format_box_property( $installments_styles['mobile']['padding'], $installments_styles['mobile']['padding']['unit'] ?? 'px' ) .";
+                    border-radius: ". Components::format_box_property( $installments_styles['mobile']['border_radius'], $installments_styles['mobile']['border_radius']['unit'] ?? 'px' ) .";
                 }
 
-                .woo-custom-installments-card-container .amount {
-                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $installments_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $installments_styles['mobile']['font_color'] . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-card-container .amount {
+                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] .";
+                    font-weight: ". $installments_styles['mobile']['font_weight'] .";
+                    color: ". $installments_styles['mobile']['font_color'] .";
                 }
 
-                .woo-custom-installments-ticket-discount {
-                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $ticket_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $ticket_styles['mobile']['font_color'] . $force_priority_styles .";
-                    background-color: ". $ticket_styles['mobile']['background_color'] . $force_priority_styles .";
-                    margin: ". Components::format_box_property( $ticket_styles['mobile']['margin'], $ticket_styles['mobile']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    padding: ". Components::format_box_property( $ticket_styles['mobile']['padding'], $ticket_styles['mobile']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    border-radius: ". Components::format_box_property( $ticket_styles['mobile']['border_radius'], $ticket_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-ticket-discount {
+                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] .";
+                    font-weight: ". $ticket_styles['mobile']['font_weight'] .";
+                    color: ". $ticket_styles['mobile']['font_color'] .";
+                    background-color: ". $ticket_styles['mobile']['background_color'] .";
+                    margin: ". Components::format_box_property( $ticket_styles['mobile']['margin'], $ticket_styles['mobile']['margin']['unit'] ?? 'px' ) .";
+                    padding: ". Components::format_box_property( $ticket_styles['mobile']['padding'], $ticket_styles['mobile']['padding']['unit'] ?? 'px' ) .";
+                    border-radius: ". Components::format_box_property( $ticket_styles['mobile']['border_radius'], $ticket_styles['mobile']['border_radius']['unit'] ?? 'px' ) .";
                 }
 
-                .woo-custom-installments-ticket-discount .amount {
-                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $ticket_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $ticket_styles['mobile']['font_color'] . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-ticket-discount .amount {
+                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] .";
+                    font-weight: ". $ticket_styles['mobile']['font_weight'] .";
+                    color: ". $ticket_styles['mobile']['font_color'] .";
                 }
 
-                .woo-custom-installments-group-main-price {
-                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $price_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $price_styles['mobile']['font_color'] . $force_priority_styles .";
-                    background-color: ". $price_styles['mobile']['background_color'] . $force_priority_styles .";
-                    margin: ". Components::format_box_property( $price_styles['mobile']['margin'], $price_styles['mobile']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    padding: ". Components::format_box_property( $price_styles['mobile']['padding'], $price_styles['mobile']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                    border-radius: ". Components::format_box_property( $price_styles['mobile']['border_radius'], $price_styles['mobile']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-group-main-price {
+                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] .";
+                    font-weight: ". $price_styles['mobile']['font_weight'] .";
+                    color: ". $price_styles['mobile']['font_color'] .";
+                    background-color: ". $price_styles['mobile']['background_color'] .";
+                    margin: ". Components::format_box_property( $price_styles['mobile']['margin'], $price_styles['mobile']['margin']['unit'] ?? 'px' ) .";
+                    padding: ". Components::format_box_property( $price_styles['mobile']['padding'], $price_styles['mobile']['padding']['unit'] ?? 'px' ) .";
+                    border-radius: ". Components::format_box_property( $price_styles['mobile']['border_radius'], $price_styles['mobile']['border_radius']['unit'] ?? 'px' ) .";
                 }
                     
-                .woo-custom-installments-group-main-price .amount {
-                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $force_priority_styles .";
-                    font-weight: ". $price_styles['mobile']['font_weight'] . $force_priority_styles .";
-                    color: ". $price_styles['mobile']['font_color'] . $force_priority_styles .";
+                .woo-custom-installments-group .woo-custom-installments-group-main-price .amount {
+                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] .";
+                    font-weight: ". $price_styles['mobile']['font_weight'] .";
+                    color: ". $price_styles['mobile']['font_color'] .";
                 }
             }
 
-            .woo-custom-installments-offer {
-                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $discount_pix_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $discount_pix_styles['desktop']['font_color'] . $force_priority_styles .";
-                background-color: ". $discount_pix_styles['desktop']['background_color'] . $force_priority_styles .";
-                margin: ". Components::format_box_property( $discount_pix_styles['desktop']['margin'], $discount_pix_styles['desktop']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                padding: ". Components::format_box_property( $discount_pix_styles['desktop']['padding'], $discount_pix_styles['desktop']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                border-radius: ". Components::format_box_property( $discount_pix_styles['desktop']['border_radius'], $discount_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
-                order: ". Admin_Options::get_setting('elements_design')['discount_pix']['order'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-offer {
+                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] .";
+                font-weight: ". $discount_pix_styles['desktop']['font_weight'] .";
+                color: ". $discount_pix_styles['desktop']['font_color'] .";
+                background-color: ". $discount_pix_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $discount_pix_styles['desktop']['margin'], $discount_pix_styles['desktop']['margin']['unit'] ?? 'px' ) .";
+                padding: ". Components::format_box_property( $discount_pix_styles['desktop']['padding'], $discount_pix_styles['desktop']['padding']['unit'] ?? 'px' ) .";
+                border-radius: ". Components::format_box_property( $discount_pix_styles['desktop']['border_radius'], $discount_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) .";
+                order: ". Admin_Options::get_setting('elements_design')['discount_pix']['order'] .";
             }
 
-            .woo-custom-installments-offer .amount {
-                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $discount_pix_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $discount_pix_styles['desktop']['font_color'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-offer .amount {
+                font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] .";
+                font-weight: ". $discount_pix_styles['desktop']['font_weight'] .";
+                color: ". $discount_pix_styles['desktop']['font_color'] .";
             }
 
-            .woo-custom-installments-economy-pix-badge {
-                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $economy_pix_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $economy_pix_styles['desktop']['font_color'] . $force_priority_styles .";
-                background-color: ". $economy_pix_styles['desktop']['background_color'] . $force_priority_styles .";
-                margin: ". Components::format_box_property( $economy_pix_styles['desktop']['margin'], $economy_pix_styles['desktop']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                padding: ". Components::format_box_property( $economy_pix_styles['desktop']['padding'], $economy_pix_styles['desktop']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                border-radius: ". Components::format_box_property( $economy_pix_styles['desktop']['border_radius'], $economy_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
-                order: ". Admin_Options::get_setting('elements_design')['pix_economy']['order'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-economy-pix-badge {
+                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] .";
+                font-weight: ". $economy_pix_styles['desktop']['font_weight'] .";
+                color: ". $economy_pix_styles['desktop']['font_color'] .";
+                background-color: ". $economy_pix_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $economy_pix_styles['desktop']['margin'], $economy_pix_styles['desktop']['margin']['unit'] ?? 'px' ) .";
+                padding: ". Components::format_box_property( $economy_pix_styles['desktop']['padding'], $economy_pix_styles['desktop']['padding']['unit'] ?? 'px' ) .";
+                border-radius: ". Components::format_box_property( $economy_pix_styles['desktop']['border_radius'], $economy_pix_styles['desktop']['border_radius']['unit'] ?? 'px' ) .";
+                order: ". Admin_Options::get_setting('elements_design')['pix_economy']['order'] .";
             }
 
-            .woo-custom-installments-economy-pix-badge .amount {
-                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $economy_pix_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $economy_pix_styles['desktop']['font_color'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-economy-pix-badge .amount {
+                font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] .";
+                font-weight: ". $economy_pix_styles['desktop']['font_weight'] .";
+                color: ". $economy_pix_styles['desktop']['font_color'] .";
             }
 
             button.wci-open-popup {
@@ -241,69 +240,69 @@ class Styles {
 
         $css .= "
             button.wci-open-popup, #wci-accordion-installments {
-                margin-top: " . Admin_Options::get_setting('margin_top_popup_installments') . Admin_Options::get_setting('unit_margin_top_popup_installments') . $force_priority_styles .";
-                margin-bottom: " . Admin_Options::get_setting('margin_bottom_popup_installments') . Admin_Options::get_setting('unit_margin_bottom_popup_installments') . $force_priority_styles .";
+                margin-top: " . Admin_Options::get_setting('margin_top_popup_installments') . Admin_Options::get_setting('unit_margin_top_popup_installments') .";
+                margin-bottom: " . Admin_Options::get_setting('margin_bottom_popup_installments') . Admin_Options::get_setting('unit_margin_bottom_popup_installments') .";
             }
 
-            .woo-custom-installments-card-container {
-                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $installments_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $installments_styles['desktop']['font_color'] . $force_priority_styles .";
-                background-color: ". $installments_styles['desktop']['background_color'] . $force_priority_styles .";
-                margin: ". Components::format_box_property( $installments_styles['desktop']['margin'], $installments_styles['desktop']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                padding: ". Components::format_box_property( $installments_styles['desktop']['padding'], $installments_styles['desktop']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                border-radius: ". Components::format_box_property( $installments_styles['desktop']['border_radius'], $installments_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
-                order: ". Admin_Options::get_setting('elements_design')['installments']['order'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-card-container {
+                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] .";
+                font-weight: ". $installments_styles['desktop']['font_weight'] .";
+                color: ". $installments_styles['desktop']['font_color'] .";
+                background-color: ". $installments_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $installments_styles['desktop']['margin'], $installments_styles['desktop']['margin']['unit'] ?? 'px' ) .";
+                padding: ". Components::format_box_property( $installments_styles['desktop']['padding'], $installments_styles['desktop']['padding']['unit'] ?? 'px' ) .";
+                border-radius: ". Components::format_box_property( $installments_styles['desktop']['border_radius'], $installments_styles['desktop']['border_radius']['unit'] ?? 'px' ) .";
+                order: ". Admin_Options::get_setting('elements_design')['installments']['order'] .";
             }
 
-            .woo-custom-installments-card-container .amount {
-                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $installments_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $installments_styles['desktop']['font_color'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-card-container .amount {
+                font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] .";
+                font-weight: ". $installments_styles['desktop']['font_weight'] .";
+                color: ". $installments_styles['desktop']['font_color'] .";
             }
 
-            .woo-custom-installments-ticket-discount {
-                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $ticket_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $ticket_styles['desktop']['font_color'] . $force_priority_styles .";
-                background-color: ". $ticket_styles['desktop']['background_color'] . $force_priority_styles .";
-                margin: ". Components::format_box_property( $ticket_styles['desktop']['margin'], $ticket_styles['desktop']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                padding: ". Components::format_box_property( $ticket_styles['desktop']['padding'], $ticket_styles['desktop']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                border-radius: ". Components::format_box_property( $ticket_styles['desktop']['border_radius'], $ticket_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
-                order: ". Admin_Options::get_setting('elements_design')['discount_slip_bank']['order'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-ticket-discount {
+                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] .";
+                font-weight: ". $ticket_styles['desktop']['font_weight'] .";
+                color: ". $ticket_styles['desktop']['font_color'] .";
+                background-color: ". $ticket_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $ticket_styles['desktop']['margin'], $ticket_styles['desktop']['margin']['unit'] ?? 'px' ) .";
+                padding: ". Components::format_box_property( $ticket_styles['desktop']['padding'], $ticket_styles['desktop']['padding']['unit'] ?? 'px' ) .";
+                border-radius: ". Components::format_box_property( $ticket_styles['desktop']['border_radius'], $ticket_styles['desktop']['border_radius']['unit'] ?? 'px' ) .";
+                order: ". Admin_Options::get_setting('elements_design')['discount_slip_bank']['order'] .";
             }
 
-            .woo-custom-installments-ticket-discount .amount {
-                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $ticket_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $ticket_styles['desktop']['font_color'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-ticket-discount .amount {
+                font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] .";
+                font-weight: ". $ticket_styles['desktop']['font_weight'] .";
+                color: ". $ticket_styles['desktop']['font_color'] .";
             }
                 
-            .woo-custom-installments-group-main-price {
-                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $price_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $price_styles['desktop']['font_color'] . $force_priority_styles .";
-                background-color: ". $price_styles['desktop']['background_color'] . $force_priority_styles .";
-                margin: ". Components::format_box_property( $price_styles['desktop']['margin'], $price_styles['desktop']['margin']['unit'] ?? 'px' ) . $force_priority_styles .";
-                padding: ". Components::format_box_property( $price_styles['desktop']['padding'], $price_styles['desktop']['padding']['unit'] ?? 'px' ) . $force_priority_styles .";
-                border-radius: ". Components::format_box_property( $price_styles['desktop']['border_radius'], $price_styles['desktop']['border_radius']['unit'] ?? 'px' ) . $force_priority_styles .";
-                order: ". Admin_Options::get_setting('elements_design')['price']['order'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-group-main-price {
+                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] .";
+                font-weight: ". $price_styles['desktop']['font_weight'] .";
+                color: ". $price_styles['desktop']['font_color'] .";
+                background-color: ". $price_styles['desktop']['background_color'] .";
+                margin: ". Components::format_box_property( $price_styles['desktop']['margin'], $price_styles['desktop']['margin']['unit'] ?? 'px' ) .";
+                padding: ". Components::format_box_property( $price_styles['desktop']['padding'], $price_styles['desktop']['padding']['unit'] ?? 'px' ) .";
+                border-radius: ". Components::format_box_property( $price_styles['desktop']['border_radius'], $price_styles['desktop']['border_radius']['unit'] ?? 'px' ) .";
+                order: ". Admin_Options::get_setting('elements_design')['price']['order'] .";
             }
                 
-            .woo-custom-installments-group-main-price .amount {
-                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $force_priority_styles .";
-                font-weight: ". $price_styles['desktop']['font_weight'] . $force_priority_styles .";
-                color: ". $price_styles['desktop']['font_color'] . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-group-main-price .amount {
+                font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] .";
+                font-weight: ". $price_styles['desktop']['font_weight'] .";
+                color: ". $price_styles['desktop']['font_color'] .";
             }
                 
-            .woo-custom-installments-price.original-price.has-discount .amount,
-            .woo-custom-installments-group-main-price del .amount {
-                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-price.original-price.has-discount .amount,
+            .woo-custom-installments-group .woo-custom-installments-group-main-price del .amount {
+                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" .";
                 opacity: 0.75;
             }
                 
-            .woo-custom-installments-starting-from {
-                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $force_priority_styles .";
+            .woo-custom-installments-group .woo-custom-installments-starting-from {
+                font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" .";
                 font-weight: 500;
             }";
 

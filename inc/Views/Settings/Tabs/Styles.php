@@ -8,18 +8,6 @@ defined('ABSPATH') || exit; ?>
 
 <div id="styles" class="nav-content">
    <table class="form-table">
-      	<tr>
-			<th>
-				<?php esc_html_e( 'Forçar prioridade dos estilos', 'woo-custom-installments' ) ?>
-				<span class="woo-custom-installments-description"><?php esc_html_e('Ative essa opção para que os estilos tenham maior prioridade.', 'woo-custom-installments' ) ?></span>
-			</th>
-			<td>
-				<div class="form-check form-switch">
-					<input type="checkbox" class="toggle-switch" id="enable_force_styles" name="enable_force_styles" value="yes" <?php checked( Admin_Options::get_setting('enable_force_styles') === 'yes' ); ?> />
-				</div>
-			</td>
-      	</tr>
-
 		<tr>
 			<th>
 				<?php esc_html_e( 'Centralizar grupo de preços na grade de produtos', 'woo-custom-installments' ) ?>
