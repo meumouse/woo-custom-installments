@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.4.3
+ * @version 5.4.9
  * @package MeuMouse.com
  */
 class Ajax {
@@ -74,7 +74,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.4.3
+     * @version 5.4.9
      * @return void
      */
     public function save_options_callback() {
@@ -109,7 +109,6 @@ class Ajax {
                 'enable_elementor_widgets',
                 'enable_price_grid_in_widgets',
                 'add_discount_custom_product_price',
-                'enable_force_styles',
             );
 
             $switchs_with_license = array(
