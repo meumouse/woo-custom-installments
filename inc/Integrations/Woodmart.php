@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Woodmart theme
  *
  * @since 4.5.0
- * @version 5.4.2
+ * @version 5.4.10
  * @package MeuMouse.com
  */
 class Woodmart {
@@ -24,11 +24,11 @@ class Woodmart {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.4.2
+     * @version 5.4.10
 	 * @return void
 	 */
 	public function __construct() {
-        if ( defined('WOODMART_VERSION') ) {
+        if ( Helpers::check_theme_active('Woodmart') || Helpers::check_theme_active('Woodmart Child') || defined('WOODMART_VERSION') || function_exists('woodmart_theme_setup') || function_exists('woodmart_child_enqueue_styles') ) {
             // styles for compatibility
             add_action( 'wp_head', array( __CLASS__, 'compat_woodmart' ) );
 
@@ -117,6 +117,7 @@ class Woodmart {
      * Add controllers on Elementor widgets
      * 
      * @since 5.0.0
+     * @version 5.4.10
      * @param array $widgets | Current widgets that receive injected controls
      * @return array
      */
@@ -127,6 +128,7 @@ class Woodmart {
             'wd_products_tabs' => 'heading_style_section',
             'wd_products_widget' => 'general_content_section',
             'wd_archive_products' => 'general_style_section',
+            'wd_single_product_fbt_products' => 'general_style_section',
         );
 
         return array_merge( $widgets, $new_widgets );

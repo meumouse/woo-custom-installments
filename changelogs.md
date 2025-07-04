@@ -1,3 +1,6 @@
+Versão 5.4.10 (04/07/2025)
+* Correção de compatibilidade com tema Woodmart
+
 Versão 5.4.9 (01/07/2025)
 * Otimizações
     - Prioridade de estilos
