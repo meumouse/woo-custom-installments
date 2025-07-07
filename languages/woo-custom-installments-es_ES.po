@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-15 20:02+0000\n"
-"PO-Revision-Date: 2025-06-12 21:45+0000\n"
+"PO-Revision-Date: 2025-07-07 20:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
 "Language: es_ES\n"
@@ -24,12 +24,12 @@ msgstr "%"
 msgid "%s juros"
 msgstr "%s interés"
 
-#: inc/Views/Components.php:1109
+#: inc/Views/Components.php:1162
 #, php-format
 msgid "%s OFF"
 msgstr "%s de descuento"
 
-#: inc/Core/Discounts.php:119 inc/Core/Discounts.php:143
+#: inc/Core/Discounts.php:61
 #, php-format
 msgid "%s off"
 msgstr "%s de descuento"
@@ -70,7 +70,7 @@ msgstr "800"
 msgid "900"
 msgstr "900"
 
-#: woo-custom-installments.php:111
+#: woo-custom-installments.php:117
 #| msgid ""
 #| "O plugin Parcelas Customizadas para WooCommerce requer a versão do PHP 7."
 #| "0 ou maior. Contate o suporte da sua hospedagem para realizar a "
@@ -103,7 +103,7 @@ msgstr ""
 "<strong>Cuotas personalizadas para WooCommerce</strong> requiere que <strong>"
 "WooCommerce</strong> esté instalado y activado."
 
-#: inc/Views/Settings/Tabs/Styles.php:162
+#: inc/Views/Settings/Tabs/Styles.php:150
 msgid "A cor do texto e borda será obtida a partir da cor informada."
 msgstr "El color del texto y del borde se obtendrá del color introducido."
 
@@ -111,19 +111,19 @@ msgstr "El color del texto y del borde se obtendrá del color introducido."
 msgid "A extensão cURL está faltando."
 msgstr "Falta la extensión cURL."
 
-#: inc/Core/Ajax.php:367
+#: inc/Core/Ajax.php:366
 msgid "A licença foi ativada com sucesso!"
 msgstr "¡La licencia ha sido activada exitosamente!"
 
-#: inc/Core/Ajax.php:398
+#: inc/Core/Ajax.php:397
 msgid "A licença foi desativada"
 msgstr "La licencia ha sido desactivada"
 
-#: inc/Core/Ajax.php:335
+#: inc/Core/Ajax.php:334
 msgid "A licença informada não é permitida para este produto"
 msgstr "La licencia proporcionada no está permitida para este producto."
 
-#: inc/Core/Updater.php:240
+#: inc/Core/Updater.php:242
 #| msgid ""
 #| "A versão do plugin Parcelas Customizadas para WooCommerce é a mais "
 #| "recente."
@@ -134,11 +134,11 @@ msgstr ""
 "La versión del complemento <strong>Cuotas personalizadas para "
 "WooCommerce</strong> es la más reciente."
 
-#: inc/Views/Settings/Tabs/About.php:192
+#: inc/Views/Settings/Tabs/About.php:204
 msgid "A versão mínima exigida do PHP é 7.2"
 msgstr "La versión mínima requerida de PHP es 7.2"
 
-#: inc/Views/Settings/Tabs/About.php:157
+#: inc/Views/Settings/Tabs/About.php:169
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr "La versión mínima requerida de WooCommerce es 6.0"
 
@@ -166,7 +166,7 @@ msgstr ""
 "Obtenga una licencia Pro de Cuotas Personalizadas para WooCommerce para "
 "desbloquear todos los recursos y opciones de estilo."
 
-#: inc/Core/Ajax.php:233
+#: inc/Core/Ajax.php:232
 msgid "Agora todos os recursos estão ativos!"
 msgstr "¡Ahora todos los recursos están activos!"
 
@@ -175,7 +175,7 @@ msgstr "¡Ahora todos los recursos están activos!"
 msgid "Alinhamento do grupo de preços"
 msgstr "Alineación del grupo de precios"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:218
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:220
 msgid "Altura do botão"
 msgstr "Altura del botón"
 
@@ -183,12 +183,12 @@ msgstr "Altura del botón"
 msgid "Antes do carrinho (Padrão)"
 msgstr "Antes del carrito (predeterminado)"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:251
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:253
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:220
 msgid "Ao passar o mouse"
 msgstr "Al pasar el ratón"
 
-#: inc/Views/Settings/Tabs/About.php:408
+#: inc/Views/Settings/Tabs/About.php:420
 msgid ""
 "Ao redefinir as configurações do plugin, todas opções serão removidas, "
 "voltando ao estado original. Sua licença não será removida."
@@ -222,11 +222,11 @@ msgstr "Aplicar descuento al método de pago"
 msgid "Aprovação imediata"
 msgstr "Aprobación inmediata"
 
-#: inc/Core/Ajax.php:288
+#: inc/Core/Ajax.php:287
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr "Archivo no válido. El archivo debe tener extensión .key"
 
-#: inc/Views/Settings/Tabs/Styles.php:225
+#: inc/Views/Settings/Tabs/Styles.php:213
 msgid "Arredondamento do botão de parcelas"
 msgstr "Redondeo del botón de cuotas"
 
@@ -234,24 +234,24 @@ msgstr "Redondeo del botón de cuotas"
 msgid "As alterações não serão salvas."
 msgstr "Los cambios no se guardarán."
 
-#: inc/Core/Ajax.php:175
+#: inc/Core/Ajax.php:174
 msgid "As configurações foram atualizadas!"
 msgstr "¡La configuración ha sido actualizada!"
 
-#: inc/Core/Ajax.php:458
+#: inc/Core/Ajax.php:457
 msgid "As opções foram redefinidas"
 msgstr "Las opciones se han restablecido"
 
-#: inc/Core/Ajax.php:459
+#: inc/Core/Ajax.php:458
 msgid "As opções foram redefinidas com sucesso!"
 msgstr "¡Las opciones se han restablecido correctamente!"
 
-#: inc/Views/Settings/Tabs/About.php:51
+#: inc/Views/Settings/Tabs/About.php:63
 #, php-format
 msgid "Assinatura: Clube M - %s"
 msgstr "Suscripción: Club M - %s"
 
-#: inc/Views/Settings/Tabs/About.php:406
+#: inc/Views/Settings/Tabs/About.php:418
 msgid "Atenção! Você realmente deseja redefinir as configurações?"
 msgstr "¡Atención! ¿Realmente quieres restablecer la configuración?"
 
@@ -373,7 +373,7 @@ msgstr "Activar funciones de descuento"
 msgid "Ativar funções de juros"
 msgstr "Activar funciones de interés"
 
-#: inc/Views/Settings/Tabs/About.php:121
+#: inc/Views/Settings/Tabs/About.php:133
 msgid "Ativar licença"
 msgstr "Activar licencia"
 
@@ -389,7 +389,7 @@ msgstr "Activar Cuotas Personalizadas"
 msgid "Ativar preço com desconto no Pix em Post Meta para Feed XML"
 msgstr "Activar precio con descuento en Pix en Post Meta para Feed XML"
 
-#: inc/Views/Settings/Tabs/Styles.php:65
+#: inc/Views/Settings/Tabs/Styles.php:53
 msgid "Ativar widgets para Elementor"
 msgstr "Activar widgets para Elementor"
 
@@ -416,13 +416,17 @@ msgstr ""
 "Active esta opción para que el complemento Cuotas Personalizadas se "
 "actualice automáticamente siempre que sea posible."
 
-#: inc/Views/Settings/Tabs/Styles.php:14
-msgid "Ative essa opção para que os estilos tenham maior prioridade."
-msgstr "Active esta opción para que los estilos tengan mayor prioridad."
-
-#: inc/Views/Settings/Tabs/Styles.php:66
+#: inc/Views/Settings/Tabs/Styles.php:54
 msgid "Ative essa opção para que os widgets para Elementor sejam carregados."
 msgstr "Active esta opción para que los widgets para Elementor se carguen."
+
+#: inc/Views/Settings/Tabs/About.php:26
+msgid ""
+"Ative essa opção para que seja exibido uma notificação de atualização "
+"disponível."
+msgstr ""
+"Habilite esta opción para mostrar una notificación cuando haya una "
+"actualización disponible."
 
 #: inc/Views/Settings/Tabs/General.php:91
 msgid ""
@@ -542,10 +546,10 @@ msgstr "Actívelo para mostrar el método de pago con tarjeta de débito."
 msgid "Ative para exibir a forma de pagamento Pix."
 msgstr "Actívelo para mostrar el método de pago Pix."
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:291
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:294
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:236
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:277
-#: inc/Views/Settings/Tabs/About.php:144
+#: inc/Views/Settings/Tabs/About.php:156
 msgid "Ativo"
 msgstr "Activo"
 
@@ -561,7 +565,7 @@ msgstr "Marcas de tarjeta de crédito"
 msgid "Bandeiras de cartão de débito"
 msgstr "Marcas de tarjeta de débito"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:174
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:176
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:160
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:334
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:435
@@ -577,7 +581,7 @@ msgstr "Marcas de tarjeta de débito"
 msgid "Borda"
 msgstr "Borde"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:281
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:284
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:250
 msgid "Borda ao passar o mouse"
 msgstr "Borde al pasar el ratón"
@@ -586,15 +590,15 @@ msgstr "Borde al pasar el ratón"
 msgid "Borda da tabela"
 msgstr "Borde de la tabla"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:321
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:324
 msgid "Borda do botão ativo"
 msgstr "Borde del botón activo"
 
-#: inc/Views/Settings/Tabs/About.php:43
+#: inc/Views/Settings/Tabs/About.php:55
 msgid "Básicos"
 msgstr "Lo esencial"
 
-#: inc/Core/Ajax.php:430
+#: inc/Core/Ajax.php:429
 msgid "Cache de ativação limpo"
 msgstr "Borrar caché de activación"
 
@@ -615,15 +619,15 @@ msgstr "Centro de ayuda"
 msgid "Centralizado"
 msgstr "Centrado"
 
-#: inc/Views/Settings/Tabs/Styles.php:25
+#: inc/Views/Settings/Tabs/Styles.php:13
 msgid "Centralizar grupo de preços na grade de produtos"
 msgstr "Centrar grupo de precios en la cuadrícula de productos"
 
-#: inc/Views/Settings/Tabs/Styles.php:94
+#: inc/Views/Settings/Tabs/Styles.php:82
 msgid "Classe de ícone (Font Awesome) - (Padrão)"
 msgstr "Clase de ícono (Font Awesome) - (Predeterminado)"
 
-#: inc/Views/Settings/Tabs/About.php:81
+#: inc/Views/Settings/Tabs/About.php:93
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr "Haga clic aquí para generar su archivo de licencia"
 
@@ -647,7 +651,7 @@ msgstr "Cómo convertir el factor de multiplicación a interés."
 msgid "Comprar agora"
 msgstr "Comprar ahora"
 
-#: inc/Views/Settings/Tabs/About.php:109
+#: inc/Views/Settings/Tabs/About.php:121
 msgid "Comprar licença"
 msgstr "Comprar licencia"
 
@@ -663,7 +667,7 @@ msgstr "Computadora"
 #: inc/Views/Settings/Tabs/General.php:40
 #: inc/Views/Settings/Tabs/General.php:130
 #: inc/Views/Settings/Tabs/General.php:259
-#: inc/Views/Settings/Tabs/Styles.php:33
+#: inc/Views/Settings/Tabs/Styles.php:21
 msgid "Configurar"
 msgstr "Para configurar"
 
@@ -672,11 +676,11 @@ msgstr "Para configurar"
 msgid "Configurar bandeiras"
 msgstr "Configurar banderas"
 
-#: inc/Views/Settings/Tabs/Styles.php:38
+#: inc/Views/Settings/Tabs/Styles.php:26
 msgid "Configurar centralização de elementos"
 msgstr "Configurar centralización de elementos"
 
-#: inc/Views/Settings/Tabs/Styles.php:139
+#: inc/Views/Settings/Tabs/Styles.php:127
 #, php-format
 msgid "Configurar estilos: %s"
 msgstr "Configurar estilos: %s"
@@ -718,7 +722,7 @@ msgstr "Configurar interés por cuota"
 msgid "Configure o preço do produto"
 msgstr "Configurar el precio del producto"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:162
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:164
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:148
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:141
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:322
@@ -736,12 +740,12 @@ msgstr "Configurar el precio del producto"
 msgid "Cor de fundo"
 msgstr "Color de fondo"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:269
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:272
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:238
 msgid "Cor de fundo ao passar o mouse"
 msgstr "Color de fondo al pasar el ratón"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:309
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:312
 msgid "Cor de fundo do botão ativo"
 msgstr "Color de fondo del botón activo"
 
@@ -749,7 +753,7 @@ msgstr "Color de fondo del botón activo"
 msgid "Cor de fundo:"
 msgstr "Color de fondo:"
 
-#: inc/Views/Settings/Tabs/Styles.php:161
+#: inc/Views/Settings/Tabs/Styles.php:149
 msgid "Cor do botão do popup de parcelas"
 msgstr "Color del botón emergente de cuotas"
 
@@ -757,7 +761,7 @@ msgstr "Color del botón emergente de cuotas"
 msgid "Cor do preço"
 msgstr "Color del precio"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:151
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:152
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:137
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:130
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:146
@@ -782,12 +786,12 @@ msgstr "Color del precio"
 msgid "Cor do texto"
 msgstr "Color del texto"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:258
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:260
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:227
 msgid "Cor do texto ao passar o mouse"
 msgstr "Color del texto al pasar el ratón"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:298
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:301
 msgid "Cor do texto do botão ativo"
 msgstr "Color del texto del botón activo"
 
@@ -799,7 +803,7 @@ msgstr "Color del texto:"
 msgid "Cor do ícone"
 msgstr "Color del ícono"
 
-#: inc/Views/Settings/Tabs/About.php:117
+#: inc/Views/Settings/Tabs/About.php:129
 msgid "Código da licença"
 msgstr "Código de licencia"
 
@@ -857,7 +861,7 @@ msgstr "Déjelo en blanco para no mostrarlo."
 msgid "Depois do carrinho"
 msgstr "Después del carrito"
 
-#: inc/Views/Settings/Tabs/About.php:144
+#: inc/Views/Settings/Tabs/About.php:156
 msgid "Desativado"
 msgstr "Desactivado"
 
@@ -871,24 +875,15 @@ msgstr "Desactivar la visualización de cuotas en este producto"
 msgid "Desativar descontos neste produto"
 msgstr "Desactivar descuentos en este producto"
 
-#: inc/Views/Settings/Tabs/About.php:72
+#: inc/Views/Settings/Tabs/About.php:84
 msgid "Desativar licença"
 msgstr "Desactivar licencia"
 
-#: inc/Core/Discounts.php:345
-msgid "Desconto de pagamento"
-msgstr "Descuento de pago"
+#: inc/Core/Discounts.php:251
+msgid "Desconto exclusivo"
+msgstr "Descuento exclusivo"
 
-#: inc/Core/Discounts.php:259
-msgid "Desconto individual"
-msgstr "Descuento individual"
-
-#: inc/Core/Discounts.php:257
-#, php-format
-msgid "Desconto individual para %s"
-msgstr "Descuento individual para %s"
-
-#: inc/Admin/Default_Options.php:421
+#: inc/Admin/Default_Options.php:422
 #| msgid "Cor do desconto no boleto bancário"
 msgid "Desconto no Boleto bancário"
 msgstr "Descuento en el comprobante bancario"
@@ -897,7 +892,7 @@ msgstr "Descuento en el comprobante bancario"
 msgid "Desconto no boleto bancário"
 msgstr "Descuento en comprobante bancario"
 
-#: inc/Admin/Default_Options.php:277
+#: inc/Admin/Default_Options.php:278
 msgid "Desconto no Pix"
 msgstr "Descuento en Pix"
 
@@ -906,21 +901,20 @@ msgstr "Descuento en Pix"
 msgid "Desconto no preço do produto via Pix"
 msgstr "Descuento en el precio del producto a través de Pix"
 
-#: inc/Core/Discounts.php:75 inc/Core/Discounts.php:343
+#: inc/Core/Discounts.php:374
 #, php-format
 msgid "Desconto para %s"
 msgstr "Descuento para %s"
 
-#: inc/Core/Discounts.php:72
-#, php-format
-msgid "Desconto para %s (%s off)"
-msgstr "Descuento para %s (%s de descuento)"
+#: inc/Core/Discounts.php:290 inc/Core/Discounts.php:376
+msgid "Desconto por forma de pagamento"
+msgstr "Descuento por método de pago"
 
 #: inc/Views/Settings/Tabs/Discounts.php:292
 msgid "Desconto por método de pagamento"
 msgstr "Descuento por método de pago"
 
-#: inc/Core/Discounts.php:453 inc/Core/Discounts.php:455
+#: inc/Core/Discounts.php:482
 msgid "Desconto por quantidade"
 msgstr "Descuento por cantidad"
 
@@ -928,7 +922,7 @@ msgstr "Descuento por cantidad"
 msgid "Descontos"
 msgstr "Descuentos"
 
-#: inc/Views/Settings/Tabs/About.php:373
+#: inc/Views/Settings/Tabs/About.php:385
 msgid "Desligado"
 msgstr "Apagado"
 
@@ -943,26 +937,26 @@ msgstr "Derecha"
 msgid "Documentação"
 msgstr "Documentación"
 
-#: inc/Views/Settings/Tabs/About.php:203
+#: inc/Views/Settings/Tabs/About.php:215
 msgid "DOMDocument:"
 msgstr "Documento DOM:"
 
-#: inc/Admin/Default_Options.php:349
+#: inc/Admin/Default_Options.php:350
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:597
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:111
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:638
 msgid "Economia no Pix"
 msgstr "Ahorro en Pix"
 
-#: inc/Admin/Default_Options.php:348
+#: inc/Admin/Default_Options.php:349
 msgid "Economize R$9,70 no Pix"
 msgstr "Ahorre R$9,70 en Pix"
 
-#: inc/Views/Settings/Tabs/Styles.php:134
+#: inc/Views/Settings/Tabs/Styles.php:122
 msgid "Editar"
 msgstr "Editar"
 
-#: inc/Views/Settings/Tabs/Styles.php:105
+#: inc/Views/Settings/Tabs/Styles.php:93
 msgid ""
 "Edite os estilos clicando no botão editar, ou reposicione a ordem dos "
 "elementos arrastando e soltando."
@@ -974,13 +968,13 @@ msgstr ""
 msgid "EM"
 msgstr "EM"
 
-#: inc/Views/Settings/Tabs/Styles.php:199
-#: inc/Views/Settings/Tabs/Styles.php:216
-#: inc/Views/Settings/Tabs/Styles.php:234
+#: inc/Views/Settings/Tabs/Styles.php:187
+#: inc/Views/Settings/Tabs/Styles.php:204
+#: inc/Views/Settings/Tabs/Styles.php:222
 msgid "em"
 msgstr "em"
 
-#: inc/Admin/Default_Options.php:204
+#: inc/Admin/Default_Options.php:205
 msgid "Em até 3x de R$32,33 sem juros"
 msgstr "En hasta 3x de R$32,33 sin intereses"
 
@@ -990,19 +984,19 @@ msgstr "En hasta 3x de R$32,33 sin intereses"
 msgid "Emblema de desconto"
 msgstr "Insignia de descuento"
 
-#: inc/Views/Settings/Tabs/Styles.php:77
+#: inc/Views/Settings/Tabs/Styles.php:65
 msgid "Empilhamento de preços em widgets"
 msgstr "Apilamiento de precios en widgets"
 
-#: inc/Views/Settings/Tabs/Styles.php:95
+#: inc/Views/Settings/Tabs/Styles.php:83
 msgid "Enviar ícones"
 msgstr "Enviar íconos"
 
-#: inc/Core/Ajax.php:264
+#: inc/Core/Ajax.php:263
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr "Error al cargar el archivo. La acción no se activó correctamente."
 
-#: inc/Core/Ajax.php:275
+#: inc/Core/Ajax.php:274
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr "Error al cargar el archivo. El archivo no fue enviado."
 
@@ -1047,7 +1041,7 @@ msgstr "Esta función está disponible en la versión Pro."
 msgid "Estilo"
 msgstr "Estilo"
 
-#: inc/Views/Settings/Tabs/Styles.php:177
+#: inc/Views/Settings/Tabs/Styles.php:165
 #| msgid "Tamanho do botão do popup de parcelas"
 msgid "Estilo do botão do popup de parcelas"
 msgstr "Estilo del botón emergente de cuotas"
@@ -1065,7 +1059,7 @@ msgstr "Estilos"
 msgid "Estilos - bandeiras cartão de crédito"
 msgstr "Estilos - marcas de tarjeta de crédito"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:125
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:126
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:125
 msgid "Estilos - formas de pagamento"
 msgstr "Estilos - métodos de pago"
@@ -1083,7 +1077,7 @@ msgstr "Estilos de la tabla de cuotas"
 msgid "Estilos do preço"
 msgstr "Estilos del precio"
 
-#: inc/Views/Settings/Tabs/Styles.php:104
+#: inc/Views/Settings/Tabs/Styles.php:92
 msgid "Estilos dos elementos"
 msgstr "Estilos de los elementos"
 
@@ -1103,11 +1097,11 @@ msgstr "Mostrar precio con descuento en datos estructurados (Schema.org)"
 msgid "Exibir preço com desconto no carrinho"
 msgstr "Mostrar precio con descuento en el carrito"
 
-#: inc/Views/Settings/Tabs/About.php:219
+#: inc/Views/Settings/Tabs/About.php:231
 msgid "Extensão cURL:"
 msgstr "Extensión cURL:"
 
-#: inc/Views/Settings/Tabs/About.php:238
+#: inc/Views/Settings/Tabs/About.php:250
 msgid "Extensão OpenSSL:"
 msgstr "Extensión OpenSSL:"
 
@@ -1119,12 +1113,12 @@ msgstr ""
 "Extensión que permite mostrar cuotas, descuentos e intereses por método de "
 "pago para tiendas WooCommerce."
 
-#: inc/Core/Assets.php:78 inc/Core/Assets.php:99 inc/Views/Components.php:1188
+#: inc/Core/Assets.php:78 inc/Core/Assets.php:99 inc/Views/Components.php:1244
 #: inc/Views/Settings/Tabs/Discounts.php:164
 #: inc/Views/Settings/Tabs/General.php:46
 #: inc/Views/Settings/Tabs/General.php:136
 #: inc/Views/Settings/Tabs/General.php:265
-#: inc/Views/Settings/Tabs/Styles.php:39 inc/Views/Settings/Tabs/Styles.php:140
+#: inc/Views/Settings/Tabs/Styles.php:27 inc/Views/Settings/Tabs/Styles.php:128
 msgid "Fechar"
 msgstr "Cerrar"
 
@@ -1136,15 +1130,11 @@ msgstr "Forma de visualización del mensaje de descuento"
 msgid "Formas de pagamento"
 msgstr "Métodos de pago"
 
-#: inc/Views/Settings/Tabs/Styles.php:89
+#: inc/Views/Settings/Tabs/Styles.php:77
 msgid "Formato de ícones"
 msgstr "Formato de íconos"
 
-#: inc/Views/Settings/Tabs/Styles.php:13
-msgid "Forçar prioridade dos estilos"
-msgstr "Forzar prioridad de estilos"
-
-#: inc/Views/Settings/Tabs/About.php:369
+#: inc/Views/Settings/Tabs/About.php:381
 msgid "Função PHP \"file_get_content\":"
 msgstr "Función PHP \"file_get_content\":"
 
@@ -1176,7 +1166,7 @@ msgstr "Administrar marcas de tarjetas de crédito"
 msgid "Gerenciar bandeiras para cartão de débito"
 msgstr "Administrar marcas de tarjetas de débito"
 
-#: inc/Views/Settings/Tabs/Styles.php:183
+#: inc/Views/Settings/Tabs/Styles.php:171
 msgid "Grande"
 msgstr "Grande"
 
@@ -1210,7 +1200,7 @@ msgstr "Incluir el valor del envío en el descuento del pedido"
 msgid "Inferior"
 msgstr "Inferior"
 
-#: inc/Views/Settings/Tabs/About.php:27
+#: inc/Views/Settings/Tabs/About.php:39
 msgid "Informações sobre a licença:"
 msgstr "Información de la licencia:"
 
@@ -1229,7 +1219,7 @@ msgstr ""
 "Introduzca el gancho donde debe mostrarse el botón o acordeón de métodos de "
 "pago."
 
-#: inc/Views/Settings/Tabs/About.php:114
+#: inc/Views/Settings/Tabs/About.php:126
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr ""
 "Ingrese su licencia a continuación para desbloquear todas las funciones."
@@ -1266,7 +1256,7 @@ msgstr ""
 msgid "Insira o valor do desconto."
 msgstr "Introduzca el monto del descuento."
 
-#: inc/Views/Settings/Tabs/About.php:35
+#: inc/Views/Settings/Tabs/About.php:47
 msgid "Inválida"
 msgstr "Inválido"
 
@@ -1292,16 +1282,16 @@ msgstr "Intereses por método de pago"
 msgid "Já tenho uma licença"
 msgstr "Ya tengo una licencia"
 
-#: inc/Core/Ajax.php:366
+#: inc/Core/Ajax.php:365
 msgid "Licença ativa"
 msgstr "Licencia activa"
 
-#: inc/Core/Ajax.php:232
+#: inc/Core/Ajax.php:231
 #| msgid "Licença ativada com sucesso!"
 msgid "Licença ativada com sucesso."
 msgstr "Licencia activada exitosamente."
 
-#: inc/Views/Settings/Tabs/About.php:56
+#: inc/Views/Settings/Tabs/About.php:68
 #, php-format
 msgid "Licença expira em: %s"
 msgstr "La licencia vence en: %s"
@@ -1310,23 +1300,23 @@ msgstr "La licencia vence en: %s"
 msgid "Licença expirada"
 msgstr "Licencia caducada"
 
-#: inc/Core/Ajax.php:368
+#: inc/Core/Ajax.php:367
 msgid "Licença processada com sucesso!"
 msgstr "¡Licencia procesada exitosamente!"
 
-#: inc/Views/Settings/Tabs/About.php:377
+#: inc/Views/Settings/Tabs/About.php:389
 msgid "Ligado"
 msgstr "Conectado"
 
-#: inc/Views/Settings/Tabs/About.php:327
+#: inc/Views/Settings/Tabs/About.php:339
 msgid "Limite de memória do PHP:"
 msgstr "Límite de memoria de PHP:"
 
-#: inc/Views/Settings/Tabs/About.php:283
+#: inc/Views/Settings/Tabs/About.php:295
 msgid "Limite de tempo do PHP:"
 msgstr "Límite de tiempo de PHP:"
 
-#: inc/Views/Settings/Tabs/Styles.php:184
+#: inc/Views/Settings/Tabs/Styles.php:172
 msgid "Link"
 msgstr "Enlace"
 
@@ -1347,7 +1337,7 @@ msgstr "Mostrar ubicación para descuento en comprobante bancario"
 msgid "Local de exibição do preço com desconto no Pix"
 msgstr "Mostrar ubicación para el precio con descuento en Pix"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:194
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:196
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:159
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:159
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:179
@@ -1370,11 +1360,11 @@ msgstr "Mostrar ubicación para el precio con descuento en Pix"
 msgid "Margem externa"
 msgstr "Margen externa"
 
-#: inc/Views/Settings/Tabs/Styles.php:208
+#: inc/Views/Settings/Tabs/Styles.php:196
 msgid "Margem inferior do popup/sanfona de parcelas"
 msgstr "Margen inferior de la ventana emergente/acordeón de cuotas"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:206
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:208
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:171
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:171
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:190
@@ -1397,7 +1387,7 @@ msgstr "Margen inferior de la ventana emergente/acordeón de cuotas"
 msgid "Margem interna"
 msgstr "Margen interna"
 
-#: inc/Views/Settings/Tabs/Styles.php:191
+#: inc/Views/Settings/Tabs/Styles.php:179
 msgid "Margem superior do popup/sanfona de parcelas"
 msgstr "Margen superior de la ventana emergente/acordeón de cuotas"
 
@@ -1405,7 +1395,7 @@ msgstr "Margen superior de la ventana emergente/acordeón de cuotas"
 msgid "Margem:"
 msgstr "Margen:"
 
-#: inc/Admin/Default_Options.php:205
+#: inc/Admin/Default_Options.php:206
 msgid "Melhor parcela"
 msgstr "Mejor cuota"
 
@@ -1434,7 +1424,7 @@ msgstr "Mensaje de descuento por cantidad"
 msgid "MeuMouse.com"
 msgstr "MeuMouse.com"
 
-#: inc/Views/Settings/Tabs/About.php:143
+#: inc/Views/Settings/Tabs/About.php:155
 msgid "Modo de depuração do WordPress:"
 msgstr "Modo de depuración de WordPress:"
 
@@ -1484,6 +1474,10 @@ msgstr "Mostrar información de descuento en el método de pago"
 msgid "Mostrar informação de economia no Pix"
 msgstr "Mostrar información de ahorro en Pix"
 
+#: inc/Views/Settings/Tabs/About.php:25
+msgid "Mostrar notificação de atualização disponível"
+msgstr "Mostrar notificación de actualización disponible"
+
 #: inc/Admin/Product_Settings.php:241 inc/Admin/Product_Settings.php:303
 msgid "Método de desconto"
 msgstr "Método de descuento"
@@ -1505,17 +1499,17 @@ msgstr "Método de descuento por cantidad"
 msgid "Método do juros"
 msgstr "Método de interés"
 
-#: inc/Views/Settings/Tabs/About.php:33
+#: inc/Views/Settings/Tabs/About.php:45
 msgid "Nenhuma licença informada"
 msgstr "No se informó ninguna licencia"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:135
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:136
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:135
-#: inc/Views/Settings/Tabs/Styles.php:182
+#: inc/Views/Settings/Tabs/Styles.php:170
 msgid "Normal"
 msgstr "Normal"
 
-#: inc/Views/Settings/Tabs/About.php:79
+#: inc/Views/Settings/Tabs/About.php:91
 msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
 msgstr ""
 "Hemos notado que tuvo problemas de conexión al intentar activar su licencia."
@@ -1524,24 +1518,24 @@ msgstr ""
 msgid "Nunca expira"
 msgstr "Nunca expira"
 
-#: inc/Views/Settings/Tabs/About.php:140 inc/Views/Settings/Tabs/About.php:208
-#: inc/Views/Settings/Tabs/About.php:224 inc/Views/Settings/Tabs/About.php:243
+#: inc/Views/Settings/Tabs/About.php:152 inc/Views/Settings/Tabs/About.php:220
+#: inc/Views/Settings/Tabs/About.php:236 inc/Views/Settings/Tabs/About.php:255
 msgid "Não"
 msgstr "No"
 
-#: inc/API/License.php:887 inc/Views/Settings/Tabs/About.php:62
+#: inc/API/License.php:887 inc/Views/Settings/Tabs/About.php:74
 msgid "Não disponível"
 msgstr "No disponible"
 
-#: inc/Core/Ajax.php:308
+#: inc/Core/Ajax.php:307
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr "No se puede descifrar el archivo de licencia."
 
-#: inc/Core/Ajax.php:181
+#: inc/Core/Ajax.php:180
 msgid "Não foi possível salvar as configurações"
 msgstr "No se pudo guardar la configuración"
 
-#: inc/Core/Updater.php:247
+#: inc/Core/Updater.php:249
 #| msgid ""
 #| "Não foi possível verificar atualizações para o plugin <strong>Parcelas "
 #| "Customizadas para WooCommerce</strong>"
@@ -1552,15 +1546,15 @@ msgstr ""
 "No se pueden buscar actualizaciones para el complemento <strong>"
 "Instalaciones personalizadas para WooCommerce</strong>"
 
-#: inc/Core/Ajax.php:319
+#: inc/Core/Ajax.php:318
 msgid "O arquivo de licença não contém dados válidos."
 msgstr "El archivo de licencia no contiene datos válidos."
 
-#: inc/Core/Ajax.php:431
+#: inc/Core/Ajax.php:430
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr "¡El caché de activación se ha borrado exitosamente!"
 
-#: inc/Core/Ajax.php:327
+#: inc/Core/Ajax.php:326
 msgid "O domínio de ativação não é permitido."
 msgstr "El dominio de activación no está permitido."
 
@@ -1608,11 +1602,11 @@ msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr ""
 "PagSeguro utiliza un factor de multiplicación para calcular el interés."
 
-#: inc/Core/Ajax.php:405
+#: inc/Core/Ajax.php:404
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr "Se produjo un error al desactivar su licencia."
 
-#: inc/Core/Ajax.php:465
+#: inc/Core/Ajax.php:464
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr "Se produjo un error al restablecer la configuración."
 
@@ -1690,10 +1684,10 @@ msgstr "Ocultar título"
 msgid "Ops! Não há conexão com a internet"
 msgstr "¡Ups! No hay conexión a Internet"
 
-#: inc/Core/Ajax.php:180 inc/Core/Ajax.php:240 inc/Core/Ajax.php:263
-#: inc/Core/Ajax.php:274 inc/Core/Ajax.php:287 inc/Core/Ajax.php:307
-#: inc/Core/Ajax.php:318 inc/Core/Ajax.php:326 inc/Core/Ajax.php:334
-#: inc/Core/Ajax.php:404 inc/Core/Ajax.php:464
+#: inc/Core/Ajax.php:179 inc/Core/Ajax.php:239 inc/Core/Ajax.php:262
+#: inc/Core/Ajax.php:273 inc/Core/Ajax.php:286 inc/Core/Ajax.php:306
+#: inc/Core/Ajax.php:317 inc/Core/Ajax.php:325 inc/Core/Ajax.php:333
+#: inc/Core/Ajax.php:403 inc/Core/Ajax.php:463
 msgid "Ops! Ocorreu um erro."
 msgstr "¡Ups! Ocurrió un error."
 
@@ -1747,7 +1741,7 @@ msgstr "Cuotas Personalizadas"
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr "Cuotas Personalizadas para WooCommerce"
 
-#: inc/Views/Settings/Tabs/Styles.php:181
+#: inc/Views/Settings/Tabs/Styles.php:169
 msgid "Pequeno"
 msgstr "Pequeño"
 
@@ -1780,7 +1774,7 @@ msgstr ""
 "Permite definir el método de visualización del mensaje de descuento por "
 "cantidad."
 
-#: inc/Views/Settings/Tabs/Styles.php:48
+#: inc/Views/Settings/Tabs/Styles.php:36
 msgid ""
 "Permite definir os seletores a serem centralizados ao centro. Use no formato "
 "de seletores CSS separando com vírgulas."
@@ -1848,7 +1842,7 @@ msgstr "Precio con descuento en Pix"
 msgid "Preço com desconto:"
 msgstr "Precio con descuento:"
 
-#: inc/Admin/Default_Options.php:133
+#: inc/Admin/Default_Options.php:134
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:45
 msgid "Preço do produto"
 msgstr "Precio del producto"
@@ -1861,8 +1855,8 @@ msgstr "Precio en comprobante bancario"
 msgid "Preço no Pix"
 msgstr "Precio en Pix"
 
-#: inc/Views/Settings.php:17 inc/Views/Settings/Tabs/About.php:41
-#: inc/Views/Settings/Tabs/About.php:172
+#: inc/Views/Settings.php:17 inc/Views/Settings/Tabs/About.php:53
+#: inc/Views/Settings/Tabs/About.php:184
 #: inc/Views/Settings/Tabs/Discounts.php:41
 #: inc/Views/Settings/Tabs/Discounts.php:60
 #: inc/Views/Settings/Tabs/Discounts.php:79
@@ -1930,9 +1924,9 @@ msgstr "Producto no encontrado."
 msgid "Pré-visualizar:"
 msgstr "Previsualizar:"
 
-#: inc/Views/Settings/Tabs/Styles.php:198
-#: inc/Views/Settings/Tabs/Styles.php:215
-#: inc/Views/Settings/Tabs/Styles.php:233
+#: inc/Views/Settings/Tabs/Styles.php:186
+#: inc/Views/Settings/Tabs/Styles.php:203
+#: inc/Views/Settings/Tabs/Styles.php:221
 msgid "px"
 msgstr "px"
 
@@ -1952,11 +1946,11 @@ msgstr "Cantidad mínima para descuento"
 msgid "Quantidade mínima para oferecer desconto"
 msgstr "Cantidad mínima para ofrecer descuento"
 
-#: inc/Admin/Default_Options.php:132
+#: inc/Admin/Default_Options.php:133
 msgid "R$97,00"
 msgstr "R$97,00"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:182
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:184
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:168
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:342
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:443
@@ -1973,7 +1967,7 @@ msgstr "R$97,00"
 msgid "Raio da borda"
 msgstr "Radio del borde"
 
-#: inc/Views/Settings/Tabs/Styles.php:226
+#: inc/Views/Settings/Tabs/Styles.php:214
 msgid "Raio da borda do botão de popup de parcelas."
 msgstr "Radio del borde del botón emergente de cuotas."
 
@@ -1981,16 +1975,16 @@ msgstr "Radio del borde del botón emergente de cuotas."
 msgid "Raio da borda:"
 msgstr "Radio del borde:"
 
-#: inc/Views/Settings/Tabs/About.php:39
+#: inc/Views/Settings/Tabs/About.php:51
 msgid "Recursos:"
 msgstr "Recursos:"
 
-#: inc/Views/Settings/Tabs/About.php:392
+#: inc/Views/Settings/Tabs/About.php:404
 msgid "Redefinir configurações"
 msgstr "Restablecer configuración"
 
 #: inc/Views/Components.php:229 inc/Views/Components.php:257
-#: inc/Views/Settings/Tabs/Styles.php:168
+#: inc/Views/Settings/Tabs/Styles.php:156
 msgid "Redefinir para cor padrão"
 msgstr "Restablecer al color predeterminado"
 
@@ -1998,9 +1992,9 @@ msgstr "Restablecer al color predeterminado"
 msgid "REM"
 msgstr "REM"
 
-#: inc/Views/Settings/Tabs/Styles.php:200
-#: inc/Views/Settings/Tabs/Styles.php:217
-#: inc/Views/Settings/Tabs/Styles.php:235
+#: inc/Views/Settings/Tabs/Styles.php:188
+#: inc/Views/Settings/Tabs/Styles.php:205
+#: inc/Views/Settings/Tabs/Styles.php:223
 msgid "rem"
 msgstr "rem"
 
@@ -2008,7 +2002,7 @@ msgstr "rem"
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr "Eliminar rango de precios en productos variables"
 
-#: inc/Views/Settings/Tabs/About.php:420
+#: inc/Views/Settings/Tabs/About.php:432
 msgid "Reportar problemas"
 msgstr "Informar problemas"
 
@@ -2025,7 +2019,7 @@ msgstr "Respuesta vacía."
 msgid "Salvar alterações"
 msgstr "Guardar cambios"
 
-#: inc/Core/Ajax.php:174
+#: inc/Core/Ajax.php:173
 msgid "Salvo com sucesso"
 msgstr "Guardado exitosamente"
 
@@ -2037,7 +2031,7 @@ msgstr "Acordeón"
 msgid "Sanfona - Formas de pagamento"
 msgstr "Acordeón - Métodos de pago"
 
-#: inc/Views/Settings/Tabs/Styles.php:78
+#: inc/Views/Settings/Tabs/Styles.php:66
 msgid ""
 "Se ativo, a opção \"Ativar empilhamento de preços\" será incluída nos "
 "widgets para Elementor."
@@ -2045,7 +2039,7 @@ msgstr ""
 "Si está activo, la opción \"Activar apilamiento de precios\" se incluirá en "
 "los widgets para Elementor."
 
-#: inc/Views/Settings/Tabs/Styles.php:26
+#: inc/Views/Settings/Tabs/Styles.php:14
 msgid ""
 "Se ativo, irá centralizar a melhor parcela e desconto na grade de produtos."
 msgstr ""
@@ -2186,7 +2180,7 @@ msgstr "Sé Pro"
 msgid "Seja Pro - Parcelas Customizadas"
 msgstr "Sé Pro - Cuotas Personalizadas"
 
-#: inc/Views/Settings/Tabs/Styles.php:90
+#: inc/Views/Settings/Tabs/Styles.php:78
 msgid "Selecione o formato de exibição dos ícones dos elementos."
 msgstr "Seleccione el formato de visualización de los íconos de los elementos."
 
@@ -2230,11 +2224,11 @@ msgstr "Seleccione dónde se mostrará el precio con descuento."
 msgid "Selecione um gateway"
 msgstr "Seleccione una pasarela"
 
-#: inc/Views/Settings/Tabs/Styles.php:47
+#: inc/Views/Settings/Tabs/Styles.php:35
 msgid "Seletores alvo"
 msgstr "Selectores objetivo"
 
-#: inc/Views/Settings/Tabs/About.php:182
+#: inc/Views/Settings/Tabs/About.php:194
 msgid "Servidor"
 msgstr "Servidor"
 
@@ -2251,12 +2245,12 @@ msgstr "Shortcode"
 msgid "Shortcode: "
 msgstr "Shortcode: "
 
-#: inc/Views/Settings/Tabs/About.php:140 inc/Views/Settings/Tabs/About.php:212
-#: inc/Views/Settings/Tabs/About.php:228 inc/Views/Settings/Tabs/About.php:247
+#: inc/Views/Settings/Tabs/About.php:152 inc/Views/Settings/Tabs/About.php:224
+#: inc/Views/Settings/Tabs/About.php:240 inc/Views/Settings/Tabs/About.php:259
 msgid "Sim"
 msgstr "Sí"
 
-#: inc/Views/Settings/Tabs/About.php:412
+#: inc/Views/Settings/Tabs/About.php:424
 msgid "Sim, desejo redefinir"
 msgstr "Sí, quiero restablecer"
 
@@ -2264,15 +2258,15 @@ msgstr "Sí, quiero restablecer"
 msgid "Sobre"
 msgstr "Acerca de"
 
-#: inc/Views/Settings/Tabs/About.php:29
+#: inc/Views/Settings/Tabs/About.php:41
 msgid "Status da licença:"
 msgstr "Estado de la licencia:"
 
-#: inc/Views/Settings/Tabs/About.php:132
+#: inc/Views/Settings/Tabs/About.php:144
 msgid "Status do sistema:"
 msgstr "Estado del sistema:"
 
-#: inc/Views/Settings/Tabs/About.php:58
+#: inc/Views/Settings/Tabs/About.php:70
 msgid "Sua chave de licença:"
 msgstr "Su clave de licencia:"
 
@@ -2306,11 +2300,11 @@ msgstr "Tamaño del texto:"
 msgid "Tamanho do ícone"
 msgstr "Tamaño del ícono"
 
-#: inc/Views/Settings/Tabs/About.php:261
+#: inc/Views/Settings/Tabs/About.php:273
 msgid "Tamanho máximo da postagem do PHP:"
 msgstr "Tamaño máximo de publicación de PHP:"
 
-#: inc/Views/Settings/Tabs/About.php:349
+#: inc/Views/Settings/Tabs/About.php:361
 msgid "Tamanho máximo de envio do PHP:"
 msgstr "Tamaño máximo de envío de PHP:"
 
@@ -2453,7 +2447,7 @@ msgstr "Texto que se utilizará como título del contenedor de transferencia."
 msgid "Textos"
 msgstr "Textos"
 
-#: inc/Views/Settings/Tabs/About.php:53
+#: inc/Views/Settings/Tabs/About.php:65
 #, php-format
 #| msgid "Tipo da licença:"
 msgid "Tipo da licença: %s"
@@ -2463,7 +2457,7 @@ msgstr "Tipo de licencia: %s"
 msgid "Tipo de exibição das formas de pagamento"
 msgstr "Tipo de visualización de los métodos de pago"
 
-#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:142
+#: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:143
 #: inc/Integrations/Elementor/Widgets/Discount_Badge.php:128
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:153
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:137
@@ -2490,16 +2484,16 @@ msgstr "Tipografía"
 msgid "Tipografia da tabela"
 msgstr "Tipografía de la tabla"
 
-#: inc/Core/Ajax.php:399
+#: inc/Core/Ajax.php:398
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr "¡Todas las funciones de la versión Pro ahora están deshabilitadas!"
 
-#: inc/Core/Render_Elements.php:354
+#: inc/Core/Render_Elements.php:377
 #, php-format
 msgid "Total %s"
 msgstr "Total %s"
 
-#: woo-custom-installments.php:177 woo-custom-installments.php:188
+#: woo-custom-installments.php:183 woo-custom-installments.php:194
 msgid "Trapaceando?"
 msgstr "¿Infiel?"
 
@@ -2547,7 +2541,7 @@ msgstr ""
 "Una licencia le permite desbloquear todas las funciones Pro que el "
 "complemento tiene para ofrecer."
 
-#: inc/Core/Updater.php:454
+#: inc/Core/Updater.php:456
 #, php-format
 msgid ""
 "Uma nova versão do plugin <strong>Parcelas Customizadas para "
@@ -2557,7 +2551,7 @@ msgstr ""
 "WooCommerce</strong> (%s) está disponible. <a href=\"%s\">Actualice ahora</a>"
 "."
 
-#: inc/Core/Updater.php:226
+#: inc/Core/Updater.php:228
 #| msgid ""
 #| "Uma nova versão do plugin Parcelas Customizadas para WooCommerce está "
 #| "disponível."
@@ -2611,58 +2605,58 @@ msgstr "Valor fijo (R$)"
 msgid "Valor mínimo da parcela"
 msgstr "Monto mínimo de la cuota"
 
-#: inc/Views/Settings/Tabs/About.php:314
+#: inc/Views/Settings/Tabs/About.php:326
 msgid "Valor mínimo recomendado é 10000"
 msgstr "El valor mínimo recomendado es 10000"
 
-#: inc/Views/Settings/Tabs/About.php:336
+#: inc/Views/Settings/Tabs/About.php:348
 msgid "Valor mínimo recomendado é 128M"
 msgstr "El valor mínimo recomendado es 128M"
 
-#: inc/Views/Settings/Tabs/About.php:292
+#: inc/Views/Settings/Tabs/About.php:304
 msgid "Valor mínimo recomendado é 180"
 msgstr "El valor mínimo recomendado es 180"
 
-#: inc/Views/Settings/Tabs/About.php:270 inc/Views/Settings/Tabs/About.php:358
+#: inc/Views/Settings/Tabs/About.php:282 inc/Views/Settings/Tabs/About.php:370
 msgid "Valor mínimo recomendado é 64M"
 msgstr "El valor mínimo recomendado es 64M"
 
-#: inc/Views/Settings/Tabs/About.php:305
+#: inc/Views/Settings/Tabs/About.php:317
 msgid "Variáveis máximas de entrada do PHP:"
 msgstr "Variables de entrada máximas de PHP:"
 
-#: inc/Core/Updater.php:286
+#: inc/Core/Updater.php:288
 msgid "Verificar atualizações"
 msgstr "Revisar actualizaciones"
 
-#: inc/Views/Settings/Tabs/About.php:231
+#: inc/Views/Settings/Tabs/About.php:243
 #, php-format
 msgid "Versão %s"
 msgstr "Versión %s"
 
-#: inc/Views/Settings/Tabs/About.php:168
+#: inc/Views/Settings/Tabs/About.php:180
 msgid "Versão do Parcelas Customizadas para WooCommerce:"
 msgstr "Versión de Cuotas Personalizadas para WooCommerce:"
 
-#: inc/Views/Settings/Tabs/About.php:184
+#: inc/Views/Settings/Tabs/About.php:196
 msgid "Versão do PHP:"
 msgstr "Versión de PHP:"
 
-#: inc/Views/Settings/Tabs/About.php:149
+#: inc/Views/Settings/Tabs/About.php:161
 msgid "Versão do WooCommerce:"
 msgstr "Versión de WooCommerce:"
 
-#: inc/Views/Settings/Tabs/About.php:135
+#: inc/Views/Settings/Tabs/About.php:147
 msgid "Versão do WordPress:"
 msgstr "Versión de WordPress:"
 
-#: inc/Views/Settings/Tabs/About.php:80
+#: inc/Views/Settings/Tabs/About.php:92
 msgid ""
 "Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
 "manual."
 msgstr "Puede cargar el archivo .key de licencia para activarlo manualmente."
 
-#: inc/Views/Settings/Tabs/About.php:31
+#: inc/Views/Settings/Tabs/About.php:43
 msgid "Válida"
 msgstr "Válido"
 
@@ -2671,23 +2665,23 @@ msgstr "Válido"
 msgid "Widget para Elementor"
 msgstr "Widget para Elementor"
 
-#: inc/Views/Settings/Tabs/About.php:147
+#: inc/Views/Settings/Tabs/About.php:159
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: inc/Views/Settings/Tabs/About.php:133
+#: inc/Views/Settings/Tabs/About.php:145
 msgid "WordPress"
 msgstr "WordPress"
 
-#: inc/Views/Settings/Tabs/About.php:139
+#: inc/Views/Settings/Tabs/About.php:151
 msgid "WordPress Multisite:"
 msgstr "WordPress multisitio:"
 
-#: inc/Admin/Default_Options.php:420
+#: inc/Admin/Default_Options.php:421
 msgid "À vista R$87,30 no Boleto bancário"
 msgstr "Al contado R$87,30 en comprobante bancario"
 
-#: inc/Admin/Default_Options.php:276
+#: inc/Admin/Default_Options.php:277
 msgid "À vista R$87,30 no Pix"
 msgstr "Al contado R$87,30 en Pix"
 

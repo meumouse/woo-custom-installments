@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-25 19:39+0000\n"
+"POT-Creation-Date: 2025-07-07 20:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "900"
 msgstr ""
 
-#: woo-custom-installments.php:118
+#: woo-custom-installments.php:117
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer a versão do "
 "PHP 7.4 ou maior. Contate o suporte da sua hospedagem para realizar a "
@@ -90,7 +90,7 @@ msgid ""
 "WooCommerce</strong> esteja instalado e ativado."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:162
+#: inc/Views/Settings/Tabs/Styles.php:150
 msgid "A cor do texto e borda será obtida a partir da cor informada."
 msgstr ""
 
@@ -98,15 +98,15 @@ msgstr ""
 msgid "A extensão cURL está faltando."
 msgstr ""
 
-#: inc/Core/Ajax.php:367
+#: inc/Core/Ajax.php:366
 msgid "A licença foi ativada com sucesso!"
 msgstr ""
 
-#: inc/Core/Ajax.php:398
+#: inc/Core/Ajax.php:397
 msgid "A licença foi desativada"
 msgstr ""
 
-#: inc/Core/Ajax.php:335
+#: inc/Core/Ajax.php:334
 msgid "A licença informada não é permitida para este produto"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgid ""
 "liberar todos os recursos e opções de estilização."
 msgstr ""
 
-#: inc/Core/Ajax.php:233
+#: inc/Core/Ajax.php:232
 msgid "Agora todos os recursos estão ativos!"
 msgstr ""
 
@@ -200,11 +200,11 @@ msgstr ""
 msgid "Aprovação imediata"
 msgstr ""
 
-#: inc/Core/Ajax.php:288
+#: inc/Core/Ajax.php:287
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:225
+#: inc/Views/Settings/Tabs/Styles.php:213
 msgid "Arredondamento do botão de parcelas"
 msgstr ""
 
@@ -212,15 +212,15 @@ msgstr ""
 msgid "As alterações não serão salvas."
 msgstr ""
 
-#: inc/Core/Ajax.php:175
+#: inc/Core/Ajax.php:174
 msgid "As configurações foram atualizadas!"
 msgstr ""
 
-#: inc/Core/Ajax.php:458
+#: inc/Core/Ajax.php:457
 msgid "As opções foram redefinidas"
 msgstr ""
 
-#: inc/Core/Ajax.php:459
+#: inc/Core/Ajax.php:458
 msgid "As opções foram redefinidas com sucesso!"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgstr ""
 msgid "Ativar preço com desconto no Pix em Post Meta para Feed XML"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:65
+#: inc/Views/Settings/Tabs/Styles.php:53
 msgid "Ativar widgets para Elementor"
 msgstr ""
 
@@ -388,11 +388,7 @@ msgid ""
 "automaticamente sempre que possível."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:14
-msgid "Ative essa opção para que os estilos tenham maior prioridade."
-msgstr ""
-
-#: inc/Views/Settings/Tabs/Styles.php:66
+#: inc/Views/Settings/Tabs/Styles.php:54
 msgid "Ative essa opção para que os widgets para Elementor sejam carregados."
 msgstr ""
 
@@ -561,7 +557,7 @@ msgstr ""
 msgid "Básicos"
 msgstr ""
 
-#: inc/Core/Ajax.php:430
+#: inc/Core/Ajax.php:429
 msgid "Cache de ativação limpo"
 msgstr ""
 
@@ -582,11 +578,11 @@ msgstr ""
 msgid "Centralizado"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:25
+#: inc/Views/Settings/Tabs/Styles.php:13
 msgid "Centralizar grupo de preços na grade de produtos"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:94
+#: inc/Views/Settings/Tabs/Styles.php:82
 msgid "Classe de ícone (Font Awesome) - (Padrão)"
 msgstr ""
 
@@ -630,7 +626,7 @@ msgstr ""
 #: inc/Views/Settings/Tabs/General.php:40
 #: inc/Views/Settings/Tabs/General.php:130
 #: inc/Views/Settings/Tabs/General.php:259
-#: inc/Views/Settings/Tabs/Styles.php:33
+#: inc/Views/Settings/Tabs/Styles.php:21
 msgid "Configurar"
 msgstr ""
 
@@ -639,11 +635,11 @@ msgstr ""
 msgid "Configurar bandeiras"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:38
+#: inc/Views/Settings/Tabs/Styles.php:26
 msgid "Configurar centralização de elementos"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:139
+#: inc/Views/Settings/Tabs/Styles.php:127
 #, php-format
 msgid "Configurar estilos: %s"
 msgstr ""
@@ -714,7 +710,7 @@ msgstr ""
 msgid "Cor de fundo:"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:161
+#: inc/Views/Settings/Tabs/Styles.php:149
 msgid "Cor do botão do popup de parcelas"
 msgstr ""
 
@@ -902,11 +898,11 @@ msgstr ""
 msgid "Economize R$9,70 no Pix"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:134
+#: inc/Views/Settings/Tabs/Styles.php:122
 msgid "Editar"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:105
+#: inc/Views/Settings/Tabs/Styles.php:93
 msgid ""
 "Edite os estilos clicando no botão editar, ou reposicione a ordem dos "
 "elementos arrastando e soltando."
@@ -916,9 +912,9 @@ msgstr ""
 msgid "EM"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:199
-#: inc/Views/Settings/Tabs/Styles.php:216
-#: inc/Views/Settings/Tabs/Styles.php:234
+#: inc/Views/Settings/Tabs/Styles.php:187
+#: inc/Views/Settings/Tabs/Styles.php:204
+#: inc/Views/Settings/Tabs/Styles.php:222
 msgid "em"
 msgstr ""
 
@@ -932,19 +928,19 @@ msgstr ""
 msgid "Emblema de desconto"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:77
+#: inc/Views/Settings/Tabs/Styles.php:65
 msgid "Empilhamento de preços em widgets"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:95
+#: inc/Views/Settings/Tabs/Styles.php:83
 msgid "Enviar ícones"
 msgstr ""
 
-#: inc/Core/Ajax.php:264
+#: inc/Core/Ajax.php:263
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr ""
 
-#: inc/Core/Ajax.php:275
+#: inc/Core/Ajax.php:274
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr ""
 
@@ -989,7 +985,7 @@ msgstr ""
 msgid "Estilo"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:177
+#: inc/Views/Settings/Tabs/Styles.php:165
 msgid "Estilo do botão do popup de parcelas"
 msgstr ""
 
@@ -1024,7 +1020,7 @@ msgstr ""
 msgid "Estilos do preço"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:104
+#: inc/Views/Settings/Tabs/Styles.php:92
 msgid "Estilos dos elementos"
 msgstr ""
 
@@ -1063,7 +1059,7 @@ msgstr ""
 #: inc/Views/Settings/Tabs/General.php:46
 #: inc/Views/Settings/Tabs/General.php:136
 #: inc/Views/Settings/Tabs/General.php:265
-#: inc/Views/Settings/Tabs/Styles.php:39 inc/Views/Settings/Tabs/Styles.php:140
+#: inc/Views/Settings/Tabs/Styles.php:27 inc/Views/Settings/Tabs/Styles.php:128
 msgid "Fechar"
 msgstr ""
 
@@ -1075,12 +1071,8 @@ msgstr ""
 msgid "Formas de pagamento"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:89
+#: inc/Views/Settings/Tabs/Styles.php:77
 msgid "Formato de ícones"
-msgstr ""
-
-#: inc/Views/Settings/Tabs/Styles.php:13
-msgid "Forçar prioridade dos estilos"
 msgstr ""
 
 #: inc/Views/Settings/Tabs/About.php:381
@@ -1115,7 +1107,7 @@ msgstr ""
 msgid "Gerenciar bandeiras para cartão de débito"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:183
+#: inc/Views/Settings/Tabs/Styles.php:171
 msgid "Grande"
 msgstr ""
 
@@ -1216,11 +1208,11 @@ msgstr ""
 msgid "Já tenho uma licença"
 msgstr ""
 
-#: inc/Core/Ajax.php:366
+#: inc/Core/Ajax.php:365
 msgid "Licença ativa"
 msgstr ""
 
-#: inc/Core/Ajax.php:232
+#: inc/Core/Ajax.php:231
 msgid "Licença ativada com sucesso."
 msgstr ""
 
@@ -1233,7 +1225,7 @@ msgstr ""
 msgid "Licença expirada"
 msgstr ""
 
-#: inc/Core/Ajax.php:368
+#: inc/Core/Ajax.php:367
 msgid "Licença processada com sucesso!"
 msgstr ""
 
@@ -1249,7 +1241,7 @@ msgstr ""
 msgid "Limite de tempo do PHP:"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:184
+#: inc/Views/Settings/Tabs/Styles.php:172
 msgid "Link"
 msgstr ""
 
@@ -1292,7 +1284,7 @@ msgstr ""
 msgid "Margem externa"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:208
+#: inc/Views/Settings/Tabs/Styles.php:196
 msgid "Margem inferior do popup/sanfona de parcelas"
 msgstr ""
 
@@ -1319,7 +1311,7 @@ msgstr ""
 msgid "Margem interna"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:191
+#: inc/Views/Settings/Tabs/Styles.php:179
 msgid "Margem superior do popup/sanfona de parcelas"
 msgstr ""
 
@@ -1436,7 +1428,7 @@ msgstr ""
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:136
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:135
-#: inc/Views/Settings/Tabs/Styles.php:182
+#: inc/Views/Settings/Tabs/Styles.php:170
 msgid "Normal"
 msgstr ""
 
@@ -1457,11 +1449,11 @@ msgstr ""
 msgid "Não disponível"
 msgstr ""
 
-#: inc/Core/Ajax.php:308
+#: inc/Core/Ajax.php:307
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr ""
 
-#: inc/Core/Ajax.php:181
+#: inc/Core/Ajax.php:180
 msgid "Não foi possível salvar as configurações"
 msgstr ""
 
@@ -1471,15 +1463,15 @@ msgid ""
 "Customizadas para WooCommerce.</strong>"
 msgstr ""
 
-#: inc/Core/Ajax.php:319
+#: inc/Core/Ajax.php:318
 msgid "O arquivo de licença não contém dados válidos."
 msgstr ""
 
-#: inc/Core/Ajax.php:431
+#: inc/Core/Ajax.php:430
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr ""
 
-#: inc/Core/Ajax.php:327
+#: inc/Core/Ajax.php:326
 msgid "O domínio de ativação não é permitido."
 msgstr ""
 
@@ -1517,11 +1509,11 @@ msgstr ""
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr ""
 
-#: inc/Core/Ajax.php:405
+#: inc/Core/Ajax.php:404
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr ""
 
-#: inc/Core/Ajax.php:465
+#: inc/Core/Ajax.php:464
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr ""
 
@@ -1597,10 +1589,10 @@ msgstr ""
 msgid "Ops! Não há conexão com a internet"
 msgstr ""
 
-#: inc/Core/Ajax.php:180 inc/Core/Ajax.php:240 inc/Core/Ajax.php:263
-#: inc/Core/Ajax.php:274 inc/Core/Ajax.php:287 inc/Core/Ajax.php:307
-#: inc/Core/Ajax.php:318 inc/Core/Ajax.php:326 inc/Core/Ajax.php:334
-#: inc/Core/Ajax.php:404 inc/Core/Ajax.php:464
+#: inc/Core/Ajax.php:179 inc/Core/Ajax.php:239 inc/Core/Ajax.php:262
+#: inc/Core/Ajax.php:273 inc/Core/Ajax.php:286 inc/Core/Ajax.php:306
+#: inc/Core/Ajax.php:317 inc/Core/Ajax.php:325 inc/Core/Ajax.php:333
+#: inc/Core/Ajax.php:403 inc/Core/Ajax.php:463
 msgid "Ops! Ocorreu um erro."
 msgstr ""
 
@@ -1652,7 +1644,7 @@ msgstr ""
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:181
+#: inc/Views/Settings/Tabs/Styles.php:169
 msgid "Pequeno"
 msgstr ""
 
@@ -1680,7 +1672,7 @@ msgid ""
 "Permite definir o método de exibição da mensagem de desconto por quantidade."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:48
+#: inc/Views/Settings/Tabs/Styles.php:36
 msgid ""
 "Permite definir os seletores a serem centralizados ao centro. Use no formato "
 "de seletores CSS separando com vírgulas."
@@ -1827,9 +1819,9 @@ msgstr ""
 msgid "Pré-visualizar:"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:198
-#: inc/Views/Settings/Tabs/Styles.php:215
-#: inc/Views/Settings/Tabs/Styles.php:233
+#: inc/Views/Settings/Tabs/Styles.php:186
+#: inc/Views/Settings/Tabs/Styles.php:203
+#: inc/Views/Settings/Tabs/Styles.php:221
 msgid "px"
 msgstr ""
 
@@ -1870,7 +1862,7 @@ msgstr ""
 msgid "Raio da borda"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:226
+#: inc/Views/Settings/Tabs/Styles.php:214
 msgid "Raio da borda do botão de popup de parcelas."
 msgstr ""
 
@@ -1887,7 +1879,7 @@ msgid "Redefinir configurações"
 msgstr ""
 
 #: inc/Views/Components.php:229 inc/Views/Components.php:257
-#: inc/Views/Settings/Tabs/Styles.php:168
+#: inc/Views/Settings/Tabs/Styles.php:156
 msgid "Redefinir para cor padrão"
 msgstr ""
 
@@ -1895,9 +1887,9 @@ msgstr ""
 msgid "REM"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:200
-#: inc/Views/Settings/Tabs/Styles.php:217
-#: inc/Views/Settings/Tabs/Styles.php:235
+#: inc/Views/Settings/Tabs/Styles.php:188
+#: inc/Views/Settings/Tabs/Styles.php:205
+#: inc/Views/Settings/Tabs/Styles.php:223
 msgid "rem"
 msgstr ""
 
@@ -1921,7 +1913,7 @@ msgstr ""
 msgid "Salvar alterações"
 msgstr ""
 
-#: inc/Core/Ajax.php:174
+#: inc/Core/Ajax.php:173
 msgid "Salvo com sucesso"
 msgstr ""
 
@@ -1933,13 +1925,13 @@ msgstr ""
 msgid "Sanfona - Formas de pagamento"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:78
+#: inc/Views/Settings/Tabs/Styles.php:66
 msgid ""
 "Se ativo, a opção \"Ativar empilhamento de preços\" será incluída nos "
 "widgets para Elementor."
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:26
+#: inc/Views/Settings/Tabs/Styles.php:14
 msgid ""
 "Se ativo, irá centralizar a melhor parcela e desconto na grade de produtos."
 msgstr ""
@@ -2049,7 +2041,7 @@ msgstr ""
 msgid "Seja Pro - Parcelas Customizadas"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:90
+#: inc/Views/Settings/Tabs/Styles.php:78
 msgid "Selecione o formato de exibição dos ícones dos elementos."
 msgstr ""
 
@@ -2086,7 +2078,7 @@ msgstr ""
 msgid "Selecione um gateway"
 msgstr ""
 
-#: inc/Views/Settings/Tabs/Styles.php:47
+#: inc/Views/Settings/Tabs/Styles.php:35
 msgid "Seletores alvo"
 msgstr ""
 
@@ -2331,16 +2323,16 @@ msgstr ""
 msgid "Tipografia da tabela"
 msgstr ""
 
-#: inc/Core/Ajax.php:399
+#: inc/Core/Ajax.php:398
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr ""
 
-#: inc/Core/Render_Elements.php:364
+#: inc/Core/Render_Elements.php:377
 #, php-format
 msgid "Total %s"
 msgstr ""
 
-#: woo-custom-installments.php:184 woo-custom-installments.php:195
+#: woo-custom-installments.php:183 woo-custom-installments.php:194
 msgid "Trapaceando?"
 msgstr ""
 

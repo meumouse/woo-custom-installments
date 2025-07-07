@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Astra theme
  *
  * @since 4.5.0
- * @version 5.4.0
+ * @version 5.4.11
  * @package MeuMouse.com
  */
 class Astra {
@@ -18,11 +18,11 @@ class Astra {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.4.0
+     * @version 5.4.11
 	 * @return void
 	 */
 	public function __construct() {
-        if ( class_exists('Astra_Theme_Options') ) {
+        if ( class_exists('Astra_Theme_Options') || defined('CHILD_THEME_ASTRA_CHILD_VERSION') ) {
 		    add_action( 'wp_head', array( __CLASS__, 'compat_astra' ) );
         }
 	}
