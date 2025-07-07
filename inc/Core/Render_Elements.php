@@ -136,35 +136,45 @@ class Render_Elements {
 				$display_sale_badge = Admin_Options::get_setting('enable_sale_badge');
 
 				if ( $product && $product->is_type('variable') ) :
-					// Get variation min price
-					$min_sale_price = $product->get_variation_sale_price( 'min', true );
 					$min_regular_price = $product->get_variation_regular_price( 'min', true );
+					$min_sale_price = $product->get_variation_sale_price(   'min', true );
 
-					echo $product->is_on_sale() ? $min_sale_price : $min_regular_price;
-
-					// check if variations has different price between variations
 					if ( ! Helpers::variations_has_same_price( $product ) ) :
-						// display modern price range
 						if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) :
-							$starting_from_text = Admin_Options::get_setting('text_initial_variables');
-							
-							if ( ! empty( $starting_from_text ) ) : ?>
-								<span class="woo-custom-installments-starting-from"><?php echo $starting_from_text ?></span>
+							if ( $min_sale_price < $min_regular_price ) : ?>
+								<span class="woo-custom-installments-price original-price has-discount">
+									<?php echo wc_price( $min_regular_price ); ?>
+								</span>
 							<?php endif; ?>
 
 							<span class="woo-custom-installments-price sale-price">
 								<?php echo wc_price( $min_sale_price );
 
-								// display sale badge
 								if ( $display_sale_badge === 'yes' ) :
 									echo $components->sale_badge( $product );
 								endif; ?>
 							</span>
-						<?php else : ?>
-							<span class="woo-custom-installments-price"><?php echo wc_price( $product->get_price() ) ?></span>
+						<?php else :
+							if ( $min_sale_price < $min_regular_price ) : ?>
+								<span class="woo-custom-installments-price original-price has-discount">
+									<?php echo wc_price( $min_regular_price ); ?>
+								</span>
+							<?php endif; ?>
+
+							<span class="woo-custom-installments-price">
+								<?php echo wc_price( $product->get_price() ); ?>
+							</span>
+						<?php endif;
+					else :
+						if ( $min_sale_price < $min_regular_price ) : ?>
+							<span class="woo-custom-installments-price original-price has-discount">
+								<?php echo wc_price( $min_regular_price ); ?>
+							</span>
 						<?php endif; ?>
-					<?php else : ?>
-						<span class="woo-custom-installments-price"><?php echo wc_price( $product->get_price() ) ?></span>
+
+						<span class="woo-custom-installments-price">
+							<?php echo wc_price( $product->get_price() ); ?>
+						</span>
 					<?php endif; ?>
 				<?php else :
 					// Check if the product has a sale price for simple products
