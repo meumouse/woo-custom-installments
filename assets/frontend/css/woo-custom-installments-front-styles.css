@@ -748,3 +748,12 @@ button.wci-close-popup:hover {
     max-height: none;
     border-top: 1px solid #ddd;
 }
+
+.woo-custom-installments-group .woo-custom-installments-starting-from {
+    font-weight: 500;
+}
+
+.woo-custom-installments-group .woo-custom-installments-price.original-price.has-discount .amount,
+.woo-custom-installments-group .woo-custom-installments-group-main-price del .amount {
+    opacity: 0.75;
+}

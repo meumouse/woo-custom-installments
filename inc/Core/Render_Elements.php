@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.4.7
+ * @version 5.4.11
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -79,7 +79,7 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.8
+	 * @version 5.4.11
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
@@ -138,6 +138,9 @@ class Render_Elements {
 				if ( $product && $product->is_type('variable') ) :
 					// Get variation min price
 					$min_sale_price = $product->get_variation_sale_price( 'min', true );
+					$min_regular_price = $product->get_variation_regular_price( 'min', true );
+
+					echo $product->is_on_sale() ? $min_sale_price : $min_regular_price;
 
 					// check if variations has different price between variations
 					if ( ! Helpers::variations_has_same_price( $product ) ) :
@@ -165,7 +168,7 @@ class Render_Elements {
 					<?php endif; ?>
 				<?php else :
 					// Check if the product has a sale price for simple products
-					if ( $product && $product->is_on_sale() ) : ?>
+					if ( $product->is_on_sale() ) : ?>
 						<span class="woo-custom-installments-price original-price has-discount"><?php echo wc_price( $product->get_regular_price() ) ?></span>
 						
 						<span class="woo-custom-installments-price sale-price">
