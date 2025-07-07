@@ -1,5 +1,7 @@
 Versão 5.4.11 (07/07/2025)
 * Correção de bugs
+    - Preço antigo não exibe em produtos variáveis
+    - Estilos para computador sobrepõe estilos para celular
 
 Versão 5.4.10 (04/07/2025)
 * Correção de compatibilidade com tema Woodmart
