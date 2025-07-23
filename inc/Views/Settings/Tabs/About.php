@@ -35,10 +35,10 @@ defined('ABSPATH') || exit; ?>
 		<tr class="container-separator"></tr>
 		
 		<tr>
-			<td class="d-grid">
+			<td class="d-grid license-details-group">
 				<h3 class="mb-4"><?php esc_html_e( 'Informações sobre a licença:', 'woo-custom-installments' ); ?></h3>
 
-				<span class="mb-2"><?php esc_html_e( 'Status da licença:', 'woo-custom-installments' ) ?>
+				<span class="mb-2 license-details-item"><?php esc_html_e( 'Status da licença:', 'woo-custom-installments' ) ?>
 					<?php if ( License::is_valid() ) : ?>
 						<span class="badge bg-translucent-success rounded-pill"><?php esc_html_e(  'Válida', 'woo-custom-installments' );?></span>
 					<?php elseif ( empty( get_option('woo_custom_installments_license_key') ) ) : ?>
@@ -48,7 +48,7 @@ defined('ABSPATH') || exit; ?>
 					<?php endif; ?>
 				</span>
 
-				<span class="mb-2"><?php esc_html_e( 'Recursos:', 'woo-custom-installments' ) ?>
+				<span class="mb-2 license-details-item"><?php esc_html_e( 'Recursos:', 'woo-custom-installments' ) ?>
 					<?php if ( License::is_valid() ) : ?>
 						<span class="badge bg-translucent-primary rounded-pill"><?php esc_html_e(  'Pro', 'woo-custom-installments' );?></span>
 					<?php else : ?>
@@ -60,14 +60,14 @@ defined('ABSPATH') || exit; ?>
 					$license_key = get_option('woo_custom_installments_license_key');
 
 					if ( strpos( $license_key, 'CM-' ) === 0 ) : ?>
-						<span class="mb-2"><?php echo sprintf( esc_html__( 'Assinatura: Clube M - %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
+						<span class="mb-2 license-details-item"><?php echo sprintf( esc_html__( 'Assinatura: Clube M - %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
 					<?php else : ?>
-						<span class="mb-2"><?php echo sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
+						<span class="mb-2 license-details-item"><?php echo sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), License::license_title() ) ?></span>
 					<?php endif; ?>
 
-					<span class="mb-2"><?php echo sprintf( esc_html__( 'Licença expira em: %s', 'woo-custom-installments' ), License::license_expire() ) ?></span>
+					<span class="mb-2 license-details-item"><?php echo sprintf( esc_html__( 'Licença expira em: %s', 'woo-custom-installments' ), License::license_expire() ) ?></span>
 					
-					<span class="mb-2"><?php esc_html_e( 'Sua chave de licença:', 'woo-custom-installments' ) ?>
+					<span class="mb-2 license-details-item"><?php esc_html_e( 'Sua chave de licença:', 'woo-custom-installments' ) ?>
 						<?php if ( ! empty( $license_key ) ) :
 							echo esc_attr( substr( $license_key, 0, 9 ) . "XXXXXXXX-XXXXXXXX" . substr( $license_key, -9 ) );
 						else :
@@ -80,8 +80,9 @@ defined('ABSPATH') || exit; ?>
 
 		<?php if ( License::is_valid() ) : ?>
 			<tr>
-				<td>
+				<td class="d-flex align-items-center">
 					<button type="submit" id="woo_custom_installments_deactive_license" class="btn btn-sm btn-primary" name="woo_custom_installments_deactive_license"><?php esc_html_e( 'Desativar licença', 'woo-custom-installments' ); ?></button>
+					<button type="submit" id="woo_custom_installments_refresh_license" class="btn btn-sm btn-outline-primary ms-3" name="woo_custom_installments_refresh_license"><?php esc_html_e( 'Sincronizar licença', 'woo-custom-installments' ); ?></button>
 				</td>
 			</tr>
 		<?php else :

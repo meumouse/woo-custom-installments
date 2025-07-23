@@ -1,3 +1,8 @@
+Versão 5.5.0 (23/07/2025)
+* Correção de bugs
+    - Preço da variação é alterado incorretamente na integração com Woodmart
+* Otimizações
+
 Versão 5.4.11 (07/07/2025)
 * Correção de bugs
     - Preço antigo não exibe em produtos variáveis

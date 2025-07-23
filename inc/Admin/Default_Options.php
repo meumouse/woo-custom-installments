@@ -9,10 +9,10 @@ defined('ABSPATH') || exit;
  * Set default options
  * 
  * @since 5.4.0
- * @version 5.4.9
+ * @version 5.5.0
  * @package MeuMouse.com
  */
-class Default_Options extends Admin_Options {
+class Default_Options {
 
     /**
      * Set default options

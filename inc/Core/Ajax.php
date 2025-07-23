@@ -5,6 +5,7 @@ namespace MeuMouse\Woo_Custom_Installments\Core;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 use MeuMouse\Woo_Custom_Installments\Admin\Default_Options;
 use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\Core\Logger;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -13,7 +14,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.4.9
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Ajax {
@@ -46,10 +47,13 @@ class Ajax {
 	 * Construct function
 	 * 
 	 * @since 4.5.0
-     * @version 5.4.0
+     * @version 5.5.0
 	 * @return void
 	 */
 	public function __construct() {
+        // set logger source
+        Logger::set_logger_source( 'woo-custom-installments-license', false );
+
         // save admin options
 		add_action( 'wp_ajax_wci_save_options', array( $this, 'save_options_callback' ) );
 
@@ -67,6 +71,9 @@ class Ajax {
 
         // reset plugin to default
         add_action( 'wp_ajax_reset_plugin_action', array( $this, 'reset_plugin_callback' ) );
+
+        // sync license action
+        add_action( 'wp_ajax_wci_sync_license_action', array( $this, 'sync_license_callback' ) );
 	}
 
 
@@ -462,6 +469,54 @@ class Ajax {
                     'status' => 'error',
                     'toast_header_title' => esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
                     'toast_body_title' => esc_html__( 'Ocorreu um erro ao redefinir as configurações.', 'woo-custom-installments' ),
+                );
+            }
+
+            wp_send_json( $response );
+        }
+    }
+
+
+    /**
+     * Sync license on AJAX callback
+     * 
+     * @since 5.5.0
+     * @return void
+     */
+    public function sync_license_callback() {
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'wci_sync_license_action' ) {
+            $api_url = 'https://api.meumouse.com/wp-json/license/license/view';
+            
+            // send request
+            $response = wp_remote_post( $api_url, array(
+                'body' => array(
+                    'api_key' => '315D36C6-0C80F95B-3CAC4C7C-6BE7D8E0',
+                    'license_code' => get_option('woo_custom_installments_license_key'),
+                ),
+                'timeout' => 30,
+            ));
+
+            if ( is_wp_error( $response ) ) {
+                Logger::register_log( '[WOO CUSTOM INSTALLMENTS] Error on sync licence: ' . print_r( $response, true ), 'ERROR' );
+            }
+
+            $response_body = wp_remote_retrieve_body( $response );
+            $response_code = wp_remote_retrieve_response_code( $response );
+
+            error_log( 'Sync license response: ' . print_r( json_decode( $response_body, true ), true ) );
+
+            if ( $response_code === 200 ) {
+
+                $response = array(
+                    'status' => 'success',
+                    'toast_header_title' => esc_html__( 'Informações atualizadas', 'woo-custom-installments' ),
+                    'toast_body_title' => esc_html__( 'A licença foi sincronizada com sucesso!', 'woo-custom-installments' ),
+                );
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'toast_header_title' => esc_html__( 'Ops! Ocorreu um erro.', 'woo-custom-installments' ),
+                    'toast_body_title' => esc_html__( 'Não foi possível sincronizar as informações da licença.', 'woo-custom-installments' ),
                 );
             }
 
