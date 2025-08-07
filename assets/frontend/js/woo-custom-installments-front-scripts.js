@@ -244,12 +244,16 @@
 		 * On update quantity for product
 		 * 
 		 * @since 5.4.0
-		 * @version 5.4.4
+		 * @version 5.5.0
 		 */
 		updateQuantity: function() {
 			// Get quantity input value
 			$(document).on( 'change', 'input[name="quantity"]', function() {
 				current_quantity = parseInt( $(this).val() ) || 1;
+
+				if ( params.product_variation_with_range ) {
+					return;
+				}
 
 				if ( params.product.type === 'variable' ) {
 					// on found or show variation

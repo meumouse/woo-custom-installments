@@ -271,9 +271,7 @@ defined('ABSPATH') || exit; ?>
                            <td>
                               <fieldset id="custom-installments-fieldset-custom-installments">
                                  <?php
-                                    $custom_fee_installments = array();
-                                    $custom_fee_installments = get_option('woo_custom_installments_custom_fee_installments');
-                                    $custom_fee_installments = maybe_unserialize( $custom_fee_installments );
+                                    $custom_fee_installments = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments', array()) );
                                     $limit_installments = Admin_Options::get_setting('max_qtd_installments');
                                     $init_loop = Admin_Options::get_setting('max_qtd_installments_without_fee') + 1;
                                     

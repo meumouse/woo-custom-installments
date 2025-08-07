@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.4.5
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Init {
@@ -20,7 +20,7 @@ class Init {
      * Construct function
      * 
      * @since 1.0.0
-     * @version 5.4.5
+     * @version 5.5.0
      * @return void
      */
     public function __construct() {
@@ -96,6 +96,9 @@ class Init {
             deactivate_plugins('woo-custom-installments/woo-custom-installments.php');
             add_action( 'admin_notices', array( $this, 'require_woocommerce_notice' ) );
         }
+
+        // hook after plugin init
+        do_action('Woo_Custom_Installments/Init');
     }
 
 

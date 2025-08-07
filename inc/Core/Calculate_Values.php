@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.4.8
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -176,13 +176,17 @@ class Calculate_Values {
      * Get discounted price based on product, price, and settings, including variations.
      *
      * @since 4.5.0
-     * @version 5.4.0
+     * @version 5.5.0
      * @param object $product | Product object
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
      */
     public static function get_discounted_price( $product, $discount_type = 'main' ) {
         $price = 0;
+
+        if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'is_type' ) ) {
+            return 0;
+        }
 
         // Get the correct price based on the product type
         if ( $product->is_type('variation') ) {
@@ -375,11 +379,15 @@ class Calculate_Values {
 	 * Calculate Pix economy value
 	 *
 	 * @since 4.5.0
-	 * @version 5.4.0
+	 * @version 5.5.0
 	 * @param object $product | WC_Product object
 	 * @return float | Economy value
 	 */
 	public static function get_pix_economy( $product ) {
+        if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'is_type' ) ) {
+            return 0;
+        }
+        
 		$price = $product->get_sale_price() ?: $product->get_regular_price();
 
 		// Calculate the custom discounted price based on the "main" discount type

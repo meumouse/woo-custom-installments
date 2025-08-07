@@ -91,7 +91,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-offer .amount {
-                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $important";
+                    font-size: ". $discount_pix_styles['mobile']['font_size'] . $discount_pix_styles['mobile']['font_unit'] . $important .";
                     font-weight: ". $discount_pix_styles['mobile']['font_weight'] .";
                     color: ". $discount_pix_styles['mobile']['font_color'] .";
                 }
@@ -107,7 +107,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-economy-pix-badge .amount {
-                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $important";
+                    font-size: ". $economy_pix_styles['mobile']['font_size'] . $economy_pix_styles['mobile']['font_unit'] . $important .";
                     font-weight: ". $economy_pix_styles['mobile']['font_weight'] .";
                     color: ". $economy_pix_styles['mobile']['font_color'] .";
                 }
@@ -123,7 +123,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-card-container .amount {
-                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $important";
+                    font-size: ". $installments_styles['mobile']['font_size'] . $installments_styles['mobile']['font_unit'] . $important .";
                     font-weight: ". $installments_styles['mobile']['font_weight'] .";
                     color: ". $installments_styles['mobile']['font_color'] .";
                 }
@@ -139,7 +139,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-ticket-discount .amount {
-                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $important";
+                    font-size: ". $ticket_styles['mobile']['font_size'] . $ticket_styles['mobile']['font_unit'] . $important .";
                     font-weight: ". $ticket_styles['mobile']['font_weight'] .";
                     color: ". $ticket_styles['mobile']['font_color'] .";
                 }
@@ -155,7 +155,7 @@ class Styles {
                 }
                     
                 .woo-custom-installments-group .woo-custom-installments-group-main-price .amount {
-                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $important";
+                    font-size: ". $price_styles['mobile']['font_size'] . $price_styles['mobile']['font_unit'] . $important .";
                     font-weight: ". $price_styles['mobile']['font_weight'] .";
                     color: ". $price_styles['mobile']['font_color'] .";
                 }
@@ -173,7 +173,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-offer .amount {
-                    font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $important";
+                    font-size: ". $discount_pix_styles['desktop']['font_size'] . $discount_pix_styles['desktop']['font_unit'] . $important .";
                     font-weight: ". $discount_pix_styles['desktop']['font_weight'] .";
                     color: ". $discount_pix_styles['desktop']['font_color'] .";
                 }
@@ -189,7 +189,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-economy-pix-badge .amount {
-                    font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $important";
+                    font-size: ". $economy_pix_styles['desktop']['font_size'] . $economy_pix_styles['desktop']['font_unit'] . $important .";
                     font-weight: ". $economy_pix_styles['desktop']['font_weight'] .";
                     color: ". $economy_pix_styles['desktop']['font_color'] .";
                 }
@@ -207,7 +207,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-card-container .amount {
-                    font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $important";
+                    font-size: ". $installments_styles['desktop']['font_size'] . $installments_styles['desktop']['font_unit'] . $important .";
                     font-weight: ". $installments_styles['desktop']['font_weight'] .";
                     color: ". $installments_styles['desktop']['font_color'] .";
                 }
@@ -223,7 +223,7 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-ticket-discount .amount {
-                    font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $important";
+                    font-size: ". $ticket_styles['desktop']['font_size'] . $ticket_styles['desktop']['font_unit'] . $important .";
                     font-weight: ". $ticket_styles['desktop']['font_weight'] .";
                     color: ". $ticket_styles['desktop']['font_color'] .";
                 }
@@ -239,14 +239,14 @@ class Styles {
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-group-main-price .amount {
-                    font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $important";
+                    font-size: ". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] . $important .";
                     font-weight: ". $price_styles['desktop']['font_weight'] .";
                     color: ". $price_styles['desktop']['font_color'] .";
                 }
 
                 .woo-custom-installments-group .woo-custom-installments-price.original-price.has-discount .amount,
                 .woo-custom-installments-group .woo-custom-installments-group-main-price del .amount {
-                    font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $important";
+                    font-size: calc(". $price_styles['desktop']['font_size'] . $price_styles['desktop']['font_unit'] ." - 0.3rem)" . $important .";
                 }
             }
 

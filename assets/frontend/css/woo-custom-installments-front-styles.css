@@ -462,6 +462,10 @@ table tbody>tr:nth-child(odd)>th {
     order: 3;
 }
 
+.woo-custom-installments-group .woo-custom-installments-group-main-price.has-range-price {
+    display: inline-block !important;
+}
+
 .woo-custom-installments-group .icon-image {
     width: 1.325rem;
     height: auto;

@@ -82,7 +82,7 @@ defined('ABSPATH') || exit; ?>
 			<tr>
 				<td class="d-flex align-items-center">
 					<button type="submit" id="woo_custom_installments_deactive_license" class="btn btn-sm btn-primary" name="woo_custom_installments_deactive_license"><?php esc_html_e( 'Desativar licença', 'woo-custom-installments' ); ?></button>
-					<button type="submit" id="woo_custom_installments_refresh_license" class="btn btn-sm btn-outline-primary ms-3" name="woo_custom_installments_refresh_license"><?php esc_html_e( 'Sincronizar licença', 'woo-custom-installments' ); ?></button>
+					<button type="submit" id="woo_custom_installments_refresh_license" class="btn btn-sm btn-outline-primary ms-3 d-none" name="woo_custom_installments_refresh_license"><?php esc_html_e( 'Sincronizar licença', 'woo-custom-installments' ); ?></button>
 				</td>
 			</tr>
 		<?php else :
