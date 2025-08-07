@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-15 20:02+0000\n"
-"PO-Revision-Date: 2025-07-07 20:54+0000\n"
+"PO-Revision-Date: 2025-08-07 22:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -70,7 +70,7 @@ msgstr "800"
 msgid "900"
 msgstr "900"
 
-#: woo-custom-installments.php:117
+#: woo-custom-installments.php:114
 #| msgid ""
 #| "O plugin Parcelas Customizadas para WooCommerce requer a versão do PHP 7."
 #| "0 ou maior. Contate o suporte da sua hospedagem para realizar a "
@@ -83,7 +83,7 @@ msgstr ""
 "<strong>Custom Installments for WooCommerce</strong> requires PHP version 7."
 "4 or higher. Contact your hosting support to perform the update."
 
-#: inc/Core/Init.php:127
+#: inc/Core/Init.php:130
 #| msgid ""
 #| "O plugin Parcelas Customizadas para WooCommerce requer a versão do "
 #| "WooCommerce 5.0 ou maior. Faça a atualização do plugin WooCommerce."
@@ -94,7 +94,7 @@ msgstr ""
 "<strong>Custom Installments for WooCommerce</strong> requires WooCommerce "
 "version 6.0 or higher. Update the WooCommerce plugin."
 
-#: inc/Core/Init.php:143
+#: inc/Core/Init.php:146
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>"
 "WooCommerce</strong> esteja instalado e ativado."
@@ -111,15 +111,19 @@ msgstr ""
 msgid "A extensão cURL está faltando."
 msgstr "The cURL extension is missing."
 
-#: inc/Core/Ajax.php:366
+#: inc/Core/Ajax.php:373
 msgid "A licença foi ativada com sucesso!"
 msgstr "The license was activated successfully!"
 
-#: inc/Core/Ajax.php:397
+#: inc/Core/Ajax.php:404
 msgid "A licença foi desativada"
 msgstr "The license has been deactivated"
 
-#: inc/Core/Ajax.php:334
+#: inc/Core/Ajax.php:513
+msgid "A licença foi sincronizada com sucesso!"
+msgstr ""
+
+#: inc/Core/Ajax.php:341
 msgid "A licença informada não é permitida para este produto"
 msgstr "The license informed is not allowed for this product"
 
@@ -134,11 +138,11 @@ msgstr ""
 "The version of the <strong>Custom Installments for WooCommerce</strong> "
 "plugin is the latest."
 
-#: inc/Views/Settings/Tabs/About.php:204
+#: inc/Views/Settings/Tabs/About.php:205
 msgid "A versão mínima exigida do PHP é 7.2"
 msgstr "The minimum required PHP version is 7.2"
 
-#: inc/Views/Settings/Tabs/About.php:169
+#: inc/Views/Settings/Tabs/About.php:170
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr "The minimum required WooCommerce version is 6.0"
 
@@ -166,7 +170,7 @@ msgstr ""
 "Purchase a Pro license of Custom Parcels for WooCommerce to unlock all "
 "features and styling options."
 
-#: inc/Core/Ajax.php:232
+#: inc/Core/Ajax.php:239
 msgid "Agora todos os recursos estão ativos!"
 msgstr "Now all features are active!"
 
@@ -179,7 +183,7 @@ msgstr "Price group alignment"
 msgid "Altura do botão"
 msgstr "Button height"
 
-#: inc/Views/Settings/Tabs/General.php:436
+#: inc/Views/Settings/Tabs/General.php:434
 msgid "Antes do carrinho (Padrão)"
 msgstr "Before the cart (Default)"
 
@@ -188,7 +192,7 @@ msgstr "Before the cart (Default)"
 msgid "Ao passar o mouse"
 msgstr "On mouseover"
 
-#: inc/Views/Settings/Tabs/About.php:420
+#: inc/Views/Settings/Tabs/About.php:421
 msgid ""
 "Ao redefinir as configurações do plugin, todas opções serão removidas, "
 "voltando ao estado original. Sua licença não será removida."
@@ -196,20 +200,20 @@ msgstr ""
 "Resetting the plugin settings will remove all options and return them to "
 "their original state. Your license will not be removed."
 
-#: inc/Views/Settings/Tabs/General.php:317
-#: inc/Views/Settings/Tabs/General.php:340
-#: inc/Views/Settings/Tabs/General.php:362
-#: inc/Views/Settings/Tabs/General.php:384
+#: inc/Views/Settings/Tabs/General.php:315
+#: inc/Views/Settings/Tabs/General.php:338
+#: inc/Views/Settings/Tabs/General.php:360
+#: inc/Views/Settings/Tabs/General.php:382
 msgid "Apenas arquivos de produtos"
 msgstr "Product files only"
 
-#: inc/Views/Settings/Tabs/General.php:316
-#: inc/Views/Settings/Tabs/General.php:361
-#: inc/Views/Settings/Tabs/General.php:383
+#: inc/Views/Settings/Tabs/General.php:314
+#: inc/Views/Settings/Tabs/General.php:359
+#: inc/Views/Settings/Tabs/General.php:381
 msgid "Apenas página do produto individual"
 msgstr "Single product page only"
 
-#: inc/Views/Settings/Tabs/General.php:338
+#: inc/Views/Settings/Tabs/General.php:336
 msgid "Apenas página do produto individual (Padrão)"
 msgstr "Individual product page only (Default)"
 
@@ -222,7 +226,7 @@ msgstr "Apply discount to gateway"
 msgid "Aprovação imediata"
 msgstr "Instant approval"
 
-#: inc/Core/Ajax.php:287
+#: inc/Core/Ajax.php:294
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr "Invalid file. The file must have a .key extension."
 
@@ -234,15 +238,15 @@ msgstr "Rounding of installments button"
 msgid "As alterações não serão salvas."
 msgstr "Changes will not be saved."
 
-#: inc/Core/Ajax.php:174
+#: inc/Core/Ajax.php:181
 msgid "As configurações foram atualizadas!"
 msgstr "The settings have been updated!"
 
-#: inc/Core/Ajax.php:457
+#: inc/Core/Ajax.php:464
 msgid "As opções foram redefinidas"
 msgstr "Options have been reset"
 
-#: inc/Core/Ajax.php:458
+#: inc/Core/Ajax.php:465
 msgid "As opções foram redefinidas com sucesso!"
 msgstr "Options have been reset successfully!"
 
@@ -251,7 +255,7 @@ msgstr "Options have been reset successfully!"
 msgid "Assinatura: Clube M - %s"
 msgstr "Subscription: Club M - %s"
 
-#: inc/Views/Settings/Tabs/About.php:418
+#: inc/Views/Settings/Tabs/About.php:419
 msgid "Atenção! Você realmente deseja redefinir as configurações?"
 msgstr "Attention! Do you really want to reset settings?"
 
@@ -373,7 +377,7 @@ msgstr "Activate discount functions"
 msgid "Ativar funções de juros"
 msgstr "Activate interest functions"
 
-#: inc/Views/Settings/Tabs/About.php:133
+#: inc/Views/Settings/Tabs/About.php:134
 msgid "Ativar licença"
 msgstr "Activate license"
 
@@ -541,7 +545,7 @@ msgstr "Activate to display the Pix payment method."
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:294
 #: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:236
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:277
-#: inc/Views/Settings/Tabs/About.php:156
+#: inc/Views/Settings/Tabs/About.php:157
 msgid "Ativo"
 msgstr "Active"
 
@@ -590,7 +594,7 @@ msgstr "Active button border"
 msgid "Básicos"
 msgstr "Basics"
 
-#: inc/Core/Ajax.php:429
+#: inc/Core/Ajax.php:436
 msgid "Cache de ativação limpo"
 msgstr "Clear activation cache"
 
@@ -619,7 +623,7 @@ msgstr "Centralize price group in product grid"
 msgid "Classe de ícone (Font Awesome) - (Padrão)"
 msgstr "Icon Class (Font Awesome) - (Default)"
 
-#: inc/Views/Settings/Tabs/About.php:93
+#: inc/Views/Settings/Tabs/About.php:94
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr "Click here to generate your license file"
 
@@ -643,7 +647,7 @@ msgstr "How to convert multiplication factor to interest."
 msgid "Comprar agora"
 msgstr "Buy now"
 
-#: inc/Views/Settings/Tabs/About.php:121
+#: inc/Views/Settings/Tabs/About.php:122
 msgid "Comprar licença"
 msgstr "Buy License"
 
@@ -655,7 +659,7 @@ msgstr "Buy a license"
 msgid "Computador"
 msgstr "Computer"
 
-#: inc/Core/Init.php:159 inc/Views/Settings/Tabs/Discounts.php:158
+#: inc/Core/Init.php:162 inc/Views/Settings/Tabs/Discounts.php:158
 #: inc/Views/Settings/Tabs/General.php:40
 #: inc/Views/Settings/Tabs/General.php:130
 #: inc/Views/Settings/Tabs/General.php:259
@@ -795,7 +799,7 @@ msgstr "Text color:"
 msgid "Cor do ícone"
 msgstr "Icon color"
 
-#: inc/Views/Settings/Tabs/About.php:129
+#: inc/Views/Settings/Tabs/About.php:130
 msgid "Código da licença"
 msgstr "License Code"
 
@@ -849,11 +853,11 @@ msgstr "Set interest rate per installment"
 msgid "Deixe em branco para não exibir."
 msgstr "Leave it blank to not display it."
 
-#: inc/Views/Settings/Tabs/General.php:437
+#: inc/Views/Settings/Tabs/General.php:435
 msgid "Depois do carrinho"
 msgstr "After the cart"
 
-#: inc/Views/Settings/Tabs/About.php:156
+#: inc/Views/Settings/Tabs/About.php:157
 msgid "Desativado"
 msgstr "Deactivated"
 
@@ -914,7 +918,7 @@ msgstr "Quantity discount"
 msgid "Descontos"
 msgstr "Discounts"
 
-#: inc/Views/Settings/Tabs/About.php:385
+#: inc/Views/Settings/Tabs/About.php:386
 msgid "Desligado"
 msgstr "Off"
 
@@ -925,11 +929,11 @@ msgstr "Off"
 msgid "Direita"
 msgstr "Right"
 
-#: inc/Core/Init.php:180
+#: inc/Core/Init.php:183
 msgid "Documentação"
 msgstr "Documentation"
 
-#: inc/Views/Settings/Tabs/About.php:215
+#: inc/Views/Settings/Tabs/About.php:216
 msgid "DOMDocument:"
 msgstr "DOMDocument:"
 
@@ -984,11 +988,11 @@ msgstr "Price stacking in widgets"
 msgid "Enviar ícones"
 msgstr "Send icons"
 
-#: inc/Core/Ajax.php:263
+#: inc/Core/Ajax.php:270
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr "Error loading file. The action was not triggered correctly."
 
-#: inc/Core/Ajax.php:274
+#: inc/Core/Ajax.php:281
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr "Error uploading file. The file was not uploaded."
 
@@ -1077,7 +1081,7 @@ msgstr "Element styles"
 msgid "Exibir emblema de aprovação imediata"
 msgstr "Display instant approval badge"
 
-#: inc/Views/Settings/Tabs/General.php:393
+#: inc/Views/Settings/Tabs/General.php:391
 msgid "Exibir melhor parcela"
 msgstr "Display best installment"
 
@@ -1089,11 +1093,11 @@ msgstr "Display discounted price on structured data (Schema.org)"
 msgid "Exibir preço com desconto no carrinho"
 msgstr "Display discounted price in cart"
 
-#: inc/Views/Settings/Tabs/About.php:231
+#: inc/Views/Settings/Tabs/About.php:232
 msgid "Extensão cURL:"
 msgstr "cURL extension:"
 
-#: inc/Views/Settings/Tabs/About.php:250
+#: inc/Views/Settings/Tabs/About.php:251
 msgid "Extensão OpenSSL:"
 msgstr "OpenSSL Extension:"
 
@@ -1126,15 +1130,15 @@ msgstr "Payment methods"
 msgid "Formato de ícones"
 msgstr "Icon format"
 
-#: inc/Views/Settings/Tabs/About.php:381
+#: inc/Views/Settings/Tabs/About.php:382
 msgid "Função PHP \"file_get_content\":"
 msgstr "PHP function \"file_get_content\":"
 
-#: inc/Views/Settings/Tabs/General.php:438
+#: inc/Views/Settings/Tabs/General.php:436
 msgid "Gancho personalizado"
 msgstr "Custom hook"
 
-#: inc/Views/Settings/Tabs/General.php:447
+#: inc/Views/Settings/Tabs/General.php:445
 msgid "Gancho personalizado das formas de pagamento"
 msgstr "Custom payment methods hook"
 
@@ -1192,6 +1196,10 @@ msgstr "Include shipping value in the order discount"
 msgid "Inferior"
 msgstr "Bottom"
 
+#: inc/Core/Ajax.php:512
+msgid "Informações atualizadas"
+msgstr ""
+
 #: inc/Views/Settings/Tabs/About.php:39
 msgid "Informações sobre a licença:"
 msgstr "License information:"
@@ -1202,7 +1210,7 @@ msgid ""
 msgstr ""
 "Enter the minimum quantity of the product to offer a discount in the cart."
 
-#: inc/Views/Settings/Tabs/General.php:456
+#: inc/Views/Settings/Tabs/General.php:454
 msgid ""
 "Informe o gancho que deve ser exibido o botão ou sanfona de formas de "
 "pagamento."
@@ -1210,7 +1218,7 @@ msgstr ""
 "Enter the hook where the payment method button or accordion should be "
 "displayed."
 
-#: inc/Views/Settings/Tabs/About.php:126
+#: inc/Views/Settings/Tabs/About.php:127
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr "Enter your license below to unlock all features."
 
@@ -1268,11 +1276,11 @@ msgstr "Interest by payment method"
 msgid "Já tenho uma licença"
 msgstr "I already have a license"
 
-#: inc/Core/Ajax.php:365
+#: inc/Core/Ajax.php:372
 msgid "Licença ativa"
 msgstr "License active"
 
-#: inc/Core/Ajax.php:231
+#: inc/Core/Ajax.php:238
 #| msgid "Licença ativada com sucesso!"
 msgid "Licença ativada com sucesso."
 msgstr "License activated successfully."
@@ -1286,19 +1294,19 @@ msgstr "License expires on: %s"
 msgid "Licença expirada"
 msgstr "Expired license"
 
-#: inc/Core/Ajax.php:367
+#: inc/Core/Ajax.php:374
 msgid "Licença processada com sucesso!"
 msgstr "License processed successfully!"
 
-#: inc/Views/Settings/Tabs/About.php:389
+#: inc/Views/Settings/Tabs/About.php:390
 msgid "Ligado"
 msgstr "On"
 
-#: inc/Views/Settings/Tabs/About.php:339
+#: inc/Views/Settings/Tabs/About.php:340
 msgid "Limite de memória do PHP:"
 msgstr "PHP memory limit:"
 
-#: inc/Views/Settings/Tabs/About.php:295
+#: inc/Views/Settings/Tabs/About.php:296
 msgid "Limite de tempo do PHP:"
 msgstr "PHP time limit:"
 
@@ -1306,19 +1314,19 @@ msgstr "PHP time limit:"
 msgid "Link"
 msgstr "Link"
 
-#: inc/Views/Settings/Tabs/General.php:325
+#: inc/Views/Settings/Tabs/General.php:323
 msgid "Local de exibição da informação de economia no Pix"
 msgstr "Location of display of savings information on Pix"
 
-#: inc/Views/Settings/Tabs/General.php:369
+#: inc/Views/Settings/Tabs/General.php:367
 msgid "Local de exibição das melhores parcelas"
 msgstr "Display location of the best installments"
 
-#: inc/Views/Settings/Tabs/General.php:347
+#: inc/Views/Settings/Tabs/General.php:345
 msgid "Local de exibição desconto no boleto bancário"
 msgstr "Display location for bank slip discount"
 
-#: inc/Views/Settings/Tabs/General.php:302
+#: inc/Views/Settings/Tabs/General.php:300
 #| msgid "Local de exibição do preço com desconto"
 msgid "Local de exibição do preço com desconto no Pix"
 msgstr "Location where the discounted price is displayed on Pix"
@@ -1385,15 +1393,15 @@ msgstr "Margin:"
 msgid "Melhor parcela"
 msgstr "Best installment"
 
-#: inc/Views/Settings/Tabs/General.php:401
+#: inc/Views/Settings/Tabs/General.php:399
 msgid "Melhor parcela com e sem juros"
 msgstr "Best installment with and without interest"
 
-#: inc/Views/Settings/Tabs/General.php:400
+#: inc/Views/Settings/Tabs/General.php:398
 msgid "Melhor parcela com juros"
 msgstr "Best installment with interest"
 
-#: inc/Views/Settings/Tabs/General.php:399
+#: inc/Views/Settings/Tabs/General.php:397
 msgid "Melhor parcela sem juros"
 msgstr "Best installment without interest"
 
@@ -1410,7 +1418,7 @@ msgstr "Quantity discount message"
 msgid "MeuMouse.com"
 msgstr "MeuMouse.com"
 
-#: inc/Views/Settings/Tabs/About.php:155
+#: inc/Views/Settings/Tabs/About.php:156
 msgid "Modo de depuração do WordPress:"
 msgstr "WordPress Debug Mode:"
 
@@ -1437,13 +1445,13 @@ msgstr "Show"
 msgid "Mostrar desconto para boleto bancário"
 msgstr "Show discount for bank slip"
 
-#: inc/Views/Settings/Tabs/General.php:339
+#: inc/Views/Settings/Tabs/General.php:337
 msgid "Mostrar em todo o site"
 msgstr "Show sitewide"
 
-#: inc/Views/Settings/Tabs/General.php:315
-#: inc/Views/Settings/Tabs/General.php:360
-#: inc/Views/Settings/Tabs/General.php:382
+#: inc/Views/Settings/Tabs/General.php:313
+#: inc/Views/Settings/Tabs/General.php:358
+#: inc/Views/Settings/Tabs/General.php:380
 msgid "Mostrar em todo o site (Padrão)"
 msgstr "Show sitewide (Default)"
 
@@ -1495,7 +1503,7 @@ msgstr "No license reported"
 msgid "Normal"
 msgstr "Normal"
 
-#: inc/Views/Settings/Tabs/About.php:91
+#: inc/Views/Settings/Tabs/About.php:92
 msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
 msgstr ""
 "We noticed that you had connection issues when trying to activate your "
@@ -1505,8 +1513,8 @@ msgstr ""
 msgid "Nunca expira"
 msgstr "Never expires"
 
-#: inc/Views/Settings/Tabs/About.php:152 inc/Views/Settings/Tabs/About.php:220
-#: inc/Views/Settings/Tabs/About.php:236 inc/Views/Settings/Tabs/About.php:255
+#: inc/Views/Settings/Tabs/About.php:153 inc/Views/Settings/Tabs/About.php:221
+#: inc/Views/Settings/Tabs/About.php:237 inc/Views/Settings/Tabs/About.php:256
 msgid "Não"
 msgstr "No"
 
@@ -1514,13 +1522,17 @@ msgstr "No"
 msgid "Não disponível"
 msgstr "Not available"
 
-#: inc/Core/Ajax.php:307
+#: inc/Core/Ajax.php:314
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr "Unable to decrypt license file."
 
-#: inc/Core/Ajax.php:180
+#: inc/Core/Ajax.php:187
 msgid "Não foi possível salvar as configurações"
 msgstr "Unable to save settings"
+
+#: inc/Core/Ajax.php:519
+msgid "Não foi possível sincronizar as informações da licença."
+msgstr ""
 
 #: inc/Core/Updater.php:249
 #| msgid ""
@@ -1533,15 +1545,15 @@ msgstr ""
 "Unable to check for updates for the <strong>Custom Installments for "
 "WooCommerce</strong> plugin"
 
-#: inc/Core/Ajax.php:318
+#: inc/Core/Ajax.php:325
 msgid "O arquivo de licença não contém dados válidos."
 msgstr "The license file does not contain valid data."
 
-#: inc/Core/Ajax.php:430
+#: inc/Core/Ajax.php:437
 msgid "O cache de ativação foi limpo com sucesso!"
 msgstr "Activation cache has been successfully cleared!"
 
-#: inc/Core/Ajax.php:326
+#: inc/Core/Ajax.php:333
 msgid "O domínio de ativação não é permitido."
 msgstr "The activation domain is not allowed."
 
@@ -1586,11 +1598,11 @@ msgstr ""
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr "PagSeguro uses a multiplication factor to calculate interest."
 
-#: inc/Core/Ajax.php:404
+#: inc/Core/Ajax.php:411
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr "An error occurred while deactivating your license."
 
-#: inc/Core/Ajax.php:464
+#: inc/Core/Ajax.php:471
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr "An error occurred while resetting the settings."
 
@@ -1618,9 +1630,9 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:623
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:724
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:826
-#: inc/Views/Settings/Tabs/General.php:318
-#: inc/Views/Settings/Tabs/General.php:398
-#: inc/Views/Settings/Tabs/General.php:415
+#: inc/Views/Settings/Tabs/General.php:316
+#: inc/Views/Settings/Tabs/General.php:396
+#: inc/Views/Settings/Tabs/General.php:413
 msgid "Ocultar"
 msgstr "Hide"
 
@@ -1668,10 +1680,10 @@ msgstr "Hide title"
 msgid "Ops! Não há conexão com a internet"
 msgstr "Oops! No internet connection"
 
-#: inc/Core/Ajax.php:179 inc/Core/Ajax.php:239 inc/Core/Ajax.php:262
-#: inc/Core/Ajax.php:273 inc/Core/Ajax.php:286 inc/Core/Ajax.php:306
-#: inc/Core/Ajax.php:317 inc/Core/Ajax.php:325 inc/Core/Ajax.php:333
-#: inc/Core/Ajax.php:403 inc/Core/Ajax.php:463
+#: inc/Core/Ajax.php:186 inc/Core/Ajax.php:246 inc/Core/Ajax.php:269
+#: inc/Core/Ajax.php:280 inc/Core/Ajax.php:293 inc/Core/Ajax.php:313
+#: inc/Core/Ajax.php:324 inc/Core/Ajax.php:332 inc/Core/Ajax.php:340
+#: inc/Core/Ajax.php:410 inc/Core/Ajax.php:470 inc/Core/Ajax.php:518
 msgid "Ops! Ocorreu um erro."
 msgstr "Oops! An error occurred."
 
@@ -1777,7 +1789,7 @@ msgstr "Pix: %s"
 msgid "Pixel"
 msgstr "Pixel"
 
-#: inc/Views/Settings/Tabs/General.php:413
+#: inc/Views/Settings/Tabs/General.php:411
 msgid "Popup (Padrão)"
 msgstr "Popup (Default)"
 
@@ -1785,7 +1797,7 @@ msgstr "Popup (Default)"
 msgid "Popup - Formas de pagamento"
 msgstr "Popup - Payment methods"
 
-#: inc/Views/Settings/Tabs/General.php:422
+#: inc/Views/Settings/Tabs/General.php:420
 msgid ""
 "Posição das formas de pagamento e parcelas na página de produto individual"
 msgstr ""
@@ -1838,7 +1850,7 @@ msgid "Preço no Pix"
 msgstr "Price on Pix"
 
 #: inc/Views/Settings.php:17 inc/Views/Settings/Tabs/About.php:53
-#: inc/Views/Settings/Tabs/About.php:184
+#: inc/Views/Settings/Tabs/About.php:185
 #: inc/Views/Settings/Tabs/Discounts.php:41
 #: inc/Views/Settings/Tabs/Discounts.php:60
 #: inc/Views/Settings/Tabs/Discounts.php:79
@@ -1851,12 +1863,12 @@ msgstr "Price on Pix"
 #: inc/Views/Settings/Tabs/General.php:87
 #: inc/Views/Settings/Tabs/General.php:107
 #: inc/Views/Settings/Tabs/General.php:248
-#: inc/Views/Settings/Tabs/General.php:307
-#: inc/Views/Settings/Tabs/General.php:330
-#: inc/Views/Settings/Tabs/General.php:352
-#: inc/Views/Settings/Tabs/General.php:374
-#: inc/Views/Settings/Tabs/General.php:427
-#: inc/Views/Settings/Tabs/General.php:452
+#: inc/Views/Settings/Tabs/General.php:305
+#: inc/Views/Settings/Tabs/General.php:328
+#: inc/Views/Settings/Tabs/General.php:350
+#: inc/Views/Settings/Tabs/General.php:372
+#: inc/Views/Settings/Tabs/General.php:425
+#: inc/Views/Settings/Tabs/General.php:450
 #: inc/Views/Settings/Tabs/Interests.php:30
 #: inc/Views/Settings/Tabs/Interests.php:50
 #: inc/Views/Settings/Tabs/Payment_Methods.php:18
@@ -1961,7 +1973,7 @@ msgstr "Border radius:"
 msgid "Recursos:"
 msgstr "Resources:"
 
-#: inc/Views/Settings/Tabs/About.php:404
+#: inc/Views/Settings/Tabs/About.php:405
 msgid "Redefinir configurações"
 msgstr "Reset settings"
 
@@ -1984,7 +1996,7 @@ msgstr "rem"
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr "Remove price range on variable products"
 
-#: inc/Views/Settings/Tabs/About.php:432
+#: inc/Views/Settings/Tabs/About.php:433
 msgid "Reportar problemas"
 msgstr "Report problems"
 
@@ -2001,11 +2013,11 @@ msgstr "Empty response."
 msgid "Salvar alterações"
 msgstr "Save changes"
 
-#: inc/Core/Ajax.php:173
+#: inc/Core/Ajax.php:180
 msgid "Salvo com sucesso"
 msgstr "Successfully saved"
 
-#: inc/Views/Settings/Tabs/General.php:414
+#: inc/Views/Settings/Tabs/General.php:412
 msgid "Sanfona"
 msgstr "Accordion"
 
@@ -2133,7 +2145,7 @@ msgstr ""
 "If active, the discount badge will be displayed next to the title of the "
 "configured payment method."
 
-#: inc/Core/Init.php:199
+#: inc/Core/Init.php:202
 msgid "Seja PRO"
 msgstr "Go PRO"
 
@@ -2165,15 +2177,15 @@ msgstr "Go Pro - Custom Installments"
 msgid "Selecione o formato de exibição dos ícones dos elementos."
 msgstr "Select the display format for element icons."
 
-#: inc/Views/Settings/Tabs/General.php:378
+#: inc/Views/Settings/Tabs/General.php:376
 msgid "Selecione o local para exibir a informação das melhores parcelas."
 msgstr "Select the location to display the best installment information."
 
-#: inc/Views/Settings/Tabs/General.php:394
+#: inc/Views/Settings/Tabs/General.php:392
 msgid "Selecione o tipo de exibição da melhor parcela."
 msgstr "Select the type of display for the best installment."
 
-#: inc/Views/Settings/Tabs/General.php:409
+#: inc/Views/Settings/Tabs/General.php:407
 #| msgid ""
 #| "Selecione o tipo de exibição das parcelas na página de produto individual."
 msgid ""
@@ -2181,7 +2193,7 @@ msgid ""
 "individual."
 msgstr "Select how to display payment methods on the individual product page."
 
-#: inc/Views/Settings/Tabs/General.php:431
+#: inc/Views/Settings/Tabs/General.php:429
 msgid ""
 "Selecione onde o gancho que será exibido as formas de pagamento na página de "
 "produto individual."
@@ -2189,12 +2201,12 @@ msgstr ""
 "Select where the hook will display payment methods on the individual product "
 "page."
 
-#: inc/Views/Settings/Tabs/General.php:311
+#: inc/Views/Settings/Tabs/General.php:309
 msgid "Selecione onde o preço com desconto no Pix será exibido."
 msgstr "Select where the discounted price on Pix will be displayed."
 
-#: inc/Views/Settings/Tabs/General.php:334
-#: inc/Views/Settings/Tabs/General.php:356
+#: inc/Views/Settings/Tabs/General.php:332
+#: inc/Views/Settings/Tabs/General.php:354
 msgid "Selecione onde o preço com desconto será exibido."
 msgstr "Select where the discounted price will be displayed."
 
@@ -2206,15 +2218,15 @@ msgstr "Select a gateway"
 msgid "Seletores alvo"
 msgstr "Target selectors"
 
-#: inc/Views/Settings/Tabs/About.php:194
+#: inc/Views/Settings/Tabs/About.php:195
 msgid "Servidor"
 msgstr "Server"
 
-#: inc/Views/Settings/Tabs/General.php:439
+#: inc/Views/Settings/Tabs/General.php:437
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: inc/Views/Settings/Tabs/General.php:432
+#: inc/Views/Settings/Tabs/General.php:430
 #: inc/Views/Settings/Tabs/Payment_Methods.php:23
 #: inc/Views/Settings/Tabs/Payment_Methods.php:56
 #: inc/Views/Settings/Tabs/Payment_Methods.php:69
@@ -2223,14 +2235,18 @@ msgstr "Shortcode"
 msgid "Shortcode: "
 msgstr "Shortcode: "
 
-#: inc/Views/Settings/Tabs/About.php:152 inc/Views/Settings/Tabs/About.php:224
-#: inc/Views/Settings/Tabs/About.php:240 inc/Views/Settings/Tabs/About.php:259
+#: inc/Views/Settings/Tabs/About.php:153 inc/Views/Settings/Tabs/About.php:225
+#: inc/Views/Settings/Tabs/About.php:241 inc/Views/Settings/Tabs/About.php:260
 msgid "Sim"
 msgstr "Yes"
 
-#: inc/Views/Settings/Tabs/About.php:424
+#: inc/Views/Settings/Tabs/About.php:425
 msgid "Sim, desejo redefinir"
 msgstr "Yes, I want to reset"
+
+#: inc/Views/Settings/Tabs/About.php:85
+msgid "Sincronizar licença"
+msgstr ""
 
 #: inc/Admin/Admin_Options.php:162
 msgid "Sobre"
@@ -2240,7 +2256,7 @@ msgstr "About"
 msgid "Status da licença:"
 msgstr "License status:"
 
-#: inc/Views/Settings/Tabs/About.php:144
+#: inc/Views/Settings/Tabs/About.php:145
 msgid "Status do sistema:"
 msgstr "System status:"
 
@@ -2278,11 +2294,11 @@ msgstr "Text size:"
 msgid "Tamanho do ícone"
 msgstr "Icon size"
 
-#: inc/Views/Settings/Tabs/About.php:273
+#: inc/Views/Settings/Tabs/About.php:274
 msgid "Tamanho máximo da postagem do PHP:"
 msgstr "Maximum PHP post size:"
 
-#: inc/Views/Settings/Tabs/About.php:361
+#: inc/Views/Settings/Tabs/About.php:362
 msgid "Tamanho máximo de envio do PHP:"
 msgstr "Maximum PHP upload size:"
 
@@ -2427,7 +2443,7 @@ msgstr "Texts"
 msgid "Tipo da licença: %s"
 msgstr "License type: %s"
 
-#: inc/Views/Settings/Tabs/General.php:408
+#: inc/Views/Settings/Tabs/General.php:406
 msgid "Tipo de exibição das formas de pagamento"
 msgstr "Payment methods display type"
 
@@ -2458,16 +2474,16 @@ msgstr "Typography"
 msgid "Tipografia da tabela"
 msgstr "Table typography"
 
-#: inc/Core/Ajax.php:398
+#: inc/Core/Ajax.php:405
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr "All features of the Pro version are now deactivated!"
 
-#: inc/Core/Render_Elements.php:377
+#: inc/Core/Render_Elements.php:359
 #, php-format
 msgid "Total %s"
 msgstr "Total %s"
 
-#: woo-custom-installments.php:183 woo-custom-installments.php:194
+#: woo-custom-installments.php:180 woo-custom-installments.php:191
 msgid "Trapaceando?"
 msgstr "Cheating?"
 
@@ -2578,23 +2594,23 @@ msgstr "Fixed value ($)"
 msgid "Valor mínimo da parcela"
 msgstr "Minimum installment value"
 
-#: inc/Views/Settings/Tabs/About.php:326
+#: inc/Views/Settings/Tabs/About.php:327
 msgid "Valor mínimo recomendado é 10000"
 msgstr "Recommended minimum value is 10000"
 
-#: inc/Views/Settings/Tabs/About.php:348
+#: inc/Views/Settings/Tabs/About.php:349
 msgid "Valor mínimo recomendado é 128M"
 msgstr "Recommended minimum value is 128M"
 
-#: inc/Views/Settings/Tabs/About.php:304
+#: inc/Views/Settings/Tabs/About.php:305
 msgid "Valor mínimo recomendado é 180"
 msgstr "Recommended minimum value is 180"
 
-#: inc/Views/Settings/Tabs/About.php:282 inc/Views/Settings/Tabs/About.php:370
+#: inc/Views/Settings/Tabs/About.php:283 inc/Views/Settings/Tabs/About.php:371
 msgid "Valor mínimo recomendado é 64M"
 msgstr "Recommended minimum value is 64M"
 
-#: inc/Views/Settings/Tabs/About.php:317
+#: inc/Views/Settings/Tabs/About.php:318
 msgid "Variáveis máximas de entrada do PHP:"
 msgstr "Maximum PHP input variables:"
 
@@ -2602,28 +2618,28 @@ msgstr "Maximum PHP input variables:"
 msgid "Verificar atualizações"
 msgstr "Check updates"
 
-#: inc/Views/Settings/Tabs/About.php:243
+#: inc/Views/Settings/Tabs/About.php:244
 #, php-format
 msgid "Versão %s"
 msgstr "Version %s"
 
-#: inc/Views/Settings/Tabs/About.php:180
+#: inc/Views/Settings/Tabs/About.php:181
 msgid "Versão do Parcelas Customizadas para WooCommerce:"
 msgstr "Version of Custom Installments for WooCommerce:"
 
-#: inc/Views/Settings/Tabs/About.php:196
+#: inc/Views/Settings/Tabs/About.php:197
 msgid "Versão do PHP:"
 msgstr "PHP version:"
 
-#: inc/Views/Settings/Tabs/About.php:161
+#: inc/Views/Settings/Tabs/About.php:162
 msgid "Versão do WooCommerce:"
 msgstr "WooCommerce version:"
 
-#: inc/Views/Settings/Tabs/About.php:147
+#: inc/Views/Settings/Tabs/About.php:148
 msgid "Versão do WordPress:"
 msgstr "WordPress version:"
 
-#: inc/Views/Settings/Tabs/About.php:92
+#: inc/Views/Settings/Tabs/About.php:93
 msgid ""
 "Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
 "manual."
@@ -2634,19 +2650,19 @@ msgid "Válida"
 msgstr "Valid"
 
 #: inc/Views/Settings/Tabs/Discounts.php:221
-#: inc/Views/Settings/Tabs/General.php:440
+#: inc/Views/Settings/Tabs/General.php:438
 msgid "Widget para Elementor"
 msgstr "Widget for Elementor"
 
-#: inc/Views/Settings/Tabs/About.php:159
+#: inc/Views/Settings/Tabs/About.php:160
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: inc/Views/Settings/Tabs/About.php:145
+#: inc/Views/Settings/Tabs/About.php:146
 msgid "WordPress"
 msgstr "WordPress"
 
-#: inc/Views/Settings/Tabs/About.php:151
+#: inc/Views/Settings/Tabs/About.php:152
 msgid "WordPress Multisite:"
 msgstr "WordPress Multisite:"
 

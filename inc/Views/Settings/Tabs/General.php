@@ -18,7 +18,7 @@ defined('ABSPATH') || exit; ?>
 					<input type="checkbox" class="toggle-switch" id="enable_installments_all_products" name="enable_installments_all_products" value="yes" <?php checked( Admin_Options::get_setting('enable_installments_all_products') == 'yes' ); ?> />
 				</div>
 			</td>
-      	</tr>
+      </tr>
 
 		<tr>
 			<th>
@@ -268,23 +268,23 @@ defined('ABSPATH') || exit; ?>
                   <div class="popup-body">
                      <table class="popup-table">
                         <tr class="<?php echo ( License::is_valid()  ) ? '' : 'pro-version'; ?>">
-                           <td>
-                              <fieldset id="custom-installments-fieldset-custom-installments">
+                           	<td>
+                              	<fieldset id="custom-installments-fieldset-custom-installments">
                                  <?php
                                     $custom_fee_installments = maybe_unserialize( get_option('woo_custom_installments_custom_fee_installments', array()) );
                                     $limit_installments = Admin_Options::get_setting('max_qtd_installments');
                                     $init_loop = Admin_Options::get_setting('max_qtd_installments_without_fee') + 1;
                                     
                                     for ( $i = $init_loop; $i <= $limit_installments; $i++ ) :
-                                       $current_custom_fee = isset( $custom_fee_installments[$i]['amount'] ) ? floatval( $custom_fee_installments[$i]['amount'] ) : 0; ?>
+										$current_custom_fee = isset( $custom_fee_installments[$i]['amount'] ) ? floatval( $custom_fee_installments[$i]['amount'] ) : 0; ?>
 
-                                       <div class="input-group mb-2" data-installment="<?php echo $i; ?>">
-                                          <input class="custom-installment-first small-input form-control" type="text" disabled value="<?php echo $i; ?>"/>
-                                          <input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[<?php echo $i; ?>][amount]" id="custom_fee_installments[<?php echo $i; ?>]" value="<?php echo esc_attr( $current_custom_fee ); ?>" />
-                                       </div>
+										<div class="input-group mb-2" data-installment="<?php echo $i; ?>">
+											<input class="custom-installment-first small-input form-control" type="text" disabled value="<?php echo $i; ?>"/>
+											<input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[<?php echo $i; ?>][amount]" id="custom_fee_installments[<?php echo $i; ?>]" value="<?php echo esc_attr( $current_custom_fee ); ?>" />
+										</div>
                                     <?php endfor; ?>
-                              </fieldset>
-                           </td>
+                              	</fieldset>
+                           	</td>
                         </tr>
                      </table>
                   </div>
