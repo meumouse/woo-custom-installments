@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * Compatibility with Woodmart theme
  *
  * @since 4.5.0
- * @version 5.4.10
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Woodmart {
@@ -158,11 +158,14 @@ class Woodmart {
      * Get product id from Elementor preview from Woodmart
      * 
      * @since 5.4.0
+     * @version 5.5.0
      * @param int $product_id | Current product id
      * @return int
      */
     public function set_product_preview( $product_id ) {
-        $product_id = Single_Product::get_preview_product_id();
+        if ( Elementor::is_edit_mode() ) {
+            return Single_Product::get_preview_product_id();
+        }
 
         return $product_id;
     }

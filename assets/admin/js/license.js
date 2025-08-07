@@ -284,6 +284,56 @@
 		},
 
 		/**
+		 * Sync license infoormation
+		 * 
+		 * @since 5.5.0
+		 */
+		syncLicense: function() {
+			$(document).on('click', '#woo_custom_installments_refresh_license', function(e) {
+				e.preventDefault();
+
+				let btn = $(this);
+				let btn_state = License.keepButtonState(btn);
+
+				// send AJAX request
+				$.ajax({
+					url: params.ajax_url,
+					type: 'POST',
+					data: {
+						action: 'wci_sync_license_action',
+					},
+					beforeSend: function() {
+						btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+
+						// add placeholder animation on each license details item
+						$('.license-details-item').each( function() {
+							$(this).addClass('placeholder-content');
+						});
+					},
+					success: function(response) {
+						try {
+							if ( response.status === 'success' ) {
+								// display notice
+								License.displayToast( 'success', response.toast_header_title, response.toast_body_title );
+							} else {
+								License.displayToast( 'danger', response.toast_header_title, response.toast_body_title );
+							}
+						} catch (error) {
+							console.log(error);
+						}
+					},
+					complete: function() {
+						btn.prop('disabled', false).html(btn_state.html);
+						$('.license-details-item').removeClass('placeholder-content');
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.error('AJAX Error:', textStatus, errorThrown);
+					},
+				});
+			});
+		},
+
+		/**
 		 * Initialize modules
 		 * 
 		 * @since 5.4.0
@@ -293,6 +343,7 @@
             this.activateLicense();
 			this.deactivateLicense();
             this.handleLicenseUpload();
+			this.syncLicense();
 		},
 	};
 

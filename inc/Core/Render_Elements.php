@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.4.11
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -47,8 +47,6 @@ class Render_Elements {
 
 			// remove price range
 			if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) {
-				add_filter( 'woocommerce_variable_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
-				add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'starting_from_variable_product_price' ), 10, 2 );
 				add_action( 'Woo_Custom_Installments/Product/After_Price', array( $this, 'variation_prices_group' ), 10, 1 );
 			}
 
@@ -79,7 +77,7 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.4.11
+	 * @version 5.5.0
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
@@ -117,9 +115,13 @@ class Render_Elements {
 			 * @since 5.4.0
 			 * @param object $product | Product object
 			 */
-			do_action( 'Woo_Custom_Installments/Price/Prepend_Group', $product ); ?>
+			do_action( 'Woo_Custom_Installments/Price/Prepend_Group', $product );
+			
+			$remove_range_price = Admin_Options::get_setting('remove_price_range') === 'yes';
+			$variation_has_same_price = Helpers::variations_has_same_price( $product ); ?>
 
-			<div class="woo-custom-installments-group-main-price">
+			
+			<div class="woo-custom-installments-group-main-price <?php echo esc_attr( ( ! $variation_has_same_price && ! $remove_range_price ) ? 'has-range-price' : '' ) ?>">
 				<?php
 				$price_icon_base = Admin_Options::get_setting('elements_design')['price']['icon'];
 				$format = Admin_Options::get_setting('icon_format_elements');
@@ -137,32 +139,33 @@ class Render_Elements {
 
 				if ( $product && $product->is_type('variable') ) :
 					$min_regular_price = $product->get_variation_regular_price( 'min', true );
-					$min_sale_price = $product->get_variation_sale_price(   'min', true );
+					$min_sale_price = $product->get_variation_sale_price( 'min', true );
 
-					if ( ! Helpers::variations_has_same_price( $product ) ) :
-						if ( Admin_Options::get_setting('remove_price_range') === 'yes' && License::is_valid() ) :
-							if ( $min_sale_price < $min_regular_price ) : ?>
-								<span class="woo-custom-installments-price original-price has-discount">
-									<?php echo wc_price( $min_regular_price ); ?>
-								</span>
+					// has range price
+					if ( ! $variation_has_same_price ) :
+						if ( $remove_range_price && License::is_valid() ) :
+							$prefix_range = Admin_Options::get_setting('text_initial_variables');
+
+							if ( ! empty( $prefix_range ) ) : ?>
+								<span class="woo-custom-installments-starting-from"><?php echo $prefix_range ?></span>
 							<?php endif; ?>
 
-							<span class="woo-custom-installments-price sale-price">
+							<span class="woo-custom-installments-price">
 								<?php echo wc_price( $min_sale_price );
 
 								if ( $display_sale_badge === 'yes' ) :
 									echo $components->sale_badge( $product );
 								endif; ?>
 							</span>
-						<?php else :
-							if ( $min_sale_price < $min_regular_price ) : ?>
-								<span class="woo-custom-installments-price original-price has-discount">
-									<?php echo wc_price( $min_regular_price ); ?>
-								</span>
-							<?php endif; ?>
+						<?php else : ?>
+							<span class="woo-custom-installments-price">
+								<?php echo wc_price( $product->get_variation_price( 'min', true ) ); ?>
+							</span>
+
+							<span class="woo-custom-installments-range-price-dash">-</span>
 
 							<span class="woo-custom-installments-price">
-								<?php echo wc_price( $product->get_price() ); ?>
+								<?php echo wc_price( $product->get_variation_price( 'max', true ) ); ?>
 							</span>
 						<?php endif;
 					else :
@@ -306,27 +309,6 @@ class Render_Elements {
 		 * @param object $product | Product object
 		 */
 		do_action( 'Woo_Custom_Installments/Elements/After_Installments_Container', $product );
-	}
-
-
-    /**
-	 * Replace range price for "A partir de"
-	 * 
-	 * @since 2.4.0
-	 * @version 4.5.0
-	 * @param string $price | Product price
-	 * @param object $product | Product object
-	 * @return string
-	 */
-	public function starting_from_variable_product_price( $price, $product ) {
-		if ( ! Helpers::variations_has_same_price( $product ) ) {
-			$text_initial = ! empty( Admin_Options::get_setting('text_initial_variables') ) ? '<span class="woo-custom-installments-starting-from">' . Admin_Options::get_setting('text_initial_variables') . '</span>' : '';
-			$min_price = $product->get_variation_price( 'min', true );
-
-			$price = $text_initial . wc_price( $min_price );
-		}
-
-		return $price;
 	}
 
 

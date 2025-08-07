@@ -14,6 +14,7 @@ defined('ABSPATH') || exit;
  * Class for calculate installments
  *
  * @since 5.4.0
+ * @version 5.5.0
  * @package MeuMouse.com
  */
 class Calculate_Installments {
@@ -63,13 +64,13 @@ class Calculate_Installments {
      * Calculate all possible installment options
      * 
      * @since 1.0.0
-     * @version 5.4.0
+     * @version 5.5.0
      * @param array $append | Additional installments arrays to merge
      * @param float|null $price | Product price to use (if null, will fetch from product)
      * @param WC_Product|null $product | Product object (if null, will retrieve from global)
      * @return array List of installment info arrays
      */
-    public static function installments_list( array $append = array(), float $price = null, $product = null ): array {
+    public static function installments_list( $append = array(), $price = null, $product = null ) {
         // Early return if no product provided or product not available
         if ( ! $product ) {
             $product = Helpers::get_product_id_from_post();

@@ -300,7 +300,7 @@
 		 * @since 5.4.0
 		 */
 		updateCustomInstallmentsLoop: function() {
-			let limit_installments = parseInt($('#max_qtd_installments').val());
+			let limit_installments = parseInt( $('#max_qtd_installments').val() );
 			let limit_installments_without_fee = parseInt($('#max_qtd_installments_without_fee').val());
 			let loop_html = '';
 
