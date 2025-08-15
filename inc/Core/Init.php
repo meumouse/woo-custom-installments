@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.5.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Init {
@@ -71,9 +71,6 @@ class Init {
         // check if WooCommerce is active
         if ( is_plugin_active('woocommerce/woocommerce.php') && defined('WC_VERSION') && version_compare( WC_VERSION, '6.0', '>' ) ) {
             self::instance_classes();
-            
-            // set compatibility with HPOS
-            add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
 
             // add settings link on plugins list
             add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -101,23 +98,7 @@ class Init {
         do_action('Woo_Custom_Installments/Init');
     }
 
-
-    /**
-     * Setup WooCommerce High-Performance Order Storage (HPOS) compatibility
-     * 
-     * @since 3.2.0
-     * @version 5.4.0
-     * @return void
-     */
-    public function setup_hpos_compatibility() {
-        if ( defined('WC_VERSION') && version_compare( WC_VERSION, '7.1', '>' ) ) {
-            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_CUSTOM_INSTALLMENTS_FILE, true );
-            }
-        }
-    }
-
-
+    
     /**
      * WooCommerce version notice
      * 
@@ -241,46 +222,82 @@ class Init {
      * Instance classes after load Composer
      * 
      * @since 5.4.0
-     * @version 5.4.2
+     * @version 5.5.1
      * @return void
      */
     public static function instance_classes() {
+        $base_namespace = 'MeuMouse\\Woo_Custom_Installments';
+        $base_path = WOO_CUSTOM_INSTALLMENTS_INC;
+
         /**
          * Filter to add new classes
          * 
          * @since 5.4.0
          * @param array $classes | Array with classes to instance
          */
-        $classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array(
-            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Filters',
-            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Hooks',
-            '\MeuMouse\Woo_Custom_Installments\API\License',
-            '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
-            '\MeuMouse\Woo_Custom_Installments\Admin\Product_Settings',
-            '\MeuMouse\Woo_Custom_Installments\Core\Assets',
-            '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
-            '\MeuMouse\Woo_Custom_Installments\Core\Render_Elements',
-            '\MeuMouse\Woo_Custom_Installments\Core\Discounts',
-            '\MeuMouse\Woo_Custom_Installments\Core\Interests',
-            '\MeuMouse\Woo_Custom_Installments\Views\Shortcodes',
-            '\MeuMouse\Woo_Custom_Installments\Views\Styles',
-            '\MeuMouse\Woo_Custom_Installments\Cron\Routines',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Elementor',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Astra',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Ricky',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Machic',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Dynamic_Pricing_Discounts',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Tiered_Pricing_Table',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Woodmart',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Rank_Math',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Shoptimizer',
-        	'\MeuMouse\Woo_Custom_Installments\Core\Updater',
-        ));
+        $manual_classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array() );
 
-        // iterate for each class and instance it
-        foreach ( $classes as $class ) {
+        foreach ( $manual_classes as $class ) {
             if ( class_exists( $class ) ) {
-                new $class();
+                $instance = new $class();
+
+                if ( method_exists( $instance, 'init' ) ) {
+                    $instance->init();
+                }
+            }
+        }
+
+        // walk recursivily all that classes on /inc directory
+        $rii = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $base_path ) );
+
+        foreach ( $rii as $file ) {
+            if ( $file->isDir() || $file->getExtension() !== 'php' ) {
+                continue;
+            }
+
+            // Skip plain function files
+            if ( strpos( file_get_contents( $file->getPathname() ), 'class ' ) === false ) {
+                continue;
+            }
+
+            // relative path from inc/
+            $relative_path = substr( $file->getPathname(), strlen( $base_path ) );
+
+            // convert path to PSR-4 class name
+            $class_path = str_replace( ['/', '\\', '.php'], ['\\', '\\', '' ], $relative_path );
+            $class_name = $base_namespace . '\\' . $class_path;
+
+            // sanitize class name
+		    $class_name = trim( $class_name, '\\' );
+
+            // skip if class already declared
+            if ( class_exists( $class_name, false ) ) {
+                continue;
+            }
+
+            // try to load class
+            if ( ! class_exists( $class_name ) ) {
+                continue;
+            }
+
+            $reflection = new \ReflectionClass( $class_name );
+
+            // skip if not instantiable
+            if ( ! $reflection->isInstantiable() ) {
+                continue;
+            }
+
+            // skip if requires parameters
+            if ( $reflection->getConstructor() && $reflection->getConstructor()->getNumberOfRequiredParameters() > 0 ) {
+                continue;
+            }
+            
+            // safe instance
+            $instance = $reflection->newInstance();
+
+            // optional instance method
+            if ( method_exists( $instance, 'init' ) ) {
+                $instance->init();
             }
         }
     }

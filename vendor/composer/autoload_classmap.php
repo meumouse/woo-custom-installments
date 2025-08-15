@@ -35,6 +35,7 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Shoptimizer' => $baseDir . '/inc/Integrations/Shoptimizer.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Tiered_Pricing_Table' => $baseDir . '/inc/Integrations/Tiered_Pricing_Table.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Woodmart' => $baseDir . '/inc/Integrations/Woodmart.php',
+    'MeuMouse\\Woo_Custom_Installments\\Integrations\\Xstore' => $baseDir . '/inc/Integrations/Xstore.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Components' => $baseDir . '/inc/Views/Components.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Shortcodes' => $baseDir . '/inc/Views/Shortcodes.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Styles' => $baseDir . '/inc/Views/Styles.php',

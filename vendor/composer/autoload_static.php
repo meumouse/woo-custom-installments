@@ -50,6 +50,7 @@ class ComposerStaticInit4e8314f581795aac1d4759fd7c46784b
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Shoptimizer' => __DIR__ . '/../..' . '/inc/Integrations/Shoptimizer.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Tiered_Pricing_Table' => __DIR__ . '/../..' . '/inc/Integrations/Tiered_Pricing_Table.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Woodmart' => __DIR__ . '/../..' . '/inc/Integrations/Woodmart.php',
+        'MeuMouse\\Woo_Custom_Installments\\Integrations\\Xstore' => __DIR__ . '/../..' . '/inc/Integrations/Xstore.php',
         'MeuMouse\\Woo_Custom_Installments\\Views\\Components' => __DIR__ . '/../..' . '/inc/Views/Components.php',
         'MeuMouse\\Woo_Custom_Installments\\Views\\Shortcodes' => __DIR__ . '/../..' . '/inc/Views/Shortcodes.php',
         'MeuMouse\\Woo_Custom_Installments\\Views\\Styles' => __DIR__ . '/../..' . '/inc/Views/Styles.php',

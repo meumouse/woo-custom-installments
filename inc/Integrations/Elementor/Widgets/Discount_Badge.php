@@ -18,6 +18,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add discount badge
  * 
  * @since 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Discount_Badge extends Widget_Base {
@@ -235,5 +236,3 @@ class Discount_Badge extends Widget_Base {
 		echo $components->sale_badge( $product );
     }
 }
-
-$widgets_manager->register( new Discount_Badge() );

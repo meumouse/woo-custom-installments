@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add product price on single product page
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Price extends Widget_Base {
@@ -864,5 +864,3 @@ class Price extends Widget_Base {
         }
 	}
 }
-
-$widgets_manager->register( new Price() );

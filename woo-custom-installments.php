@@ -7,10 +7,10 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.5.0
+ * Version: 					5.5.1
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
- * WC tested up to: 			10.0.4
+ * WC tested up to: 			10.1.0
  * Requires PHP: 				7.4
  * Tested up to:      			6.8.2
  * Text Domain: 				woo-custom-installments
@@ -59,21 +59,40 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.5.0';
+		public static $version = '5.5.1';
 
 		/**
 		 * Constructor function
 		 *
 		 * @since 1.0.0
-		 * @version 5.4.8
+		 * @version 5.5.1
 		 * @return void
 		 */
 		public function __construct() {
 			// hook before plugin init
 			do_action('Woo_Custom_Installments/Before_Init');
 
+			// set compatibility with HPOS
+            add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
+
 			// load plugin after wooocommerce is loaded
-			add_action( 'woocommerce_loaded', array( $this, 'init' ), 99 );
+			add_action( 'wp_loaded', array( $this, 'init' ), 99 );
+		}
+
+
+		/**
+		 * Setup WooCommerce High-Performance Order Storage (HPOS) compatibility
+		 * 
+		 * @since 3.2.0
+		 * @version 5.5.1
+		 * @return void
+		 */
+		public function setup_hpos_compatibility() {
+			if ( defined('WC_VERSION') && version_compare( WC_VERSION, '7.1', '>' ) ) {
+				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+				}
+			}
 		}
 		
 

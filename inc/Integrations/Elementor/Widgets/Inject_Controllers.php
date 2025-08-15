@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
  * Add controllers on Elementor widgets
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Inject_Controllers {
@@ -795,5 +795,3 @@ class Inject_Controllers {
         $element->end_controls_section();
     }
 }
-
-new Inject_Controllers();
