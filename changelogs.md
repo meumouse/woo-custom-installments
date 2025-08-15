@@ -1,6 +1,7 @@
 Versão 5.5.1 (15/08/2025)
 * Otimizações
     - Carregamento de classes dinâmica
+* Recurso adicionado: Controles de estilos para widgets do Elementor para tema XStore
 
 Versão 5.5.0 (07/08/2025)
 * Correção de bugs

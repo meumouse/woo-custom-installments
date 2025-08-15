@@ -41,6 +41,10 @@ if ( defined('ETHEME_THEME_NAME') && ETHEME_THEME_NAME === 'XStore' ) {
                 'etheme_product_carousel' => 'section_product_style',
                 'woocommerce-product-etheme_cross_sells' => 'section_general_style_section',
                 'etheme_product_list' => 'section_product_style',
+                'et-custom-products-masonry' => 'style_section',
+                'et-advanced-tabs' => 'et_section_tabs_style_settings',
+                'etheme_ajax_search' => 'section_style_general',
+                'woocommerce-product-etheme_related' => 'section_general_style_section',
             );
 
             return array_merge( $widgets, $new_widgets );
