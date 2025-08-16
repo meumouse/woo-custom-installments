@@ -44,7 +44,7 @@
 				const full_value = value && unit ? `${value}${unit}` : value;
 
 				if (value) {
-					Settings.updateStyles(device, element, full_property, full_value);
+					Settings.updateStyles( device, element, full_property, full_value );
 				}
 			});
 		},
@@ -66,7 +66,7 @@
 				// Reads the index stored in localStorage, if it exists
 				let active_tab_index = localStorage.getItem('woo_custom_installments_active_tab_index');
 
-				if (active_tab_index === null) {
+				if ( active_tab_index === null ) {
 					// If it is null, activate the general tab
 					$('.woo-custom-installments-tab-wrapper a.nav-tab[href="#general"]').click();
 				} else {

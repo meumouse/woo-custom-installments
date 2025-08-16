@@ -376,33 +376,42 @@ class Calculate_Values {
 
 
     /**
-	 * Calculate Pix economy value
-	 *
-	 * @since 4.5.0
-	 * @version 5.5.0
-	 * @param object $product | WC_Product object
-	 * @return float | Economy value
-	 */
-	public static function get_pix_economy( $product ) {
+     * Calculate Pix economy value
+     *
+     * @since 4.5.0
+     * @version 5.5.1
+     * @param object $product | WC_Product object
+     * @return float | Economy value
+     */
+    public static function get_pix_economy( $product ) {
         if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'is_type' ) ) {
             return 0;
         }
-        
-		$price = $product->get_sale_price() ?: $product->get_regular_price();
 
-		// Calculate the custom discounted price based on the "main" discount type
-		$custom_price = self::get_discounted_price( $product, 'main' );
-		
-		// Calculate the economy value (how much is saved with Pix)
-		$economy = (float) $price - (float) $custom_price;
+        // Get base price considering product type
+        if ( $product->is_type('variation') ) {
+            $price = $product->get_sale_price() ?: $product->get_regular_price();
+        } elseif ( $product->is_type('variable') ) {
+            // Use lowest variation price
+            $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
+        } else {
+            $price = $product->get_sale_price() ?: $product->get_regular_price();
+        }
+
+        // Calculate the custom discounted price based on the "main" discount type
+        $custom_price = self::get_discounted_price( $product, 'main' );
+
+        // Economy = difference between base price and discounted price
+        $economy = max( 0, (float) $price - (float) $custom_price );
 
         /**
          * Filter the calculated economy value
          * 
          * @since 4.5.0
-         * @version 5.4.0
+         * @version 5.5.1
          * @param float $economy | Economy value
+         * @param object $product | WC_Product object
          */
-		return apply_filters( 'Woo_Custom_Installments/Price/Economy_Pix_Price', $economy );
-	}
+        return apply_filters( 'Woo_Custom_Installments/Price/Economy_Pix_Price', $economy, $product );
+    }
 }
