@@ -3,7 +3,7 @@
 namespace MeuMouse\Woo_Custom_Installments\Cron;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
-use MeuMouse\Woo_Custom_Installments\Core\Updater;
+use MeuMouse\Woo_Custom_Installments\API\Updater;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -12,6 +12,7 @@ defined('ABSPATH') || exit;
  * Class for handle with Cron routines
  * 
  * @since 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Routines {
@@ -42,6 +43,6 @@ class Routines {
         }
 
         // check daily updates
-        add_action( 'Woo_Custom_Installments/Updates/Check_Daily_Updates', array( '\MeuMouse\Woo_Custom_Installments\Core\Updater', 'check_daily_updates' ) );
+        add_action( 'Woo_Custom_Installments/Updates/Check_Daily_Updates', array( '\MeuMouse\Woo_Custom_Installments\API\Updater', 'check_daily_updates' ) );
 	}
 }

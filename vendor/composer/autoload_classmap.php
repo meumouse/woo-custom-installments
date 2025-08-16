@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'MeuMouse\\Woo_Custom_Installments\\API\\License' => $baseDir . '/inc/API/License.php',
+    'MeuMouse\\Woo_Custom_Installments\\API\\Updater' => $baseDir . '/inc/API/Updater.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Admin_Options' => $baseDir . '/inc/Admin/Admin_Options.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Default_Options' => $baseDir . '/inc/Admin/Default_Options.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Product_Settings' => $baseDir . '/inc/Admin/Product_Settings.php',
@@ -24,7 +25,6 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Core\\Logger' => $baseDir . '/inc/Core/Logger.php',
     'MeuMouse\\Woo_Custom_Installments\\Core\\Render_Elements' => $baseDir . '/inc/Core/Render_Elements.php',
     'MeuMouse\\Woo_Custom_Installments\\Core\\Schema' => $baseDir . '/inc/Core/Schema.php',
-    'MeuMouse\\Woo_Custom_Installments\\Core\\Updater' => $baseDir . '/inc/Core/Updater.php',
     'MeuMouse\\Woo_Custom_Installments\\Cron\\Routines' => $baseDir . '/inc/Cron/Routines.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Astra' => $baseDir . '/inc/Integrations/Astra.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Dynamic_Pricing_Discounts' => $baseDir . '/inc/Integrations/Dynamic_Pricing_Discounts.php',

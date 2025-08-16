@@ -23,6 +23,7 @@ class ComposerStaticInit4e8314f581795aac1d4759fd7c46784b
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'MeuMouse\\Woo_Custom_Installments\\API\\License' => __DIR__ . '/../..' . '/inc/API/License.php',
+        'MeuMouse\\Woo_Custom_Installments\\API\\Updater' => __DIR__ . '/../..' . '/inc/API/Updater.php',
         'MeuMouse\\Woo_Custom_Installments\\Admin\\Admin_Options' => __DIR__ . '/../..' . '/inc/Admin/Admin_Options.php',
         'MeuMouse\\Woo_Custom_Installments\\Admin\\Default_Options' => __DIR__ . '/../..' . '/inc/Admin/Default_Options.php',
         'MeuMouse\\Woo_Custom_Installments\\Admin\\Product_Settings' => __DIR__ . '/../..' . '/inc/Admin/Product_Settings.php',
@@ -39,7 +40,6 @@ class ComposerStaticInit4e8314f581795aac1d4759fd7c46784b
         'MeuMouse\\Woo_Custom_Installments\\Core\\Logger' => __DIR__ . '/../..' . '/inc/Core/Logger.php',
         'MeuMouse\\Woo_Custom_Installments\\Core\\Render_Elements' => __DIR__ . '/../..' . '/inc/Core/Render_Elements.php',
         'MeuMouse\\Woo_Custom_Installments\\Core\\Schema' => __DIR__ . '/../..' . '/inc/Core/Schema.php',
-        'MeuMouse\\Woo_Custom_Installments\\Core\\Updater' => __DIR__ . '/../..' . '/inc/Core/Updater.php',
         'MeuMouse\\Woo_Custom_Installments\\Cron\\Routines' => __DIR__ . '/../..' . '/inc/Cron/Routines.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Astra' => __DIR__ . '/../..' . '/inc/Integrations/Astra.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Dynamic_Pricing_Discounts' => __DIR__ . '/../..' . '/inc/Integrations/Dynamic_Pricing_Discounts.php',
