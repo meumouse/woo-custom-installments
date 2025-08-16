@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.4.8
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Components {

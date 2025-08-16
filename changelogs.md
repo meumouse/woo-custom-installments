@@ -1,7 +1,10 @@
 Versão 5.5.1 (16/08/2025)
+* Correção de bugs
+    - Informação de economia no Pix não era exibido no loop de produtos
 * Otimizações
     - Carregamento de classes dinâmica
 * Recurso adicionado: Controles de estilos para widgets do Elementor para tema XStore
+* Recurso adicionado: Controles de estilos para loop carrossel e loop grid do Elementor
 
 Versão 5.5.0 (07/08/2025)
 * Correção de bugs

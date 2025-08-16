@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.5.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Calculate_Values {

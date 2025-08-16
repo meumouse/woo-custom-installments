@@ -36,7 +36,7 @@ class Inject_Controllers {
      * Add Woo Custom Installments element design controllers on Elementor Widgets in design section
      * 
      * @since 5.0.0
-     * @version 5.4.0
+     * @version 5.5.1
      * @param \Elementor\Controls_Stack $element | The element type
      * @param string $section_id | Section ID
      * @param array $args | Section arguments
@@ -50,7 +50,7 @@ class Inject_Controllers {
          * section_design_box = section ID
          * 
          * @since 5.0.0
-         * @version 5.4.0
+         * @version 5.5.1
          * @param array
          */
         $widgets = apply_filters( 'Woo_Custom_Installments/Elementor/Inject_Controllers', array(
@@ -59,6 +59,8 @@ class Inject_Controllers {
             'woocommerce-product-related' => 'section_design_box',
             'woocommerce-product-upsell' => 'section_design_box',
             'wc-archive-products' => 'section_design_box',
+            'loop-carousel' => 'section_layout_style',
+            'loop-grid' => 'section_layout_style',
         ));
 
         foreach ( $widgets as $widget_id => $section ) {
