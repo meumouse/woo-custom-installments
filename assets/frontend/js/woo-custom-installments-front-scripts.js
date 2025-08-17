@@ -10,6 +10,10 @@
      */
     const params = window.wci_front_params || {};
 
+	if ( params.dev_mode ) {
+		console.log('Woo Custom Installments: Front scripts loaded.', params);
+	}
+
 	/**
 	 * Save current price
 	 * 
@@ -559,17 +563,23 @@
 						price_container.find('.woo-custom-installments-details.best-value.no-fee').html(installments_details);
 					}
                 } else {
-                    fee = fee.toString().replace(',', '.') / 100;
+                    fee = parseFloat(fee.toString().replace(',', '.')) / 100;
 
-                    if ( params.installments.fee !== fee ) {
-                        final_cost = get_price + ( get_price * fee );
-                        price = final_cost / i;
-                    } else {
-                        var exp = Math.pow(1 + fee, i);
-						
-                        price = get_price * fee * exp / (exp - 1);
-                        final_cost = price * i;
-                    }
+					if ( fee === 0 ) {
+						// se a taxa for 0, trata como sem juros
+						final_cost = get_price;
+						price = get_price / i;
+					} else {
+						// juros simples ou compostos
+						if ( params.installments.fee !== fee ) {
+							final_cost = get_price + (get_price * fee);
+							price = final_cost / i;
+						} else {
+							var exp = Math.pow(1 + fee, i);
+							price = get_price * fee * exp / (exp - 1);
+							final_cost = price * i;
+						}
+					}
 
                     if ( price < params.installments.min_installment ) {
                         break;

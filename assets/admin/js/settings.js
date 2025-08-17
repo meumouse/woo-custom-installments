@@ -320,16 +320,24 @@
 		 * Change visibility of containers based on checkbox state
 		 * 
 		 * @since 5.4.0
-		 * @param {string} trigger - Selector for the checkbox
-		 * @param {string} container - Selector for the container
+		 * @version 5.5.1
+		 * @param {string|object} trigger | Selector or jQuery object for the checkbox
+		 * @param {string} container | Selector for the container
+		 * @param {boolean} visibility | If true, container is visible when checked. If false, container is visible when unchecked.
 		 */
-		changeVisibility: function(trigger, container) {
-			let checked = $(trigger).prop('checked');
+		changeVisibility: function( trigger, container, visibility = true ) {
+			let $trigger = $(trigger);
 
-			$(container).toggleClass('d-none', ! checked);
+			// set initial visibility based on checkbox state
+			let checked = $trigger.prop('checked');
 
-			$(trigger).click( function() {
-				Settings.changeVisibility( $(this), container );
+			$(container).toggleClass('d-none', visibility ? !checked : checked);
+
+			// update state on click
+			$trigger.on('click', function() {
+				let isChecked = $(this).prop('checked');
+
+        		$(container).toggleClass('d-none', visibility ? !isChecked : isChecked);
 			});
 
 			Settings.updatePaymentFormsVisibility();
@@ -799,56 +807,62 @@
 		 * Initialize visibility controllers
 		 * 
 		 * @since 2.4.0
-		 * @version 5.4.0
+		 * @version 5.5.1
 		 */
 		initializeVisibilityControllers: function() {
 			// Hide input "Texto inicial em produtos variáveis (A partir de)"
-			Settings.changeVisibility('#remove_price_range', '.starting-from, .remove-price-range-dep');
+			Settings.changeVisibility( '#remove_price_range', '.starting-from, .remove-price-range-dep' );
 
 			// Enable all interest options
-			Settings.changeVisibility('#enable_all_interest_options', '.display-enable-all-interest-options');
+			Settings.changeVisibility( '#enable_all_interest_options', '.display-enable-all-interest-options' );
 			
 			// Enable all discount options
-			Settings.changeVisibility('#enable_all_discount_options', '.display-enable-all-discount-options');
+			Settings.changeVisibility( '#enable_all_discount_options', '.display-enable-all-discount-options' );
 
 			// Active text on active pix method
-			Settings.changeVisibility('#enable_pix_method_payment_form', '.admin-container-transfers');
+			Settings.changeVisibility( '#enable_pix_method_payment_form', '.admin-container-transfers' );
 		
 			// Active text on active ticket method
-			Settings.changeVisibility('#enable_ticket_method_payment_form', '.admin-container-ticket');
+			Settings.changeVisibility( '#enable_ticket_method_payment_form', '.admin-container-ticket' );
 		
 			// Active text on active credit card method
-			Settings.changeVisibility('#enable_credit_card_method_payment_form', '.admin-container-credit-card');
+			Settings.changeVisibility( '#enable_credit_card_method_payment_form', '.admin-container-credit-card' );
 
 			// Active text on active debit card method
-			Settings.changeVisibility('#enable_debit_card_method_payment_form', '.admin-container-debit-card');
+			Settings.changeVisibility( '#enable_debit_card_method_payment_form', '.admin-container-debit-card' );
 		
 			// Display more settings after active discount per quantity
-			Settings.changeVisibility('#enable_functions_discount_per_quantity', '.discount-per-quantity-option');
+			Settings.changeVisibility( '#enable_functions_discount_per_quantity', '.discount-per-quantity-option' );
 
 			// Display custom text after price
-			Settings.changeVisibility('#custom_text_after_price', '.tr-custom-text-after-price');
+			Settings.changeVisibility( '#custom_text_after_price', '.tr-custom-text-after-price' );
 
 			// Display discount ticket option
-			Settings.changeVisibility('#enable_ticket_method_payment_form', '.admin-discount-ticket-option');
+			Settings.changeVisibility( '#enable_ticket_method_payment_form', '.admin-discount-ticket-option' );
 
 			// Display economy Pix hook option
-			Settings.changeVisibility('#enable_economy_pix_badge', '.economy-pix-dependency');
+			Settings.changeVisibility( '#enable_economy_pix_badge', '.economy-pix-dependency' );
 
 			// Display custom hook settings
-			Settings.selectVisibilityController('#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook');
+			Settings.selectVisibilityController( '#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook' );
 
 			// Display remove price range settings
-			Settings.changeVisibility('#remove_price_range', '.require-remove-price-range');
+			Settings.changeVisibility('#remove_price_range', '.require-remove-price-range' );
 
 			// Display custom price modal settings
-			Settings.changeVisibility('#custom_text_after_price', '.require-custom-product-price');
+			Settings.changeVisibility( '#custom_text_after_price', '.require-custom-product-price' );
 
 			// Display custom product price container
-			Settings.changeVisibility('#add_discount_custom_product_price', '.require-add-discount-custom-product-price');
+			Settings.changeVisibility( '#add_discount_custom_product_price', '.require-add-discount-custom-product-price' );
 
 			// Display center elements selectors settings
-			Settings.changeVisibility('#center_group_elements_loop', '.require-center-group-elements');
+			Settings.changeVisibility( '#center_group_elements_loop', '.require-center-group-elements' );
+
+			// Display default fee input
+			Settings.changeVisibility( '#set_fee_per_installment', '#fee-global-settings', false );
+
+			// Display modal settings for custom fee per installment
+			Settings.changeVisibility( '#set_fee_per_installment', '#set_custom_fee_trigger' );
 		},
 
 		/**
