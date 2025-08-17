@@ -114,7 +114,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 			self::setup_constants();
 
 			// load Composer
-			require_once( WOO_CUSTOM_INSTALLMENTS_DIR . 'vendor/autoload.php' );
+			require_once WOO_CUSTOM_INSTALLMENTS_DIR . 'vendor/autoload.php';
 
 			// initialize classes
 			new \MeuMouse\Woo_Custom_Installments\Core\Init;

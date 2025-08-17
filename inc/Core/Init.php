@@ -14,7 +14,21 @@ defined('ABSPATH') || exit;
  */
 class Init {
 
+    /**
+     * Plugin basename
+     * 
+     * @since 5.4.0
+     * @return string
+     */
     public $basename = WOO_CUSTOM_INSTALLMENTS_BASENAME;
+
+    /**
+     * Plugin directory
+     * 
+     * @since 5.5.1
+     * @var string
+     */
+    public $directory = WOO_CUSTOM_INSTALLMENTS_DIR;
 
     /**
      * Construct function
@@ -70,7 +84,7 @@ class Init {
     
         // check if WooCommerce is active
         if ( is_plugin_active('woocommerce/woocommerce.php') && defined('WC_VERSION') && version_compare( WC_VERSION, '6.0', '>' ) ) {
-            self::instance_classes();
+            $this->instance_classes();
 
             // add settings link on plugins list
             add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -225,10 +239,7 @@ class Init {
      * @version 5.5.1
      * @return void
      */
-    public static function instance_classes() {
-        $base_namespace = 'MeuMouse\\Woo_Custom_Installments';
-        $base_path = WOO_CUSTOM_INSTALLMENTS_INC;
-
+    public function instance_classes() {
         /**
          * Filter to add new classes
          * 
@@ -237,6 +248,7 @@ class Init {
          */
         $manual_classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array() );
 
+        // iterate through manual classes and instance them
         foreach ( $manual_classes as $class ) {
             if ( class_exists( $class ) ) {
                 $instance = new $class();
@@ -247,55 +259,51 @@ class Init {
             }
         }
 
-        // walk recursivily all that classes on /inc directory
-        $rii = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $base_path ) );
+        // get classmap from Composer
+        $classmap = include_once $this->directory . 'vendor/composer/autoload_classmap.php';
 
-        foreach ( $rii as $file ) {
-            if ( $file->isDir() || $file->getExtension() !== 'php' ) {
+        // ensure classmap is an array
+        if ( ! is_array( $classmap ) ) {
+            $classmap = array();
+        }
+
+        // iterate through classmap and instance classes
+        foreach ( $classmap as $class => $path ) {
+            // skip classes not in the plugin namespace
+            if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\' ) !== 0 ) {
                 continue;
             }
 
-            // Skip plain function files
-            if ( strpos( file_get_contents( $file->getPathname() ), 'class ' ) === false ) {
+            // skip specific utility classes
+            if ( $class === 'Composer\\InstalledVersions' ) {
                 continue;
             }
 
-            // relative path from inc/
-            $relative_path = substr( $file->getPathname(), strlen( $base_path ) );
-
-            // convert path to PSR-4 class name
-            $class_path = str_replace( ['/', '\\', '.php'], ['\\', '\\', '' ], $relative_path );
-            $class_name = $base_namespace . '\\' . $class_path;
-
-            // sanitize class name
-		    $class_name = trim( $class_name, '\\' );
-
-            // skip if class already declared
-            if ( class_exists( $class_name, false ) ) {
+            // check if class exists
+            if ( ! class_exists( $class ) ) {
                 continue;
             }
 
-            // try to load class
-            if ( ! class_exists( $class_name ) ) {
-                continue;
-            }
+            // use ReflectionClass to check if class is instantiable
+            $reflection = new \ReflectionClass( $class );
 
-            $reflection = new \ReflectionClass( $class_name );
-
-            // skip if not instantiable
+            // instance only if class is not abstract, trait or interface
             if ( ! $reflection->isInstantiable() ) {
                 continue;
             }
 
-            // skip if requires parameters
-            if ( $reflection->getConstructor() && $reflection->getConstructor()->getNumberOfRequiredParameters() > 0 ) {
+            // check if class has a constructor
+            $constructor = $reflection->getConstructor();
+
+            // skip classes that require mandatory arguments in __construct
+            if ( $constructor && $constructor->getNumberOfRequiredParameters() > 0 ) {
                 continue;
             }
-            
-            // safe instance
-            $instance = $reflection->newInstance();
 
-            // optional instance method
+            // safe instance
+            $instance = new $class();
+
+            // this is useful for classes that need to run some initialization code
             if ( method_exists( $instance, 'init' ) ) {
                 $instance->init();
             }
