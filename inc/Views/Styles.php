@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Change colors on front-end
  *
  * @since 2.1.0
- * @version 5.5.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Styles {
@@ -35,7 +35,7 @@ class Styles {
      * Custom CSS for frontend
      * 
      * @since 2.0.0
-     * @version 5.5.0
+     * @version 5.5.1
      * @return string
      */
     public function render_styles() {
@@ -51,10 +51,11 @@ class Styles {
          * Filter to disable important styles
          * 
          * @since 5.0.0
+         * @version 5.5.1
          * @param bool $important
          * @return bool
          */
-        $force_important = apply_filters( 'Woo_Custom_Installments/Styles/Force_Important', true );
+        $force_important = apply_filters( 'Woo_Custom_Installments/Styles/Force_Important', false );
 
         $important = $force_important ? '!important' : '';
 

@@ -2,7 +2,7 @@
     "name": "meumouse/woo-custom-installments",
     "description": "Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.",
     "type": "library",
-    "license": "GPL-2.0-or-later",
+    "license": "Proprietary",
     "authors": [
         {
             "name": "MeuMouse.com",

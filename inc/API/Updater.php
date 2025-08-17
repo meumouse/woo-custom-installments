@@ -1,6 +1,6 @@
 <?php
 
-namespace MeuMouse\Woo_Custom_Installments\Core;
+namespace MeuMouse\Woo_Custom_Installments\API;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 
@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Class to make requests to a remote server to get plugin versions and updates
  *
  * @since 3.0.0
- * @version 5.4.6
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Updater {

@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add payment methods popup on single product page
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Wci_Popup extends Widget_Base {
@@ -291,5 +291,3 @@ class Wci_Popup extends Widget_Base {
         }
 	}
 }
-
-$widgets_manager->register( new Wci_Popup() );

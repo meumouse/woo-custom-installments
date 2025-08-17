@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for price info box on single product page
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Price_Info_Box extends Widget_Base {
@@ -255,5 +255,3 @@ class Price_Info_Box extends Widget_Base {
         }
     }
 }
-
-$widgets_manager->register( new Price_Info_Box() );

@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  * Elementor widget for add discount per quantity message
  * 
  * @since 5.2.0
- * @version 5.4.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Discount_Per_Quantity extends Widget_Base {
@@ -247,5 +247,3 @@ class Discount_Per_Quantity extends Widget_Base {
         }
 	}
 }
-
-$widgets_manager->register( new Discount_Per_Quantity() );

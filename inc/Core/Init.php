@@ -9,12 +9,26 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.5.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Init {
 
+    /**
+     * Plugin basename
+     * 
+     * @since 5.4.0
+     * @return string
+     */
     public $basename = WOO_CUSTOM_INSTALLMENTS_BASENAME;
+
+    /**
+     * Plugin directory
+     * 
+     * @since 5.5.1
+     * @var string
+     */
+    public $directory = WOO_CUSTOM_INSTALLMENTS_DIR;
 
     /**
      * Construct function
@@ -70,10 +84,7 @@ class Init {
     
         // check if WooCommerce is active
         if ( is_plugin_active('woocommerce/woocommerce.php') && defined('WC_VERSION') && version_compare( WC_VERSION, '6.0', '>' ) ) {
-            self::instance_classes();
-            
-            // set compatibility with HPOS
-            add_action( 'before_woocommerce_init', array( $this, 'setup_hpos_compatibility' ) );
+            $this->instance_classes();
 
             // add settings link on plugins list
             add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -101,23 +112,7 @@ class Init {
         do_action('Woo_Custom_Installments/Init');
     }
 
-
-    /**
-     * Setup WooCommerce High-Performance Order Storage (HPOS) compatibility
-     * 
-     * @since 3.2.0
-     * @version 5.4.0
-     * @return void
-     */
-    public function setup_hpos_compatibility() {
-        if ( defined('WC_VERSION') && version_compare( WC_VERSION, '7.1', '>' ) ) {
-            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_CUSTOM_INSTALLMENTS_FILE, true );
-            }
-        }
-    }
-
-
+    
     /**
      * WooCommerce version notice
      * 
@@ -241,46 +236,76 @@ class Init {
      * Instance classes after load Composer
      * 
      * @since 5.4.0
-     * @version 5.4.2
+     * @version 5.5.1
      * @return void
      */
-    public static function instance_classes() {
+    public function instance_classes() {
         /**
          * Filter to add new classes
          * 
          * @since 5.4.0
          * @param array $classes | Array with classes to instance
          */
-        $classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array(
-            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Filters',
-            '\MeuMouse\Woo_Custom_Installments\Compatibility\Legacy_Hooks',
-            '\MeuMouse\Woo_Custom_Installments\API\License',
-            '\MeuMouse\Woo_Custom_Installments\Admin\Admin_Options',
-            '\MeuMouse\Woo_Custom_Installments\Admin\Product_Settings',
-            '\MeuMouse\Woo_Custom_Installments\Core\Assets',
-            '\MeuMouse\Woo_Custom_Installments\Core\Ajax',
-            '\MeuMouse\Woo_Custom_Installments\Core\Render_Elements',
-            '\MeuMouse\Woo_Custom_Installments\Core\Discounts',
-            '\MeuMouse\Woo_Custom_Installments\Core\Interests',
-            '\MeuMouse\Woo_Custom_Installments\Views\Shortcodes',
-            '\MeuMouse\Woo_Custom_Installments\Views\Styles',
-            '\MeuMouse\Woo_Custom_Installments\Cron\Routines',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Elementor',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Astra',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Ricky',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Machic',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Dynamic_Pricing_Discounts',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Tiered_Pricing_Table',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Woodmart',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Rank_Math',
-            '\MeuMouse\Woo_Custom_Installments\Integrations\Shoptimizer',
-        	'\MeuMouse\Woo_Custom_Installments\Core\Updater',
-        ));
+        $manual_classes = apply_filters( 'Woo_Custom_Installments/Init/Instance_Classes', array() );
 
-        // iterate for each class and instance it
-        foreach ( $classes as $class ) {
+        // iterate through manual classes and instance them
+        foreach ( $manual_classes as $class ) {
             if ( class_exists( $class ) ) {
-                new $class();
+                $instance = new $class();
+
+                if ( method_exists( $instance, 'init' ) ) {
+                    $instance->init();
+                }
+            }
+        }
+
+        // get classmap from Composer
+        $classmap = include_once $this->directory . 'vendor/composer/autoload_classmap.php';
+
+        // ensure classmap is an array
+        if ( ! is_array( $classmap ) ) {
+            $classmap = array();
+        }
+
+        // iterate through classmap and instance classes
+        foreach ( $classmap as $class => $path ) {
+            // skip classes not in the plugin namespace
+            if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\' ) !== 0 ) {
+                continue;
+            }
+
+            // skip specific utility classes
+            if ( $class === 'Composer\\InstalledVersions' ) {
+                continue;
+            }
+
+            // check if class exists
+            if ( ! class_exists( $class ) ) {
+                continue;
+            }
+
+            // use ReflectionClass to check if class is instantiable
+            $reflection = new \ReflectionClass( $class );
+
+            // instance only if class is not abstract, trait or interface
+            if ( ! $reflection->isInstantiable() ) {
+                continue;
+            }
+
+            // check if class has a constructor
+            $constructor = $reflection->getConstructor();
+
+            // skip classes that require mandatory arguments in __construct
+            if ( $constructor && $constructor->getNumberOfRequiredParameters() > 0 ) {
+                continue;
+            }
+
+            // safe instance
+            $instance = new $class();
+
+            // this is useful for classes that need to run some initialization code
+            if ( method_exists( $instance, 'init' ) ) {
+                $instance->init();
             }
         }
     }

@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.4.8
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Components {
@@ -1048,7 +1048,7 @@ class Components {
 	 * Create a economy Pix badge
 	 * 
 	 * @since 3.6.0
-	 * @version 5.4.6
+	 * @version 5.5.1
 	 * @param WC_Product $product | Product object
 	 * @return string
 	 */
@@ -1062,17 +1062,14 @@ class Components {
 		}
 
 		// check is disabled display discount on product
-		$disabled_discount = get_post_meta( $product->get_id(), '__disable_discount_main_price', true ) === 'yes';
+		$product_id = $product->get_id();
 
 		// Check if parent product has discount disabled (for variations)
-		if ( $product->is_type('variation') ) {
-			$parent_id = $product->get_parent_id();
-			$parent_disable = get_post_meta( $parent_id, '__disable_discount_main_price', true );
-
-			if ( $parent_disable === 'yes' ) {
-				return;
-			}
+		if ( $product->is_type('variable') ) {
+			$product_id = $product->get_parent_id();
 		}
+		
+		$disabled_discount = get_post_meta( $product_id, '__disable_discount_main_price', true ) === 'yes';
 
 		// check is disabled display installments on product
 		if ( $disabled_discount ) {
@@ -1082,7 +1079,7 @@ class Components {
 		$economy_value = Calculate_Values::get_pix_economy( $product );
 
 		if ( $economy_value <= 0 ) {
-			return '';
+			return;
 		}
 
 		// Check if exists text before price for display

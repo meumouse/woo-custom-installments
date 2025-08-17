@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'MeuMouse\\Woo_Custom_Installments\\API\\License' => $baseDir . '/inc/API/License.php',
+    'MeuMouse\\Woo_Custom_Installments\\API\\Updater' => $baseDir . '/inc/API/Updater.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Admin_Options' => $baseDir . '/inc/Admin/Admin_Options.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Default_Options' => $baseDir . '/inc/Admin/Default_Options.php',
     'MeuMouse\\Woo_Custom_Installments\\Admin\\Product_Settings' => $baseDir . '/inc/Admin/Product_Settings.php',
@@ -24,7 +25,6 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Core\\Logger' => $baseDir . '/inc/Core/Logger.php',
     'MeuMouse\\Woo_Custom_Installments\\Core\\Render_Elements' => $baseDir . '/inc/Core/Render_Elements.php',
     'MeuMouse\\Woo_Custom_Installments\\Core\\Schema' => $baseDir . '/inc/Core/Schema.php',
-    'MeuMouse\\Woo_Custom_Installments\\Core\\Updater' => $baseDir . '/inc/Core/Updater.php',
     'MeuMouse\\Woo_Custom_Installments\\Cron\\Routines' => $baseDir . '/inc/Cron/Routines.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Astra' => $baseDir . '/inc/Integrations/Astra.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Dynamic_Pricing_Discounts' => $baseDir . '/inc/Integrations/Dynamic_Pricing_Discounts.php',
@@ -35,6 +35,7 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Shoptimizer' => $baseDir . '/inc/Integrations/Shoptimizer.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Tiered_Pricing_Table' => $baseDir . '/inc/Integrations/Tiered_Pricing_Table.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Woodmart' => $baseDir . '/inc/Integrations/Woodmart.php',
+    'MeuMouse\\Woo_Custom_Installments\\Integrations\\Xstore' => $baseDir . '/inc/Integrations/Xstore.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Components' => $baseDir . '/inc/Views/Components.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Shortcodes' => $baseDir . '/inc/Views/Shortcodes.php',
     'MeuMouse\\Woo_Custom_Installments\\Views\\Styles' => $baseDir . '/inc/Views/Styles.php',

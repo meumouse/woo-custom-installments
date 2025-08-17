@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.5.0
+ * @version 5.5.1
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -22,12 +22,24 @@ class Render_Elements {
      * Construct function
      * 
      * @since 5.4.0
+	 * @version 5.5.1
      * @return void
      */
     public function __construct() {
         if ( Admin_Options::get_setting('enable_installments_all_products') === 'yes' ) {
+			/**
+			 * Set priority for price group
+			 *
+			 * Developers can change this priority using:
+			 * add_filter( 'Woo_Custom_Installments/Price/Priority', function() { return 30; } );
+			 *
+			 * @since 5.5.1
+			 * @return int
+			 */
+			$priority = apply_filters( 'Woo_Custom_Installments/Price/Priority', 999 );
+
             // display wci elements on main price html
-			add_filter( 'woocommerce_get_price_html', array( $this, 'display_price_group' ), 30, 2 );
+			add_filter( 'woocommerce_get_price_html', array( $this, 'display_price_group' ), $priority, 2 );
 			add_filter( 'Woo_Custom_Installments/Price/Group_Classes', array( $this, 'add_group_classes' ), 10, 2 );
 
             // display discount on Pix on cart page
