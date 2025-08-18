@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 5.4.3
+ * @version 5.5.2
  * @package MeuMouse.com
  */
 class Assets {
@@ -168,7 +168,7 @@ class Assets {
      * Get frontend params to script
      * 
      * @since 5.4.0
-     * @version 5.4.3
+     * @version 5.5.2
      * @return array
      */
     public function frontend_params() {
@@ -252,7 +252,7 @@ class Assets {
                 'type' => $product->get_type(),
                 'regular_price' => (float) $product->get_regular_price(),
                 'sale_price' => (float) $product->get_sale_price(),
-                'current_price' => $product->get_price(),
+                'current_price' => (float) $product->get_price(),
             );
         }
 

@@ -7,7 +7,7 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.5.1
+ * Version: 					5.5.2
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
  * WC tested up to: 			10.1.0
@@ -59,7 +59,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.5.1';
+		public static $version = '5.5.2';
 
 		/**
 		 * Constructor function
@@ -176,8 +176,8 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 				'WOO_CUSTOM_INSTALLMENTS_VERSION' => self::$version,
 				'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL' => get_option('admin_email'),
 				'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK' => 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview',
-				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => false,
-				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => false,
+				'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE' => true,
+				'WOO_CUSTOM_INSTALLMENTS_DEV_MODE' => true,
 			);
 
 			// iterate for each constant item
