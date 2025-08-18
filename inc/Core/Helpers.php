@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Helpers functions
  * 
  * @since 4.5.0
- * @version 5.4.7
+ * @version 5.5.3
  * @package MeuMouse.com
  */
 class Helpers {
@@ -177,7 +177,7 @@ class Helpers {
      * Get product ID from post when editing with Elementor
      * 
      * @since 5.0.0
-     * @version 5.4.0
+     * @version 5.5.3
      * @param bool $product | Get product object for get id
      * @return mixed | Product ID or false
      */
@@ -195,7 +195,7 @@ class Helpers {
         }
 
         // Check if Elementor is in edit mode
-        if ( ! $product && Elementor::is_edit_mode() && $post ) {
+        if ( class_exists('\Elementor\Plugin') && ! $product && Elementor::is_edit_mode() && $post ) {
             $post_content = $post->post_content;
 
             // Checks if there is JSON content in post_content

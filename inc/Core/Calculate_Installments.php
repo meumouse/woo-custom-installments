@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Class for calculate installments
  *
  * @since 5.4.0
- * @version 5.5.0
+ * @version 5.5.3
  * @package MeuMouse.com
  */
 class Calculate_Installments {
@@ -64,7 +64,7 @@ class Calculate_Installments {
      * Calculate all possible installment options
      * 
      * @since 1.0.0
-     * @version 5.5.0
+     * @version 5.5.3
      * @param array $append | Additional installments arrays to merge
      * @param float|null $price | Product price to use (if null, will fetch from product)
      * @param WC_Product|null $product | Product object (if null, will retrieve from global)
@@ -77,7 +77,7 @@ class Calculate_Installments {
         }
 
 		// Check Elementor edit mode
-		if ( ! Elementor::is_edit_mode() && ( ! $product || ! Helpers::is_product_available( $product ) ) ) {
+		if ( class_exists('\Elementor\Plugin') && ! Elementor::is_edit_mode() && ( ! $product || ! Helpers::is_product_available( $product ) ) ) {
 			return array();
 		}
 
