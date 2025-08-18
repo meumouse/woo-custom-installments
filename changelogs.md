@@ -2,6 +2,7 @@ Versão 5.5.2 (18/08/2025)
 * Correção de bugs
     - Alguns widgets para Elementor não estão sendo carregados
     - Preço promocional não é atualizado ao alterar quantidade
+* Otimizações
 
 Versão 5.5.1 (17/08/2025)
 * Correção de bugs
