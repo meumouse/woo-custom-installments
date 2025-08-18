@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
  * Add controllers on Elementor widgets
  * 
  * @since 5.0.0
- * @version 5.4.0
+ * @version 5.5.2
  * @package MeuMouse.com
  */
 class Inject_Controllers {
@@ -75,7 +75,7 @@ class Inject_Controllers {
      * Woo Custom Installments element design controllers
      * 
      * @since 5.0.0
-     * @version 5.2.0
+     * @version 5.5.2
      * @param \Elementor\Controls_Stack $element | The element type
      * @return void
      */
@@ -281,9 +281,9 @@ class Inject_Controllers {
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
-				'default' => 'block',
+				'default' => 'flex',
                 'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group-main-price' => 'display: {{VALUE}} !important;',
+                    '{{WRAPPER}} .woo-custom-installments-group-main-price' => 'display: {{VALUE}};',
                 ),
             ),
 		);
@@ -797,5 +797,3 @@ class Inject_Controllers {
         $element->end_controls_section();
     }
 }
-
-new Inject_Controllers();

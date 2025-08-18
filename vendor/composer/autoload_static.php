@@ -44,6 +44,7 @@ class ComposerStaticInit4e8314f581795aac1d4759fd7c46784b
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Astra' => __DIR__ . '/../..' . '/inc/Integrations/Astra.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Dynamic_Pricing_Discounts' => __DIR__ . '/../..' . '/inc/Integrations/Dynamic_Pricing_Discounts.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor' => __DIR__ . '/../..' . '/inc/Integrations/Elementor.php',
+        'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor\\Inject_Controllers' => __DIR__ . '/../..' . '/inc/Integrations/Elementor/Inject_Controllers.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Machic' => __DIR__ . '/../..' . '/inc/Integrations/Machic.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Rank_Math' => __DIR__ . '/../..' . '/inc/Integrations/Rank_Math.php',
         'MeuMouse\\Woo_Custom_Installments\\Integrations\\Ricky' => __DIR__ . '/../..' . '/inc/Integrations/Ricky.php',

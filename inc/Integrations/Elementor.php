@@ -16,7 +16,7 @@ if ( class_exists('\Elementor\Plugin') ) {
      * Add Woo Custom Installments widgets on Elementor
      *
      * @since 5.0.0
-     * @version 5.5.1
+     * @version 5.5.2
      * @package MeuMouse.com
      */
     class Elementor {
@@ -83,20 +83,12 @@ if ( class_exists('\Elementor\Plugin') ) {
          * Register Custom Installments Widget
          *
          * @since 5.0.0
-         * @version 5.5.1
+         * @version 5.5.2
          * @param object $widgets_manager | Elementor widgets manager
          * @return void
          */
         public function register_widgets( $widgets_manager ) {
-            /**
-             * Filter for register Elementor widgets
-             * 
-             * @since 5.0.0
-             * @version 5.4.0
-             * @param array $widgets | Array with widgets to register
-             */
-            $widgets = apply_filters( 'Woo_Custom_Installments/Elementor/Register_Widgets', array(
-                'Inject_Controllers.php',
+            $widgets = array(
                 'Single_Product_Price.php',
                 'Popup_Payment_Methods.php',
                 'Accordion_Payment_Methods.php',
@@ -106,20 +98,16 @@ if ( class_exists('\Elementor\Plugin') ) {
                 'Price_Info_Box.php',
                 'Discount_Per_Quantity.php',
                 'Discount_Badge.php',
-            ));
+            );
 
             foreach ( $widgets as $file ) {
                 $file_path = WOO_CUSTOM_INSTALLMENTS_INC . 'Integrations/Elementor/Widgets/' . $file;
 
                 if ( file_exists( $file_path ) ) {
-                    require_once $file_path;
+                    include_once $file_path;
 
                     // get class name based on file
                     $class_name = str_replace( '.php', '', $file );
-
-                    if ( $class_name === 'Inject_Controllers' ) {
-                        continue;
-                    }
 
                     $class_name = "\\MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor\\{$class_name}";
 

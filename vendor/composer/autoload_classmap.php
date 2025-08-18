@@ -29,6 +29,7 @@ return array(
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Astra' => $baseDir . '/inc/Integrations/Astra.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Dynamic_Pricing_Discounts' => $baseDir . '/inc/Integrations/Dynamic_Pricing_Discounts.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor' => $baseDir . '/inc/Integrations/Elementor.php',
+    'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor\\Inject_Controllers' => $baseDir . '/inc/Integrations/Elementor/Inject_Controllers.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Machic' => $baseDir . '/inc/Integrations/Machic.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Rank_Math' => $baseDir . '/inc/Integrations/Rank_Math.php',
     'MeuMouse\\Woo_Custom_Installments\\Integrations\\Ricky' => $baseDir . '/inc/Integrations/Ricky.php',

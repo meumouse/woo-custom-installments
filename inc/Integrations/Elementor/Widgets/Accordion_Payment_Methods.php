@@ -20,10 +20,10 @@ defined('ABSPATH') || exit;
  * Elementor widget for add payment methods popup on single product page
  * 
  * @since 5.0.0
- * @version 5.5.1
+ * @version 5.5.2
  * @package MeuMouse.com
  */
-class Wci_Accordion extends Widget_Base {
+class Accordion_Payment_Methods extends Widget_Base {
 
 	/**
 	 * Get widget name
