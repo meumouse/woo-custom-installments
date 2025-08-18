@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Change colors on front-end
  *
  * @since 2.1.0
- * @version 5.5.1
+ * @version 5.5.3
  * @package MeuMouse.com
  */
 class Styles {
@@ -388,7 +388,7 @@ class Styles {
 	 * Hide installments info on WooCommerce product table on admin page
 	 * 
 	 * @since 4.3.5
-	 * @version 5.4.0
+	 * @version 5.5.3
 	 * @return void
 	 */
 	public function adjustment_styles_product_list() {
@@ -397,7 +397,8 @@ class Styles {
 		.woo-custom-installments-offer,
 		.woo-custom-installments-economy-pix-badge,
 		.woo-custom-installments-ticket-discount,
-		.wci-sale-badge {
+		.wci-sale-badge,
+        .woo-custom-installments-card-container {
 			display: none;
 		}
 

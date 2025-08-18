@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.5.1
+ * @version 5.5.3
  * @package MeuMouse.com
  */
 class Components {
@@ -828,7 +828,7 @@ class Components {
 	 * Display best installments
 	 * 
 	 * @since 2.1.0
-	 * @version 5.4.6
+	 * @version 5.5.3
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -881,7 +881,7 @@ class Components {
 		$html .= ' </span>';
 
 		// check if we are on Elementor edit mode
-		if ( Elementor::is_edit_mode() ) {
+		if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() ) {
 			return $html;
 		}
 
@@ -898,7 +898,7 @@ class Components {
 	 * Discount product main price
 	 * 
 	 * @since 3.6.0
-	 * @version 5.4.6
+	 * @version 5.5.3
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -956,7 +956,7 @@ class Components {
 		$html .= '</span>';
 
 		// check if we are on Elementor edit mode
-		if ( Elementor::is_edit_mode() ) {
+		if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() ) {
 			return $html;
 		}
 
@@ -975,7 +975,7 @@ class Components {
 	 * Create a ticket discount badge
 	 * 
 	 * @since 2.8.0
-	 * @version 5.4.6
+	 * @version 5.5.3
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -1029,7 +1029,7 @@ class Components {
 		$html .= '</span>';
 
 		// check if we are on Elementor edit mode
-		if ( Elementor::is_edit_mode() ) {
+		if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() ) {
 			return $html;
 		}
 
@@ -1048,7 +1048,7 @@ class Components {
 	 * Create a economy Pix badge
 	 * 
 	 * @since 3.6.0
-	 * @version 5.5.1
+	 * @version 5.5.3
 	 * @param WC_Product $product | Product object
 	 * @return string
 	 */
@@ -1111,7 +1111,7 @@ class Components {
 			$html .= '</span>';
 
 			// check if we are on Elementor edit mode
-			if ( Elementor::is_edit_mode() ) {
+			if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() ) {
 				return $html;
 			}
 

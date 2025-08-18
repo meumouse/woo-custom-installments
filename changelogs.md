@@ -1,3 +1,7 @@
+Versão 5.5.3 (18/08/2025)
+* Correção de bugs
+    - Correção de compatibilidade com Elementor
+
 Versão 5.5.2 (18/08/2025)
 * Correção de bugs
     - Alguns widgets para Elementor não estão sendo carregados

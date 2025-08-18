@@ -17,7 +17,7 @@ if ( defined('WOODMART_VERSION') || function_exists('woodmart_theme_setup') || f
      * Compatibility with Woodmart theme
      *
      * @since 4.5.0
-     * @version 5.5.1
+     * @version 5.5.3
      * @package MeuMouse.com
      */
     class Woodmart {
@@ -141,11 +141,12 @@ if ( defined('WOODMART_VERSION') || function_exists('woodmart_theme_setup') || f
          * Set product object on Elementor editor
          * 
          * @since 5.4.0
+         * @version 5.5.3
          * @param object $product | Product object
          * @return object
          */
         public function set_product_object( $product ) {
-            if ( Elementor::is_edit_mode() && Main::is_layout_type('single_product') ) {
+            if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() && Main::is_layout_type('single_product') ) {
                 $product_id = Helpers::get_product_id_from_post();
                 $product = wc_get_product( $product_id );
 
@@ -160,12 +161,12 @@ if ( defined('WOODMART_VERSION') || function_exists('woodmart_theme_setup') || f
          * Get product id from Elementor preview from Woodmart
          * 
          * @since 5.4.0
-         * @version 5.5.0
+         * @version 5.5.3
          * @param int $product_id | Current product id
          * @return int
          */
         public function set_product_preview( $product_id ) {
-            if ( Elementor::is_edit_mode() ) {
+            if ( class_exists('\Elementor\Plugin') && Elementor::is_edit_mode() ) {
                 return Single_Product::get_preview_product_id();
             }
 
