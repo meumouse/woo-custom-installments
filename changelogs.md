@@ -1,3 +1,7 @@
+Versão 5.5.2 (18/08/2025)
+* Correção de bugs
+    - Alguns widgets para Elementor não estão sendo carregados
+
 Versão 5.5.1 (17/08/2025)
 * Correção de bugs
     - Informação de economia no Pix não era exibido no loop de produtos

@@ -19,10 +19,10 @@ defined('ABSPATH') || exit;
  * Elementor widget for add product price on single product page
  * 
  * @since 5.0.0
- * @version 5.5.1
+ * @version 5.5.2
  * @package MeuMouse.com
  */
-class Price extends Widget_Base {
+class Single_Product_Price extends Widget_Base {
 
 	/**
 	 * Get widget name
@@ -115,7 +115,7 @@ class Price extends Widget_Base {
 	 * Register the widget controls
      * 
      * @since 5.0.0
-     * @version 5.4.0
+     * @version 5.5.2
      * @return void
 	 */
 	protected function register_controls() {
@@ -320,9 +320,9 @@ class Price extends Widget_Base {
 				'label_on' => esc_html__( 'Ocultar', 'woo-custom-installments' ),
 				'label_off' => esc_html__( 'Mostrar', 'woo-custom-installments' ),
 				'return_value' => 'none',
-				'default' => 'block',
+				'default' => 'flex',
                 'selectors' => array(
-                    '{{WRAPPER}} .woo-custom-installments-group-main-price' => 'display: {{VALUE}} !important;',
+                    '{{WRAPPER}} .woo-custom-installments-group-main-price' => 'display: {{VALUE}};',
                 ),
             ),
 		);
