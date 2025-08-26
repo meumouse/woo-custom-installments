@@ -670,4 +670,18 @@
     jQuery(document).ready( function($) {
         Woo_Custom_Installments.init();
     });
+
+	/**
+	 * Export API to global scope
+	 * 
+	 * @since 5.5.4
+	 */
+	window.Woo_Custom_Installments = Woo_Custom_Installments;
+
+	/**
+	 * Fire trigger when plugin is ready for use
+	 * 
+	 * @since 5.5.4
+	 */
+	jQuery(document).trigger('woo_custom_installments_ready');
 })(jQuery);
