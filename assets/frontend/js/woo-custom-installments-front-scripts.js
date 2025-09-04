@@ -626,22 +626,22 @@
          * Initialize all modules
          * 
          * @since 5.4.0
-		 * @version 5.5.2
+		 * @version 5.5.4
          */
         init: function() {
             this.initAccordion();
             this.initModal();
 
+			current_price.old_price = params.product.regular_price;
+			current_price.new_price = params.product.current_price;
+
 			// fill current price object
 			if ( params.product.type === 'variable' ) {
-					// on found or show variation
+				// on found or show variation
 				$(document).on('found_variation show_variation', 'form.variations_form', function(e, variation) {
 					current_price.old_price = variation.display_regular_price;
 					current_price.new_price = variation.display_price;
 				});
-			} else {
-				current_price.old_price = params.product.regular_price;
-				current_price.new_price = params.product.current_price;
 			}
 
 			// Initialize price range
