@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Connect to license authentication server
  * 
  * @since 2.0.0
- * @version 5.4.3
+ * @version 5.5.4
  * @package MeuMouse.com
  */
 class License {
@@ -973,6 +973,7 @@ class License {
      * Check expiration license on schedule event
      * 
      * @since 5.4.0
+     * @version 5.5.4
      * @return void
      */
     public static function schedule_license_expiration_check( $expiration_timestamp = 0 ) {
@@ -981,25 +982,31 @@ class License {
 
         if ( $expiration_timestamp > 0 ) {
             if ( $expiration_timestamp > time() ) {
-                // Add 24h to timestamp
-                $expiration_timestamp += DAY_IN_SECONDS;
+                // Add 3 days to timestamp
+                $expiration_timestamp += 3 * DAY_IN_SECONDS;
 
                 // Schedule event to expire at exactly the right time
                 wp_schedule_single_event( $expiration_timestamp, 'Woo_Custom_Installments/License/Check_Expires_Time' );
             }
         } else {
-            $object_query = get_option('woo_custom_installments_license_response_object');
-    
-            if ( is_object( $object_query ) && ! empty( $object_query->expire_date ) ) {
-                $expiration_timestamp = strtotime( $object_query->expire_date );
-        
-                if ( $expiration_timestamp > time() ) {
-                    // Add 24h to timestamp
-                    $expiration_timestamp += DAY_IN_SECONDS;
-    
-                    // Schedule event to expire at exactly the right time
-                    wp_schedule_single_event( $expiration_timestamp, 'Woo_Custom_Installments/License/Check_Expires_Time' );
+            $info = get_option('woo_custom_installments_license_info');
+
+            if ( is_object( $info ) && ! empty( $info->expiry_time ) ) {
+                $expiration_timestamp = strtotime( $info->expiry_time );
+            } else {
+                $object_query = get_option('woo_custom_installments_license_response_object');
+
+                if ( is_object( $object_query ) && ! empty( $object_query->expire_date ) ) {
+                    $expiration_timestamp = strtotime( $object_query->expire_date );
                 }
+            }
+
+            if ( ! empty( $expiration_timestamp ) && $expiration_timestamp > time() ) {
+                // Add 3 days to timestamp
+                $expiration_timestamp += 3 * DAY_IN_SECONDS;
+
+                // Schedule event to expire at exactly the right time
+                wp_schedule_single_event( $expiration_timestamp, 'Woo_Custom_Installments/License/Check_Expires_Time' );
             }
         }
 

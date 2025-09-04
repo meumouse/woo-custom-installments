@@ -198,7 +198,7 @@
 		 * Validate input numbers
 		 * 
 		 * @since 2.0.0
-		 * @version 5.4.0
+		 * @version 5.5.4
 		 */
 		validateInputNumbers: function() {
 			let inputs = $('.allow-numbers-be-1, .allow-numbers-be-0');
@@ -212,22 +212,13 @@
 					$input.val(min_value);
 				}
 			});
-		},
 
-		/**
-		 * Hide toast on click button or after 5 seconds
-		 * 
-		 * @since 2.0.0
-		 * @version 5.4.0
-		 */
-		hideToasts: function() {
-			$(document).on('click', '.hide-toast', function() {
-				$('.toast').fadeOut('fast');
+			// on blur, if empty, set to 0
+			$('#max_qtd_installments_without_fee').on('blur', function() {
+				if ( $(this).val().trim() === '' ) {
+					$(this).val(0);
+				}
 			});
-	
-			setTimeout( function() {
-				$('.toast').fadeOut('fast');
-			}, 3000);
 		},
 
 		/**
@@ -301,15 +292,15 @@
 		 */
 		updateCustomInstallmentsLoop: function() {
 			let limit_installments = parseInt( $('#max_qtd_installments').val() );
-			let limit_installments_without_fee = parseInt($('#max_qtd_installments_without_fee').val());
+			let limit_installments_without_fee = parseInt( $('#max_qtd_installments_without_fee').val() );
 			let loop_html = '';
 
 			for ( let i = limit_installments_without_fee + 1; i <= limit_installments; i++ ) {
 				let current_custom_fee = parseFloat( $(`input[name="custom_fee_installments[${i}][amount]"]`).val() ) || 0;
 
 				loop_html += `<div class="input-group mb-2" data-installment="${i}">`;
-				loop_html += `<input class="custom-installment-first small-input form-control" type="text" disabled value="${i}"/>`;
-				loop_html += `<input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[${i}][amount]" id="custom_fee_installments[${i}]" value="${current_custom_fee}" />`;
+					loop_html += `<input class="custom-installment-first small-input form-control" type="text" disabled value="${i}"/>`;
+					loop_html += `<input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[${i}][amount]" id="custom_fee_installments[${i}]" value="${current_custom_fee}" />`;
 				loop_html += `</div>`;
 			}
 
@@ -485,6 +476,7 @@
 		 * Show toast messages in wrapper
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 * @param {string} type - success, danger, warning
 		 * @param {string} header - title of the toast
 		 * @param {string} body - body of the toast
@@ -498,7 +490,7 @@
 				<div class="toast-header bg-${type} text-white">
 					<svg class="icon icon-white me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
 					<span class="me-auto">${header}</span>
-					<button class="btn-close btn-close-white ms-2 hide-toast" type="button" aria-label="${params.i18n.aria_label_modal}"></button>
+					<button class="btn-close btn-close-white ms-2" type="button" aria-label="${params.i18n.aria_label_modal}"></button>
 				</div>
 				<div class="toast-body">${body}</div>
 			</div>`;
@@ -510,6 +502,10 @@
 					$(this).remove();
 				});
 			}, 3000);
+
+			$(document).on('click', '.toast .btn-close', function() {
+				$('.toast.show').fadeOut('fast');
+			});
 		},
 		
 		/**
@@ -931,12 +927,12 @@
 		 * Initialize modules
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 */
 		init: function() {
 			this.activateTabs();
 			this.saveSettings();
 			this.validateInputNumbers();
-			this.hideToasts();
 			this.updateCustomInstallmentsLoop();
 			this.updatePaymentFormsVisibility();
 			this.changeIconClass();

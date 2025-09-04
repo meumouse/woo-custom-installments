@@ -1,3 +1,9 @@
+Versão 5.5.4 (08/09/2025)
+* Correção de bugs
+    - Unsupported operand types: string + int (devido a ficar vazio o campo de maximo de parcelas sem juros)
+* Otimizações
+* Recurso adicionado: API exposta em window.Woo_Custom_Installments e disparo do evento woo_custom_installments_ready
+
 Versão 5.5.3 (18/08/2025)
 * Correção de bugs
     - Correção de compatibilidade com Elementor

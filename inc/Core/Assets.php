@@ -43,7 +43,7 @@ class Assets {
      * Enqueue admin scripts in page settings only
      * 
      * @since 2.0.0
-     * @version 5.4.0
+     * @version 5.5.4
      * @return void
      */
     public function admin_assets() {
@@ -74,6 +74,7 @@ class Assets {
             wp_localize_script( 'woo-custom-installments-admin-scripts', 'wci_params', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'debug_mode' => $this->debug_mode,
+                'license_valid' => License::is_valid(),
                 'i18n' => array(
                     'aria_label_modal' => esc_html__( 'Fechar', 'woo-custom-installments' ),
                     'offline_toast_header' => esc_html__( 'Ops! Não há conexão com a internet', 'woo-custom-installments' ),

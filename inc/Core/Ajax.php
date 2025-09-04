@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Class for handle AJAX callbacks
  * 
  * @since 4.5.0
- * @version 5.5.0
+ * @version 5.5.4
  * @package MeuMouse.com
  */
 class Ajax {
@@ -65,9 +65,6 @@ class Ajax {
 
         // deactive license process
         add_action( 'wp_ajax_wci_deactive_license_action', array( $this, 'deactive_license_callback' ) );
-
-        // clear activation cache
-        add_action( 'wp_ajax_clear_activation_cache_action', array( $this, 'clear_activation_cache_callback' ) );
 
         // reset plugin to default
         add_action( 'wp_ajax_reset_plugin_action', array( $this, 'reset_plugin_callback' ) );
@@ -380,7 +377,7 @@ class Ajax {
      * Deactive license on AJAX callback
      * 
      * @since 4.5.0
-     * @version 5.4.3
+     * @version 5.5.4
      * @return void
      */
     public function deactive_license_callback() {
@@ -394,6 +391,7 @@ class Ajax {
                 delete_option('woo_custom_installments_license_response_object');
                 delete_option('woo_custom_installments_alternative_license');
                 delete_option('woo_custom_installments_temp_license_key');
+                delete_option('woo_custom_installments_license_info');
                 delete_option('woo_custom_installments_alternative_license_activation');
                 delete_transient('woo_custom_installments_api_request_cache');
                 delete_transient('woo_custom_installments_api_response_cache');
@@ -418,34 +416,10 @@ class Ajax {
 
 
     /**
-     * Clear activation cache on AJAX callback
-     * 
-     * @since 4.5.0
-     * @return void
-     */
-    public function clear_activation_cache_callback() {
-        if ( isset( $_POST['action'] ) && $_POST['action'] === 'clear_activation_cache_action' ) {
-            delete_transient('woo_custom_installments_api_request_cache');
-            delete_transient('woo_custom_installments_api_response_cache');
-            delete_transient('woo_custom_installments_license_status_cached');
-            delete_option('woo_custom_installments_alternative_license');
-            delete_option('woo_custom_installments_alternative_license_activation');
-
-            $response = array(
-                'status' => 'success',
-                'toast_header_title' => esc_html__( 'Cache de ativação limpo', 'woo-custom-installments' ),
-                'toast_body_title' => esc_html__( 'O cache de ativação foi limpo com sucesso!', 'woo-custom-installments' ),
-            );
-
-            wp_send_json( $response );
-        }
-    }
-
-
-    /**
      * Reset plugin options to default on AJAX callback
      * 
      * @since 4.5.0
+     * @version 5.5.4
      * @return void
      */
     public function reset_plugin_callback() {
@@ -458,6 +432,7 @@ class Ajax {
                 delete_option('woo_custom_installments_custom_fee_installments');
                 delete_option('woo_custom_installments_alternative_license');
                 delete_option('woo_custom_installments_alternative_license_activation');
+                delete_option('woo_custom_installments_license_info');
 
                 $response = array(
                     'status' => 'success',
@@ -480,7 +455,7 @@ class Ajax {
     /**
      * Sync license on AJAX callback
      * 
-     * @since 5.5.0
+     * @since 5.5.4
      * @return void
      */
     public function sync_license_callback() {
@@ -502,15 +477,53 @@ class Ajax {
 
             $response_body = wp_remote_retrieve_body( $response );
             $response_code = wp_remote_retrieve_response_code( $response );
-
-            error_log( 'Sync license response: ' . print_r( json_decode( $response_body, true ), true ) );
+            $details = json_decode( $response_body );
 
             if ( $response_code === 200 ) {
+                if ( $details ) {
+                    update_option( 'woo_custom_installments_license_info', $details );
+
+                    $data = $details->data;
+
+                    $obj = new \stdClass();
+                    $obj->is_valid = ( $data->status === 'A' );
+                    $obj->expire_date  = isset( $data->expiry_time ) ? $data->expiry_time : '';
+                    $obj->license_title= isset( $data->license_title ) ? $data->license_title : '';
+                    $obj->license_key = isset( $data->purchase_key ) ? $data->purchase_key : '';
+
+                    update_option( 'woo_custom_installments_license_response_object', $obj );
+                    update_option( 'woo_custom_installments_license_status', $obj->is_valid ? 'valid' : 'invalid' );
+
+                    if ( ! empty( $obj->expire_date ) && $obj->expire_date !== 'No expiry' ) {
+                        License::schedule_license_expiration_check( strtotime( $obj->expire_date ) );
+                    }
+                }
+
+                $date_format = get_option('date_format');
+                $status_html = '<span class="badge bg-translucent-danger rounded-pill">' . esc_html__( 'Inválida', 'woo-custom-installments' ) . '</span>';
+                $features_html = '<span class="badge bg-translucent-warning rounded-pill">' . esc_html__( 'Básicos', 'woo-custom-installments' ) . '</span>';
+                $type_text = '';
+                $expire_text = '';
+
+                if ( $obj->is_valid ) {
+                    $status_html = '<span class="badge bg-translucent-success rounded-pill">' . esc_html__( 'Válida', 'woo-custom-installments' ) . '</span>';
+                    $features_html = '<span class="badge bg-translucent-primary rounded-pill">' . esc_html__( 'Pro', 'woo-custom-installments' ) . '</span>';
+
+                    $expire_format = ( $obj->expire_date === 'No expiry' ) ? esc_html__( 'Nunca expira', 'woo-custom-installments' ) : date( $date_format, strtotime( $obj->expire_date ) );
+                    $type_text = ( strpos( $obj->license_key, 'CM-' ) === 0 ) ? sprintf( esc_html__( 'Assinatura: Clube M - %s', 'woo-custom-installments' ), $data->license_title ) : sprintf( esc_html__( 'Tipo da licença: %s', 'woo-custom-installments' ), $data->license_title );
+                    $expire_text = sprintf( esc_html__( 'Licença expira em: %s', 'woo-custom-installments' ), $expire_format );
+                }
 
                 $response = array(
                     'status' => 'success',
                     'toast_header_title' => esc_html__( 'Informações atualizadas', 'woo-custom-installments' ),
                     'toast_body_title' => esc_html__( 'A licença foi sincronizada com sucesso!', 'woo-custom-installments' ),
+                    'license' => array(
+                        'status_html' => $status_html,
+                        'features_html' => $features_html,
+                        'type_html' => $type_text,
+                        'expire_html' => $expire_text,
+                    ),
                 );
             } else {
                 $response = array(
