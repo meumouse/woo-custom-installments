@@ -8,6 +8,10 @@
 	 */
 	const params = window.wci_params || {};
 
+	if ( params.debug_mode ) {
+		console.log( 'WCI admin params: ', params );
+	}
+
 	/**
 	 * Object variable for settings page
 	 * 
@@ -198,7 +202,7 @@
 		 * Validate input numbers
 		 * 
 		 * @since 2.0.0
-		 * @version 5.4.0
+		 * @version 5.5.4
 		 */
 		validateInputNumbers: function() {
 			let inputs = $('.allow-numbers-be-1, .allow-numbers-be-0');
@@ -212,22 +216,13 @@
 					$input.val(min_value);
 				}
 			});
-		},
 
-		/**
-		 * Hide toast on click button or after 5 seconds
-		 * 
-		 * @since 2.0.0
-		 * @version 5.4.0
-		 */
-		hideToasts: function() {
-			$(document).on('click', '.hide-toast', function() {
-				$('.toast').fadeOut('fast');
+			// on blur, if empty, set to 0
+			$('#max_qtd_installments_without_fee').on('blur', function() {
+				if ( $(this).val().trim() === '' ) {
+					$(this).val(0);
+				}
 			});
-	
-			setTimeout( function() {
-				$('.toast').fadeOut('fast');
-			}, 3000);
 		},
 
 		/**
@@ -301,15 +296,15 @@
 		 */
 		updateCustomInstallmentsLoop: function() {
 			let limit_installments = parseInt( $('#max_qtd_installments').val() );
-			let limit_installments_without_fee = parseInt($('#max_qtd_installments_without_fee').val());
+			let limit_installments_without_fee = parseInt( $('#max_qtd_installments_without_fee').val() );
 			let loop_html = '';
 
 			for ( let i = limit_installments_without_fee + 1; i <= limit_installments; i++ ) {
 				let current_custom_fee = parseFloat( $(`input[name="custom_fee_installments[${i}][amount]"]`).val() ) || 0;
 
 				loop_html += `<div class="input-group mb-2" data-installment="${i}">`;
-				loop_html += `<input class="custom-installment-first small-input form-control" type="text" disabled value="${i}"/>`;
-				loop_html += `<input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[${i}][amount]" id="custom_fee_installments[${i}]" value="${current_custom_fee}" />`;
+					loop_html += `<input class="custom-installment-first small-input form-control" type="text" disabled value="${i}"/>`;
+					loop_html += `<input class="custom-installment-secondary small-input form-control allow-number-and-dots" type="text" placeholder="1.0" name="custom_fee_installments[${i}][amount]" id="custom_fee_installments[${i}]" value="${current_custom_fee}" />`;
 				loop_html += `</div>`;
 			}
 
@@ -485,6 +480,7 @@
 		 * Show toast messages in wrapper
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 * @param {string} type - success, danger, warning
 		 * @param {string} header - title of the toast
 		 * @param {string} body - body of the toast
@@ -498,7 +494,7 @@
 				<div class="toast-header bg-${type} text-white">
 					<svg class="icon icon-white me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
 					<span class="me-auto">${header}</span>
-					<button class="btn-close btn-close-white ms-2 hide-toast" type="button" aria-label="${params.i18n.aria_label_modal}"></button>
+					<button class="btn-close btn-close-white ms-2" type="button" aria-label="${params.i18n.aria_label_modal}"></button>
 				</div>
 				<div class="toast-body">${body}</div>
 			</div>`;
@@ -510,6 +506,10 @@
 					$(this).remove();
 				});
 			}, 3000);
+
+			$(document).on('click', '.toast .btn-close', function() {
+				$('.toast.show').fadeOut('fast');
+			});
 		},
 		
 		/**
@@ -543,16 +543,20 @@
 		 * Initialize modals
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 */
 		initializeModals: function() {
-			Settings.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
-			Settings.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
-			Settings.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
-			Settings.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
 			Settings.displayModal( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
-			Settings.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
 			Settings.displayModal( $('#custom_product_price_trigger'), $('#custom_product_price_container'), $('#custom_product_price_close') );
 			Settings.displayModal( $('#center_group_elements_trigger'), $('#center_group_elements_container'), $('#center_group_elements_close') );
+
+			if ( params.license_valid ) {
+				Settings.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
+				Settings.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
+				Settings.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
+				Settings.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
+				Settings.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
+			}
 
 			// each modal for edit elements
 			$('.edit-elements-design').each( function() {
@@ -807,12 +811,32 @@
 		 * Initialize visibility controllers
 		 * 
 		 * @since 2.4.0
-		 * @version 5.5.1
+		 * @version 5.5.4
 		 */
 		initializeVisibilityControllers: function() {
-			// Hide input "Texto inicial em produtos variáveis (A partir de)"
-			Settings.changeVisibility( '#remove_price_range', '.starting-from, .remove-price-range-dep' );
+			if ( params.license_valid.length && params.license_valid ) {
+				// display price range settings
+				Settings.changeVisibility( '#remove_price_range', '.starting-from, .remove-price-range-dep' );
 
+				// Display remove price range settings
+				Settings.changeVisibility('#remove_price_range', '.require-remove-price-range' );
+
+				// Display default fee input
+				Settings.changeVisibility( '#set_fee_per_installment', '#fee-global-settings', false );
+
+				// Display modal settings for custom fee per installment
+				Settings.changeVisibility( '#set_fee_per_installment', '#set_custom_fee_trigger' );
+
+				// Display custom hook settings
+				Settings.selectVisibilityController( '#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook' );
+
+				// Active text on active credit card method
+				Settings.changeVisibility( '#enable_credit_card_method_payment_form', '.admin-container-credit-card' );
+
+				// Active text on active debit card method
+				Settings.changeVisibility( '#enable_debit_card_method_payment_form', '.admin-container-debit-card' );
+			}
+			
 			// Enable all interest options
 			Settings.changeVisibility( '#enable_all_interest_options', '.display-enable-all-interest-options' );
 			
@@ -824,12 +848,6 @@
 		
 			// Active text on active ticket method
 			Settings.changeVisibility( '#enable_ticket_method_payment_form', '.admin-container-ticket' );
-		
-			// Active text on active credit card method
-			Settings.changeVisibility( '#enable_credit_card_method_payment_form', '.admin-container-credit-card' );
-
-			// Active text on active debit card method
-			Settings.changeVisibility( '#enable_debit_card_method_payment_form', '.admin-container-debit-card' );
 		
 			// Display more settings after active discount per quantity
 			Settings.changeVisibility( '#enable_functions_discount_per_quantity', '.discount-per-quantity-option' );
@@ -843,12 +861,6 @@
 			// Display economy Pix hook option
 			Settings.changeVisibility( '#enable_economy_pix_badge', '.economy-pix-dependency' );
 
-			// Display custom hook settings
-			Settings.selectVisibilityController( '#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook' );
-
-			// Display remove price range settings
-			Settings.changeVisibility('#remove_price_range', '.require-remove-price-range' );
-
 			// Display custom price modal settings
 			Settings.changeVisibility( '#custom_text_after_price', '.require-custom-product-price' );
 
@@ -858,11 +870,7 @@
 			// Display center elements selectors settings
 			Settings.changeVisibility( '#center_group_elements_loop', '.require-center-group-elements' );
 
-			// Display default fee input
-			Settings.changeVisibility( '#set_fee_per_installment', '#fee-global-settings', false );
-
-			// Display modal settings for custom fee per installment
-			Settings.changeVisibility( '#set_fee_per_installment', '#set_custom_fee_trigger' );
+			$('select.pro-version, select.pro-version-notice, input.pro-version, input.pro-version-notice').prop('disabled', true);
 		},
 
 		/**
@@ -931,12 +939,12 @@
 		 * Initialize modules
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 */
 		init: function() {
 			this.activateTabs();
 			this.saveSettings();
 			this.validateInputNumbers();
-			this.hideToasts();
 			this.updateCustomInstallmentsLoop();
 			this.updatePaymentFormsVisibility();
 			this.changeIconClass();

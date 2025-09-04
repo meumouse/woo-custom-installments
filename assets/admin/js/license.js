@@ -286,7 +286,7 @@
 		/**
 		 * Sync license infoormation
 		 * 
-		 * @since 5.5.0
+		 * @since 5.5.4
 		 */
 		syncLicense: function() {
 			$(document).on('click', '#woo_custom_installments_refresh_license', function(e) {
@@ -315,6 +315,13 @@
 							if ( response.status === 'success' ) {
 								// display notice
 								License.displayToast( 'success', response.toast_header_title, response.toast_body_title );
+
+								if ( response.license ) {
+									$('#wci-license-status').html(response.license.status_html);
+									$('#wci-license-features').html(response.license.features_html);
+									$('#wci-license-type').html(response.license.type_html);
+									$('#wci-license-expiry').html(response.license.expire_html);
+								}
 							} else {
 								License.displayToast( 'danger', response.toast_header_title, response.toast_body_title );
 							}
