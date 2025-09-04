@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Parcelas Customizadas para WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-15 20:02+0000\n"
-"PO-Revision-Date: 2025-08-07 22:31+0000\n"
+"PO-Revision-Date: 2025-09-04 22:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -16,61 +16,75 @@ msgstr ""
 "X-Domain: woo-custom-installments"
 
 #: inc/Views/Components.php:44
+#: dist/woo-custom-installments/inc/Views/Components.php:44
 msgid "%"
 msgstr "%"
 
 #: inc/Core/Interests.php:97
+#: dist/woo-custom-installments/inc/Core/Interests.php:97
 #, php-format
 msgid "%s juros"
 msgstr "%s interest"
 
-#: inc/Views/Components.php:1162
+#: inc/Views/Components.php:1159
+#: dist/woo-custom-installments/inc/Views/Components.php:1159
 #, php-format
 msgid "%s OFF"
 msgstr "%s OFF"
 
 #: inc/Core/Discounts.php:61
+#: dist/woo-custom-installments/inc/Core/Discounts.php:61
 #, php-format
 msgid "%s off"
 msgstr "%s off"
 
 #: inc/Views/Components.php:57
+#: dist/woo-custom-installments/inc/Views/Components.php:57
 msgid "100"
 msgstr "100"
 
 #: inc/Views/Components.php:58
+#: dist/woo-custom-installments/inc/Views/Components.php:58
 msgid "200"
 msgstr "200"
 
 #: inc/Views/Components.php:59
+#: dist/woo-custom-installments/inc/Views/Components.php:59
 msgid "300"
 msgstr "300"
 
 #: inc/Views/Components.php:60
+#: dist/woo-custom-installments/inc/Views/Components.php:60
 msgid "400"
 msgstr "400"
 
 #: inc/Views/Components.php:61
+#: dist/woo-custom-installments/inc/Views/Components.php:61
 msgid "500"
 msgstr "500"
 
 #: inc/Views/Components.php:62
+#: dist/woo-custom-installments/inc/Views/Components.php:62
 msgid "600"
 msgstr "600"
 
 #: inc/Views/Components.php:63
+#: dist/woo-custom-installments/inc/Views/Components.php:63
 msgid "700"
 msgstr "700"
 
 #: inc/Views/Components.php:64
+#: dist/woo-custom-installments/inc/Views/Components.php:64
 msgid "800"
 msgstr "800"
 
 #: inc/Views/Components.php:65
+#: dist/woo-custom-installments/inc/Views/Components.php:65
 msgid "900"
 msgstr "900"
 
-#: woo-custom-installments.php:114
+#: woo-custom-installments.php:135
+#: dist/woo-custom-installments/woo-custom-installments.php:135
 #| msgid ""
 #| "O plugin Parcelas Customizadas para WooCommerce requer a versão do PHP 7."
 #| "0 ou maior. Contate o suporte da sua hospedagem para realizar a "
@@ -83,7 +97,7 @@ msgstr ""
 "<strong>Custom Installments for WooCommerce</strong> requires PHP version 7."
 "4 or higher. Contact your hosting support to perform the update."
 
-#: inc/Core/Init.php:130
+#: inc/Core/Init.php:125 dist/woo-custom-installments/inc/Core/Init.php:125
 #| msgid ""
 #| "O plugin Parcelas Customizadas para WooCommerce requer a versão do "
 #| "WooCommerce 5.0 ou maior. Faça a atualização do plugin WooCommerce."
@@ -94,7 +108,7 @@ msgstr ""
 "<strong>Custom Installments for WooCommerce</strong> requires WooCommerce "
 "version 6.0 or higher. Update the WooCommerce plugin."
 
-#: inc/Core/Init.php:146
+#: inc/Core/Init.php:141 dist/woo-custom-installments/inc/Core/Init.php:141
 msgid ""
 "<strong>Parcelas Customizadas para WooCommerce</strong> requer que <strong>"
 "WooCommerce</strong> esteja instalado e ativado."
@@ -103,31 +117,32 @@ msgstr ""
 "WooCommerce</strong> to be installed and activated."
 
 #: inc/Views/Settings/Tabs/Styles.php:150
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:150
 msgid "A cor do texto e borda será obtida a partir da cor informada."
 msgstr ""
 "The color of the text and border will be obtained from the color entered."
 
-#: inc/API/License.php:397
+#: inc/API/License.php:397 dist/woo-custom-installments/inc/API/License.php:397
 msgid "A extensão cURL está faltando."
 msgstr "The cURL extension is missing."
 
-#: inc/Core/Ajax.php:373
+#: inc/Core/Ajax.php:372 dist/woo-custom-installments/inc/Core/Ajax.php:372
 msgid "A licença foi ativada com sucesso!"
 msgstr "The license was activated successfully!"
 
-#: inc/Core/Ajax.php:404
+#: inc/Core/Ajax.php:404 dist/woo-custom-installments/inc/Core/Ajax.php:404
 msgid "A licença foi desativada"
 msgstr "The license has been deactivated"
 
-#: inc/Core/Ajax.php:513
+#: inc/Core/Ajax.php:527 dist/woo-custom-installments/inc/Core/Ajax.php:527
 msgid "A licença foi sincronizada com sucesso!"
-msgstr ""
+msgstr "License synced successfully!"
 
-#: inc/Core/Ajax.php:341
+#: inc/Core/Ajax.php:340 dist/woo-custom-installments/inc/Core/Ajax.php:340
 msgid "A licença informada não é permitida para este produto"
 msgstr "The license informed is not allowed for this product"
 
-#: inc/Core/Updater.php:242
+#: inc/API/Updater.php:242 dist/woo-custom-installments/inc/API/Updater.php:242
 #| msgid ""
 #| "A versão do plugin Parcelas Customizadas para WooCommerce é a mais "
 #| "recente."
@@ -138,31 +153,44 @@ msgstr ""
 "The version of the <strong>Custom Installments for WooCommerce</strong> "
 "plugin is the latest."
 
-#: inc/Views/Settings/Tabs/About.php:205
+#: inc/Views/Settings/Tabs/About.php:209
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:209
 msgid "A versão mínima exigida do PHP é 7.2"
 msgstr "The minimum required PHP version is 7.2"
 
-#: inc/Views/Settings/Tabs/About.php:170
+#: inc/Views/Settings/Tabs/About.php:174
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:174
 msgid "A versão mínima exigida do WooCommerce é 6.0"
 msgstr "The minimum required WooCommerce version is 6.0"
 
 #: inc/Views/Components.php:414
+#: dist/woo-custom-installments/inc/Views/Components.php:414
 msgid "Acessar Font Awesome"
 msgstr "Access Font Awesome"
 
 #: inc/Views/Settings/Tabs/General.php:144
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:144
 msgid "Adicionar um desconto no preço do produto"
 msgstr "Add a discount to the product price"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:108
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:103
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:103
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:103
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:104
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:105
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:108
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:108
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:81
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:94
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:108
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:103
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:103
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:104
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:105
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:108
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:108
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:81
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:94
 msgid ""
 "Adquira uma licença Pro do Parcelas Customizadas para WooCommerce para "
 "liberar todos os recursos e opções de estilização."
@@ -170,29 +198,36 @@ msgstr ""
 "Purchase a Pro license of Custom Parcels for WooCommerce to unlock all "
 "features and styling options."
 
-#: inc/Core/Ajax.php:239
+#: inc/Core/Ajax.php:238 dist/woo-custom-installments/inc/Core/Ajax.php:238
 msgid "Agora todos os recursos estão ativos!"
 msgstr "Now all features are active!"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:92
+#: inc/Integrations/Elementor/Inject_Controllers.php:94
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:133
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:94
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:133
 msgid "Alinhamento do grupo de preços"
 msgstr "Price group alignment"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:220
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:220
 msgid "Altura do botão"
 msgstr "Button height"
 
-#: inc/Views/Settings/Tabs/General.php:434
+#: inc/Views/Settings/Tabs/General.php:442
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:442
 msgid "Antes do carrinho (Padrão)"
 msgstr "Before the cart (Default)"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:253
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:220
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:253
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:220
 msgid "Ao passar o mouse"
 msgstr "On mouseover"
 
-#: inc/Views/Settings/Tabs/About.php:421
+#: inc/Views/Settings/Tabs/About.php:425
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:425
 msgid ""
 "Ao redefinir as configurações do plugin, todas opções serão removidas, "
 "voltando ao estado original. Sua licença não será removida."
@@ -200,209 +235,272 @@ msgstr ""
 "Resetting the plugin settings will remove all options and return them to "
 "their original state. Your license will not be removed."
 
-#: inc/Views/Settings/Tabs/General.php:315
-#: inc/Views/Settings/Tabs/General.php:338
-#: inc/Views/Settings/Tabs/General.php:360
-#: inc/Views/Settings/Tabs/General.php:382
+#: inc/Views/Settings/Tabs/General.php:323
+#: inc/Views/Settings/Tabs/General.php:346
+#: inc/Views/Settings/Tabs/General.php:368
+#: inc/Views/Settings/Tabs/General.php:390
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:323
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:346
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:368
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:390
 msgid "Apenas arquivos de produtos"
 msgstr "Product files only"
 
-#: inc/Views/Settings/Tabs/General.php:314
-#: inc/Views/Settings/Tabs/General.php:359
-#: inc/Views/Settings/Tabs/General.php:381
+#: inc/Views/Settings/Tabs/General.php:322
+#: inc/Views/Settings/Tabs/General.php:367
+#: inc/Views/Settings/Tabs/General.php:389
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:322
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:367
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:389
 msgid "Apenas página do produto individual"
 msgstr "Single product page only"
 
-#: inc/Views/Settings/Tabs/General.php:336
+#: inc/Views/Settings/Tabs/General.php:344
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:344
 msgid "Apenas página do produto individual (Padrão)"
 msgstr "Individual product page only (Default)"
 
 #: inc/Admin/Product_Settings.php:265
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:265
 msgid "Aplicar desconto para o gateway"
 msgstr "Apply discount to gateway"
 
 #: inc/Views/Components.php:595 inc/Views/Components.php:726
 #: inc/Views/Components.php:756
+#: dist/woo-custom-installments/inc/Views/Components.php:595
+#: dist/woo-custom-installments/inc/Views/Components.php:726
+#: dist/woo-custom-installments/inc/Views/Components.php:756
 msgid "Aprovação imediata"
 msgstr "Instant approval"
 
-#: inc/Core/Ajax.php:294
+#: inc/Core/Ajax.php:293 dist/woo-custom-installments/inc/Core/Ajax.php:293
 msgid "Arquivo inválido. O arquivo deve ser extensão .key"
 msgstr "Invalid file. The file must have a .key extension."
 
 #: inc/Views/Settings/Tabs/Styles.php:213
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:213
 msgid "Arredondamento do botão de parcelas"
 msgstr "Rounding of installments button"
 
-#: inc/Core/Assets.php:80
+#: inc/Core/Assets.php:81 dist/woo-custom-installments/inc/Core/Assets.php:81
 msgid "As alterações não serão salvas."
 msgstr "Changes will not be saved."
 
-#: inc/Core/Ajax.php:181
+#: inc/Core/Ajax.php:180 dist/woo-custom-installments/inc/Core/Ajax.php:180
 msgid "As configurações foram atualizadas!"
 msgstr "The settings have been updated!"
 
-#: inc/Core/Ajax.php:464
+#: inc/Core/Ajax.php:441 dist/woo-custom-installments/inc/Core/Ajax.php:441
 msgid "As opções foram redefinidas"
 msgstr "Options have been reset"
 
-#: inc/Core/Ajax.php:465
+#: inc/Core/Ajax.php:442 dist/woo-custom-installments/inc/Core/Ajax.php:442
 msgid "As opções foram redefinidas com sucesso!"
 msgstr "Options have been reset successfully!"
 
-#: inc/Views/Settings/Tabs/About.php:63
+#: inc/Core/Ajax.php:520 dist/woo-custom-installments/inc/Core/Ajax.php:520
+#: inc/Views/Settings/Tabs/About.php:67
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:67
 #, php-format
 msgid "Assinatura: Clube M - %s"
 msgstr "Subscription: Club M - %s"
 
-#: inc/Views/Settings/Tabs/About.php:419
+#: inc/Views/Settings/Tabs/About.php:423
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:423
 msgid "Atenção! Você realmente deseja redefinir as configurações?"
 msgstr "Attention! Do you really want to reset settings?"
 
 #: inc/Views/Settings/Tabs/About.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:13
 msgid "Ativar atualizações automáticas"
 msgstr "Enable automatic updates"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:234
 #: inc/Views/Settings/Tabs/Payment_Methods.php:543
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:234
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:543
 msgid "Ativar bandeira American Express"
 msgstr "Enable American Express flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:360
 #: inc/Views/Settings/Tabs/Payment_Methods.php:669
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:360
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:669
 msgid "Ativar bandeira Cielo"
 msgstr "Enable Cielo flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:192
 #: inc/Views/Settings/Tabs/Payment_Methods.php:501
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:192
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:501
 msgid "Ativar bandeira Diners Club"
 msgstr "Enable Diners Club flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:213
 #: inc/Views/Settings/Tabs/Payment_Methods.php:522
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:213
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:522
 msgid "Ativar bandeira Discover"
 msgstr "Enable Discover flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:150
 #: inc/Views/Settings/Tabs/Payment_Methods.php:459
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:150
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:459
 msgid "Ativar bandeira Elo"
 msgstr "Enable Elo flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:171
 #: inc/Views/Settings/Tabs/Payment_Methods.php:480
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:171
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:480
 msgid "Ativar bandeira Hipercard"
 msgstr "Enable Hipercard flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:108
 #: inc/Views/Settings/Tabs/Payment_Methods.php:417
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:108
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:417
 msgid "Ativar bandeira Mastercard"
 msgstr "Enable Mastercard flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:297
 #: inc/Views/Settings/Tabs/Payment_Methods.php:606
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:297
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:606
 msgid "Ativar bandeira Mercado Pago"
 msgstr "Enable Mercado Pago flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:339
 #: inc/Views/Settings/Tabs/Payment_Methods.php:648
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:339
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:648
 msgid "Ativar bandeira Pagar.me"
 msgstr "Enable Pagar.me flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:318
 #: inc/Views/Settings/Tabs/Payment_Methods.php:627
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:318
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:627
 msgid "Ativar bandeira PagSeguro"
 msgstr "Enable PagSeguro flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:255
 #: inc/Views/Settings/Tabs/Payment_Methods.php:564
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:255
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:564
 msgid "Ativar bandeira PayPal"
 msgstr "Enable PayPal flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:276
 #: inc/Views/Settings/Tabs/Payment_Methods.php:585
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:276
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:585
 msgid "Ativar bandeira Stripe"
 msgstr "Enable Stripe flag"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:129
 #: inc/Views/Settings/Tabs/Payment_Methods.php:438
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:129
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:438
 msgid "Ativar bandeira Visa"
 msgstr "Activate Visa flag"
 
 #: inc/Views/Settings/Tabs/Discounts.php:191
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:191
 msgid "Ativar cálculo de desconto para cada unidade do produto elegível"
 msgstr "Activate discount calculation for each eligible product unit"
 
 #: inc/Admin/Product_Settings.php:233
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:233
 msgid "Ativar desconto do produto"
 msgstr "Activate product discount"
 
 #: inc/Admin/Product_Settings.php:295
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:295
 msgid "Ativar desconto por quantidade"
 msgstr "Activate quantity discount"
 
 #: inc/Views/Settings/Tabs/General.php:183
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:183
 msgid "Ativar emblema de percentual de desconto"
 msgstr "Activate Percentage Discount Badge"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:234
+#: inc/Integrations/Elementor/Inject_Controllers.php:236
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:275
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:236
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:275
 msgid "Ativar empilhamento de preços"
 msgstr "Enable price stacking"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:46
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:46
 msgid "Ativar forma de pagamento boleto bancário"
 msgstr "Activate bank slip payment method"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:80
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:80
 msgid "Ativar forma de pagamento cartão de crédito"
 msgstr "Activate credit card payment method"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:389
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:389
 msgid "Ativar forma de pagamento cartão de débito"
 msgstr "Activate debit card payment method"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:13
 msgid "Ativar forma de pagamento Pix"
 msgstr "Activate Pix payment method"
 
 #: inc/Views/Settings/Tabs/Discounts.php:141
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:141
 msgid "Ativar funções de desconto por quantidade"
 msgstr "Enable quantity discount functions"
 
 #: inc/Views/Settings/Tabs/Discounts.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:13
 msgid "Ativar funções de descontos"
 msgstr "Activate discount functions"
 
 #: inc/Views/Settings/Tabs/Interests.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:13
 msgid "Ativar funções de juros"
 msgstr "Activate interest functions"
 
-#: inc/Views/Settings/Tabs/About.php:134
+#: inc/Views/Settings/Tabs/About.php:109
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:109
 msgid "Ativar licença"
 msgstr "Activate license"
 
 #: inc/Views/Settings/Tabs/Discounts.php:203
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:203
 msgid "Ativar mensagem nos produtos elegíveis para desconto por quantidade"
 msgstr "Enable messaging on products eligible for quantity discount"
 
 #: inc/Views/Settings/Tabs/General.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:13
 msgid "Ativar Parcelas Customizadas"
 msgstr "Enable Custom Installments"
 
 #: inc/Views/Settings/Tabs/Discounts.php:74
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:74
 msgid "Ativar preço com desconto no Pix em Post Meta para Feed XML"
 msgstr "Activate discounted price on Pix in Post Meta for XML Feed"
 
 #: inc/Views/Settings/Tabs/Styles.php:53
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:53
 msgid "Ativar widgets para Elementor"
 msgstr "Enable widgets for Elementor"
 
-#: inc/Views/Settings/Tabs/General.php:184
+#: inc/Views/Settings/Tabs/General.php:192
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:192
 msgid "Ative essa opção exibir o percentual de desconto ao lado do preço."
 msgstr ""
 "Enable this option to display the discount percentage next to the price."
 
 #: inc/Views/Settings/Tabs/General.php:123
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:123
 msgid ""
 "Ative essa opção para personalizar o preço principal do produto, sem afetar "
 "o preço cadastrado. Recomendado para servir o preço com desconto. Por "
@@ -413,6 +511,7 @@ msgstr ""
 " For example: R$100.00 on Pix"
 
 #: inc/Views/Settings/Tabs/About.php:14
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:14
 msgid ""
 "Ative essa opção para que o plugin Parcelas Customizadas seja atualizado "
 "automaticamente sempre que possível."
@@ -421,10 +520,12 @@ msgstr ""
 "updated whenever possible."
 
 #: inc/Views/Settings/Tabs/Styles.php:54
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:54
 msgid "Ative essa opção para que os widgets para Elementor sejam carregados."
 msgstr "Enable this option to load widgets for Elementor."
 
 #: inc/Views/Settings/Tabs/About.php:26
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:26
 msgid ""
 "Ative essa opção para que seja exibido uma notificação de atualização "
 "disponível."
@@ -432,6 +533,7 @@ msgstr ""
 "Enable this option for be that display a notification of update available."
 
 #: inc/Views/Settings/Tabs/General.php:91
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:91
 msgid ""
 "Ative esta opção para atualizar o preço do produto e seus derivados a partir "
 "do seletor de quantidade."
@@ -440,16 +542,20 @@ msgstr ""
 "from the quantity selector."
 
 #: inc/Views/Settings/Tabs/Discounts.php:14
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:14
 msgid ""
 "Ative esta opção para habilitar todas as opções relacionadas a desconto."
 msgstr "Activate this option to enable all discount-related options."
 
 #: inc/Views/Settings/Tabs/Interests.php:14
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:14
 msgid "Ative esta opção para habilitar todas as opções relacionadas a juros."
 msgstr "Activate this option to enable all interest-related options."
 
 #: inc/Views/Settings/Tabs/General.php:111
 #: inc/Views/Settings/Tabs/General.php:145
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:111
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:145
 msgid ""
 "Ative esta opção para mostrar o valor que o usuário economizará ao pagar no "
 "Pix."
@@ -458,247 +564,338 @@ msgstr ""
 "Pix."
 
 #: inc/Views/Settings/Tabs/General.php:14
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:14
 msgid "Ative esta opção para que o plugin será inicializado."
 msgstr "Enable this option so that the plugin will be initialized."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:245
 #: inc/Views/Settings/Tabs/Payment_Methods.php:554
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:245
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:554
 msgid "Ative para exibir a bandeira American Express nas formas de pagamento."
 msgstr "Activate to display the American Express flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:371
 #: inc/Views/Settings/Tabs/Payment_Methods.php:680
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:371
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:680
 msgid "Ative para exibir a bandeira Cielo nas formas de pagamento."
 msgstr "Activate to display the Cielo flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:203
 #: inc/Views/Settings/Tabs/Payment_Methods.php:512
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:203
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:512
 msgid "Ative para exibir a bandeira Diners Club nas formas de pagamento."
 msgstr "Activate to display the Diners Club flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:224
 #: inc/Views/Settings/Tabs/Payment_Methods.php:533
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:224
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:533
 msgid "Ative para exibir a bandeira Discover nas formas de pagamento."
 msgstr "Activate to display the Discover flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:161
 #: inc/Views/Settings/Tabs/Payment_Methods.php:470
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:161
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:470
 msgid "Ative para exibir a bandeira Elo nas formas de pagamento."
 msgstr "Activate to display the Elo flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:182
 #: inc/Views/Settings/Tabs/Payment_Methods.php:491
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:182
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:491
 msgid "Ative para exibir a bandeira Hipercard nas formas de pagamento."
 msgstr "Activate to display the Hipercard flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:119
 #: inc/Views/Settings/Tabs/Payment_Methods.php:428
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:119
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:428
 msgid "Ative para exibir a bandeira Mastercard nas formas de pagamento."
 msgstr "Activate to display the Mastercard flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:308
 #: inc/Views/Settings/Tabs/Payment_Methods.php:617
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:308
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:617
 msgid "Ative para exibir a bandeira Mercado Pago nas formas de pagamento."
 msgstr "Activate to display the Mercado Pago flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:350
 #: inc/Views/Settings/Tabs/Payment_Methods.php:659
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:350
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:659
 msgid "Ative para exibir a bandeira Pagar.me nas formas de pagamento."
 msgstr "Activate to display the Pagar.me flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:329
 #: inc/Views/Settings/Tabs/Payment_Methods.php:638
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:329
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:638
 msgid "Ative para exibir a bandeira PagSeguro nas formas de pagamento."
 msgstr "Activate to display the PagSeguro flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:266
 #: inc/Views/Settings/Tabs/Payment_Methods.php:575
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:266
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:575
 msgid "Ative para exibir a bandeira PayPal nas formas de pagamento."
 msgstr "Activate to display the PayPal flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:287
 #: inc/Views/Settings/Tabs/Payment_Methods.php:596
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:287
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:596
 msgid "Ative para exibir a bandeira Stripe nas formas de pagamento."
 msgstr "Activate to display the Stripe flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:140
 #: inc/Views/Settings/Tabs/Payment_Methods.php:449
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:140
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:449
 msgid "Ative para exibir a bandeira Visa nas formas de pagamento."
 msgstr "Activate to display the Visa flag in payment methods."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:55
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:55
 msgid "Ative para exibir a forma de pagamento boleto bancário."
 msgstr "Activate to display the bank slip payment method."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:89
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:89
 msgid "Ative para exibir a forma de pagamento cartão de crédito."
 msgstr "Activate to display the credit card payment method."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:398
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:398
 msgid "Ative para exibir a forma de pagamento cartão de débito."
 msgstr "Activate to display the debit card payment method."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:22
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:22
 msgid "Ative para exibir a forma de pagamento Pix."
 msgstr "Activate to display the Pix payment method."
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:238
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:294
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:236
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:277
-#: inc/Views/Settings/Tabs/About.php:157
+#: inc/Views/Settings/Tabs/About.php:161
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:238
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:294
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:277
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:161
 msgid "Ativo"
 msgstr "Active"
 
 #: inc/Views/Settings/Tabs/General.php:82
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:82
 msgid "Atualizar preço do produto a partir da quantidade"
 msgstr "Update product price based on quantity"
 
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:43
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:43
 msgid "Bandeiras de cartão de crédito"
 msgstr "Credit card flags"
 
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:43
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:43
 msgid "Bandeiras de cartão de débito"
 msgstr "Debit Card Flags"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:336
+#: inc/Integrations/Elementor/Inject_Controllers.php:437
+#: inc/Integrations/Elementor/Inject_Controllers.php:538
+#: inc/Integrations/Elementor/Inject_Controllers.php:639
+#: inc/Integrations/Elementor/Inject_Controllers.php:741
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:176
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:160
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:334
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:435
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:536
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:637
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:739
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:161
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:174
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:375
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:476
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:577
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:678
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:780
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:336
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:437
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:538
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:639
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:741
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:176
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:161
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:174
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:375
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:476
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:577
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:678
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:780
 msgid "Borda"
 msgstr "Border"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:284
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:250
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:284
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:250
 msgid "Borda ao passar o mouse"
 msgstr "Border on mouseover"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:134
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:134
 msgid "Borda da tabela"
 msgstr "Table border"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:324
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:324
 msgid "Borda do botão ativo"
 msgstr "Active button border"
 
-#: inc/Views/Settings/Tabs/About.php:55
+#: inc/Core/Ajax.php:511 dist/woo-custom-installments/inc/Core/Ajax.php:511
+#: inc/Views/Settings/Tabs/About.php:58
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:58
 msgid "Básicos"
 msgstr "Basics"
 
-#: inc/Core/Ajax.php:436
-msgid "Cache de ativação limpo"
-msgstr "Clear activation cache"
-
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:44
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:44
 msgid "Caixa de informação de preço"
 msgstr "Price information box"
 
 #: inc/Views/Components.php:474
+#: dist/woo-custom-installments/inc/Views/Components.php:474
 msgid "Celular"
 msgstr "Cell phone"
 
 #: inc/Views/Settings.php:24
+#: dist/woo-custom-installments/inc/Views/Settings.php:24
 msgid "Central de ajuda"
 msgstr "Help Center"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:100
+#: inc/Integrations/Elementor/Inject_Controllers.php:102
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:141
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:102
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:141
 msgid "Centralizado"
 msgstr "Centralized"
 
 #: inc/Views/Settings/Tabs/Styles.php:13
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:13
 msgid "Centralizar grupo de preços na grade de produtos"
 msgstr "Centralize price group in product grid"
 
 #: inc/Views/Settings/Tabs/Styles.php:82
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:82
 msgid "Classe de ícone (Font Awesome) - (Padrão)"
 msgstr "Icon Class (Font Awesome) - (Default)"
 
-#: inc/Views/Settings/Tabs/About.php:94
+#: inc/Views/Settings/Tabs/About.php:119
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:119
 msgid "Clique aqui para gerar seu arquivo de licença"
 msgstr "Click here to generate your license file"
 
 #: inc/Views/Components.php:639
+#: dist/woo-custom-installments/inc/Views/Components.php:639
 msgid "Cobranças:"
 msgstr "Charges:"
 
 #: inc/Views/Settings.php:29
+#: dist/woo-custom-installments/inc/Views/Settings.php:29
 msgid "Como converter fator de multiplicação para juros."
 msgstr "How to convert multiplication factor to interest."
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:110
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:105
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:105
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:105
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:106
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:107
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:110
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:110
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:83
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:96
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:110
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:105
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:105
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:107
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:110
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:110
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:83
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:96
 msgid "Comprar agora"
 msgstr "Buy now"
 
-#: inc/Views/Settings/Tabs/About.php:122
+#: inc/Views/Settings/Tabs/About.php:97
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:97
 msgid "Comprar licença"
 msgstr "Buy License"
 
-#: inc/API/License.php:1060
+#: inc/API/License.php:1067
+#: dist/woo-custom-installments/inc/API/License.php:1067
 msgid "Comprar uma licença"
 msgstr "Buy a license"
 
 #: inc/Views/Components.php:467
+#: dist/woo-custom-installments/inc/Views/Components.php:467
 msgid "Computador"
 msgstr "Computer"
 
-#: inc/Core/Init.php:162 inc/Views/Settings/Tabs/Discounts.php:158
+#: inc/Core/Init.php:157 dist/woo-custom-installments/inc/Core/Init.php:157
+#: inc/Views/Settings/Tabs/Discounts.php:158
 #: inc/Views/Settings/Tabs/General.php:40
 #: inc/Views/Settings/Tabs/General.php:130
-#: inc/Views/Settings/Tabs/General.php:259
+#: inc/Views/Settings/Tabs/General.php:267
 #: inc/Views/Settings/Tabs/Styles.php:21
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:158
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:40
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:130
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:267
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:21
 msgid "Configurar"
 msgstr "Configure"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:96
 #: inc/Views/Settings/Tabs/Payment_Methods.php:405
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:96
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:405
 msgid "Configurar bandeiras"
 msgstr "Configure flags"
 
 #: inc/Views/Settings/Tabs/Styles.php:26
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:26
 msgid "Configurar centralização de elementos"
 msgstr "Configure element centering"
 
 #: inc/Views/Settings/Tabs/Styles.php:127
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:127
 #, php-format
 msgid "Configurar estilos: %s"
 msgstr "Configure styles: %s"
 
 #: inc/Views/Settings/Tabs/Discounts.php:184
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:184
 msgid "Configurar para cada produto"
 msgstr "Configure for each product"
 
 #: inc/Views/Settings/Tabs/General.php:45
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:45
 msgid "Configurar remoção da faixa de preço"
 msgstr "Configure price range removal"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:98
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:98
 msgid "Configurações"
 msgstr "Settings"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:84
+#: inc/Integrations/Elementor/Inject_Controllers.php:86
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:125
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:86
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:125
 msgid "Configurações gerais"
 msgstr "General settings"
 
 #: inc/Views/Settings.php:23
+#: dist/woo-custom-installments/inc/Views/Settings.php:23
 msgid ""
 "Configure abaixo o parcelamento, descontos, juros, estilos e entre outras "
 "opções disponíveis. Se precisar de ajuda para configurar, acesse nossa"
@@ -707,25 +904,28 @@ msgstr ""
 "options below. If you need help setting up, visit our"
 
 #: inc/Views/Settings/Tabs/Discounts.php:163
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:163
 msgid "Configure o desconto por quantidade"
 msgstr "Set up quantity discount"
 
-#: inc/Views/Settings/Tabs/General.php:264
+#: inc/Views/Settings/Tabs/General.php:272
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:272
 msgid "Configure o juros por parcela"
 msgstr "Configure interest per installment"
 
 #: inc/Views/Settings/Tabs/General.php:135
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:135
 msgid "Configure o preço do produto"
 msgstr "Set the product price"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:324
+#: inc/Integrations/Elementor/Inject_Controllers.php:425
+#: inc/Integrations/Elementor/Inject_Controllers.php:526
+#: inc/Integrations/Elementor/Inject_Controllers.php:627
+#: inc/Integrations/Elementor/Inject_Controllers.php:729
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:164
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:148
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:149
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:141
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:322
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:423
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:524
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:625
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:727
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:162
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:168
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:363
@@ -733,41 +933,62 @@ msgstr "Set the product price"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:565
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:666
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:768
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:324
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:425
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:526
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:627
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:729
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:164
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:149
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:141
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:162
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:168
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:363
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:464
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:565
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:666
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:768
 msgid "Cor de fundo"
 msgstr "Background color"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:272
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:238
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:272
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:238
 msgid "Cor de fundo ao passar o mouse"
 msgstr "Background color on mouseover"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:312
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:312
 msgid "Cor de fundo do botão ativo"
 msgstr "Active button background color"
 
 #: inc/Views/Components.php:224
+#: dist/woo-custom-installments/inc/Views/Components.php:224
 msgid "Cor de fundo:"
 msgstr "Background color:"
 
 #: inc/Views/Settings/Tabs/Styles.php:149
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:149
 msgid "Cor do botão do popup de parcelas"
 msgstr "Color of installment popup button"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:163
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:163
 msgid "Cor do preço"
 msgstr "Price color"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:148
+#: inc/Integrations/Elementor/Inject_Controllers.php:177
+#: inc/Integrations/Elementor/Inject_Controllers.php:221
+#: inc/Integrations/Elementor/Inject_Controllers.php:313
+#: inc/Integrations/Elementor/Inject_Controllers.php:414
+#: inc/Integrations/Elementor/Inject_Controllers.php:515
+#: inc/Integrations/Elementor/Inject_Controllers.php:616
+#: inc/Integrations/Elementor/Inject_Controllers.php:718
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:152
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:137
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:138
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:130
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:146
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:175
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:219
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:311
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:412
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:513
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:614
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:716
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:151
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:151
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:156
@@ -779,35 +1000,64 @@ msgstr "Price color"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:554
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:655
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:757
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:148
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:177
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:221
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:313
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:414
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:515
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:616
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:718
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:152
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:138
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:130
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:151
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:151
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:156
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:187
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:216
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:260
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:352
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:453
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:554
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:655
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:757
 msgid "Cor do texto"
 msgstr "Text color"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:260
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:227
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:260
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:227
 msgid "Cor do texto ao passar o mouse"
 msgstr "Text color on mouseover"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:301
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:301
 msgid "Cor do texto do botão ativo"
 msgstr "Active button text color"
 
 #: inc/Views/Components.php:252
+#: dist/woo-custom-installments/inc/Views/Components.php:252
 msgid "Cor do texto:"
 msgstr "Text color:"
 
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:161
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:161
 msgid "Cor do ícone"
 msgstr "Icon color"
 
-#: inc/Views/Settings/Tabs/About.php:130
+#: inc/Views/Settings/Tabs/About.php:105
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:105
 msgid "Código da licença"
 msgstr "License Code"
 
-#: inc/API/License.php:756
+#: inc/API/License.php:756 dist/woo-custom-installments/inc/API/License.php:756
 msgid "Dados inválidos."
 msgstr "Invalid data."
 
 #: inc/Views/Settings/Tabs/General.php:157
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:157
 msgid ""
 "Defina um desconto a ser aplicado no preço do produto, use ponto para "
 "definir um número flutuante."
@@ -816,10 +1066,12 @@ msgstr ""
 "number."
 
 #: inc/Views/Settings/Tabs/Discounts.php:229
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:229
 msgid "Define qual será o valor de desconto por quantidade do produto."
 msgstr "Defines the discount value per product quantity."
 
 #: inc/Views/Settings/Tabs/Discounts.php:118
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:118
 msgid ""
 "Define qual será o valor de desconto sobre o preço do produto para boleto "
 "bancário. Deixe em branco para não exibir."
@@ -828,6 +1080,7 @@ msgstr ""
 "slip. Leave it blank to not display it."
 
 #: inc/Views/Settings/Tabs/Discounts.php:97
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:97
 #| msgid ""
 #| "Define qual será o valor de desconto sobre o preço principal do produto. "
 #| "Deixe em branco para não exibir."
@@ -838,11 +1091,13 @@ msgstr ""
 "Defines what the discount value will be on the product price, for . Leave it "
 "blank to not display it."
 
-#: inc/Views/Settings/Tabs/General.php:231
+#: inc/Views/Settings/Tabs/General.php:239
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:239
 msgid "Define qual será o valor mínimo da parcela que o cliente pagará."
 msgstr "Define the minimum installment value the customer will pay."
 
-#: inc/Views/Settings/Tabs/General.php:243
+#: inc/Views/Settings/Tabs/General.php:251
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:251
 msgid "Definir taxa de juros por parcela"
 msgstr "Set interest rate per installment"
 
@@ -850,109 +1105,150 @@ msgstr "Set interest rate per installment"
 #: inc/Views/Settings/Tabs/General.php:167 inc/Views/Settings/Tabs/Texts.php:25
 #: inc/Views/Settings/Tabs/Texts.php:35 inc/Views/Settings/Tabs/Texts.php:109
 #: inc/Views/Settings/Tabs/Texts.php:119 inc/Views/Settings/Tabs/Texts.php:183
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:65
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:167
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:25
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:35
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:109
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:119
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:183
 msgid "Deixe em branco para não exibir."
 msgstr "Leave it blank to not display it."
 
-#: inc/Views/Settings/Tabs/General.php:435
+#: inc/Views/Settings/Tabs/General.php:443
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:443
 msgid "Depois do carrinho"
 msgstr "After the cart"
 
-#: inc/Views/Settings/Tabs/About.php:157
+#: inc/Views/Settings/Tabs/About.php:161
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:161
 msgid "Desativado"
 msgstr "Deactivated"
 
 #: inc/Admin/Product_Settings.php:62 inc/Admin/Product_Settings.php:87
 #: inc/Admin/Product_Settings.php:177
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:62
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:87
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:177
 msgid "Desativar a exibição de parcelas neste produto"
 msgstr "Deactivate the installment display on this product"
 
 #: inc/Admin/Product_Settings.php:66 inc/Admin/Product_Settings.php:92
 #: inc/Admin/Product_Settings.php:184
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:66
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:92
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:184
 msgid "Desativar descontos neste produto"
 msgstr "Disable discounts on this product"
 
-#: inc/Views/Settings/Tabs/About.php:84
+#: inc/Views/Settings/Tabs/About.php:88
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:88
 msgid "Desativar licença"
 msgstr "Deactivate License"
 
 #: inc/Core/Discounts.php:251
+#: dist/woo-custom-installments/inc/Core/Discounts.php:251
 msgid "Desconto exclusivo"
 msgstr "Exclusive discount"
 
 #: inc/Admin/Default_Options.php:422
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:422
 #| msgid "Cor do desconto no boleto bancário"
 msgid "Desconto no Boleto bancário"
 msgstr "Discount on bank slip"
 
 #: inc/Views/Settings/Tabs/Discounts.php:117
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:117
 msgid "Desconto no boleto bancário"
 msgstr "Discount on bank slip"
 
 #: inc/Admin/Default_Options.php:278
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:278
 msgid "Desconto no Pix"
 msgstr "Discount on Pix"
 
 #: inc/Views/Settings/Tabs/Discounts.php:96
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:96
 #| msgid "Desconto no preço do produto"
 msgid "Desconto no preço do produto via Pix"
 msgstr "Discount on product price via Pix"
 
 #: inc/Core/Discounts.php:374
+#: dist/woo-custom-installments/inc/Core/Discounts.php:374
 #, php-format
 msgid "Desconto para %s"
 msgstr "Discount for %s"
 
 #: inc/Core/Discounts.php:290 inc/Core/Discounts.php:376
+#: dist/woo-custom-installments/inc/Core/Discounts.php:290
+#: dist/woo-custom-installments/inc/Core/Discounts.php:376
 msgid "Desconto por forma de pagamento"
 msgstr "Discount per payment method"
 
 #: inc/Views/Settings/Tabs/Discounts.php:292
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:292
 msgid "Desconto por método de pagamento"
 msgstr "Discount by payment method"
 
 #: inc/Core/Discounts.php:482
+#: dist/woo-custom-installments/inc/Core/Discounts.php:482
 msgid "Desconto por quantidade"
 msgstr "Quantity discount"
 
 #: inc/Admin/Admin_Options.php:138
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:138
 msgid "Descontos"
 msgstr "Discounts"
 
-#: inc/Views/Settings/Tabs/About.php:386
+#: inc/Views/Settings/Tabs/About.php:390
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:390
 msgid "Desligado"
 msgstr "Off"
 
 #: inc/Views/Components.php:95 inc/Views/Components.php:159
 #: inc/Views/Components.php:332
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:104
+#: inc/Integrations/Elementor/Inject_Controllers.php:106
+#: dist/woo-custom-installments/inc/Views/Components.php:95
+#: dist/woo-custom-installments/inc/Views/Components.php:159
+#: dist/woo-custom-installments/inc/Views/Components.php:332
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:145
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:145
 msgid "Direita"
 msgstr "Right"
 
-#: inc/Core/Init.php:183
+#: inc/Core/Init.php:178 dist/woo-custom-installments/inc/Core/Init.php:178
 msgid "Documentação"
 msgstr "Documentation"
 
-#: inc/Views/Settings/Tabs/About.php:216
+#: inc/Views/Settings/Tabs/About.php:220
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:220
 msgid "DOMDocument:"
 msgstr "DOMDocument:"
 
 #: inc/Admin/Default_Options.php:350
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:597
+#: inc/Integrations/Elementor/Inject_Controllers.php:599
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:350
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:111
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:638
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:599
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:111
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:638
 msgid "Economia no Pix"
 msgstr "Savings on Pix"
 
 #: inc/Admin/Default_Options.php:349
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:349
 msgid "Economize R$9,70 no Pix"
 msgstr "Save R$9.70 on Pix"
 
 #: inc/Views/Settings/Tabs/Styles.php:122
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:122
 msgid "Editar"
 msgstr "Edit"
 
 #: inc/Views/Settings/Tabs/Styles.php:93
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:93
 msgid ""
 "Edite os estilos clicando no botão editar, ou reposicione a ordem dos "
 "elementos arrastando e soltando."
@@ -961,143 +1257,183 @@ msgstr ""
 "by dragging and dropping."
 
 #: inc/Views/Components.php:42
+#: dist/woo-custom-installments/inc/Views/Components.php:42
 msgid "EM"
 msgstr "EM"
 
 #: inc/Views/Settings/Tabs/Styles.php:187
 #: inc/Views/Settings/Tabs/Styles.php:204
 #: inc/Views/Settings/Tabs/Styles.php:222
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:187
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:204
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:222
 msgid "em"
 msgstr "in"
 
 #: inc/Admin/Default_Options.php:205
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:205
 msgid "Em até 3x de R$32,33 sem juros"
 msgstr "Up to 3x of R$32.33 interest-free"
 
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:43
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:699
+#: inc/Integrations/Elementor/Inject_Controllers.php:701
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:44
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:740
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:701
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:44
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:740
 msgid "Emblema de desconto"
 msgstr "Discount badge"
 
 #: inc/Views/Settings/Tabs/Styles.php:65
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:65
 msgid "Empilhamento de preços em widgets"
 msgstr "Price stacking in widgets"
 
 #: inc/Views/Settings/Tabs/Styles.php:83
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:83
 msgid "Enviar ícones"
 msgstr "Send icons"
 
-#: inc/Core/Ajax.php:270
+#: inc/Core/Ajax.php:269 dist/woo-custom-installments/inc/Core/Ajax.php:269
 msgid "Erro ao carregar o arquivo. A ação não foi acionada corretamente."
 msgstr "Error loading file. The action was not triggered correctly."
 
-#: inc/Core/Ajax.php:281
+#: inc/Core/Ajax.php:280 dist/woo-custom-installments/inc/Core/Ajax.php:280
 msgid "Erro ao carregar o arquivo. O arquivo não foi enviado."
 msgstr "Error uploading file. The file was not uploaded."
 
 #: inc/API/License.php:377 inc/API/License.php:431
+#: dist/woo-custom-installments/inc/API/License.php:377
+#: dist/woo-custom-installments/inc/API/License.php:431
 msgid "Erro cURL 35: Problema de comunicação SSL/TLS."
 msgstr "cURL Error 35: SSL/TLS communication problem."
 
-#: inc/API/License.php:433
+#: inc/API/License.php:433 dist/woo-custom-installments/inc/API/License.php:433
 #, php-format
 msgid "Erro cURL: %s"
 msgstr "cURL error: %s"
 
-#: inc/API/License.php:304
+#: inc/API/License.php:304 dist/woo-custom-installments/inc/API/License.php:304
 #, php-format
 msgid "Erro JSON: %s"
 msgstr "JSON error: %s"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:106
 msgid "Escolha o preço"
 msgstr "Choose the price"
 
-#: inc/Core/Assets.php:81
+#: inc/Core/Assets.php:82 dist/woo-custom-installments/inc/Core/Assets.php:82
 msgid "Escolher imagem de ícone"
 msgstr "Choose icon image"
 
 #: inc/Views/Components.php:307
+#: dist/woo-custom-installments/inc/Views/Components.php:307
 msgid "Espessura do texto:"
 msgstr "Text thickness:"
 
 #: inc/Views/Components.php:97 inc/Views/Components.php:161
 #: inc/Views/Components.php:334
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:96
+#: inc/Integrations/Elementor/Inject_Controllers.php:98
+#: dist/woo-custom-installments/inc/Views/Components.php:97
+#: dist/woo-custom-installments/inc/Views/Components.php:161
+#: dist/woo-custom-installments/inc/Views/Components.php:334
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:137
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:98
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:137
 msgid "Esquerda"
 msgstr "Left"
 
-#: inc/API/License.php:1052 inc/API/License.php:1084
+#: inc/API/License.php:1059 inc/API/License.php:1091
+#: dist/woo-custom-installments/inc/API/License.php:1059
+#: dist/woo-custom-installments/inc/API/License.php:1091
 msgid "Este recurso está disponível na versão Pro"
 msgstr "This feature is available in the Pro version"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:140
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:140
 msgid "Estilo"
 msgstr "Style"
 
 #: inc/Views/Settings/Tabs/Styles.php:165
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:165
 #| msgid "Tamanho do botão do popup de parcelas"
 msgid "Estilo do botão do popup de parcelas"
 msgstr "Installment popup button style"
 
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:120
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:121
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:121
 msgid "Estilo do emblema"
 msgstr "Badge style"
 
 #: inc/Admin/Admin_Options.php:156
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:156
 msgid "Estilos"
 msgstr "Styles"
 
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:120
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:120
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:120
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:120
 msgid "Estilos - bandeiras cartão de crédito"
 msgstr "Styles - credit card flags"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:126
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:125
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:126
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:125
 msgid "Estilos - formas de pagamento"
 msgstr "Styles - Payment methods"
 
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:122
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:122
 msgid "Estilos - Mensagem de desconto por quantidade"
 msgstr "Styles - Quantity Discount Message"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:125
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:125
 msgid "Estilos da tabela de parcelamento"
 msgstr "Installment Table Styles"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:120
+#: inc/Integrations/Elementor/Inject_Controllers.php:122
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:161
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:122
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:161
 msgid "Estilos do preço"
 msgstr "Price styles"
 
 #: inc/Views/Settings/Tabs/Styles.php:92
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:92
 msgid "Estilos dos elementos"
 msgstr "Element styles"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:34
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:34
 msgid "Exibir emblema de aprovação imediata"
 msgstr "Display instant approval badge"
 
-#: inc/Views/Settings/Tabs/General.php:391
+#: inc/Views/Settings/Tabs/General.php:399
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:399
 msgid "Exibir melhor parcela"
 msgstr "Display best installment"
 
 #: inc/Views/Settings/Tabs/Discounts.php:55
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:55
 msgid "Exibir preço com desconto em dados estruturados (Schema.org)"
 msgstr "Display discounted price on structured data (Schema.org)"
 
 #: inc/Views/Settings/Tabs/Discounts.php:25
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:25
 msgid "Exibir preço com desconto no carrinho"
 msgstr "Display discounted price in cart"
 
-#: inc/Views/Settings/Tabs/About.php:232
+#: inc/Views/Settings/Tabs/About.php:236
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:236
 msgid "Extensão cURL:"
 msgstr "cURL extension:"
 
-#: inc/Views/Settings/Tabs/About.php:251
+#: inc/Views/Settings/Tabs/About.php:255
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:255
 msgid "Extensão OpenSSL:"
 msgstr "OpenSSL Extension:"
 
@@ -1109,60 +1445,81 @@ msgstr ""
 "Extension that allows you to display installments, discounts and interest by "
 "payment method for WooCommerce stores."
 
-#: inc/Core/Assets.php:78 inc/Core/Assets.php:99 inc/Views/Components.php:1244
+#: inc/Core/Assets.php:79 inc/Core/Assets.php:100 inc/Views/Components.php:1241
+#: dist/woo-custom-installments/inc/Core/Assets.php:79
+#: dist/woo-custom-installments/inc/Core/Assets.php:100
+#: dist/woo-custom-installments/inc/Views/Components.php:1241
 #: inc/Views/Settings/Tabs/Discounts.php:164
 #: inc/Views/Settings/Tabs/General.php:46
 #: inc/Views/Settings/Tabs/General.php:136
-#: inc/Views/Settings/Tabs/General.php:265
+#: inc/Views/Settings/Tabs/General.php:273
 #: inc/Views/Settings/Tabs/Styles.php:27 inc/Views/Settings/Tabs/Styles.php:128
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:164
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:46
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:136
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:273
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:27
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:128
 msgid "Fechar"
 msgstr "Close"
 
 #: inc/Views/Settings/Tabs/Discounts.php:215
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:215
 msgid "Forma de exibição da mensagem de desconto"
 msgstr "Discount message display format"
 
 #: inc/Admin/Admin_Options.php:150
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:150
 msgid "Formas de pagamento"
 msgstr "Payment methods"
 
 #: inc/Views/Settings/Tabs/Styles.php:77
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:77
 msgid "Formato de ícones"
 msgstr "Icon format"
 
-#: inc/Views/Settings/Tabs/About.php:382
+#: inc/Views/Settings/Tabs/About.php:386
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:386
 msgid "Função PHP \"file_get_content\":"
 msgstr "PHP function \"file_get_content\":"
 
-#: inc/Views/Settings/Tabs/General.php:436
+#: inc/Views/Settings/Tabs/General.php:444
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:444
 msgid "Gancho personalizado"
 msgstr "Custom hook"
 
-#: inc/Views/Settings/Tabs/General.php:445
+#: inc/Views/Settings/Tabs/General.php:454
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:454
 msgid "Gancho personalizado das formas de pagamento"
 msgstr "Custom payment methods hook"
 
 #: inc/Views/Settings/Tabs/Discounts.php:220
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:220
 msgid "Ganchos (Padrão)"
 msgstr "Hooks (Default)"
 
 #: inc/Views/Settings/Tabs/General.php:54
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:54
 msgid "Gatilho para atualização"
 msgstr "Trigger for update"
 
 #: inc/Admin/Admin_Options.php:126
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:126
 msgid "Geral"
 msgstr "General"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:101
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:101
 msgid "Gerenciar bandeiras para cartão de crédito"
 msgstr "Manage credit card brands"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:410
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:410
 msgid "Gerenciar bandeiras para cartão de débito"
 msgstr "Manage debit card brands"
 
 #: inc/Views/Settings/Tabs/Styles.php:171
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:171
 msgid "Grande"
 msgstr "Large"
 
@@ -1182,35 +1539,44 @@ msgstr ""
 "https://meumouse.com/plugins/parcelas-customizadas-para-woocommerce/?"
 "utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:237
+#: inc/Integrations/Elementor/Inject_Controllers.php:239
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:278
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:239
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:278
 msgid "Inativo"
 msgstr "Inactive"
 
 #: inc/Views/Settings/Tabs/Discounts.php:36
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:36
 msgid "Incluir valor de frete no desconto do pedido"
 msgstr "Include shipping value in the order discount"
 
 #: inc/Views/Components.php:96 inc/Views/Components.php:160
 #: inc/Views/Components.php:333
+#: dist/woo-custom-installments/inc/Views/Components.php:96
+#: dist/woo-custom-installments/inc/Views/Components.php:160
+#: dist/woo-custom-installments/inc/Views/Components.php:333
 msgid "Inferior"
 msgstr "Bottom"
 
-#: inc/Core/Ajax.php:512
+#: inc/Core/Ajax.php:526 dist/woo-custom-installments/inc/Core/Ajax.php:526
 msgid "Informações atualizadas"
-msgstr ""
+msgstr "Updated information"
 
 #: inc/Views/Settings/Tabs/About.php:39
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:39
 msgid "Informações sobre a licença:"
 msgstr "License information:"
 
 #: inc/Views/Settings/Tabs/Discounts.php:256
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:256
 msgid ""
 "Informe a quantidade mínima do produto para oferecer desconto no carrinho."
 msgstr ""
 "Enter the minimum quantity of the product to offer a discount in the cart."
 
-#: inc/Views/Settings/Tabs/General.php:454
+#: inc/Views/Settings/Tabs/General.php:463
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:463
 msgid ""
 "Informe o gancho que deve ser exibido o botão ou sanfona de formas de "
 "pagamento."
@@ -1218,27 +1584,32 @@ msgstr ""
 "Enter the hook where the payment method button or accordion should be "
 "displayed."
 
-#: inc/Views/Settings/Tabs/About.php:127
+#: inc/Views/Settings/Tabs/About.php:102
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:102
 msgid "Informe sua licença abaixo para desbloquear todos os recursos."
 msgstr "Enter your license below to unlock all features."
 
 #: inc/Views/Settings/Tabs/Discounts.php:300
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:300
 msgid ""
 "Informe um desconto por método de pagamento para ser adicionado na "
 "finalização da compra."
 msgstr "Enter a discount by payment method to be added at checkout."
 
 #: inc/Views/Settings/Tabs/Interests.php:54
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:54
 msgid ""
 "Informe uma taxa de juros por método de pagamento para ser adicionado na "
 "finalização da compra."
 msgstr "Enter an interest rate per payment method to be added at checkout."
 
 #: inc/Admin/Product_Settings.php:337
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:337
 msgid "Insira a quantidade mínima de produtos para oferecer o desconto."
 msgstr "Enter the minimum quantity of products to offer the discount."
 
 #: inc/Admin/Product_Settings.php:261
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:261
 msgid ""
 "Insira o valor do desconto para o preço do produto. Obs.: Desconto para "
 "pagamento no Pix"
@@ -1247,101 +1618,119 @@ msgstr ""
 "on Pix"
 
 #: inc/Admin/Product_Settings.php:323
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:323
 msgid "Insira o valor do desconto."
 msgstr "Enter the discount amount."
 
-#: inc/Views/Settings/Tabs/About.php:47
+#: inc/Core/Ajax.php:510 dist/woo-custom-installments/inc/Core/Ajax.php:510
+#: inc/Views/Settings/Tabs/About.php:48
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:48
 msgid "Inválida"
 msgstr "Invalid"
 
 #: inc/Admin/Admin_Options.php:144
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:144
 msgid "Juros"
 msgstr "Fees"
 
 #: inc/Core/Interests.php:65
+#: dist/woo-custom-installments/inc/Core/Interests.php:65
 #, php-format
 msgid "Juros para %s"
 msgstr "Interest for %s"
 
 #: inc/Core/Interests.php:62
+#: dist/woo-custom-installments/inc/Core/Interests.php:62
 #, php-format
 msgid "Juros para %s (%s)"
 msgstr "Interest for %s (%s)"
 
 #: inc/Views/Settings/Tabs/Interests.php:45
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:45
 msgid "Juros por método de pagamento"
 msgstr "Interest by payment method"
 
-#: inc/API/License.php:1058
+#: inc/API/License.php:1065
+#: dist/woo-custom-installments/inc/API/License.php:1065
 msgid "Já tenho uma licença"
 msgstr "I already have a license"
 
-#: inc/Core/Ajax.php:372
+#: inc/Core/Ajax.php:371 dist/woo-custom-installments/inc/Core/Ajax.php:371
 msgid "Licença ativa"
 msgstr "License active"
 
-#: inc/Core/Ajax.php:238
+#: inc/Core/Ajax.php:237 dist/woo-custom-installments/inc/Core/Ajax.php:237
 #| msgid "Licença ativada com sucesso!"
 msgid "Licença ativada com sucesso."
 msgstr "License activated successfully."
 
-#: inc/Views/Settings/Tabs/About.php:68
+#: inc/Core/Ajax.php:521 dist/woo-custom-installments/inc/Core/Ajax.php:521
+#: inc/Views/Settings/Tabs/About.php:72
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:72
 #, php-format
 msgid "Licença expira em: %s"
 msgstr "License expires on: %s"
 
-#: inc/API/License.php:912
+#: inc/API/License.php:912 dist/woo-custom-installments/inc/API/License.php:912
 msgid "Licença expirada"
 msgstr "Expired license"
 
-#: inc/Core/Ajax.php:374
+#: inc/Core/Ajax.php:373 dist/woo-custom-installments/inc/Core/Ajax.php:373
 msgid "Licença processada com sucesso!"
 msgstr "License processed successfully!"
 
-#: inc/Views/Settings/Tabs/About.php:390
+#: inc/Views/Settings/Tabs/About.php:394
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:394
 msgid "Ligado"
 msgstr "On"
 
-#: inc/Views/Settings/Tabs/About.php:340
+#: inc/Views/Settings/Tabs/About.php:344
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:344
 msgid "Limite de memória do PHP:"
 msgstr "PHP memory limit:"
 
-#: inc/Views/Settings/Tabs/About.php:296
+#: inc/Views/Settings/Tabs/About.php:300
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:300
 msgid "Limite de tempo do PHP:"
 msgstr "PHP time limit:"
 
 #: inc/Views/Settings/Tabs/Styles.php:172
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:172
 msgid "Link"
 msgstr "Link"
 
-#: inc/Views/Settings/Tabs/General.php:323
+#: inc/Views/Settings/Tabs/General.php:331
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:331
 msgid "Local de exibição da informação de economia no Pix"
 msgstr "Location of display of savings information on Pix"
 
-#: inc/Views/Settings/Tabs/General.php:367
+#: inc/Views/Settings/Tabs/General.php:375
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:375
 msgid "Local de exibição das melhores parcelas"
 msgstr "Display location of the best installments"
 
-#: inc/Views/Settings/Tabs/General.php:345
+#: inc/Views/Settings/Tabs/General.php:353
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:353
 msgid "Local de exibição desconto no boleto bancário"
 msgstr "Display location for bank slip discount"
 
-#: inc/Views/Settings/Tabs/General.php:300
+#: inc/Views/Settings/Tabs/General.php:308
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:308
 #| msgid "Local de exibição do preço com desconto"
 msgid "Local de exibição do preço com desconto no Pix"
 msgstr "Location where the discounted price is displayed on Pix"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:255
+#: inc/Integrations/Elementor/Inject_Controllers.php:356
+#: inc/Integrations/Elementor/Inject_Controllers.php:457
+#: inc/Integrations/Elementor/Inject_Controllers.php:558
+#: inc/Integrations/Elementor/Inject_Controllers.php:659
+#: inc/Integrations/Elementor/Inject_Controllers.php:761
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:196
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:159
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:159
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:179
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:180
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:198
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:253
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:354
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:455
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:556
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:657
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:759
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:186
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:194
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:189
@@ -1351,24 +1740,45 @@ msgstr "Location where the discounted price is displayed on Pix"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:597
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:698
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:800
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:255
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:356
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:457
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:558
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:659
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:761
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:196
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:159
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:159
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:180
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:198
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:186
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:194
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:189
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:294
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:395
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:496
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:597
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:698
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:800
 msgid "Margem externa"
 msgstr "Outer margin"
 
 #: inc/Views/Settings/Tabs/Styles.php:196
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:196
 msgid "Margem inferior do popup/sanfona de parcelas"
 msgstr "Bottom margin of the installment popup/accordion"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:267
+#: inc/Integrations/Elementor/Inject_Controllers.php:368
+#: inc/Integrations/Elementor/Inject_Controllers.php:469
+#: inc/Integrations/Elementor/Inject_Controllers.php:570
+#: inc/Integrations/Elementor/Inject_Controllers.php:671
+#: inc/Integrations/Elementor/Inject_Controllers.php:773
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:208
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:171
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:171
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:190
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:191
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:210
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:265
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:366
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:467
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:568
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:669
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:771
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:174
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:206
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:177
@@ -1378,39 +1788,68 @@ msgstr "Bottom margin of the installment popup/accordion"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:609
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:710
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:812
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:267
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:368
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:469
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:570
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:671
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:773
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:208
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:171
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:171
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:191
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:210
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:174
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:206
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:177
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:306
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:407
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:508
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:609
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:710
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:812
 msgid "Margem interna"
 msgstr "Internal margin"
 
 #: inc/Views/Settings/Tabs/Styles.php:179
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:179
 msgid "Margem superior do popup/sanfona de parcelas"
 msgstr "Top margin of the installment popup/accordion"
 
 #: inc/Views/Components.php:101
+#: dist/woo-custom-installments/inc/Views/Components.php:101
 msgid "Margem:"
 msgstr "Margin:"
 
 #: inc/Admin/Default_Options.php:206
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:206
 msgid "Melhor parcela"
 msgstr "Best installment"
 
-#: inc/Views/Settings/Tabs/General.php:399
+#: inc/Views/Settings/Tabs/General.php:407
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:407
 msgid "Melhor parcela com e sem juros"
 msgstr "Best installment with and without interest"
 
-#: inc/Views/Settings/Tabs/General.php:398
+#: inc/Views/Settings/Tabs/General.php:406
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:406
 msgid "Melhor parcela com juros"
 msgstr "Best installment with interest"
 
-#: inc/Views/Settings/Tabs/General.php:397
+#: inc/Views/Settings/Tabs/General.php:405
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:405
 msgid "Melhor parcela sem juros"
 msgstr "Best installment without interest"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:496
+#: inc/Integrations/Elementor/Inject_Controllers.php:498
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:537
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:498
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:537
 msgid "Melhores parcelas"
 msgstr "Best installments"
 
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:45
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:45
 msgid "Mensagem de desconto por quantidade"
 msgstr "Quantity discount message"
 
@@ -1418,18 +1857,19 @@ msgstr "Quantity discount message"
 msgid "MeuMouse.com"
 msgstr "MeuMouse.com"
 
-#: inc/Views/Settings/Tabs/About.php:156
+#: inc/Views/Settings/Tabs/About.php:160
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:160
 msgid "Modo de depuração do WordPress:"
 msgstr "WordPress Debug Mode:"
 
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:204
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:189
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:280
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:381
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:482
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:583
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:684
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:786
+#: inc/Integrations/Elementor/Inject_Controllers.php:191
+#: inc/Integrations/Elementor/Inject_Controllers.php:282
+#: inc/Integrations/Elementor/Inject_Controllers.php:383
+#: inc/Integrations/Elementor/Inject_Controllers.php:484
+#: inc/Integrations/Elementor/Inject_Controllers.php:585
+#: inc/Integrations/Elementor/Inject_Controllers.php:686
+#: inc/Integrations/Elementor/Inject_Controllers.php:788
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:205
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:201
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:230
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:321
@@ -1438,103 +1878,148 @@ msgstr "WordPress Debug Mode:"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:624
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:725
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:827
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:191
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:282
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:383
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:484
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:585
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:686
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:788
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:205
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:201
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:230
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:321
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:422
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:523
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:624
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:725
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:827
 msgid "Mostrar"
 msgstr "Show"
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:67
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:67
 msgid "Mostrar desconto para boleto bancário"
 msgstr "Show discount for bank slip"
 
-#: inc/Views/Settings/Tabs/General.php:337
+#: inc/Views/Settings/Tabs/General.php:345
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:345
 msgid "Mostrar em todo o site"
 msgstr "Show sitewide"
 
-#: inc/Views/Settings/Tabs/General.php:313
-#: inc/Views/Settings/Tabs/General.php:358
-#: inc/Views/Settings/Tabs/General.php:380
+#: inc/Views/Settings/Tabs/General.php:321
+#: inc/Views/Settings/Tabs/General.php:366
+#: inc/Views/Settings/Tabs/General.php:388
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:321
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:366
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:388
 msgid "Mostrar em todo o site (Padrão)"
 msgstr "Show sitewide (Default)"
 
 #: inc/Views/Settings/Tabs/Interests.php:25
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:25
 #| msgid "Mostrar emblema de desconto na finalização da compra"
 msgid "Mostrar emblema de juros na finalização da compra"
 msgstr "Show interest badge at checkout"
 
 #: inc/Views/Settings/Tabs/Discounts.php:273
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:273
 msgid "Mostrar informação de desconto na forma de pagamento"
 msgstr "Show discount information in payment method"
 
 #: inc/Views/Settings/Tabs/General.php:102
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:102
 msgid "Mostrar informação de economia no Pix"
 msgstr "Show savings information on Pix"
 
 #: inc/Views/Settings/Tabs/About.php:25
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:25
 msgid "Mostrar notificação de atualização disponível"
 msgstr "Display notification of update available"
 
 #: inc/Admin/Product_Settings.php:241 inc/Admin/Product_Settings.php:303
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:241
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:303
 msgid "Método de desconto"
 msgstr "Discount method"
 
 #: inc/Views/Settings/Tabs/Discounts.php:306
 #: inc/Views/Settings/Tabs/Interests.php:60
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:306
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:60
 msgid "Método de pagamento"
 msgstr "Payment method"
 
 #: inc/Views/Settings/Tabs/Discounts.php:312
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:312
 msgid "Método do desconto"
 msgstr "Discount method"
 
 #: inc/Views/Settings/Tabs/Discounts.php:171
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:171
 msgid "Método do desconto por quantidade"
 msgstr "Quantity discount method"
 
 #: inc/Views/Settings/Tabs/Interests.php:66
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:66
 msgid "Método do juros"
 msgstr "Interest method"
 
-#: inc/Views/Settings/Tabs/About.php:45
+#: inc/Views/Settings/Tabs/About.php:46
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:46
 msgid "Nenhuma licença informada"
 msgstr "No license reported"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:136
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:135
 #: inc/Views/Settings/Tabs/Styles.php:170
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:136
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:135
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:170
 msgid "Normal"
 msgstr "Normal"
 
-#: inc/Views/Settings/Tabs/About.php:92
+#: inc/Views/Settings/Tabs/About.php:117
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:117
 msgid "Notamos que teve problemas de conexão ao tentar ativar sua licença"
 msgstr ""
 "We noticed that you had connection issues when trying to activate your "
 "license"
 
-#: inc/API/License.php:903
+#: inc/API/License.php:903 inc/Core/Ajax.php:519
+#: dist/woo-custom-installments/inc/API/License.php:903
+#: dist/woo-custom-installments/inc/Core/Ajax.php:519
 msgid "Nunca expira"
 msgstr "Never expires"
 
-#: inc/Views/Settings/Tabs/About.php:153 inc/Views/Settings/Tabs/About.php:221
-#: inc/Views/Settings/Tabs/About.php:237 inc/Views/Settings/Tabs/About.php:256
+#: inc/Views/Settings/Tabs/About.php:157 inc/Views/Settings/Tabs/About.php:225
+#: inc/Views/Settings/Tabs/About.php:241 inc/Views/Settings/Tabs/About.php:260
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:157
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:225
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:241
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:260
 msgid "Não"
 msgstr "No"
 
-#: inc/API/License.php:887 inc/Views/Settings/Tabs/About.php:74
+#: inc/API/License.php:887 dist/woo-custom-installments/inc/API/License.php:887
+#: inc/Views/Settings/Tabs/About.php:78
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:78
 msgid "Não disponível"
 msgstr "Not available"
 
-#: inc/Core/Ajax.php:314
+#: inc/Core/Ajax.php:313 dist/woo-custom-installments/inc/Core/Ajax.php:313
 msgid "Não foi possível descriptografar o arquivo de licença."
 msgstr "Unable to decrypt license file."
 
-#: inc/Core/Ajax.php:187
+#: inc/Core/Ajax.php:186 dist/woo-custom-installments/inc/Core/Ajax.php:186
 msgid "Não foi possível salvar as configurações"
 msgstr "Unable to save settings"
 
-#: inc/Core/Ajax.php:519
+#: inc/Core/Ajax.php:539 dist/woo-custom-installments/inc/Core/Ajax.php:539
 msgid "Não foi possível sincronizar as informações da licença."
-msgstr ""
+msgstr "Unable to sync license information."
 
-#: inc/Core/Updater.php:249
+#: inc/API/Updater.php:249 dist/woo-custom-installments/inc/API/Updater.php:249
 #| msgid ""
 #| "Não foi possível verificar atualizações para o plugin Parcelas "
 #| "Customizadas para WooCommerce."
@@ -1545,19 +2030,16 @@ msgstr ""
 "Unable to check for updates for the <strong>Custom Installments for "
 "WooCommerce</strong> plugin"
 
-#: inc/Core/Ajax.php:325
+#: inc/Core/Ajax.php:324 dist/woo-custom-installments/inc/Core/Ajax.php:324
 msgid "O arquivo de licença não contém dados válidos."
 msgstr "The license file does not contain valid data."
 
-#: inc/Core/Ajax.php:437
-msgid "O cache de ativação foi limpo com sucesso!"
-msgstr "Activation cache has been successfully cleared!"
-
-#: inc/Core/Ajax.php:333
+#: inc/Core/Ajax.php:332 dist/woo-custom-installments/inc/Core/Ajax.php:332
 msgid "O domínio de ativação não é permitido."
 msgstr "The activation domain is not allowed."
 
 #: inc/Compatibility/Legacy_Filters.php:114
+#: dist/woo-custom-installments/inc/Compatibility/Legacy_Filters.php:114
 #, php-format
 msgid ""
 "O filtro \"%1$s\" está obsoleto desde a versão %3$s. Use \"%2$s\" em seu "
@@ -1566,6 +2048,7 @@ msgstr ""
 "The filter \"%1$s\" is deprecated since version %3$s. Use \"%2$s\" instead."
 
 #: inc/Compatibility/Legacy_Hooks.php:112
+#: dist/woo-custom-installments/inc/Compatibility/Legacy_Hooks.php:112
 #, php-format
 msgid ""
 "O gancho \"%1$s\" está obsoleto desde a versão %3$s. Use \"%2$s\" em seu "
@@ -1575,6 +2058,9 @@ msgstr ""
 
 #: inc/Views/Shortcodes.php:167 inc/Views/Shortcodes.php:195
 #: inc/Views/Shortcodes.php:223
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:167
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:195
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:223
 msgid ""
 "O local do shortcode inserido é inválido. Insira em um modelo de página de "
 "produto individual, ou em um local onde consiga obter o ID de um produto."
@@ -1588,6 +2074,16 @@ msgstr ""
 #: inc/Views/Shortcodes.php:311 inc/Views/Shortcodes.php:339
 #: inc/Views/Shortcodes.php:367 inc/Views/Shortcodes.php:395
 #: inc/Views/Shortcodes.php:423 inc/Views/Shortcodes.php:450
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:74
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:106
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:136
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:283
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:311
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:339
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:367
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:395
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:423
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:450
 msgid ""
 "O local do shortcode inserido é inválido. É permitido apenas para produtos."
 msgstr ""
@@ -1595,18 +2091,19 @@ msgstr ""
 "products."
 
 #: inc/Views/Settings.php:28
+#: dist/woo-custom-installments/inc/Views/Settings.php:28
 msgid "O PagSeguro utiliza fator de multiplicação para calcular o juros."
 msgstr "PagSeguro uses a multiplication factor to calculate interest."
 
-#: inc/Core/Ajax.php:411
+#: inc/Core/Ajax.php:411 dist/woo-custom-installments/inc/Core/Ajax.php:411
 msgid "Ocorreu um erro ao desativar sua licença."
 msgstr "An error occurred while deactivating your license."
 
-#: inc/Core/Ajax.php:471
+#: inc/Core/Ajax.php:448 dist/woo-custom-installments/inc/Core/Ajax.php:448
 msgid "Ocorreu um erro ao redefinir as configurações."
 msgstr "An error occurred while resetting the settings."
 
-#: inc/API/License.php:281
+#: inc/API/License.php:281 dist/woo-custom-installments/inc/API/License.php:281
 msgid ""
 "Ocorreu um erro na conexão com o servidor de verificação de licenças. "
 "Verifique o erro nos logs do WooCommerce."
@@ -1614,14 +2111,14 @@ msgstr ""
 "An error occurred connecting to the license verification server. Check the "
 "error in the WooCommerce logs."
 
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:203
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:188
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:279
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:380
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:481
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:582
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:683
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:785
+#: inc/Integrations/Elementor/Inject_Controllers.php:190
+#: inc/Integrations/Elementor/Inject_Controllers.php:281
+#: inc/Integrations/Elementor/Inject_Controllers.php:382
+#: inc/Integrations/Elementor/Inject_Controllers.php:483
+#: inc/Integrations/Elementor/Inject_Controllers.php:584
+#: inc/Integrations/Elementor/Inject_Controllers.php:685
+#: inc/Integrations/Elementor/Inject_Controllers.php:787
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:204
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:200
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:229
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:320
@@ -1630,60 +2127,107 @@ msgstr ""
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:623
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:724
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:826
-#: inc/Views/Settings/Tabs/General.php:316
-#: inc/Views/Settings/Tabs/General.php:396
-#: inc/Views/Settings/Tabs/General.php:413
+#: inc/Views/Settings/Tabs/General.php:324
+#: inc/Views/Settings/Tabs/General.php:404
+#: inc/Views/Settings/Tabs/General.php:421
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:190
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:281
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:382
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:483
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:584
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:685
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:787
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:204
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:200
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:229
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:320
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:421
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:522
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:623
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:724
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:826
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:324
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:404
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:421
 msgid "Ocultar"
 msgstr "Hide"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:479
+#: inc/Integrations/Elementor/Inject_Controllers.php:481
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:520
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:481
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:520
 msgid "Ocultar desconto no boleto"
 msgstr "Hide discount on the bill"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:378
+#: inc/Integrations/Elementor/Inject_Controllers.php:380
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:419
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:380
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:419
 msgid "Ocultar desconto no Pix"
 msgstr "Hide discount on Pix"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:681
+#: inc/Integrations/Elementor/Inject_Controllers.php:683
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:722
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:683
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:722
 msgid "Ocultar economia no Pix"
 msgstr "Hide savings on Pix"
 
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:201
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:783
+#: inc/Integrations/Elementor/Inject_Controllers.php:785
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:202
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:824
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:785
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:202
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:824
 msgid "Ocultar emblema de desconto"
 msgstr "Hide discount badge"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:580
+#: inc/Integrations/Elementor/Inject_Controllers.php:582
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:621
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:582
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:621
 msgid "Ocultar melhores parcelas"
 msgstr "Hide best installments"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:186
+#: inc/Integrations/Elementor/Inject_Controllers.php:188
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:227
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:188
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:227
 msgid "Ocultar preço antigo"
 msgstr "Hide old price"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:277
+#: inc/Integrations/Elementor/Inject_Controllers.php:279
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:318
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:279
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:318
 msgid "Ocultar preço do produto"
 msgstr "Hide product price"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:198
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:198
 msgid "Ocultar título"
 msgstr "Hide title"
 
-#: inc/Core/Assets.php:79
+#: inc/Core/Assets.php:80 dist/woo-custom-installments/inc/Core/Assets.php:80
 msgid "Ops! Não há conexão com a internet"
 msgstr "Oops! No internet connection"
 
-#: inc/Core/Ajax.php:186 inc/Core/Ajax.php:246 inc/Core/Ajax.php:269
-#: inc/Core/Ajax.php:280 inc/Core/Ajax.php:293 inc/Core/Ajax.php:313
-#: inc/Core/Ajax.php:324 inc/Core/Ajax.php:332 inc/Core/Ajax.php:340
-#: inc/Core/Ajax.php:410 inc/Core/Ajax.php:470 inc/Core/Ajax.php:518
+#: inc/Core/Ajax.php:185 inc/Core/Ajax.php:245 inc/Core/Ajax.php:268
+#: inc/Core/Ajax.php:279 inc/Core/Ajax.php:292 inc/Core/Ajax.php:312
+#: inc/Core/Ajax.php:323 inc/Core/Ajax.php:331 inc/Core/Ajax.php:339
+#: inc/Core/Ajax.php:410 inc/Core/Ajax.php:447 inc/Core/Ajax.php:538
+#: dist/woo-custom-installments/inc/Core/Ajax.php:185
+#: dist/woo-custom-installments/inc/Core/Ajax.php:245
+#: dist/woo-custom-installments/inc/Core/Ajax.php:268
+#: dist/woo-custom-installments/inc/Core/Ajax.php:279
+#: dist/woo-custom-installments/inc/Core/Ajax.php:292
+#: dist/woo-custom-installments/inc/Core/Ajax.php:312
+#: dist/woo-custom-installments/inc/Core/Ajax.php:323
+#: dist/woo-custom-installments/inc/Core/Ajax.php:331
+#: dist/woo-custom-installments/inc/Core/Ajax.php:339
+#: dist/woo-custom-installments/inc/Core/Ajax.php:410
+#: dist/woo-custom-installments/inc/Core/Ajax.php:447
+#: dist/woo-custom-installments/inc/Core/Ajax.php:538
 msgid "Ops! Ocorreu um erro."
 msgstr "Oops! An error occurred."
 
@@ -1695,6 +2239,21 @@ msgstr "Oops! An error occurred."
 #: inc/Views/Shortcodes.php:345 inc/Views/Shortcodes.php:373
 #: inc/Views/Shortcodes.php:401 inc/Views/Shortcodes.php:429
 #: inc/Views/Shortcodes.php:456
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:82
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:112
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:145
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:173
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:201
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:229
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:245
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:261
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:289
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:317
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:345
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:373
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:401
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:429
+#: dist/woo-custom-installments/inc/Views/Shortcodes.php:456
 msgid ""
 "Os shortcodes estão disponíveis na versão Pro do Parcelas Customizadas para "
 "WooCommerce."
@@ -1704,57 +2263,84 @@ msgstr ""
 
 #: inc/Views/Settings/Tabs/Texts.php:205 inc/Views/Settings/Tabs/Texts.php:244
 #: inc/Views/Settings/Tabs/Texts.php:283
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:205
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:244
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:283
 msgid "Para recuperar o número de parcelas."
 msgstr "To retrieve the number of installments."
 
 #: inc/Views/Settings/Tabs/Texts.php:210 inc/Views/Settings/Tabs/Texts.php:249
 #: inc/Views/Settings/Tabs/Texts.php:288
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:210
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:249
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:288
 msgid "Para recuperar o valor da parcela."
 msgstr "To recover the amount of the installment."
 
 #: inc/Views/Settings/Tabs/Texts.php:220 inc/Views/Settings/Tabs/Texts.php:259
 #: inc/Views/Settings/Tabs/Texts.php:298
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:220
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:259
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:298
 msgid "Para recuperar o valor total da soma das parcelas."
 msgstr "To recover the total value of the sum of the installments."
 
 #: inc/Views/Settings/Tabs/Texts.php:215 inc/Views/Settings/Tabs/Texts.php:254
 #: inc/Views/Settings/Tabs/Texts.php:293
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:215
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:254
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:293
 msgid "Para recuperar se a parcela é com ou sem juros."
 msgstr "To recover whether the installment is with or without interest."
 
 #: inc/Views/Settings/Tabs/Discounts.php:183
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:183
 msgid "Para todos os produtos"
 msgstr "For all products"
 
 #. page title
-#: inc/Admin/Admin_Options.php:67 inc/Integrations/Elementor.php:61
+#: inc/Admin/Admin_Options.php:67 inc/Integrations/Elementor.php:75
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:67
+#: dist/woo-custom-installments/inc/Integrations/Elementor.php:75
 msgid "Parcelas Customizadas"
 msgstr "Custom Installments"
 
 #. parent page slug
 #. Name of the plugin
 #: inc/Admin/Admin_Options.php:66 inc/Views/Settings.php:12
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:66
+#: dist/woo-custom-installments/inc/Views/Settings.php:12
 msgid "Parcelas Customizadas para WooCommerce"
 msgstr "Custom Installments for WooCommerce"
 
 #: inc/Views/Settings/Tabs/Styles.php:169
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:169
 msgid "Pequeno"
 msgstr "Small"
 
 #: inc/Admin/Product_Settings.php:244 inc/Admin/Product_Settings.php:306
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:244
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:306
 #: inc/Views/Settings/Tabs/Discounts.php:108
 #: inc/Views/Settings/Tabs/Discounts.php:130
 #: inc/Views/Settings/Tabs/Discounts.php:239
 #: inc/Views/Settings/Tabs/Discounts.php:337
 #: inc/Views/Settings/Tabs/Interests.php:92
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:108
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:130
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:239
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:337
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:92
 msgid "Percentual (%)"
 msgstr "Percentage (%)"
 
-#: inc/Views/Settings/Tabs/General.php:198
+#: inc/Views/Settings/Tabs/General.php:206
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:206
 msgid "Percentual para cálculo de juros das parcelas de forma progressiva."
 msgstr "Percentage for calculating interest on installments progressively."
 
 #: inc/Views/Settings/Tabs/General.php:55
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:55
 msgid ""
 "Permite definir elementos que ao serem clicados acionam a atualização do "
 "preço. Informe a classe ou ID separado por vírgulas: .elemento-1, .elemento-2"
@@ -1763,12 +2349,14 @@ msgstr ""
 "Enter the class or ID separated by commas: .element-1, .element-2"
 
 #: inc/Views/Settings/Tabs/Discounts.php:216
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:216
 msgid ""
 "Permite definir o método de exibição da mensagem de desconto por quantidade."
 msgstr ""
 "Allows you to define the display method for the quantity discount message."
 
 #: inc/Views/Settings/Tabs/Styles.php:36
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:36
 msgid ""
 "Permite definir os seletores a serem centralizados ao centro. Use no formato "
 "de seletores CSS separando com vírgulas."
@@ -1777,80 +2365,104 @@ msgstr ""
 "separating them with commas."
 
 #: inc/Views/Settings/Tabs/General.php:122
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:122
 msgid "Personalizar preço do produto"
 msgstr "Customize product price"
 
 #: inc/Views/Components.php:592
+#: dist/woo-custom-installments/inc/Views/Components.php:592
 #, php-format
 msgid "Pix: %s"
 msgstr "Pix: %s"
 
 #: inc/Views/Components.php:41
+#: dist/woo-custom-installments/inc/Views/Components.php:41
 msgid "Pixel"
 msgstr "Pixel"
 
-#: inc/Views/Settings/Tabs/General.php:411
+#: inc/Views/Settings/Tabs/General.php:419
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:419
 msgid "Popup (Padrão)"
 msgstr "Popup (Default)"
 
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:46
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:46
 msgid "Popup - Formas de pagamento"
 msgstr "Popup - Payment methods"
 
-#: inc/Views/Settings/Tabs/General.php:420
+#: inc/Views/Settings/Tabs/General.php:428
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:428
 msgid ""
 "Posição das formas de pagamento e parcelas na página de produto individual"
 msgstr ""
 "Position of payment methods and installments on the individual product page"
 
 #: inc/Views/Components.php:165
+#: dist/woo-custom-installments/inc/Views/Components.php:165
 msgid "Preenchimento:"
 msgstr "Filling:"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:203
+#: inc/Integrations/Elementor/Inject_Controllers.php:205
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:244
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:205
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:244
 msgid "Prefixo e sufixo"
 msgstr "Prefix and suffix"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:130
+#: inc/Integrations/Elementor/Inject_Controllers.php:132
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:171
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:132
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:171
 msgid "Preço"
 msgstr "Price"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:159
+#: inc/Integrations/Elementor/Inject_Controllers.php:161
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:200
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:161
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:200
 msgid "Preço antigo"
 msgstr "Old price"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:395
+#: inc/Integrations/Elementor/Inject_Controllers.php:397
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:436
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:397
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:436
 msgid "Preço com desconto no Boleto"
 msgstr "Discounted price on Bank Slip"
 
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:294
+#: inc/Integrations/Elementor/Inject_Controllers.php:296
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:335
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:296
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:335
 msgid "Preço com desconto no Pix"
 msgstr "Discounted price on Pix"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:122
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:122
 msgid "Preço com desconto:"
 msgstr "Discounted price:"
 
 #: inc/Admin/Default_Options.php:134
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:134
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:45
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:45
 msgid "Preço do produto"
 msgstr "Product price"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:110
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:110
 msgid "Preço no Boleto"
 msgstr "Price on Bank Slip"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:109
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:109
 msgid "Preço no Pix"
 msgstr "Price on Pix"
 
-#: inc/Views/Settings.php:17 inc/Views/Settings/Tabs/About.php:53
-#: inc/Views/Settings/Tabs/About.php:185
+#: inc/Core/Ajax.php:517 inc/Views/Settings.php:17
+#: dist/woo-custom-installments/inc/Core/Ajax.php:517
+#: dist/woo-custom-installments/inc/Views/Settings.php:17
+#: inc/Views/Settings/Tabs/About.php:56 inc/Views/Settings/Tabs/About.php:189
 #: inc/Views/Settings/Tabs/Discounts.php:41
 #: inc/Views/Settings/Tabs/Discounts.php:60
 #: inc/Views/Settings/Tabs/Discounts.php:79
@@ -1862,13 +2474,14 @@ msgstr "Price on Pix"
 #: inc/Views/Settings/Tabs/General.php:30
 #: inc/Views/Settings/Tabs/General.php:87
 #: inc/Views/Settings/Tabs/General.php:107
-#: inc/Views/Settings/Tabs/General.php:248
-#: inc/Views/Settings/Tabs/General.php:305
-#: inc/Views/Settings/Tabs/General.php:328
-#: inc/Views/Settings/Tabs/General.php:350
-#: inc/Views/Settings/Tabs/General.php:372
-#: inc/Views/Settings/Tabs/General.php:425
-#: inc/Views/Settings/Tabs/General.php:450
+#: inc/Views/Settings/Tabs/General.php:188
+#: inc/Views/Settings/Tabs/General.php:256
+#: inc/Views/Settings/Tabs/General.php:313
+#: inc/Views/Settings/Tabs/General.php:336
+#: inc/Views/Settings/Tabs/General.php:358
+#: inc/Views/Settings/Tabs/General.php:380
+#: inc/Views/Settings/Tabs/General.php:433
+#: inc/Views/Settings/Tabs/General.php:459
 #: inc/Views/Settings/Tabs/Interests.php:30
 #: inc/Views/Settings/Tabs/Interests.php:50
 #: inc/Views/Settings/Tabs/Payment_Methods.php:18
@@ -1903,54 +2516,121 @@ msgstr "Price on Pix"
 #: inc/Views/Settings/Tabs/Payment_Methods.php:675
 #: inc/Views/Settings/Tabs/Texts.php:197 inc/Views/Settings/Tabs/Texts.php:236
 #: inc/Views/Settings/Tabs/Texts.php:275
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:56
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:189
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:41
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:60
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:79
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:146
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:176
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:253
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:278
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:297
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:30
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:87
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:107
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:188
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:256
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:313
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:336
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:358
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:380
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:433
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:459
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:30
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:50
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:18
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:51
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:85
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:114
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:135
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:156
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:177
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:198
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:219
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:240
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:261
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:282
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:303
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:324
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:345
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:366
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:394
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:423
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:444
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:465
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:486
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:507
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:528
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:549
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:570
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:591
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:612
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:633
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:654
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:675
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:197
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:236
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:275
 msgid "Pro"
 msgstr "Pro"
 
 #: inc/Views/Components.php:411
+#: dist/woo-custom-installments/inc/Views/Components.php:411
 msgid "Procurar"
 msgstr "Search"
 
 #: templates/single-product/price.php:35
+#: dist/woo-custom-installments/templates/single-product/price.php:35
 msgid "Produto não encontrado."
 msgstr "Product not found."
 
 #: inc/Views/Components.php:432
+#: dist/woo-custom-installments/inc/Views/Components.php:432
 msgid "Pré-visualizar:"
 msgstr "Preview:"
 
 #: inc/Views/Settings/Tabs/Styles.php:186
 #: inc/Views/Settings/Tabs/Styles.php:203
 #: inc/Views/Settings/Tabs/Styles.php:221
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:186
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:203
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:221
 msgid "px"
 msgstr "px"
 
-#: inc/Views/Settings/Tabs/General.php:210
+#: inc/Views/Settings/Tabs/General.php:218
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:218
 msgid "Quantidade máxima de parcelas"
 msgstr "Maximum number of installments"
 
-#: inc/Views/Settings/Tabs/General.php:220
+#: inc/Views/Settings/Tabs/General.php:228
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:228
 msgid "Quantidade máxima de parcelas sem juros"
 msgstr "Maximum number of interest-free installments"
 
 #: inc/Admin/Product_Settings.php:330
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:330
 msgid "Quantidade mínima para desconto"
 msgstr "Minimum quantity for discount"
 
 #: inc/Views/Settings/Tabs/Discounts.php:248
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:248
 msgid "Quantidade mínima para oferecer desconto"
 msgstr "Minimum quantity to offer discount"
 
 #: inc/Admin/Default_Options.php:133
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:133
 msgid "R$97,00"
 msgstr "$97.00"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:344
+#: inc/Integrations/Elementor/Inject_Controllers.php:445
+#: inc/Integrations/Elementor/Inject_Controllers.php:546
+#: inc/Integrations/Elementor/Inject_Controllers.php:647
+#: inc/Integrations/Elementor/Inject_Controllers.php:749
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:184
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:168
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:342
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:443
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:544
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:645
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:747
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:169
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:182
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:209
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:383
@@ -1958,74 +2638,105 @@ msgstr "$97.00"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:585
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:686
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:788
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:344
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:445
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:546
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:647
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:749
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:184
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:169
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:182
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:209
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:383
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:484
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:585
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:686
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:788
 msgid "Raio da borda"
 msgstr "Border radius"
 
 #: inc/Views/Settings/Tabs/Styles.php:214
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:214
 msgid "Raio da borda do botão de popup de parcelas."
 msgstr "Radius of the installment popup button border."
 
 #: inc/Views/Components.php:338
+#: dist/woo-custom-installments/inc/Views/Components.php:338
 msgid "Raio da borda:"
 msgstr "Border radius:"
 
-#: inc/Views/Settings/Tabs/About.php:51
+#: inc/Views/Settings/Tabs/About.php:53
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:53
 msgid "Recursos:"
 msgstr "Resources:"
 
-#: inc/Views/Settings/Tabs/About.php:405
+#: inc/Views/Settings/Tabs/About.php:409
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:409
 msgid "Redefinir configurações"
 msgstr "Reset settings"
 
 #: inc/Views/Components.php:229 inc/Views/Components.php:257
+#: dist/woo-custom-installments/inc/Views/Components.php:229
+#: dist/woo-custom-installments/inc/Views/Components.php:257
 #: inc/Views/Settings/Tabs/Styles.php:156
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:156
 msgid "Redefinir para cor padrão"
 msgstr "Reset to default color"
 
 #: inc/Views/Components.php:43
+#: dist/woo-custom-installments/inc/Views/Components.php:43
 msgid "REM"
 msgstr "REM"
 
 #: inc/Views/Settings/Tabs/Styles.php:188
 #: inc/Views/Settings/Tabs/Styles.php:205
 #: inc/Views/Settings/Tabs/Styles.php:223
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:188
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:205
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:223
 msgid "rem"
 msgstr "rem"
 
 #: inc/Views/Settings/Tabs/General.php:25
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:25
 msgid "Remover faixa de preço em produtos variáveis"
 msgstr "Remove price range on variable products"
 
-#: inc/Views/Settings/Tabs/About.php:433
+#: inc/Views/Settings/Tabs/About.php:437
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:437
 msgid "Reportar problemas"
 msgstr "Report problems"
 
-#: inc/API/License.php:315
+#: inc/API/License.php:315 dist/woo-custom-installments/inc/API/License.php:315
 #| msgid "Resposta desconhecida."
 msgid "Resposta desconhecida"
 msgstr "Unknown answer"
 
-#: inc/API/License.php:340
+#: inc/API/License.php:340 dist/woo-custom-installments/inc/API/License.php:340
 msgid "Resposta vazia."
 msgstr "Empty response."
 
 #: inc/Views/Settings.php:67
+#: dist/woo-custom-installments/inc/Views/Settings.php:67
 msgid "Salvar alterações"
 msgstr "Save changes"
 
-#: inc/Core/Ajax.php:180
+#: inc/Core/Ajax.php:179 dist/woo-custom-installments/inc/Core/Ajax.php:179
 msgid "Salvo com sucesso"
 msgstr "Successfully saved"
 
-#: inc/Views/Settings/Tabs/General.php:412
+#: inc/Views/Settings/Tabs/General.php:420
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:420
 msgid "Sanfona"
 msgstr "Accordion"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:46
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:46
 msgid "Sanfona - Formas de pagamento"
 msgstr "Accordion - Payment methods"
 
 #: inc/Views/Settings/Tabs/Styles.php:66
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:66
 msgid ""
 "Se ativo, a opção \"Ativar empilhamento de preços\" será incluída nos "
 "widgets para Elementor."
@@ -2034,6 +2745,7 @@ msgstr ""
 "for Elementor."
 
 #: inc/Views/Settings/Tabs/Styles.php:14
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:14
 msgid ""
 "Se ativo, irá centralizar a melhor parcela e desconto na grade de produtos."
 msgstr ""
@@ -2041,6 +2753,7 @@ msgstr ""
 "product grid."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:35
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:35
 msgid ""
 "Se ativo, irá exibir o emblema de aprovação imediata no pix, cartão de "
 "crédito e débito."
@@ -2049,6 +2762,7 @@ msgstr ""
 "debit card."
 
 #: inc/Views/Settings/Tabs/Interests.php:34
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:34
 #| msgid ""
 #| "Se ativo, irá exibir o emblema de desconto na página de finalização de "
 #| "compra para a forma de desconto configurada."
@@ -2060,6 +2774,7 @@ msgstr ""
 "configured discount method."
 
 #: inc/Views/Settings/Tabs/Discounts.php:64
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:64
 msgid ""
 "Se ativo, irá exibir o preço com desconto em serviços que fazem a leitura de "
 "dados estruturados ou \"Rich snippets\", para ajudar o produto em SEO. "
@@ -2070,6 +2785,7 @@ msgstr ""
 "(Recommended)"
 
 #: inc/Views/Settings/Tabs/Discounts.php:26
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:26
 msgid ""
 "Se ativo, irá exibir o valor do preço com desconto também no carrinho. "
 "(Recomendado)"
@@ -2078,6 +2794,7 @@ msgstr ""
 "(Recommended)"
 
 #: inc/Views/Settings/Tabs/Discounts.php:45
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:45
 msgid ""
 "Se ativo, irá incluir o valor de frete no cálculo de desconto na finalização "
 "da compra. (Recomendado)"
@@ -2086,6 +2803,7 @@ msgstr ""
 "checkout. (Recommended)"
 
 #: inc/Views/Settings/Tabs/General.php:34
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:34
 msgid ""
 "Se ativo, irá remover a faixa de preço em produtos variáveis e o preço será "
 "alterado dinâmicamente ao selecionar uma variação."
@@ -2094,6 +2812,7 @@ msgstr ""
 "will change dynamically when selecting a variation."
 
 #: inc/Views/Settings/Tabs/Discounts.php:204
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:204
 msgid ""
 "Se ativo, irá ser adicionado a mensagem informando o usuário que o produto é "
 "elegível para desconto por quantidade."
@@ -2103,6 +2822,8 @@ msgstr ""
 
 #: inc/Views/Settings/Tabs/Discounts.php:150
 #: inc/Views/Settings/Tabs/Discounts.php:179
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:150
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:179
 msgid ""
 "Se ativo, irá ser adicionado um desconto a partir de uma quantidade mínima "
 "do produto no carrinho, para todos os produtos da loja."
@@ -2111,6 +2832,7 @@ msgstr ""
 "product in the cart, for all products in the store."
 
 #: inc/Views/Settings/Tabs/Payment_Methods.php:68
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:68
 msgid ""
 "Se ativo, irá ser adicionado uma nova informação de desconto no boleto "
 "bancário abaixo do desconto principal."
@@ -2119,11 +2841,13 @@ msgstr ""
 "main discount."
 
 #: inc/Views/Settings/Tabs/Discounts.php:192
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:192
 msgid "Se ativo, irá ser considerado o desconto para cada unidade do produto."
 msgstr ""
 "If active, the discount will be considered for each unit of the product."
 
 #: inc/Views/Settings/Tabs/Discounts.php:83
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:83
 msgid ""
 "Se ativo, o post meta \"_product_price_on_pix\" será criado para adicionar "
 "em Feed XML, com plugins compatíveis com esse recurso."
@@ -2131,13 +2855,15 @@ msgstr ""
 "If active, the post meta \"_product_price_on_pix\" will be created to add to "
 "XML Feed, with plugins compatible with this feature."
 
-#: inc/Views/Settings/Tabs/General.php:252
+#: inc/Views/Settings/Tabs/General.php:260
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:260
 msgid ""
 "Se ativo, permite informar uma taxa de juros personalizada para cada parcela."
 msgstr ""
 "If active, allows you to specify a custom interest rate for each installment."
 
 #: inc/Views/Settings/Tabs/Discounts.php:281
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:281
 msgid ""
 "Se ativo, será exibido o emblema de desconto ao lado do título da forma de "
 "pagamento configurada."
@@ -2145,47 +2871,69 @@ msgstr ""
 "If active, the discount badge will be displayed next to the title of the "
 "configured payment method."
 
-#: inc/Core/Init.php:202
+#: inc/Core/Init.php:197 dist/woo-custom-installments/inc/Core/Init.php:197
 msgid "Seja PRO"
 msgstr "Go PRO"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:106
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:101
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:101
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:101
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:102
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:103
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:106
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:106
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:79
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:92
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:101
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:101
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:102
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:103
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:106
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:79
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:92
 msgid "Seja Pro"
 msgstr "Go Pro"
 
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:107
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:102
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:102
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:102
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:103
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:104
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:107
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:107
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:80
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:93
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:107
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:102
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:102
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:103
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:104
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:107
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:107
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:80
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:93
 msgid "Seja Pro - Parcelas Customizadas"
 msgstr "Go Pro - Custom Installments"
 
 #: inc/Views/Settings/Tabs/Styles.php:78
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:78
 msgid "Selecione o formato de exibição dos ícones dos elementos."
 msgstr "Select the display format for element icons."
 
-#: inc/Views/Settings/Tabs/General.php:376
+#: inc/Views/Settings/Tabs/General.php:384
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:384
 msgid "Selecione o local para exibir a informação das melhores parcelas."
 msgstr "Select the location to display the best installment information."
 
-#: inc/Views/Settings/Tabs/General.php:392
+#: inc/Views/Settings/Tabs/General.php:400
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:400
 msgid "Selecione o tipo de exibição da melhor parcela."
 msgstr "Select the type of display for the best installment."
 
-#: inc/Views/Settings/Tabs/General.php:407
+#: inc/Views/Settings/Tabs/General.php:415
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:415
 #| msgid ""
 #| "Selecione o tipo de exibição das parcelas na página de produto individual."
 msgid ""
@@ -2193,7 +2941,8 @@ msgid ""
 "individual."
 msgstr "Select how to display payment methods on the individual product page."
 
-#: inc/Views/Settings/Tabs/General.php:429
+#: inc/Views/Settings/Tabs/General.php:437
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:437
 msgid ""
 "Selecione onde o gancho que será exibido as formas de pagamento na página de "
 "produto individual."
@@ -2201,70 +2950,94 @@ msgstr ""
 "Select where the hook will display payment methods on the individual product "
 "page."
 
-#: inc/Views/Settings/Tabs/General.php:309
+#: inc/Views/Settings/Tabs/General.php:317
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:317
 msgid "Selecione onde o preço com desconto no Pix será exibido."
 msgstr "Select where the discounted price on Pix will be displayed."
 
-#: inc/Views/Settings/Tabs/General.php:332
-#: inc/Views/Settings/Tabs/General.php:354
+#: inc/Views/Settings/Tabs/General.php:340
+#: inc/Views/Settings/Tabs/General.php:362
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:340
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:362
 msgid "Selecione onde o preço com desconto será exibido."
 msgstr "Select where the discounted price will be displayed."
 
 #: inc/Admin/Product_Settings.php:269
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:269
 msgid "Selecione um gateway"
 msgstr "Select a gateway"
 
 #: inc/Views/Settings/Tabs/Styles.php:35
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Styles.php:35
 msgid "Seletores alvo"
 msgstr "Target selectors"
 
-#: inc/Views/Settings/Tabs/About.php:195
+#: inc/Views/Settings/Tabs/About.php:199
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:199
 msgid "Servidor"
 msgstr "Server"
 
-#: inc/Views/Settings/Tabs/General.php:437
+#: inc/Views/Settings/Tabs/General.php:445
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:445
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: inc/Views/Settings/Tabs/General.php:430
+#: inc/Views/Settings/Tabs/General.php:438
 #: inc/Views/Settings/Tabs/Payment_Methods.php:23
 #: inc/Views/Settings/Tabs/Payment_Methods.php:56
 #: inc/Views/Settings/Tabs/Payment_Methods.php:69
 #: inc/Views/Settings/Tabs/Payment_Methods.php:90
 #: inc/Views/Settings/Tabs/Payment_Methods.php:399
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:438
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:23
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:56
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:69
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:90
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Payment_Methods.php:399
 msgid "Shortcode: "
 msgstr "Shortcode: "
 
-#: inc/Views/Settings/Tabs/About.php:153 inc/Views/Settings/Tabs/About.php:225
-#: inc/Views/Settings/Tabs/About.php:241 inc/Views/Settings/Tabs/About.php:260
+#: inc/Views/Settings/Tabs/About.php:157 inc/Views/Settings/Tabs/About.php:229
+#: inc/Views/Settings/Tabs/About.php:245 inc/Views/Settings/Tabs/About.php:264
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:157
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:229
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:245
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:264
 msgid "Sim"
 msgstr "Yes"
 
-#: inc/Views/Settings/Tabs/About.php:425
+#: inc/Views/Settings/Tabs/About.php:429
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:429
 msgid "Sim, desejo redefinir"
 msgstr "Yes, I want to reset"
 
-#: inc/Views/Settings/Tabs/About.php:85
+#: inc/Views/Settings/Tabs/About.php:89
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:89
 msgid "Sincronizar licença"
-msgstr ""
+msgstr "Synchronize license"
 
 #: inc/Admin/Admin_Options.php:162
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:162
 msgid "Sobre"
 msgstr "About"
 
 #: inc/Views/Settings/Tabs/About.php:41
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:41
 msgid "Status da licença:"
 msgstr "License status:"
 
-#: inc/Views/Settings/Tabs/About.php:145
+#: inc/Views/Settings/Tabs/About.php:149
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:149
 msgid "Status do sistema:"
 msgstr "System status:"
 
-#: inc/Views/Settings/Tabs/About.php:70
+#: inc/Views/Settings/Tabs/About.php:74
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:74
 msgid "Sua chave de licença:"
 msgstr "Your license key:"
 
-#: inc/API/License.php:1101
+#: inc/API/License.php:1108
+#: dist/woo-custom-installments/inc/API/License.php:1108
 msgid ""
 "Sua licença do <strong>Parcelas Customizadas para WooCommerce</strong> "
 "expirou, realize a renovação para continuar aproveitando os recursos Pro."
@@ -2274,130 +3047,163 @@ msgstr ""
 
 #: inc/Views/Components.php:94 inc/Views/Components.php:158
 #: inc/Views/Components.php:331
+#: dist/woo-custom-installments/inc/Views/Components.php:94
+#: dist/woo-custom-installments/inc/Views/Components.php:158
+#: dist/woo-custom-installments/inc/Views/Components.php:331
 msgid "Superior"
 msgstr "Top"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:45
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:45
 msgid "Tabela de parcelamento"
 msgstr "Installment table"
 
 #: inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:128
 #: inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:128
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Credit_Card_Badges.php:128
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Debit_Card_Badges.php:128
 msgid "Tamanho da bandeira"
 msgstr "Flag size"
 
 #: inc/Views/Components.php:279
+#: dist/woo-custom-installments/inc/Views/Components.php:279
 msgid "Tamanho do texto:"
 msgstr "Text size:"
 
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:172
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:172
 msgid "Tamanho do ícone"
 msgstr "Icon size"
 
-#: inc/Views/Settings/Tabs/About.php:274
+#: inc/Views/Settings/Tabs/About.php:278
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:278
 msgid "Tamanho máximo da postagem do PHP:"
 msgstr "Maximum PHP post size:"
 
-#: inc/Views/Settings/Tabs/About.php:362
+#: inc/Views/Settings/Tabs/About.php:366
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:366
 msgid "Tamanho máximo de envio do PHP:"
 msgstr "Maximum PHP upload size:"
 
-#: inc/Views/Settings/Tabs/General.php:197
+#: inc/Views/Settings/Tabs/General.php:205
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:205
 msgid "Taxa de juros padrão"
 msgstr "Standard interest rate"
 
-#: inc/Core/Assets.php:100
+#: inc/Core/Assets.php:101 dist/woo-custom-installments/inc/Core/Assets.php:101
 msgid "Tem certeza que deseja desativar sua licença?"
 msgstr "Are you sure you want to deactivate your license?"
 
-#: inc/Core/Assets.php:83
+#: inc/Core/Assets.php:84 dist/woo-custom-installments/inc/Core/Assets.php:84
 msgid "Tem certeza que deseja redefinir suas configurações?"
 msgstr "Are you sure you want to reset your settings?"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:120
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:120
 msgid "Texto antes do preço"
 msgstr "Text before price"
 
 #: inc/Views/Settings/Tabs/Texts.php:24
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:24
 msgid "Texto antes do preço com desconto"
 msgstr "Text before discounted price"
 
 #: inc/Views/Settings/Tabs/Texts.php:108
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:108
 msgid "Texto antes do preço com desconto no boleto bancário"
 msgstr "Text before the discounted price on the bank slip"
 
 #: inc/Views/Settings/Tabs/Texts.php:231
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:231
 msgid "Texto de exibição das parcelas (Arquivos de produtos)"
 msgstr "Installment display text (Product files)"
 
 #: inc/Views/Settings/Tabs/Texts.php:192
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:192
 msgid "Texto de exibição das parcelas (Formas de pagamento)"
 msgstr "Installment display text (Payment methods)"
 
 #: inc/Views/Settings/Tabs/Texts.php:270
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:270
 msgid "Texto de exibição das parcelas (Produto individual)"
 msgstr "Installment display text (Individual product)"
 
 #: inc/Views/Settings/Tabs/Texts.php:98
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:98
 msgid "Texto de instruções de boleto bancário"
 msgstr "Bank slip instructions text"
 
 #: inc/Views/Settings/Tabs/Texts.php:99
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:99
 msgid "Texto de instruções que será exibido no container de boleto bancário."
 msgstr "Instruction text that will be displayed in the bank slip container."
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:129
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:129
 msgid "Texto depois do preço"
 msgstr "Text after price"
 
 #: inc/Views/Settings/Tabs/Texts.php:34
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:34
 msgid "Texto depois do preço com desconto"
 msgstr "Text after discounted price"
 
 #: inc/Views/Settings/Tabs/Texts.php:118
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:118
 msgid "Texto depois do preço com desconto no boleto bancário"
 msgstr "Text after the discounted price on the bank slip"
 
 #: inc/Views/Settings/Tabs/General.php:166
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:166
 msgid "Texto depois do preço do produto"
 msgstr "Text after the product price"
 
 #: inc/Views/Settings/Tabs/Texts.php:162
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:162
 msgid "Texto informativo de parcelas com juros"
 msgstr "Informative text of installments with interest"
 
 #: inc/Views/Settings/Tabs/Texts.php:172
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:172
 msgid "Texto informativo de parcelas sem juros"
 msgstr "Informative text of interest-free installments"
 
 #: inc/Views/Settings/Tabs/Texts.php:54
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:54
 msgid "Texto informativo para desconto por quantidade"
 msgstr "Information text for quantity discount"
 
 #: inc/Views/Settings/Tabs/Texts.php:44
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:44
 msgid "Texto informativo para economia no Pix"
 msgstr "Informative text for savings on Pix"
 
 #: inc/Views/Settings/Tabs/General.php:64
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:64
 msgid "Texto inicial em produtos variáveis (A partir de)"
 msgstr "Initial text in variable products (From)"
 
 #: inc/Views/Settings/Tabs/Texts.php:153
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:153
 msgid "Texto que será exibido antes da tabela de parcelas no popup ou sanfona."
 msgstr ""
 "Text that will be displayed before the installment table in the popup or "
 "accordion."
 
 #: inc/Views/Settings/Tabs/Texts.php:163 inc/Views/Settings/Tabs/Texts.php:173
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:163
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:173
 msgid "Texto que será exibido depois da parcela."
 msgstr "Text that will be displayed after the installment."
 
 #: inc/Views/Settings/Tabs/Texts.php:65
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:65
 msgid "Texto que será exibido no botão do popup ou sanfona de parcelas."
 msgstr ""
 "Text that will be displayed on the popup button or installment accordion."
 
 #: inc/Views/Settings/Tabs/Texts.php:55
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:55
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de desconto por quantidade. Obs.: É "
@@ -2409,6 +3215,7 @@ msgstr ""
 "the value."
 
 #: inc/Views/Settings/Tabs/Texts.php:45
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:45
 #, php-format
 msgid ""
 "Texto que será exibido no emblema de economia ao pagar com Pix. Obs.: É "
@@ -2418,46 +3225,54 @@ msgstr ""
 "The variable %s must be in the sentence to display the value."
 
 #: inc/Views/Settings/Tabs/Texts.php:89
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:89
 msgid "Texto que será usado como título do container de boleto bancário."
 msgstr "Text that will be used as the title of the bank slip container."
 
 #: inc/Views/Settings/Tabs/Texts.php:129
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:129
 msgid "Texto que será usado como título do container de cartões de crédito."
 msgstr "Text that will be used as the title of the credit card container."
 
 #: inc/Views/Settings/Tabs/Texts.php:139
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:139
 msgid "Texto que será usado como título do container de cartões de débito."
 msgstr "Text that will be used as the title of the debit card container."
 
 #: inc/Views/Settings/Tabs/Texts.php:79
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:79
 msgid "Texto que será usado como título do container de transferências."
 msgstr "Text that will be used as the title of the transfer container."
 
 #: inc/Admin/Admin_Options.php:132
+#: dist/woo-custom-installments/inc/Admin/Admin_Options.php:132
 msgid "Textos"
 msgstr "Texts"
 
-#: inc/Views/Settings/Tabs/About.php:65
+#: inc/Core/Ajax.php:520 dist/woo-custom-installments/inc/Core/Ajax.php:520
+#: inc/Views/Settings/Tabs/About.php:69
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:69
 #, php-format
 #| msgid "Tipo da licença:"
 msgid "Tipo da licença: %s"
 msgstr "License type: %s"
 
-#: inc/Views/Settings/Tabs/General.php:406
+#: inc/Views/Settings/Tabs/General.php:414
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:414
 msgid "Tipo de exibição das formas de pagamento"
 msgstr "Payment methods display type"
 
+#: inc/Integrations/Elementor/Inject_Controllers.php:139
+#: inc/Integrations/Elementor/Inject_Controllers.php:168
+#: inc/Integrations/Elementor/Inject_Controllers.php:212
+#: inc/Integrations/Elementor/Inject_Controllers.php:304
+#: inc/Integrations/Elementor/Inject_Controllers.php:405
+#: inc/Integrations/Elementor/Inject_Controllers.php:506
+#: inc/Integrations/Elementor/Inject_Controllers.php:607
+#: inc/Integrations/Elementor/Inject_Controllers.php:709
 #: inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:143
-#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:128
+#: inc/Integrations/Elementor/Widgets/Discount_Badge.php:129
 #: inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:153
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:137
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:166
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:210
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:302
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:403
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:504
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:605
-#: inc/Integrations/Elementor/Widgets/Inject_Controllers.php:707
 #: inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:142
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:178
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:207
@@ -2467,55 +3282,87 @@ msgstr "Payment methods display type"
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:545
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:646
 #: inc/Integrations/Elementor/Widgets/Single_Product_Price.php:748
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:139
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:168
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:212
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:304
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:405
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:506
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:607
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Inject_Controllers.php:709
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Accordion_Payment_Methods.php:143
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Badge.php:129
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Discount_Per_Quantity.php:153
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Popup_Payment_Methods.php:142
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:178
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:207
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:251
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:343
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:444
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:545
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:646
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Single_Product_Price.php:748
 msgid "Tipografia"
 msgstr "Typography"
 
 #: inc/Integrations/Elementor/Widgets/Installments_Table.php:143
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Installments_Table.php:143
 msgid "Tipografia da tabela"
 msgstr "Table typography"
 
-#: inc/Core/Ajax.php:405
+#: inc/Core/Ajax.php:405 dist/woo-custom-installments/inc/Core/Ajax.php:405
 msgid "Todos os recursos da versão Pro agora estão desativados!"
 msgstr "All features of the Pro version are now deactivated!"
 
-#: inc/Core/Render_Elements.php:359
+#: inc/Core/Render_Elements.php:371
+#: dist/woo-custom-installments/inc/Core/Render_Elements.php:371
 #, php-format
 msgid "Total %s"
 msgstr "Total %s"
 
-#: woo-custom-installments.php:180 woo-custom-installments.php:191
+#: woo-custom-installments.php:201 woo-custom-installments.php:212
+#: dist/woo-custom-installments/woo-custom-installments.php:201
+#: dist/woo-custom-installments/woo-custom-installments.php:212
 msgid "Trapaceando?"
 msgstr "Cheating?"
 
 #: inc/Views/Settings/Tabs/Texts.php:152
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:152
 msgid "Título da tabela de parcelas"
 msgstr "Title of the installment table"
 
 #: inc/Views/Settings/Tabs/Texts.php:64
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:64
 msgid "Título do botão acionador de parcelas"
 msgstr "Title of the installment trigger button"
 
 #: inc/Views/Settings/Tabs/Texts.php:182
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:182
 msgid "Título do container das formas de pagamento"
 msgstr "Title of the payment methods container"
 
 #: inc/Views/Settings/Tabs/Texts.php:88
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:88
 msgid "Título do container de boleto bancário"
 msgstr "Title of the bank slip container"
 
 #: inc/Views/Settings/Tabs/Texts.php:128
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:128
 msgid "Título do container de cartões de crédito"
 msgstr "Title of the credit card container"
 
 #: inc/Views/Settings/Tabs/Texts.php:138
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:138
 msgid "Título do container de cartões de débito"
 msgstr "Title of the debit card container"
 
 #: inc/Views/Settings/Tabs/Texts.php:78
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:78
 msgid "Título do container de transferências"
 msgstr "Title of the transfers container"
 
-#: inc/API/License.php:1085
+#: inc/API/License.php:1092
+#: dist/woo-custom-installments/inc/API/License.php:1092
 msgid ""
 "Uma licença permite que você desbloqueie todos os recursos Pro que o "
 "Parcelas Customizadas tem a oferecer."
@@ -2523,7 +3370,8 @@ msgstr ""
 "One license allows you to unlock all the Pro features that Custom "
 "Installments has to offer."
 
-#: inc/API/License.php:1054
+#: inc/API/License.php:1061
+#: dist/woo-custom-installments/inc/API/License.php:1061
 msgid ""
 "Uma licença permite que você desbloqueie todos os recursos Pro que o plugin "
 "tem a oferecer."
@@ -2531,7 +3379,7 @@ msgstr ""
 "One license allows you to unlock all the Pro features the plugin has to "
 "offer."
 
-#: inc/Core/Updater.php:456
+#: inc/API/Updater.php:456 dist/woo-custom-installments/inc/API/Updater.php:456
 #, php-format
 msgid ""
 "Uma nova versão do plugin <strong>Parcelas Customizadas para "
@@ -2540,7 +3388,7 @@ msgstr ""
 "A new version of the <strong>Custom Installments for WooCommerce</strong> "
 "plugin (%s) is available. <a href=\"%s\">Update now</a>."
 
-#: inc/Core/Updater.php:228
+#: inc/API/Updater.php:228 dist/woo-custom-installments/inc/API/Updater.php:228
 #| msgid ""
 #| "Uma nova versão do plugin Parcelas Customizadas para WooCommerce está "
 #| "disponível."
@@ -2551,133 +3399,173 @@ msgstr ""
 "A new version of the <strong>Custom Installments for WooCommerce</strong> "
 "plugin is available."
 
-#: inc/Core/Assets.php:82
+#: inc/Core/Assets.php:83 dist/woo-custom-installments/inc/Core/Assets.php:83
 msgid "Usar esta imagem"
 msgstr "Use this image"
 
 #: inc/Views/Settings/Tabs/Texts.php:201 inc/Views/Settings/Tabs/Texts.php:240
 #: inc/Views/Settings/Tabs/Texts.php:279
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:201
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:240
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Texts.php:279
 msgid "Utilize as variáveis:"
 msgstr "Use the variables:"
 
 #: inc/Views/Settings/Tabs/Discounts.php:309
 #: inc/Views/Settings/Tabs/Interests.php:63
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:309
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:63
 msgid "Valor"
 msgstr "Value"
 
 #: inc/Views/Settings/Tabs/General.php:156
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:156
 msgid "Valor de desconto"
 msgstr "Discount value"
 
 #: inc/Admin/Product_Settings.php:253 inc/Admin/Product_Settings.php:315
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:253
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:315
 msgid "Valor do desconto"
 msgstr "Discount amount"
 
 #: inc/Views/Settings/Tabs/Discounts.php:228
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:228
 msgid "Valor do desconto por quantidade"
 msgstr "Quantity discount amount"
 
 #: inc/Admin/Product_Settings.php:245 inc/Admin/Product_Settings.php:307
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:245
+#: dist/woo-custom-installments/inc/Admin/Product_Settings.php:307
 #: inc/Views/Settings/Tabs/Discounts.php:109
 #: inc/Views/Settings/Tabs/Discounts.php:131
 #: inc/Views/Settings/Tabs/Discounts.php:240
 #: inc/Views/Settings/Tabs/Discounts.php:336
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:109
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:131
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:240
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:336
 #, php-format
 msgid "Valor fixo (%s)"
 msgstr "Fixed value (%s)"
 
 #: inc/Views/Settings/Tabs/Interests.php:91
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Interests.php:91
 msgid "Valor fixo (R$)"
 msgstr "Fixed value ($)"
 
-#: inc/Views/Settings/Tabs/General.php:230
+#: inc/Views/Settings/Tabs/General.php:238
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:238
 msgid "Valor mínimo da parcela"
 msgstr "Minimum installment value"
 
-#: inc/Views/Settings/Tabs/About.php:327
+#: inc/Views/Settings/Tabs/About.php:331
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:331
 msgid "Valor mínimo recomendado é 10000"
 msgstr "Recommended minimum value is 10000"
 
-#: inc/Views/Settings/Tabs/About.php:349
+#: inc/Views/Settings/Tabs/About.php:353
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:353
 msgid "Valor mínimo recomendado é 128M"
 msgstr "Recommended minimum value is 128M"
 
-#: inc/Views/Settings/Tabs/About.php:305
+#: inc/Views/Settings/Tabs/About.php:309
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:309
 msgid "Valor mínimo recomendado é 180"
 msgstr "Recommended minimum value is 180"
 
-#: inc/Views/Settings/Tabs/About.php:283 inc/Views/Settings/Tabs/About.php:371
+#: inc/Views/Settings/Tabs/About.php:287 inc/Views/Settings/Tabs/About.php:375
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:287
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:375
 msgid "Valor mínimo recomendado é 64M"
 msgstr "Recommended minimum value is 64M"
 
-#: inc/Views/Settings/Tabs/About.php:318
+#: inc/Views/Settings/Tabs/About.php:322
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:322
 msgid "Variáveis máximas de entrada do PHP:"
 msgstr "Maximum PHP input variables:"
 
-#: inc/Core/Updater.php:288
+#: inc/API/Updater.php:288 dist/woo-custom-installments/inc/API/Updater.php:288
 msgid "Verificar atualizações"
 msgstr "Check updates"
 
-#: inc/Views/Settings/Tabs/About.php:244
+#: inc/Views/Settings/Tabs/About.php:248
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:248
 #, php-format
 msgid "Versão %s"
 msgstr "Version %s"
 
-#: inc/Views/Settings/Tabs/About.php:181
+#: inc/Views/Settings/Tabs/About.php:185
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:185
 msgid "Versão do Parcelas Customizadas para WooCommerce:"
 msgstr "Version of Custom Installments for WooCommerce:"
 
-#: inc/Views/Settings/Tabs/About.php:197
+#: inc/Views/Settings/Tabs/About.php:201
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:201
 msgid "Versão do PHP:"
 msgstr "PHP version:"
 
-#: inc/Views/Settings/Tabs/About.php:162
+#: inc/Views/Settings/Tabs/About.php:166
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:166
 msgid "Versão do WooCommerce:"
 msgstr "WooCommerce version:"
 
-#: inc/Views/Settings/Tabs/About.php:148
+#: inc/Views/Settings/Tabs/About.php:152
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:152
 msgid "Versão do WordPress:"
 msgstr "WordPress version:"
 
-#: inc/Views/Settings/Tabs/About.php:93
+#: inc/Views/Settings/Tabs/About.php:118
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:118
 msgid ""
 "Você pode fazer upload do arquivo .key da licença para fazer sua ativação "
 "manual."
 msgstr "You can upload the license .key file to manually activate it."
 
-#: inc/Views/Settings/Tabs/About.php:43
+#: inc/Core/Ajax.php:516 dist/woo-custom-installments/inc/Core/Ajax.php:516
+#: inc/Views/Settings/Tabs/About.php:44
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:44
 msgid "Válida"
 msgstr "Valid"
 
 #: inc/Views/Settings/Tabs/Discounts.php:221
-#: inc/Views/Settings/Tabs/General.php:438
+#: inc/Views/Settings/Tabs/General.php:446
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/Discounts.php:221
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/General.php:446
 msgid "Widget para Elementor"
 msgstr "Widget for Elementor"
 
-#: inc/Views/Settings/Tabs/About.php:160
+#: inc/Views/Settings/Tabs/About.php:164
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:164
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: inc/Views/Settings/Tabs/About.php:146
+#: inc/Views/Settings/Tabs/About.php:150
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:150
 msgid "WordPress"
 msgstr "WordPress"
 
-#: inc/Views/Settings/Tabs/About.php:152
+#: inc/Views/Settings/Tabs/About.php:156
+#: dist/woo-custom-installments/inc/Views/Settings/Tabs/About.php:156
 msgid "WordPress Multisite:"
 msgstr "WordPress Multisite:"
 
 #: inc/Admin/Default_Options.php:421
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:421
 msgid "À vista R$87,30 no Boleto bancário"
 msgstr "In cash $87.30 on bank slip"
 
 #: inc/Admin/Default_Options.php:277
+#: dist/woo-custom-installments/inc/Admin/Default_Options.php:277
 msgid "À vista R$87,30 no Pix"
 msgstr "In cash $87.30 on Pix"
 
 #: inc/Views/Components.php:394
+#: dist/woo-custom-installments/inc/Views/Components.php:394
 msgid "Ícone:"
 msgstr "Icon:"
 
 #: inc/Integrations/Elementor/Widgets/Price_Info_Box.php:131
+#: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:131
 msgid "à vista"
 msgstr "in sight"

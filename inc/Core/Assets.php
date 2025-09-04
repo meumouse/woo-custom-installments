@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 5.5.2
+ * @version 5.5.4
  * @package MeuMouse.com
  */
 class Assets {
@@ -169,7 +169,7 @@ class Assets {
      * Get frontend params to script
      * 
      * @since 5.4.0
-     * @version 5.5.2
+     * @version 5.5.4
      * @return array
      */
     public function frontend_params() {
