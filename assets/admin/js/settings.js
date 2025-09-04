@@ -8,6 +8,10 @@
 	 */
 	const params = window.wci_params || {};
 
+	if ( params.debug_mode ) {
+		console.log( 'WCI admin params: ', params );
+	}
+
 	/**
 	 * Object variable for settings page
 	 * 
@@ -539,16 +543,20 @@
 		 * Initialize modals
 		 * 
 		 * @since 5.4.0
+		 * @version 5.5.4
 		 */
 		initializeModals: function() {
-			Settings.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
-			Settings.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
-			Settings.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
-			Settings.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
 			Settings.displayModal( $('#wci_reset_settings_trigger'), $('#wci_reset_settings_container'), $('#wci_close_reset') );
-			Settings.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
 			Settings.displayModal( $('#custom_product_price_trigger'), $('#custom_product_price_container'), $('#custom_product_price_close') );
 			Settings.displayModal( $('#center_group_elements_trigger'), $('#center_group_elements_container'), $('#center_group_elements_close') );
+
+			if ( params.license_valid ) {
+				Settings.displayModal( $('#remove_price_range_settings_trigger'), $('#remove_price_range_settings_container'), $('#remove_price_range_settings_close') );
+				Settings.displayModal( $('#set_custom_fee_trigger'), $('#set_custom_fee_container'), $('#set_custom_fee_close') );
+				Settings.displayModal( $('#discount_per_quantity_trigger'), $('#discount_per_quantity_container'), $('#discount_per_quantity_close') );
+				Settings.displayModal( $('.manage-credit-card-trigger'), $('.manage-credit-card-container'), $('.close-manage-credit-card') );
+				Settings.displayModal( $('.manage-debit-card-trigger'), $('.manage-debit-card-container'), $('.close-manage-debit-card') );
+			}
 
 			// each modal for edit elements
 			$('.edit-elements-design').each( function() {
@@ -803,12 +811,32 @@
 		 * Initialize visibility controllers
 		 * 
 		 * @since 2.4.0
-		 * @version 5.5.1
+		 * @version 5.5.4
 		 */
 		initializeVisibilityControllers: function() {
-			// Hide input "Texto inicial em produtos variáveis (A partir de)"
-			Settings.changeVisibility( '#remove_price_range', '.starting-from, .remove-price-range-dep' );
+			if ( params.license_valid.length && params.license_valid ) {
+				// display price range settings
+				Settings.changeVisibility( '#remove_price_range', '.starting-from, .remove-price-range-dep' );
 
+				// Display remove price range settings
+				Settings.changeVisibility('#remove_price_range', '.require-remove-price-range' );
+
+				// Display default fee input
+				Settings.changeVisibility( '#set_fee_per_installment', '#fee-global-settings', false );
+
+				// Display modal settings for custom fee per installment
+				Settings.changeVisibility( '#set_fee_per_installment', '#set_custom_fee_trigger' );
+
+				// Display custom hook settings
+				Settings.selectVisibilityController( '#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook' );
+
+				// Active text on active credit card method
+				Settings.changeVisibility( '#enable_credit_card_method_payment_form', '.admin-container-credit-card' );
+
+				// Active text on active debit card method
+				Settings.changeVisibility( '#enable_debit_card_method_payment_form', '.admin-container-debit-card' );
+			}
+			
 			// Enable all interest options
 			Settings.changeVisibility( '#enable_all_interest_options', '.display-enable-all-interest-options' );
 			
@@ -820,12 +848,6 @@
 		
 			// Active text on active ticket method
 			Settings.changeVisibility( '#enable_ticket_method_payment_form', '.admin-container-ticket' );
-		
-			// Active text on active credit card method
-			Settings.changeVisibility( '#enable_credit_card_method_payment_form', '.admin-container-credit-card' );
-
-			// Active text on active debit card method
-			Settings.changeVisibility( '#enable_debit_card_method_payment_form', '.admin-container-debit-card' );
 		
 			// Display more settings after active discount per quantity
 			Settings.changeVisibility( '#enable_functions_discount_per_quantity', '.discount-per-quantity-option' );
@@ -839,12 +861,6 @@
 			// Display economy Pix hook option
 			Settings.changeVisibility( '#enable_economy_pix_badge', '.economy-pix-dependency' );
 
-			// Display custom hook settings
-			Settings.selectVisibilityController( '#hook_payment_form_single_product', ['custom_hook'], '.requires-custom-hook' );
-
-			// Display remove price range settings
-			Settings.changeVisibility('#remove_price_range', '.require-remove-price-range' );
-
 			// Display custom price modal settings
 			Settings.changeVisibility( '#custom_text_after_price', '.require-custom-product-price' );
 
@@ -854,11 +870,7 @@
 			// Display center elements selectors settings
 			Settings.changeVisibility( '#center_group_elements_loop', '.require-center-group-elements' );
 
-			// Display default fee input
-			Settings.changeVisibility( '#set_fee_per_installment', '#fee-global-settings', false );
-
-			// Display modal settings for custom fee per installment
-			Settings.changeVisibility( '#set_fee_per_installment', '#set_custom_fee_trigger' );
+			$('select.pro-version, select.pro-version-notice, input.pro-version, input.pro-version-notice').prop('disabled', true);
 		},
 
 		/**

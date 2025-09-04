@@ -78,7 +78,7 @@ class Ajax {
      * Save options in AJAX
      * 
      * @since 3.0.0
-     * @version 5.4.9
+     * @version 5.5.4
      * @return void
      */
     public function save_options_callback() {
@@ -113,6 +113,8 @@ class Ajax {
                 'enable_elementor_widgets',
                 'enable_price_grid_in_widgets',
                 'add_discount_custom_product_price',
+                'enable_auto_updates',
+                'enable_update_notices',
             );
 
             $switchs_with_license = array(
@@ -490,6 +492,11 @@ class Ajax {
                     $obj->expire_date  = isset( $data->expiry_time ) ? $data->expiry_time : '';
                     $obj->license_title= isset( $data->license_title ) ? $data->license_title : '';
                     $obj->license_key = isset( $data->purchase_key ) ? $data->purchase_key : '';
+                    $obj->app_version = WOO_CUSTOM_INSTALLMENTS_VERSION;
+                    $obj->domain = License::get_domain();
+                    $obj->license_key = $data->purchase_key;
+                    $obj->product_id = $data->product_id;
+                    $obj->product_base_name = $data->product_base_name;
 
                     update_option( 'woo_custom_installments_license_response_object', $obj );
                     update_option( 'woo_custom_installments_license_status', $obj->is_valid ? 'valid' : 'invalid' );

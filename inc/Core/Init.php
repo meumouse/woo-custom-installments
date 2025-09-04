@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
  * Init class plugin
  * 
  * @since 1.0.0
- * @version 5.5.1
+ * @version 5.5.4
  * @package MeuMouse.com
  */
 class Init {
@@ -236,7 +236,7 @@ class Init {
      * Instance classes after load Composer
      * 
      * @since 5.4.0
-     * @version 5.5.1
+     * @version 5.5.4
      * @return void
      */
     public function instance_classes() {
@@ -271,6 +271,11 @@ class Init {
         foreach ( $classmap as $class => $path ) {
             // skip classes not in the plugin namespace
             if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\' ) !== 0 ) {
+                continue;
+            }
+
+            // skip the Init class to prevent duplicate instances
+            if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\Core\\Init' ) !== false ) {
                 continue;
             }
 

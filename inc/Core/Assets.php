@@ -255,6 +255,12 @@ class Assets {
                 'sale_price' => (float) $product->get_sale_price(),
                 'current_price' => (float) $product->get_price(),
             );
+
+            if ( $product && $product->is_type('variable') ) {
+                $params['product']['regular_price'] = (float) $product->get_variation_regular_price('min', true);
+                $params['product']['sale_price'] = (float) $product->get_variation_sale_price('min', true);
+                $params['product']['current_price'] = (float) $product->get_variation_price('min', true);
+            }
         }
 
         return $params;
