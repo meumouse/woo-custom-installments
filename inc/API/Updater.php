@@ -17,12 +17,12 @@ defined('ABSPATH') || exit;
  * Class to make requests to a remote server to get plugin versions and updates
  *
  * @since 3.0.0
- * @version 5.5.1
+ * @version 5.5.5
  * @package MeuMouse.com
  */
 class Updater {
 
-    public $update_checker_file = 'https://raw.githubusercontent.com/meumouse/woo-custom-installments/main/dist/update-checker.json';
+    public $update_checker_file = 'https://packages.meumouse.com/v1/updates/woo-custom-installments';
     public $plugin_slug = WOO_CUSTOM_INSTALLMENTS_SLUG;
     public $version = WOO_CUSTOM_INSTALLMENTS_VERSION;
     public $cache_key = 'woo_custom_installments_check_updates';

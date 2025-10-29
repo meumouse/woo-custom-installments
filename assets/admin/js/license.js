@@ -284,7 +284,7 @@
 		},
 
 		/**
-		 * Sync license infoormation
+		 * Sync license information
 		 * 
 		 * @since 5.5.4
 		 */
