@@ -1,3 +1,6 @@
+Versão 5.5.5 (28/10/2025)
+Alteração na API de consulta de atualizações
+
 Versão 5.5.4 (04/09/2025)
 * Correção de bugs
     - Unsupported operand types: string + int (devido a ficar vazio o campo de maximo de parcelas sem juros)
