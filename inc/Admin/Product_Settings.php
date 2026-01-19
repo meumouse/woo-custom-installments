@@ -12,7 +12,8 @@ defined('ABSPATH') || exit;
  * WooCommerce product settings class
  * 
  * @since 5.4.0
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Admin
+ * @author MeuMouse.com
  */
 class Product_Settings {
 

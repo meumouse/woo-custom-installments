@@ -20,7 +20,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 5.2.0
  * @version 5.5.1
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Integrations\Elementor
+ * @author MeuMouse.com
  */
 class Discount_Per_Quantity extends Widget_Base {
 

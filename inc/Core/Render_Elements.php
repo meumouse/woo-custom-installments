@@ -14,7 +14,8 @@ defined('ABSPATH') || exit;
  *
  * @since 5.4.0
  * @version 5.5.6
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Render_Elements {
 

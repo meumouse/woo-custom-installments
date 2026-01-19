@@ -21,7 +21,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 5.0.0
  * @version 5.5.2
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Integrations\Elementor
+ * @author MeuMouse.com
  */
 class Popup_Payment_Methods extends Widget_Base {
 

@@ -12,7 +12,8 @@ defined('ABSPATH') || exit;
  *
  * @since 2.1.0
  * @version 5.5.3
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Views
+ * @author MeuMouse.com
  */
 class Styles {
 

@@ -18,7 +18,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 5.0.0
  * @version 5.5.1
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Integrations\Elementor
+ * @author MeuMouse.com
  */
 class Debit_Card_Badges extends Widget_Base {
 

@@ -10,7 +10,8 @@ defined('ABSPATH') || exit;
  * Allows setting a source for logs and optionally logs only critical events
  * 
  * @since 5.4.0
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Logger {
   

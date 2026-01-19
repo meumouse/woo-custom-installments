@@ -13,7 +13,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 2.0.0
  * @version 5.4.0
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Schema {
 

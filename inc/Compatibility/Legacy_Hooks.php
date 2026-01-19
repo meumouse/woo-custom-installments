@@ -9,7 +9,8 @@ defined( 'ABSPATH' ) || exit;
  * Handles legacy hooks for backward compatibility
  *
  * @since 5.4.0
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Compatibility
+ * @author MeuMouse.com
  */
 class Legacy_Hooks {
 

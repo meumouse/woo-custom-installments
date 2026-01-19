@@ -18,7 +18,8 @@ if ( defined('WOODMART_VERSION') || function_exists('woodmart_theme_setup') || f
      *
      * @since 4.5.0
      * @version 5.5.3
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Woodmart {
 

@@ -16,7 +16,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 4.5.0
  * @version 5.4.0
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Views
+ * @author MeuMouse.com
  */
 class Shortcodes extends Components {
 

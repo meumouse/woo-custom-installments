@@ -12,7 +12,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 2.0.0
  * @version 5.5.4
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\API
+ * @author MeuMouse.com
  */
 class License {
 

@@ -12,7 +12,8 @@ if ( function_exists('machic_get_option') ) {
      *
      * @since 4.5.0
      * @version 5.4.0
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Machic {
 

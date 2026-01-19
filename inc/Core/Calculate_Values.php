@@ -12,7 +12,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 1.0.0
  * @version 5.5.6
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Calculate_Values {
 

@@ -12,7 +12,8 @@ if ( class_exists('Astra_Theme_Options') || defined('CHILD_THEME_ASTRA_CHILD_VER
      *
      * @since 4.5.0
      * @version 5.5.1
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Astra {
 
