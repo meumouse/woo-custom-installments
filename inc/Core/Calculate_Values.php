@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Class for calculate values on installments
  * 
  * @since 1.0.0
- * @version 5.5.1
+ * @version 5.5.6
  * @package MeuMouse.com
  */
 class Calculate_Values {
@@ -176,7 +176,7 @@ class Calculate_Values {
      * Get discounted price based on product, price, and settings, including variations.
      *
      * @since 4.5.0
-     * @version 5.5.0
+     * @version 5.5.6
      * @param object $product | Product object
      * @param string $discount_type | Type of discount ('main', 'ticket')
      * @return float | Discounted price
@@ -190,12 +190,12 @@ class Calculate_Values {
 
         // Get the correct price based on the product type
         if ( $product->is_type('variation') ) {
-            $price = $product->get_sale_price() ?: $product->get_regular_price();
+            $price = $product->get_price();
         } elseif ( $product->is_type('variable') ) {
-            // For variable products, get the lowest price with discount
-            $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
+            // For variable products, get the lowest current price
+            $price = $product->get_variation_price( 'min', true );
         } else {
-            $price = $product->get_sale_price() ?: $product->get_regular_price();
+            $price = $product->get_price();
         }
 
         $product_id = $product->get_id();
@@ -379,7 +379,7 @@ class Calculate_Values {
      * Calculate Pix economy value
      *
      * @since 4.5.0
-     * @version 5.5.1
+     * @version 5.5.6
      * @param object $product | WC_Product object
      * @return float | Economy value
      */
@@ -390,12 +390,12 @@ class Calculate_Values {
 
         // Get base price considering product type
         if ( $product->is_type('variation') ) {
-            $price = $product->get_sale_price() ?: $product->get_regular_price();
+            $price = $product->get_price();
         } elseif ( $product->is_type('variable') ) {
-            // Use lowest variation price
-            $price = $product->get_variation_sale_price( 'min', true ) ?: $product->get_variation_regular_price( 'min', true );
+            // Use lowest variation current price
+            $price = $product->get_variation_price( 'min', true );
         } else {
-            $price = $product->get_sale_price() ?: $product->get_regular_price();
+            $price = $product->get_price();
         }
 
         // Calculate the custom discounted price based on the "main" discount type

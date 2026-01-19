@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.5.2
+ * @version 5.5.6
  * @package MeuMouse.com
  */
 class Render_Elements {
@@ -89,7 +89,7 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.5.2
+	 * @version 5.5.6
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
@@ -150,8 +150,8 @@ class Render_Elements {
 				$display_sale_badge = Admin_Options::get_setting('enable_sale_badge');
 
 				if ( $product && $product->is_type('variable') ) :
-					$min_regular_price = $product->get_variation_regular_price( 'min', true );
-					$min_sale_price = $product->get_variation_sale_price( 'min', true );
+					$min_current_price = $product->get_variation_price( 'min', true );
+					$is_on_sale = $product->is_on_sale();
 
 					// has range price
 					if ( ! $variation_has_same_price ) :
@@ -163,9 +163,9 @@ class Render_Elements {
 							<?php endif; ?>
 
 							<span class="woo-custom-installments-price sale-price">
-								<?php echo wc_price( $min_sale_price );
+								<?php echo wc_price( $min_current_price );
 
-								if ( $display_sale_badge === 'yes' ) :
+								if ( $display_sale_badge === 'yes' && $is_on_sale ) :
 									echo $components->sale_badge( $product );
 								endif; ?>
 							</span>
@@ -181,14 +181,14 @@ class Render_Elements {
 							</span>
 						<?php endif;
 					else :
-						if ( $min_sale_price < $min_regular_price ) : ?>
+						if ( $is_on_sale && $min_current_price < $min_regular_price ) : ?>
 							<span class="woo-custom-installments-price original-price has-discount">
 								<?php echo wc_price( $min_regular_price ); ?>
 							</span>
 						<?php endif; ?>
 
 						<span class="woo-custom-installments-price sale-price">
-							<?php echo wc_price( $product->get_price() ); ?>
+							<?php echo wc_price( $min_current_price ); ?>
 						</span>
 					<?php endif; ?>
 				<?php else :

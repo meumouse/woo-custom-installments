@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Render components
  *
  * @since 5.2.5
- * @version 5.5.3
+ * @version 5.5.6
  * @package MeuMouse.com
  */
 class Components {
@@ -828,7 +828,7 @@ class Components {
 	 * Display best installments
 	 * 
 	 * @since 2.1.0
-	 * @version 5.5.3
+	 * @version 5.5.6
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -857,10 +857,10 @@ class Components {
 
 		// Get the correct price based on the product type
 		if ( $product->is_type('variable') ) {
-			// For variable products, get the lowest price with discount
-			$price = (float) $product->get_variation_sale_price( 'min', true ) ?: (float) $product->get_variation_regular_price( 'min', true );
+			// For variable products, get the lowest current price
+			$price = (float) $product->get_variation_price( 'min', true );
 		} else {
-			$price = (float) $product->get_sale_price() ?: (float) $product->get_regular_price();
+			$price = (float) $product->get_price();
 		}
 
 		$installments = Calculate_Installments::installments_list( array(), $price, $product );
