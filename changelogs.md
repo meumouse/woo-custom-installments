@@ -1,3 +1,6 @@
+Versão 5.5.6 (19/01/2026)
+* Correção de bugs
+
 Versão 5.5.5 (28/10/2025)
 Alteração na API de consulta de atualizações
 
