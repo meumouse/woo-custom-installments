@@ -1,5 +1,10 @@
+Versão 5.5.6 (19/01/2026)
+* Correção de bugs
+    - Preço com desconto expirado sendo aplicado em parcelas e descontos
+* Otimizações
+
 Versão 5.5.5 (28/10/2025)
-Alteração na API de consulta de atualizações
+* Alteração na API de consulta de atualizações
 
 Versão 5.5.4 (04/09/2025)
 * Correção de bugs

@@ -11,7 +11,8 @@ if ( function_exists('ideapark_setup_woocommerce') ) {
      *
      * @since 5.2.1
      * @version 5.5.1
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Ricky {
 

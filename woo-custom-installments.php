@@ -7,12 +7,12 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.5.5
+ * Version: 					5.5.6
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
- * WC tested up to: 			10.3.3
+ * WC tested up to: 			10.4.3
  * Requires PHP: 				7.4
- * Tested up to:      			6.8.3
+ * Tested up to:      			6.9
  * Text Domain: 				woo-custom-installments
  * Domain Path: 				/languages
  * 
@@ -61,7 +61,7 @@ if ( ! class_exists('Woo_Custom_Installments') ) {
 		 * @var string
 		 * @since 1.0.0
 		 */
-		public static $version = '5.5.5';
+		public static $version = '5.5.6';
 
 		/**
 		 * Constructor function

@@ -17,7 +17,8 @@ if ( class_exists('\Elementor\Plugin') ) {
      *
      * @since 5.0.0
      * @version 5.5.2
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Elementor {
 

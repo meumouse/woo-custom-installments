@@ -15,7 +15,8 @@ defined('ABSPATH') || exit;
  *
  * @since 5.4.0
  * @version 5.5.3
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Calculate_Installments {
 

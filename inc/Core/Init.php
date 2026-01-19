@@ -10,7 +10,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 1.0.0
  * @version 5.5.4
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Core
+ * @author MeuMouse.com
  */
 class Init {
 

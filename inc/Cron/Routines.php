@@ -13,7 +13,8 @@ defined('ABSPATH') || exit;
  * 
  * @since 5.4.0
  * @version 5.5.1
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\Cron
+ * @author MeuMouse.com
  */
 class Routines {
 

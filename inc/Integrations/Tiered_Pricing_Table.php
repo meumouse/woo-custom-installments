@@ -19,7 +19,8 @@ if ( class_exists('TierPricingTable\PriceManager') ) {
      *
      * @since 4.5.2
      * @version 5.5.1
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Tiered_Pricing_Table {
 

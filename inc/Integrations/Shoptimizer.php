@@ -11,7 +11,8 @@ if ( defined('SHOPTIMIZER_VERSION') ) {
 	 *
 	 * @since 5.4.2
 	 * @version 5.5.1
-	 * @package MeuMouse.com
+	 * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
 	 */
 	class Shoptimizer {
 

@@ -18,7 +18,8 @@ defined('ABSPATH') || exit;
  *
  * @since 3.0.0
  * @version 5.5.5
- * @package MeuMouse.com
+ * @package MeuMouse\Woo_Custom_Installments\API
+ * @author MeuMouse.com
  */
 class Updater {
 

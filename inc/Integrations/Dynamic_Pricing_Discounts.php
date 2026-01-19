@@ -14,7 +14,8 @@ if ( class_exists('RP_WCDPD') ) {
      *
      * @since 4.5.2
      * @version 5.5.1
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Dynamic_Pricing_Discounts {
 

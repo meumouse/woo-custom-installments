@@ -13,7 +13,8 @@ if ( defined('ETHEME_THEME_NAME') && ETHEME_THEME_NAME === 'XStore' ) {
      * Compatibility with XStore theme
      *
      * @since 5.5.1
-     * @package MeuMouse.com
+     * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
      */
     class Xstore {
 

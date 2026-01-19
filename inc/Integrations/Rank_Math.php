@@ -14,7 +14,8 @@ if ( class_exists('RankMath') ) {
 	 * Compatibility with Rank Math plugin
 	 *
 	 * @since 5.4.0
-	 * @package MeuMouse.com
+	 * @package MeuMouse\Woo_Custom_Installments\Integrations
+     * @author MeuMouse.com
 	 */
 	class Rank_Math extends Schema {
 
