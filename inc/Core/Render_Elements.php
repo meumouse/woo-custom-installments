@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * Display renderized price with elements on frontend
  *
  * @since 5.4.0
- * @version 5.5.6
+ * @version 5.5.7
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */
@@ -90,7 +90,7 @@ class Render_Elements {
 	 * Display group elements
 	 * 
 	 * @since 2.0.0
-	 * @version 5.5.6
+	 * @version 5.5.7
 	 * @param string $price | Product price
 	 * @param object $product | Product object
 	 * @return string
@@ -152,6 +152,7 @@ class Render_Elements {
 
 				if ( $product && $product->is_type('variable') ) :
 					$min_current_price = $product->get_variation_price( 'min', true );
+					$min_regular_price = $product->get_variation_regular_price( 'min', true );
 					$is_on_sale = $product->is_on_sale();
 
 					// has range price
