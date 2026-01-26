@@ -40,6 +40,11 @@ Você pode instalar um plugin WordPress de duas maneiras: via o painel de admini
 
 ### Registro de alterações (Changelogs):
 
+Versão 5.5.7  (26/01/2026)
+* Correção de bugs
+    - Preço antigo da variação não é exibido quando tem o mesmo preço entre as variações
+* Otimizações
+
 Versão 5.5.6 (19/01/2026)
 * Correção de bugs
     - Preço com desconto expirado sendo aplicado em parcelas e descontos

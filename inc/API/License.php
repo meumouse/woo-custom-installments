@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * Connect to license authentication server
  * 
  * @since 2.0.0
- * @version 5.5.4
+ * @version 5.5.7
  * @package MeuMouse\Woo_Custom_Installments\API
  * @author MeuMouse.com
  */
@@ -807,6 +807,7 @@ class License {
      * Get license expires time
      * 
      * @since 5.4.0
+     * @version 5.5.7
      * @param string $license_key | License key
      * @return array
      */
@@ -834,9 +835,13 @@ class License {
         $decoded_response = json_decode( $response_body, true );
 
         // check if response is valid
-        if ( ! is_array( $decoded_response ) || empty( $decoded_response['data']['expiry_time'] ) ) {
+        if ( ! is_array( $decoded_response ) || empty( $decoded_response['data'] ) ) {
             Logger::register_log( 'Invalid response from license API: ' . print_r( $decoded_response, true ), 'ERROR' );
             return false;
+        }
+
+        if ( isset( $decoded_response['data']['expiry_time'] ) && $decoded_response['data']['expiry_time'] === 'No expiry' ) {
+            return 'No expiry';
         }
 
         return $decoded_response['data']['expiry_time'];
@@ -1020,14 +1025,23 @@ class License {
      * Deactivate license on scheduled event
      * 
      * @since 5.4.0
+     * @version 5.5.7
      * @return void
      */
     public static function check_license_expires_time() {
         $license_key = get_option('woo_custom_installments_license_key');
         $api_expiry_time = self::get_expires_time( $license_key );
 
+        if ( $api_expiry_time === 'No expiry' ) {
+            return;
+        }
+
         if ( $api_expiry_time ) {
             $expiration_timestamp = strtotime( $api_expiry_time );
+
+            if ( ! $expiration_timestamp ) {
+                return;
+            }
 
             // license expired
             if ( $expiration_timestamp < time() ) {
