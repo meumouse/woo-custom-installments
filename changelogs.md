@@ -1,3 +1,7 @@
+Versão 5.5.8 (03/02/2026)
+* Otimizações
+    - Inicialização de classes com ganchos apropriados
+
 Versão 5.5.7  (26/01/2026)
 * Correção de bugs
     - Preço antigo da variação não é exibido quando tem o mesmo preço entre as variações

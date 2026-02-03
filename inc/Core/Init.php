@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
  * Initialize plugin classes.
  *
  * @since 1.0.0
- * @version 5.5.7
+ * @version 5.5.8
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */
@@ -163,8 +163,11 @@ class Init {
 			return;
 		}
 
-		// Instance plugin classes.
-		add_action( 'plugins_loaded', array( $this, 'instance_classes' ), 99 );
+		// Instance core classes on init.
+		add_action( 'init', array( $this, 'instance_core_classes' ), 1 );
+
+		// Register class instantiation after init.
+		add_action( 'init', array( $this, 'instance_classes' ), 5 );
 
 		// Add settings link on plugins list.
 		add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'add_action_plugin_links' ), 10, 4 );
@@ -184,13 +187,32 @@ class Init {
 
 
 	/**
+	 * Instance core classes right after init hook.
+	 *
+	 * @since 5.5.8
+	 * @return void
+	 */
+	public function instance_core_classes() {
+		$core_classes = array(
+			'MeuMouse\\Woo_Custom_Installments\\Core\\Ajax',
+			'MeuMouse\\Woo_Custom_Installments\\Core\\Assets',
+		);
+
+		foreach ( $core_classes as $class ) {
+			$this->safe_instance_class( $class );
+		}
+	}
+
+
+	/**
 	 * Check if WooCommerce is active and the version is compatible.
 	 *
 	 * @since 5.5.7
+	 * @version 5.5.8
 	 * @return bool
 	 */
 	private function is_woocommerce_ready() {
-		if ( ! is_plugin_active('woocommerce/woocommerce.php') ) {
+		if ( ! function_exists('is_plugin_active') || ! is_plugin_active('woocommerce/woocommerce.php') ) {
 			return false;
 		}
 
@@ -198,11 +220,7 @@ class Init {
 			return false;
 		}
 
-		if ( version_compare( WC_VERSION, '6.0.0', '<' ) ) {
-			return false;
-		}
-
-		return true;
+		return version_compare( WC_VERSION, '6.0.0', '>=' );
 	}
 
 
@@ -509,17 +527,104 @@ class Init {
 			return;
 		}
 
-		foreach ( $classmap as $class => $path ) {
+		$this->instance_filtered_classes( $classmap );
+	}
+
+
+	/**
+	 * Filter and instance classes from Composer classmap.
+	 *
+	 * @since 5.5.7
+	 * @version 5.5.8
+	 * @param array $classmap Composer classmap.
+	 * @return void
+	 */
+	private function instance_filtered_classes( $classmap ) {
+		$filtered_classes = array_filter( $classmap, function( $file, $class ) {
 			if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\' ) !== 0 ) {
+				return false;
+			}
+
+			if ( strpos( $class, 'Abstract' ) !== false ) {
+				return false;
+			}
+
+			if ( strpos( $class, 'Interface' ) !== false ) {
+				return false;
+			}
+
+			if ( strpos( $class, 'Trait' ) !== false ) {
+				return false;
+			}
+
+			$core_classes = array(
+				__CLASS__,
+				'MeuMouse\\Woo_Custom_Installments\\Core\\Ajax',
+				'MeuMouse\\Woo_Custom_Installments\\Core\\Assets',
+			);
+
+			if ( in_array( $class, $core_classes, true ) ) {
+				return false;
+			}
+
+			return true;
+		}, ARRAY_FILTER_USE_BOTH );
+
+		foreach ( array_keys( $filtered_classes ) as $class ) {
+			$hook = $this->get_class_hook( $class );
+
+			if ( empty( $hook ) ) {
 				continue;
 			}
 
-			if ( $class === __CLASS__ ) {
-				continue;
-			}
-
-			$this->safe_instance_class( $class );
+			$this->register_class_hook( $hook, $class );
 		}
+	}
+
+
+	/**
+	 * Register class instantiation hook.
+	 *
+	 * @since 5.5.8
+	 * @param string $hook Hook name.
+	 * @param string $class Class name.
+	 * @return void
+	 */
+	private function register_class_hook( $hook, $class ) {
+		if ( did_action( $hook ) ) {
+			$this->safe_instance_class( $class );
+
+			return;
+		}
+		
+		add_action( $hook, function() use ( $class ) {
+			$this->safe_instance_class( $class );
+		}, 1);
+	}
+
+
+	/**
+	 * Determine the hook used to instance a class.
+	 *
+	 * @since 5.5.8
+	 * @param string $class | Class name.
+	 * @return string
+	 */
+	private function get_class_hook( $class ) {
+		if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor\\' ) === 0
+			|| $class === 'MeuMouse\\Woo_Custom_Installments\\Integrations\\Elementor' ) {
+			return 'elementor/init';
+		}
+
+		if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\Admin\\' ) === 0 ) {
+			return 'init';
+		}
+
+		if ( strpos( $class, 'MeuMouse\\Woo_Custom_Installments\\Views\\' ) === 0 ) {
+			return 'wp';
+		}
+
+		return 'init';
 	}
 
 
