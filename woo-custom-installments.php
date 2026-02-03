@@ -6,7 +6,7 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.5.7
+ * Version: 					5.5.8
  * Requires at least: 			6.0
  * WC requires at least: 		6.0.0
  * WC tested up to: 			10.4.3
@@ -32,7 +32,7 @@ if ( file_exists( $autoload ) ) {
 	require_once $autoload;
 }
 
-$plugin_version = '5.5.7';
+$plugin_version = '5.5.8';
 
 // Initialize the plugin.
 new Init( __FILE__, $plugin_version );
