@@ -17,6 +17,7 @@ Versions before 3.2.5 — except 2.9.2 — were never tagged in Git, so they car
 - Filter `Woo_Custom_Installments/Updates/Config` to change the update channel configuration at runtime
 - A warning on the plugins screen when the server has no `sodium` PHP extension, which the signature check depends on
 - REST route `woo-custom-installments/v1/check-updates`, which answers the manual update check
+- Release build pipeline in `scripts/build.mjs` (`npm run build`), which installs the production PHP dependencies, refuses to package a source asset without its `.min` counterpart or a translation that was never compiled, and writes both `dist/woo-custom-installments.zip` and the versioned archive under `dist/versions/`. It replaces the `build-linux` and `build-windows` Composer scripts
 
 ### Changed
 

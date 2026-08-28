@@ -42,6 +42,7 @@ assets/
 templates/                    WooCommerce template overrides
 languages/                    .pot / .po / .mo / .l10n.php
 dist/                         Release ZIPs, versioned archives, update-checker.json
+scripts/build.mjs             Release build pipeline (`npm run build`)
 vendor/                       Composer autoloader and the MDS PHP SDK (committed — the plugin ships them)
 ```
 
@@ -219,7 +220,7 @@ Server-side, gated behaviour must also be checked — never rely on the CSS clas
 ## 7. Assets
 
 - `Core\Assets` enqueues everything. Admin assets load only when `Helpers::check_admin_page('woo-custom-installments')` matches.
-- Every script/style has a hand-maintained `.min` counterpart in the same directory. `Assets::$min` resolves to `''` when `WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE` is `true`, otherwise `.min`. **When you edit a source asset, update its `.min` file in the same change** — there is no build step (no `package.json`, no bundler).
+- Every script/style has a hand-maintained `.min` counterpart in the same directory. `Assets::$min` resolves to `''` when `WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE` is `true`, otherwise `.min`. **When you edit a source asset, update its `.min` file in the same change** — there is no bundler, and `scripts/build.mjs` only verifies the pair, it never generates it.
 - Data reaches JS through `wp_localize_script()`:
   - `wci_params` — settings page
   - `wci_license_params` — license page
@@ -311,15 +312,31 @@ Also bump the `@version` docblock of every class and method you changed.
 
 The pt_BR entries in `README.md` and `dist/update-checker.json` stay in Portuguese — they are what the Brazilian store owner reads in the WordPress admin — and should be a condensed translation of the same release section.
 
-Build the release ZIP with Composer (it excludes `dist`, `composer.json` and `composer.lock`):
+### Building the release
+
+`scripts/build.mjs` is the whole pipeline. It installs the production PHP dependencies, verifies the artifacts this repository maintains by hand, stages the runtime files into `build/woo-custom-installments/` and writes both `dist/woo-custom-installments.zip` and `dist/versions/<version>/woo-custom-installments.zip`.
 
 ```bash
-composer run-script build-windows
+npm run build
 ```
 
-```bash
-composer run-script build-linux
-```
+The package ships `woo-custom-installments.php`, `README.md`, `CHANGELOG.md`, `license.md`, `inc/`, `vendor/`, `assets/`, `templates/` and the `languages/` catalogs. Everything else — `dist/`, `docs/`, `scripts/`, `AGENTS.md`, `CLAUDE.md`, the Composer and npm manifests — stays out.
+
+The build **fails** when `vendor/autoload.php` is missing, when a source asset has no `.min` counterpart, when a `.po` was never compiled to `.mo` and `.l10n.php`, or when the `Version:` header and `$plugin_version` disagree. It **warns**, without stopping, when `inc/Core/Init.php`, `dist/update-checker.json` or `CHANGELOG.md` still carry the previous version, or when a `.min` file is older than its source — treat those as the release checklist above telling you it is not finished.
+
+Flags:
+
+| Flag | Effect |
+| --- | --- |
+| `--skip-composer` | Reuse the current `vendor/` instead of running `composer install`. |
+| `--skip-checks` | Package without verifying assets, translations and versions. |
+| `--no-zip` | Stage the files only. |
+| `--no-versioned` | Write `dist/woo-custom-installments.zip` without the `dist/versions/` copy. |
+| `--keep-staging` | Leave `build/` behind so the staged tree can be inspected. |
+
+`npm run build:fast` is `--skip-composer --skip-checks`, and `npm run build:check` runs the verification alone. `composer run-script build` packages with the current `vendor/`, for environments that already ran `composer install`.
+
+`node_modules/` and `build/` are gitignored; `package.json` and `package-lock.json` **are** committed.
 
 ---
 
@@ -332,7 +349,7 @@ composer run-script build-linux
   - `Added feature: Sync license`
   - `Update release 5.5.8`
 - Do not commit or push unless explicitly asked.
-- `.env`, `.history` and `vendor/` are gitignored; `composer.json` and `composer.lock` **are** committed. Since `vendor/` does not travel with the repository, run `composer install --no-dev -o` before building the release ZIP: the package ships the autoloader and the MDS SDK inside it, and the build script leaves only the Composer files out.
+- `.env`, `.history`, `node_modules/` and `build/` are gitignored; `composer.json`, `composer.lock`, `package.json` and `package-lock.json` **are** committed. The Composer packages under `vendor/` do not travel with the repository, so the package only carries the MDS SDK because `npm run build` runs `composer install --no-dev -o` first.
 
 ---
 
@@ -357,4 +374,5 @@ Never introduce PHP notices or warnings — many stores run with `WP_DEBUG_DISPL
 - Do not remove or rename public hooks, shortcodes, CSS classes or the JS API without adding a compatibility bridge.
 - Do not weaken the license validation or the illegal-copy protection in `Init::register_prevent_illegal_copies()`.
 - Do not migrate the settings storage away from the single `woo-custom-installments-setting` option.
-- Do not add build tooling (npm, webpack) or reformat whole files; keep diffs scoped to the change requested.
+- Do not add a bundler or a transpiler (webpack, Vite, Babel) — assets stay hand-written with hand-written `.min` twins. `scripts/build.mjs` packages the release and is the only npm tooling in the repository.
+- Do not reformat whole files; keep diffs scoped to the change requested.

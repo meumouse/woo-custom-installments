@@ -23,20 +23,11 @@
         "optimize-autoloader": true
     },
     "scripts": {
-        "build-linux": [
-            "rm -rf build woo-custom-installments.zip",
-            "mkdir -p build/woo-custom-installments",
-            "rsync -av --exclude=dist --exclude=composer.json --exclude=composer.lock ./ build/woo-custom-installments/",
-            "cd build && zip -r ../woo-custom-installments.zip woo-custom-installments",
-            "rm -rf build"
-        ],
-        "build-windows": [
-            "powershell -Command \"if (Test-Path 'build') { Remove-Item -Recurse -Force build }\"",
-            "powershell -Command \"if (Test-Path 'woo-custom-installments.zip') { Remove-Item -Force woo-custom-installments.zip }\"",
-            "powershell -Command \"New-Item -ItemType Directory -Path build\\woo-custom-installments | Out-Null\"",
-            "powershell -Command \"Get-ChildItem -Path . -Exclude dist,composer.json,composer.lock,build | Copy-Item -Destination build\\woo-custom-installments -Recurse -Force\"",
-            "powershell -Command \"Compress-Archive -Path build\\woo-custom-installments -DestinationPath woo-custom-installments.zip\"",
-            "powershell -Command \"Remove-Item -Recurse -Force build\""
+        "build": [
+            "node scripts/build.mjs --skip-composer"
         ]
+    },
+    "scripts-descriptions": {
+        "build": "Package the release ZIP with scripts/build.mjs, reusing the current vendor/ tree. Run 'npm run build' for the full pipeline, which installs the production dependencies first."
     }
 }
