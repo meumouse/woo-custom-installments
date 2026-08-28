@@ -2,6 +2,8 @@
 
 namespace MeuMouse\Woo_Custom_Installments\Core;
 
+use MeuMouse\Woo_Custom_Installments\API\Updater;
+
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 use ReflectionClass;
@@ -14,7 +16,7 @@ defined('ABSPATH') || exit;
  * Initialize plugin classes.
  *
  * @since 1.0.0
- * @version 5.5.8
+ * @version 5.5.9
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */
@@ -64,6 +66,7 @@ class Init {
 	 * Construct function.
 	 *
 	 * @since 5.5.7
+	 * @version 5.5.9
 	 * @param string $plugin_file Plugin main file path.
 	 * @param string $plugin_version Plugin version.
 	 * @return void
@@ -89,6 +92,9 @@ class Init {
 
 		$this->directory = WOO_CUSTOM_INSTALLMENTS_DIR;
 		$this->basename = WOO_CUSTOM_INSTALLMENTS_BASENAME;
+
+		// Boot the MDS SDK update channel, which has to run before `plugins_loaded`.
+		Updater::bootstrap();
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_text_domain' ) );
@@ -312,6 +318,7 @@ class Init {
 	 * Setup plugin constants.
 	 *
 	 * @since 5.5.7
+	 * @version 5.5.9
 	 * @return void
 	 */
 	private function setup_constants() {
@@ -320,20 +327,23 @@ class Init {
 		$base_url = plugin_dir_url( $base_file );
 
 		$constants = array(
-			'WOO_CUSTOM_INSTALLMENTS_BASENAME'      => plugin_basename( $base_file ),
-			'WOO_CUSTOM_INSTALLMENTS_FILE'          => $base_file,
-			'WOO_CUSTOM_INSTALLMENTS_DIR'           => $base_dir,
-			'WOO_CUSTOM_INSTALLMENTS_INC'           => $base_dir . 'inc/',
-			'WOO_CUSTOM_INSTALLMENTS_URL'           => $base_url,
-			'WOO_CUSTOM_INSTALLMENTS_ASSETS'        => $base_url . 'assets/',
-			'WOO_CUSTOM_INSTALLMENTS_ABSPATH'       => dirname( $base_file ) . '/',
-			'WOO_CUSTOM_INSTALLMENTS_TEMPLATES_DIR' => $base_dir . 'templates/',
-			'WOO_CUSTOM_INSTALLMENTS_SLUG'          => 'woo-custom-installments',
-			'WOO_CUSTOM_INSTALLMENTS_VERSION'       => $this->plugin_version,
-			'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL'   => get_option( 'admin_email' ),
-			'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK'     => 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview',
-			'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE'    => false,
-			'WOO_CUSTOM_INSTALLMENTS_DEV_MODE'      => false,
+			'WOO_CUSTOM_INSTALLMENTS_BASENAME'       => plugin_basename( $base_file ),
+			'WOO_CUSTOM_INSTALLMENTS_FILE'           => $base_file,
+			'WOO_CUSTOM_INSTALLMENTS_DIR'            => $base_dir,
+			'WOO_CUSTOM_INSTALLMENTS_INC'            => $base_dir . 'inc/',
+			'WOO_CUSTOM_INSTALLMENTS_URL'            => $base_url,
+			'WOO_CUSTOM_INSTALLMENTS_ASSETS'         => $base_url . 'assets/',
+			'WOO_CUSTOM_INSTALLMENTS_ABSPATH'        => dirname( $base_file ) . '/',
+			'WOO_CUSTOM_INSTALLMENTS_TEMPLATES_DIR'  => $base_dir . 'templates/',
+			'WOO_CUSTOM_INSTALLMENTS_SLUG'           => 'woo-custom-installments',
+			'WOO_CUSTOM_INSTALLMENTS_VERSION'        => $this->plugin_version,
+			'WOO_CUSTOM_INSTALLMENTS_ADMIN_EMAIL'    => get_option( 'admin_email' ),
+			'WOO_CUSTOM_INSTALLMENTS_DOCS_LINK'      => 'https://ajuda.meumouse.com/docs/woo-custom-installments/overview',
+			'WOO_CUSTOM_INSTALLMENTS_DEBUG_MODE'     => false,
+			'WOO_CUSTOM_INSTALLMENTS_DEV_MODE'       => false,
+			'WOO_CUSTOM_INSTALLMENTS_MDS_API_URL'    => 'https://cloud.meumouse.com',
+			'WOO_CUSTOM_INSTALLMENTS_MDS_API_KEY'    => 'mds_4bd990b1402358418243a50d74e3babca2b3e8fc3106d3eaf50a85e5b1669e63',
+			'WOO_CUSTOM_INSTALLMENTS_MDS_PUBLIC_KEY' => 'fLpjcbSx1ccEDAYjf0BheQDhn9W+iBYaJAxT+eQ0Mac=',
 		);
 
 		foreach ( $constants as $key => $value ) {
