@@ -4,8 +4,68 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e8314f581795aac1d4759fd7c46784b",
-    "packages": [],
+    "content-hash": "0ddcb17435ed2716cc7cc131b06fcde2",
+    "packages": [
+        {
+            "name": "meumouse/mds-php-sdk",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meumouse/mds-php-sdk.git",
+                "reference": "fdf8d1dd6741ee133c2d8f22fd16ca68e99e542d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meumouse/mds-php-sdk/zipball/fdf8d1dd6741ee133c2d8f22fd16ca68e99e542d",
+                "reference": "fdf8d1dd6741ee133c2d8f22fd16ca68e99e542d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-sodium": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "brain/monkey": "^2.6",
+                "php-stubs/wordpress-stubs": "^6.4",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.6",
+                "szepeviktor/phpstan-wordpress": "^1.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MeuMouse\\MDS\\SDK\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "MeuMouse",
+                    "homepage": "https://meumouse.com"
+                }
+            ],
+            "description": "WordPress PHP SDK for the Modular Distribution Service (MDS): licensing, signed update checks, version rollback and anti-piracy for plugins and themes.",
+            "homepage": "https://meumouse.com",
+            "keywords": [
+                "MDS",
+                "license",
+                "plugin",
+                "rollback",
+                "theme",
+                "updater",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/meumouse/mds-php-sdk/issues",
+                "source": "https://github.com/meumouse/mds-php-sdk"
+            },
+            "time": "2026-08-27T15:40:15+00:00"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
@@ -16,5 +76,5 @@
         "php": ">= 7.4"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

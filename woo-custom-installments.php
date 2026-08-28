@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: 				Parcelas Customizadas para WooCommerce
  * Description: 				Extensão que permite exibir o parcelamento, desconto e juros por forma de pagamento para lojas WooCommerce.
@@ -6,12 +7,12 @@
  * Requires Plugins: 			woocommerce
  * Author: 						MeuMouse.com
  * Author URI: 					https://meumouse.com/?utm_source=wordpress&utm_medium=plugins_list&utm_campaign=parcelas_customizadas
- * Version: 					5.5.8
+ * Version: 					5.5.9
  * Requires at least: 			6.0
- * WC requires at least: 		6.0.0
- * WC tested up to: 			10.4.3
+ * WC requires at least: 		9.0
+ * WC tested up to: 			11.0
  * Requires PHP: 				7.4
- * Tested up to:      			6.9
+ * Tested up to:      			7.1
  * Text Domain: 				woo-custom-installments
  * Domain Path: 				/languages
  *
@@ -32,7 +33,7 @@ if ( file_exists( $autoload ) ) {
 	require_once $autoload;
 }
 
-$plugin_version = '5.5.8';
+$plugin_version = '5.5.9';
 
 // Initialize the plugin.
 new Init( __FILE__, $plugin_version );

@@ -1,4 +1,8 @@
 # Ignore Git files
-composer.json
-composer.lock
 .env
+.history
+vendor/
+
+# Ignore build tooling output
+node_modules/
+build/

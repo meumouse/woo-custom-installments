@@ -1130,7 +1130,7 @@ class Components {
 	 * Display sale badge
 	 * 
 	 * @since 5.2.5
-     * @version 5.4.0
+     * @version 5.5.9
 	 * @param object $product | Product object
 	 * @return string
 	 */
@@ -1141,8 +1141,16 @@ class Components {
 				$prices = $product->get_variation_prices();
 				
 				foreach ( $prices['price'] as $key => $price ) {
+					$variation_regular_price = isset( $prices['regular_price'][$key] ) ? (float) $prices['regular_price'][$key] : 0;
+					$variation_sale_price = isset( $prices['sale_price'][$key] ) ? (float) $prices['sale_price'][$key] : 0;
+
+					// skip variations without a valid regular price to avoid division by zero
+					if ( $variation_regular_price <= 0 ) {
+						continue;
+					}
+
 					if ( $prices['regular_price'][$key] !== $price ) {
-						$percentages[] = round( 100 - ( $prices['sale_price'][$key] / $prices['regular_price'][$key] * 100 ) );
+						$percentages[] = round( 100 - ( $variation_sale_price / $variation_regular_price * 100 ) );
 					}
 				}
 
@@ -1154,7 +1162,13 @@ class Components {
 			} else {
 				$regular_price = (float) $product->get_regular_price();
 				$sale_price = (float) $product->get_sale_price();
-				$percentage = round( 100 - ( $sale_price / $regular_price * 100 ) ) . '%';
+
+				// avoid division by zero when regular price is empty or zero
+				if ( $regular_price > 0 ) {
+					$percentage = round( 100 - ( $sale_price / $regular_price * 100 ) ) . '%';
+				} else {
+					$percentage = '0%';
+				}
 			}
 		
 			return '<span class="wci-sale-badge">'. sprintf( __( '%s OFF', 'woo-custom-installments' ), $percentage ) .'</span>';

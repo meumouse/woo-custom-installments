@@ -3,56 +3,118 @@
 namespace MeuMouse\Woo_Custom_Installments\API;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
+use MeuMouse\Woo_Custom_Installments\Core\Logger;
 
-use WP_Upgrader;
-use Plugin_Upgrader;
-use WP_Ajax_Upgrader_Skin;
-use WP_Error;
-use WP_Filesystem_Direct;
+use MeuMouse\MDS\SDK\SDK;
+use MeuMouse\MDS\SDK\Integration;
+use MeuMouse\MDS\SDK\Support\Cache;
+use MeuMouse\MDS\SDK\Updates\AbstractUpdater;
+
+use WP_REST_Response;
+use Exception;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
 /**
- * Class to make requests to a remote server to get plugin versions and updates
+ * Update channel of the plugin
+ *
+ * The remote work belongs to the MDS SDK, which signs, caches and injects releases
+ * into the core update transients. This class boots it, bridges the license key
+ * managed by API\License and adds what the store owner sees: the manual check, the
+ * update notice and the auto update toggle.
+ *
+ * It has two entry points on purpose. `bootstrap()` is static and runs from
+ * Core\Init while the plugin file loads, because the SDK elects its newest embedded
+ * copy on `plugins_loaded` at priority -100. The constructor runs later, on `init`,
+ * through the automatic class instantiation, and only registers the admin surface.
  *
  * @since 3.0.0
- * @version 5.5.5
+ * @version 5.5.9
  * @package MeuMouse\Woo_Custom_Installments\API
  * @author MeuMouse.com
  */
 class Updater {
 
-    public $update_checker_file = 'https://packages.meumouse.com/v1/updates/woo-custom-installments';
+    /**
+     * Path of the SDK loader, relative to the plugin directory
+     *
+     * @since 5.5.9
+     * @var string
+     */
+    const LOADER = 'vendor/meumouse/mds-php-sdk/mds-sdk.php';
+
+    /**
+     * API path of the update check, the only request the license key is attached to
+     *
+     * @since 5.5.9
+     * @var string
+     */
+    const UPDATE_CHECK_PATH = '/v2/update-check';
+
+    /**
+     * REST namespace of the manual update check
+     *
+     * @since 5.5.9
+     * @var string
+     */
+    const REST_NAMESPACE = 'woo-custom-installments/v1';
+
+    /**
+     * REST route of the manual update check
+     *
+     * @since 5.5.9
+     * @var string
+     */
+    const REST_ROUTE = '/check-updates';
+
+    /**
+     * Whether the SDK loader has already been required
+     *
+     * @since 5.5.9
+     * @var bool
+     */
+    private static $booted = false;
+
+    /**
+     * Plugin slug
+     *
+     * @since 3.0.0
+     * @var string
+     */
     public $plugin_slug = WOO_CUSTOM_INSTALLMENTS_SLUG;
+
+    /**
+     * Installed plugin version
+     *
+     * @since 3.0.0
+     * @var string
+     */
     public $version = WOO_CUSTOM_INSTALLMENTS_VERSION;
-    public $cache_key = 'woo_custom_installments_check_updates';
-    public $cache_data_base_key = 'woo_custom_installments_remote_data';
-    public $cache_allowed = true;
-    public $time_cache = DAY_IN_SECONDS;
-    public $update_available;
-    public $download_url;
+
+    /**
+     * Plugin basename
+     *
+     * @since 5.5.9
+     * @var string
+     */
+    public $basename = WOO_CUSTOM_INSTALLMENTS_BASENAME;
 
 
     /**
      * Construct function
      *
      * @since 3.0.0
-     * @version 5.4.6
+     * @version 5.5.9
      * @return void
      */
     public function __construct() {
-        if ( defined('WOO_CUSTOM_INSTALLMENTS_DEV_MODE') && WOO_CUSTOM_INSTALLMENTS_DEV_MODE === true ) {
-            add_filter( 'https_ssl_verify', '__return_false' );
-            add_filter( 'https_local_ssl_verify', '__return_false' );
-            add_filter( 'http_request_host_is_external', '__return_true' );
-        }
+        $this->maybe_migrate_legacy_state();
 
-        add_filter( 'plugins_api', array( $this, 'plugin_info' ), 20, 3 );
-        add_filter( 'site_transient_update_plugins', array( $this, 'update_plugin' ) );
-        add_action( 'upgrader_process_complete', array( $this, 'purge_cache' ), 10, 2 );
+        // manual update check, answered over the REST API
+        add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+
         add_filter( 'plugin_row_meta', array( $this, 'add_check_updates_link' ), 10, 2 );
-        add_filter( 'all_admin_notices', array( $this, 'check_manual_update_query_arg' ) );
 
         // enable auto updates
         if ( Admin_Options::get_setting('enable_auto_updates') === 'yes' ) {
@@ -67,271 +129,321 @@ class Updater {
 
 
     /**
-     * Request on remote server
-     * 
-     * @since 3.0.0
-     * @version 5.4.0
-     * @return array
+     * Load the SDK and hook the product registration
+     *
+     * @since 5.5.9
+     * @return void
      */
-    public function request() {
-        $cached_data = wp_cache_get( $this->cache_key );
-    
-        if ( false === $cached_data ) {
-            $remote = get_transient( $this->cache_data_base_key );
-    
-            if ( false === $remote ) {
-                $url = $this->update_checker_file;
-                $params = array(
-                    'timeout' => 10,
-                    'headers' => array(
-                        'Accept' => 'application/json',
-                    ),
-                );
-
-                $remote = wp_remote_get( $url, $params );
-    
-                if ( ! is_wp_error( $remote ) && 200 === wp_remote_retrieve_response_code( $remote ) ) {
-                    $remote_data = json_decode( wp_remote_retrieve_body( $remote ) );
-    
-                    // set cache remote data for 1 day
-                    set_transient( $this->cache_data_base_key, $remote_data, $this->time_cache );
-                } else {
-                    return false;
-                }
-            } else {
-                $remote_data = $remote;
-            }
-    
-            // set cache remote data for 1 day
-            wp_cache_set( $this->cache_key, $remote_data, $this->time_cache );
-        } else {
-            $remote_data = $cached_data;
+    public static function bootstrap() {
+        if ( self::$booted ) {
+            return;
         }
-    
-        return $remote_data;
+
+        self::$booted = true;
+
+        $loader = WOO_CUSTOM_INSTALLMENTS_DIR . self::LOADER;
+
+        if ( ! is_readable( $loader ) ) {
+            return;
+        }
+
+        require_once $loader;
+
+        // register on the SDK boot hook, never earlier: it fires after the newest embedded copy wins
+        add_action( 'mds_sdk_loaded', array( __CLASS__, 'register_product' ) );
+
+        // drop scheduled events owned by the SDK when the plugin is deactivated
+        register_deactivation_hook( WOO_CUSTOM_INSTALLMENTS_FILE, array( __CLASS__, 'shutdown' ) );
     }
 
 
     /**
-     * Get plugin info
-     * 
-     * @since 3.0.0
-     * @version 5.4.0
-     * @param array|object $response | Response from request update
-     * @param string $action | API action to perform: 'query_plugins', 'plugin_information', 'hot_tags' or 'hot_categories'
-     * @param array|object $args | (optional) Array or object of arguments to serialize for the Plugin Info API
+     * Register this product on the elected SDK copy
+     *
+     * @since 5.5.9
+     * @return void
+     */
+    public static function register_product() {
+        if ( ! class_exists( SDK::class ) ) {
+            return;
+        }
+
+        $config = self::get_config();
+
+        // stay completely inert until the product credentials are in place
+        if ( empty( $config['api_key'] ) || empty( $config['public_key'] ) ) {
+            return;
+        }
+
+        // every response is verified with ed25519; without sodium the SDK cannot trust anything
+        if ( ! function_exists('sodium_crypto_sign_verify_detached') ) {
+            add_action( 'admin_notices', array( __CLASS__, 'missing_sodium_notice' ) );
+
+            return;
+        }
+
+        if ( defined('WOO_CUSTOM_INSTALLMENTS_DEV_MODE') && WOO_CUSTOM_INSTALLMENTS_DEV_MODE === true ) {
+            add_filter( 'https_ssl_verify', '__return_false' );
+            add_filter( 'https_local_ssl_verify', '__return_false' );
+            add_filter( 'http_request_host_is_external', '__return_true' );
+        }
+
+        try {
+            $integration = SDK::register( array(
+                'product_slug' => WOO_CUSTOM_INSTALLMENTS_SLUG,
+                'type' => 'plugin',
+                'file' => WOO_CUSTOM_INSTALLMENTS_BASENAME,
+                'current_version' => WOO_CUSTOM_INSTALLMENTS_VERSION,
+                'api_base_url' => $config['api_base_url'],
+                'api_key' => $config['api_key'],
+                'public_key' => $config['public_key'],
+                'item_name' => 'Parcelas Customizadas para WooCommerce',
+                'text_domain' => 'woo-custom-installments',
+                // licensing stays with API\License, so the SDK only owns the update channel
+                'mode' => 'updates_only',
+                'update_check_ttl' => $config['update_check_ttl'],
+            ) );
+        } catch ( Exception $e ) {
+            self::log( 'Failed to register the product on the MDS SDK: ' . $e->getMessage() );
+
+            return;
+        }
+
+        if ( ! $integration instanceof Integration ) {
+            return;
+        }
+
+        // forward the license key managed by API\License on the update check
+        add_filter( $integration->product()->key('request_body'), array( __CLASS__, 'set_license_key' ), 10, 2 );
+    }
+
+
+    /**
+     * Get the MDS product configuration
+     *
+     * @since 5.5.9
      * @return array
      */
-    public function plugin_info( $response, $action, $args = array() ) {
-        // do nothing if you're not getting plugin information right now
-        if ( 'plugin_information' !== $action ) {
-            return $response;
-        }
-
-        // do nothing if it is not our plugin
-        if ( empty( $args->slug ) || $this->plugin_slug !== $args->slug ) {
-            return $response;
-        }
-
-        // get updates
-        $remote = $this->request();
-
-        if ( ! $remote ) {
-            return $response;
-        }
-
-        $response = new \stdClass();
-
-        $response->name = $remote->name;
-        $response->slug = $remote->slug;
-        $response->version = $remote->version;
-        $response->tested = $remote->tested;
-        $response->requires = $remote->requires;
-        $response->author = $remote->author;
-        $response->author_profile = $remote->author_profile;
-        $response->homepage = $remote->homepage;
-        $response->download_link = $remote->download_url;
-        $response->trunk = $remote->download_url;
-        $response->requires_php = $remote->requires_php;
-        $response->last_updated = $remote->last_updated;
-
-        $response->sections = array(
-            'description' => $remote->sections->description,
-            'installation' => $remote->sections->installation,
-            'changelog' => $remote->sections->changelog,
+    public static function get_config() {
+        $defaults = array(
+            'api_base_url' => WOO_CUSTOM_INSTALLMENTS_MDS_API_URL,
+            'api_key' => WOO_CUSTOM_INSTALLMENTS_MDS_API_KEY,
+            'public_key' => WOO_CUSTOM_INSTALLMENTS_MDS_PUBLIC_KEY,
+            'update_check_ttl' => DAY_IN_SECONDS,
         );
 
-        if ( ! empty( $remote->banners ) ) {
-            $response->banners = array(
-                'low' => $remote->banners->low,
-                'high' => $remote->banners->high,
-            );
-        }
+        /**
+         * Filter the MDS product configuration
+         *
+         * @since 5.5.9
+         * @param array $defaults | MDS product configuration
+         * @return array
+         */
+        $config = apply_filters( 'Woo_Custom_Installments/Updates/Config', $defaults );
 
-        return $response;
+        return is_array( $config ) ? array_merge( $defaults, $config ) : $defaults;
     }
 
 
     /**
-     * Update plugin details in the WordPress update system
+     * Attach the stored license key to the update check payload
      *
-     * @since 3.0.0
-     * @param object $transient
-     * @return object
+     * The key is sent whenever one is stored, without checking its local validity:
+     * the server can waive the gate for a given license, and a client that judged
+     * by itself would refuse the request before the server could honour the waiver.
+     *
+     * @since 5.5.9
+     * @param array $body | Outbound request payload
+     * @param string $path | API path of the request
+     * @return array
      */
-    public function update_plugin( $transient ) {
-        if ( empty( $transient->checked ) ) {
-            return $transient;
+    public static function set_license_key( $body, $path ) {
+        if ( self::UPDATE_CHECK_PATH !== $path || ! is_array( $body ) ) {
+            return $body;
         }
 
-        // get request data
-        $cached_data = $this->request();
+        $license_key = get_option('woo_custom_installments_license_key');
 
-        if ( $cached_data && isset( $cached_data->version ) && version_compare( $this->version, $cached_data->version, '<' ) ) {
-            $this->update_available = $cached_data;
-    
-            $response = new \stdClass();
-            $response->slug = $this->plugin_slug;
-            $response->plugin = "{$this->plugin_slug}/{$this->plugin_slug}.php";
-            $response->new_version = $cached_data->version;
-            $response->tested = $cached_data->tested;
-            $response->package = $cached_data->download_url;
-    
-            $transient->response[$response->plugin] = $response;
+        if ( is_string( $license_key ) && trim( $license_key ) !== '' ) {
+            $body['license_key'] = trim( $license_key );
         }
-    
-        return $transient;
+
+        return $body;
     }
 
 
     /**
-     * Check manual updates
-     * 
-     * @since 3.0.0
+     * Get the registered SDK integration
+     *
+     * @since 5.5.9
+     * @return Integration|null
+     */
+    public static function integration() {
+        if ( ! class_exists( SDK::class ) ) {
+            return null;
+        }
+
+        return SDK::get( WOO_CUSTOM_INSTALLMENTS_SLUG );
+    }
+
+
+    /**
+     * Check if the update channel is registered and running
+     *
+     * @since 5.5.9
+     * @return bool
+     */
+    public static function is_active() {
+        return self::integration() instanceof Integration;
+    }
+
+
+    /**
+     * Purge the cached update payload and force WordPress to check again
+     *
+     * @since 5.5.9
      * @return void
      */
-    public function check_manual_update_query_arg() {
-        if ( isset( $_GET['woo_custom_installments_check_updates'] ) && $_GET['woo_custom_installments_check_updates'] === '1' ) {
-            // purge cache before request on server
-            delete_transient('woo_custom_installments_api_request_cache');
-            delete_transient('woo_custom_installments_api_response_cache');
-            delete_transient( $this->cache_key );
-            delete_transient( $this->cache_data_base_key );
-    
-            $remote_data = $this->request();
-    
-            if ( $remote_data ) {
-                $current_version = $this->version;
-                $latest_version = $remote_data->version;
-    
-                // if the current version is lower than that of the remote server
-                if ( version_compare( $current_version, $latest_version, '<' )) {
-                    $message = __('Uma nova versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> está disponível.', 'woo-custom-installments');
-                    $class = 'notice is-dismissible notice-success';
-    
-                    // Display notice
-                    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message ); ?>
-                    
-                    <script type="text/javascript">
-                        if ( ! sessionStorage.getItem('reload_woo_custom_installments_update' ) ) {
-                            sessionStorage.setItem('reload_woo_custom_installments_update', 'true');
-                            window.location.reload();
-                        }
-                    </script>
-                    <?php
-                } elseif ( version_compare( $current_version, $latest_version, '>=' ) ) {
-                    $message = __('A versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> é a mais recente.', 'woo-custom-installments');
-                    $class = 'notice is-dismissible notice-success';
-    
-                    // Display notice
-                    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
-                }
-            } else {
-                $message = __('Não foi possível verificar atualizações para o plugin <strong>Parcelas Customizadas para WooCommerce.</strong>', 'woo-custom-installments');
-                $class = 'notice is-dismissible notice-error';
-    
-                // Display notice
-                printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
-            }
+    public static function clear_cache() {
+        $integration = self::integration();
+
+        if ( $integration instanceof Integration ) {
+            $cache = new Cache( $integration->product() );
+            $cache->delete( AbstractUpdater::CACHE_UPDATE );
+        }
+
+        // force core to rebuild its own update transient on the next check
+        delete_site_transient('update_plugins');
+    }
+
+
+    /**
+     * Get the update offered by the server for this plugin, if any
+     *
+     * @since 5.5.9
+     * @return object|null
+     */
+    public static function get_available_update() {
+        $transient = get_site_transient('update_plugins');
+
+        if ( ! is_object( $transient ) || empty( $transient->response[ WOO_CUSTOM_INSTALLMENTS_BASENAME ] ) ) {
+            return null;
+        }
+
+        $update = $transient->response[ WOO_CUSTOM_INSTALLMENTS_BASENAME ];
+
+        if ( empty( $update->new_version ) || version_compare( WOO_CUSTOM_INSTALLMENTS_VERSION, $update->new_version, '>=' ) ) {
+            return null;
+        }
+
+        return $update;
+    }
+
+
+    /**
+     * Remove the events scheduled by the SDK
+     *
+     * @since 5.5.9
+     * @return void
+     */
+    public static function shutdown() {
+        $integration = self::integration();
+
+        if ( $integration instanceof Integration ) {
+            $integration->shutdown();
         }
     }
 
 
     /**
-     * Purge cache on update plugin
-     * 
-     * @since 3.0.0
-     * @param $upgrader | WP_Upgrader instance
-     * @param array $options | Array of bulk item update data
-     * @see https://developer.wordpress.org/reference/hooks/upgrader_process_complete/
+     * Register the REST route of the manual update check
+     *
+     * @since 5.5.9
      * @return void
      */
-    public function purge_cache( $upgrader, $options ) {
-        if ( $this->cache_allowed && 'update' === $options['action'] && 'plugin' === $options['type'] ) {
-            delete_transient('woo_custom_installments_api_request_cache');
-            delete_transient('woo_custom_installments_api_response_cache');
-            delete_transient( $this->cache_key );
-            delete_transient( $this->cache_data_base_key );
+    public function register_rest_routes() {
+        register_rest_route( self::REST_NAMESPACE, self::REST_ROUTE, array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'check_updates_response' ),
+            'permission_callback' => array( $this, 'check_updates_permission' ),
+        ));
+    }
+
+
+    /**
+     * Check if the current user may run a manual update check
+     *
+     * @since 5.5.9
+     * @return bool
+     */
+    public function check_updates_permission() {
+        return current_user_can('update_plugins');
+    }
+
+
+    /**
+     * Run a manual update check and describe the outcome
+     *
+     * @since 5.5.9
+     * @return WP_REST_Response
+     */
+    public function check_updates_response() {
+        if ( ! self::is_active() ) {
+            return new WP_REST_Response( array(
+                'success' => false,
+                'has_update' => false,
+                'message' => esc_html__( 'Não foi possível verificar atualizações para o plugin Parcelas Customizadas para WooCommerce.', 'woo-custom-installments' ),
+            ), 200 );
         }
+
+        // purge the cached payload and ask the server again
+        self::clear_cache();
+        wp_update_plugins();
+
+        $update = self::get_available_update();
+
+        if ( ! $update ) {
+            return new WP_REST_Response( array(
+                'success' => true,
+                'has_update' => false,
+                'current_version' => $this->version,
+                'message' => esc_html__( 'A versão do plugin é a mais recente.', 'woo-custom-installments' ),
+            ), 200 );
+        }
+
+        return new WP_REST_Response( array(
+            'success' => true,
+            'has_update' => true,
+            'current_version' => $this->version,
+            'new_version' => $update->new_version,
+            'update_url' => $this->get_update_url(),
+            'message' => sprintf(
+                /* translators: %s: new plugin version */
+                esc_html__( 'A versão %s está disponível.', 'woo-custom-installments' ),
+                $update->new_version
+            ),
+        ), 200 );
     }
 
 
     /**
      * Add check updates link in the plugin_row_meta
-     * 
+     *
      * @since 3.0.0
+     * @version 5.5.9
      * @param string $plugin_meta | An array of the plugin’s metadata, including the version, author, author URI, and plugin URI
      * @param string $plugin_file | Path to the plugin file relative to the plugins directory
      * @return array
      */
     public function add_check_updates_link( $plugin_meta, $plugin_file ) {
-        if ( $plugin_file === $this->plugin_slug . '/' . $this->plugin_slug . '.php' ) {
-            $check_updates_link = '<a href="' . esc_url( add_query_arg( 'woo_custom_installments_check_updates', '1' ) ) . '">' . esc_html__( 'Verificar atualizações', 'woo-custom-installments' ) . '</a>';
-            $plugin_meta['woo_custom_installments_check_updates'] = $check_updates_link;
+        if ( $plugin_file === $this->basename ) {
+            $plugin_meta['woo_custom_installments_check_updates'] = sprintf(
+                '<a href="#" class="wci-check-updates">%s</a>',
+                esc_html__( 'Verificar atualizações', 'woo-custom-installments' )
+            );
         }
-        
+
         return $plugin_meta;
-    }
-
-
-    /**
-     * Download and extract plugin ZIP file
-     *
-     * @since 5.4.0
-     * @param string $download_url | Plugin link for download RAW
-     * @return bool
-     */
-    private function download_and_extract( $download_url ) {
-        global $wp_filesystem;
-
-        if ( empty( $wp_filesystem ) ) {
-            require_once ABSPATH . 'wp-admin/includes/file.php';
-            WP_Filesystem();
-        }
-
-        $temp_file = download_url( $download_url );
-
-        if ( is_wp_error( $temp_file ) ) {
-            error_log( '[AUTO UPDATE] Falha ao baixar plugin: ' . $temp_file->get_error_message() );
-            return false;
-        }
-
-        $plugin_dir = WP_PLUGIN_DIR . '/' . $this->plugin_slug;
-
-        if ( $wp_filesystem->is_dir( $plugin_dir ) ) {
-            $wp_filesystem->delete( $plugin_dir, true );
-        }
-
-        $unzip_result = unzip_file( $temp_file, WP_PLUGIN_DIR );
-
-        unlink( $temp_file ); // remove temp file
-
-        if ( is_wp_error( $unzip_result ) ) {
-            error_log( '[AUTO UPDATE] Error on extract plugin: ' . $unzip_result->get_error_message() );
-            return false;
-        }
-
-        return true;
     }
 
 
@@ -339,12 +451,13 @@ class Updater {
      * Enable auto-update only for this plugin
      *
      * @since 5.4.0
+     * @version 5.5.9
      * @param bool $update | Whether to enable automatic update
      * @param object $item | The plugin object being checked
      * @return bool
      */
     public function enable_auto_update( $update, $item ) {
-        if ( isset( $item->plugin ) && $item->plugin === 'woo-custom-installments/woo-custom-installments.php' ) {
+        if ( isset( $item->plugin ) && $item->plugin === $this->basename ) {
             return true; // enable only this plugin
         }
 
@@ -353,112 +466,103 @@ class Updater {
 
 
     /**
-     * Perform automatic update
-     *
-     * @since 5.4.0
-     * @return void
-     */
-    public function auto_update_plugin() {
-        delete_transient('woo_custom_installments_api_request_cache');
-        delete_transient('woo_custom_installments_api_response_cache');
-        delete_transient( $this->cache_key );
-        delete_transient( $this->cache_data_base_key );
-
-        $update_data = $this->request();
-
-        if ( ! $update_data || ! isset( $update_data->download_url ) || version_compare( $this->version, $update_data->version, '>=' ) ) {
-            return;
-        }
-
-        error_log( '[AUTO UPDATE] Starting Parcelas Customizadas para WooCommerce update.' );
-
-        $download_url = esc_url_raw( $update_data->download_url );
-
-        error_log( "[AUTO UPDATE] Downloading update from remote repository." );
-
-        if ( ! $this->download_and_extract( $download_url ) ) {
-            error_log( '[AUTO UPDATE] Falha na extração do plugin Parcelas Customizadas para WooCommerce.' );
-            return;
-        }
-
-        activate_plugin("{$this->plugin_slug}/{$this->plugin_slug}.php");
-
-        error_log( "[AUTO UPDATE] Parcelas Customizadas para WooCommerce plugin updated to version {$update_data->version}" );
-
-        // Check and remove .maintenance file to avoid maintenance screen
-        $maintenance_file = ABSPATH . '.maintenance';
-
-        if ( file_exists( $maintenance_file ) ) {
-            unlink( $maintenance_file );
-        }
-    }
-
-
-    /**
-     * Check if has a new update one time per day
-     *
-     * @since 5.4.0
-     * @return void
-     */
-    public static function check_daily_updates() {
-        delete_transient('woo_custom_installments_check_updates');
-        delete_transient('woo_custom_installments_remote_data');
-
-        $updater = new self();
-        $remote_data = $updater->request();
-
-        if ( ! $remote_data ) {
-            return;
-        }
-
-        // compare versions
-        $current_version = $updater->version;
-        $latest_version = $remote_data->version;
-
-        if ( version_compare( $current_version, $latest_version, '<' ) ) {
-            // storage the information in the database for later display
-            update_option( 'woo_custom_installments_update_available', $latest_version );
-        } else {
-            // remove option if it's already updated
-            delete_option('woo_custom_installments_update_available');
-        }
-    }
-
-
-    /**
      * Display update notice in the admin panel
      *
      * @since 5.4.0
-     * @version 5.4.4
+     * @version 5.5.9
      * @return void
      */
     public function admin_update_notice() {
-        $latest_version = get_option('woo_custom_installments_update_available');
-        $current_version = $this->version;
+        $update = self::get_available_update();
 
-        // check if update is available
-        if ( ! $latest_version || version_compare( $current_version, $latest_version, '>=' ) ) {
+        if ( ! $update ) {
             return;
         }
 
-        $plugin_file = 'woo-custom-installments/woo-custom-installments.php';
-        $nonce = wp_create_nonce( 'upgrade-plugin_' . $plugin_file );
+        $message = sprintf(
+            __( 'Uma nova versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> (%s) está disponível. <a href="%s">Atualize agora</a>.', 'woo-custom-installments' ),
+            esc_html( $update->new_version ),
+            esc_url( $this->get_update_url() )
+        );
 
-        $update_url = add_query_arg(
+        printf( '<div class="%1$s"><p>%2$s</p></div>', 'notice notice-success is-dismissible', wp_kses_post( $message ) );
+    }
+
+
+    /**
+     * Notice displayed when the sodium extension is missing
+     *
+     * @since 5.5.9
+     * @return void
+     */
+    public static function missing_sodium_notice() {
+        if ( ! current_user_can('update_plugins') ) {
+            return;
+        }
+
+        $message = __( 'A extensão <strong>sodium</strong> do PHP não está disponível neste servidor, por isso o plugin <strong>Parcelas Customizadas para WooCommerce</strong> não pode verificar atualizações. Contate o suporte da sua hospedagem para habilitá-la.', 'woo-custom-installments' );
+
+        printf( '<div class="%1$s"><p>%2$s</p></div>', 'notice notice-warning is-dismissible', wp_kses_post( $message ) );
+    }
+
+
+    /**
+     * Get the URL that starts the update of this plugin
+     *
+     * @since 5.5.9
+     * @return string
+     */
+    private function get_update_url() {
+        return add_query_arg(
             array(
                 'action' => 'upgrade-plugin',
-                'plugin' => $plugin_file,
-                '_wpnonce' => $nonce,
+                'plugin' => $this->basename,
+                '_wpnonce' => wp_create_nonce( 'upgrade-plugin_' . $this->basename ),
             ),
             admin_url('update.php')
         );
+    }
 
-        $message = sprintf(
-            __( 'Uma nova versão do plugin <strong>Parcelas Customizadas para WooCommerce</strong> (%s) está disponível. <a href="%s">Atualize agora</a>.', 'woo-custom-installments' ),
-            esc_html( $latest_version ),
-            esc_url( $update_url )
-        );
 
-        echo '<div class="notice notice-success is-dismissible"><p>' . $message . '</p></div>';
+    /**
+     * Remove the state left behind by the update channel used until 5.5.8
+     *
+     * @since 5.5.9
+     * @return void
+     */
+    private function maybe_migrate_legacy_state() {
+        if ( get_option('woo_custom_installments_mds_migration') === 'yes' ) {
+            return;
+        }
+
+        // events replaced by the update check of the SDK, which rides the WordPress update cron
+        wp_clear_scheduled_hook('Woo_Custom_Installments/Updates/Auto_Updates');
+        wp_clear_scheduled_hook('Woo_Custom_Installments/Updates/Check_Daily_Updates');
+
+        delete_option('woo_custom_installments_update_available');
+        delete_transient('woo_custom_installments_check_updates');
+        delete_transient('woo_custom_installments_remote_data');
+
+        update_option( 'woo_custom_installments_mds_migration', 'yes' );
+    }
+
+
+    /**
+     * Log a bootstrap failure of the update channel
+     *
+     * @since 5.5.9
+     * @param string $message | Log message
+     * @return void
+     */
+    private static function log( $message ) {
+        // WooCommerce may not be loaded yet on `plugins_loaded` priority -100
+        if ( ! function_exists('wc_get_logger') ) {
+            error_log( 'Woo Custom Installments: ' . $message );
+
+            return;
+        }
+
+        Logger::set_logger_source( 'woo-custom-installments-updates', false );
+        Logger::register_log( $message, 'error' );
     }
 }

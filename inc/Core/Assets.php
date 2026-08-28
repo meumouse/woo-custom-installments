@@ -4,6 +4,7 @@ namespace MeuMouse\Woo_Custom_Installments\Core;
 
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 use MeuMouse\Woo_Custom_Installments\API\License;
+use MeuMouse\Woo_Custom_Installments\API\Updater;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -12,7 +13,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 5.5.4
+ * @version 5.5.9
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */
@@ -42,12 +43,18 @@ class Assets {
 
     /**
      * Enqueue admin scripts in page settings only
-     * 
+     *
      * @since 2.0.0
-     * @version 5.5.4
+     * @version 5.5.9
+     * @param string $hook | Current admin page hook suffix
      * @return void
      */
-    public function admin_assets() {
+    public function admin_assets( $hook = '' ) {
+        // manual update check on the plugins list
+        if ( $hook === 'plugins.php' && Updater::is_active() ) {
+            $this->check_updates_assets();
+        }
+
         // check if is admin page settings
         if ( Helpers::check_admin_page('woo-custom-installments') ) {
             wp_enqueue_media();
@@ -114,6 +121,31 @@ class Assets {
                 wp_enqueue_script( 'font-awesome-lib', $this->assets_url . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
             }
         }
+    }
+
+
+    /**
+     * Enqueue the manual update check script on the plugins list
+     *
+     * @since 5.5.9
+     * @return void
+     */
+    public function check_updates_assets() {
+        wp_enqueue_script( 'woo-custom-installments-check-updates', $this->assets_url . 'admin/js/check-updates'. $this->min .'.js', array('jquery'), $this->version, true );
+
+        // set script params
+        wp_localize_script( 'woo-custom-installments-check-updates', 'wci_updates_params', array(
+            'rest_url' => rest_url( Updater::REST_NAMESPACE . Updater::REST_ROUTE ),
+            'debug_mode' => $this->debug_mode,
+            'i18n' => array(
+                'checking' => esc_html__( 'Verificando atualizações...', 'woo-custom-installments' ),
+                'error' => esc_html__( 'Não foi possível verificar atualizações.', 'woo-custom-installments' ),
+                'update_now' => esc_html__( 'Atualize agora', 'woo-custom-installments' ),
+            ),
+            'nonces' => array(
+                'wp_rest' => wp_create_nonce('wp_rest'),
+            ),
+        ));
     }
 
 
