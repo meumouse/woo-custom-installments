@@ -10,6 +10,8 @@ Versions before 3.2.5 — except 2.9.2 — were never tagged in Git, so they car
 
 ## [Unreleased]
 
+## [5.5.9] - 2026-08-28
+
 ### Added
 
 - Updates are now delivered by the Modular Distribution Service (MDS), through the `meumouse/mds-php-sdk` package. The plugin no longer polls a static file: it asks the MDS API, which answers with a signed release and a download link tied to the store's license
