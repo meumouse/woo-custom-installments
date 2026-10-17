@@ -3423,3 +3423,207 @@ msgstr ""
 #: dist/woo-custom-installments/inc/Integrations/Elementor/Widgets/Price_Info_Box.php:131
 msgid "à vista"
 msgstr ""
+
+#: inc/Migration/Controller.php:105
+#: inc/Migration/Controller.php:106
+#: inc/Migration/Controller.php:318
+msgid "Atualizar o Parcelas Customizadas"
+msgstr ""
+
+#: inc/Migration/Controller.php:319
+msgid "O Parcelas Customizadas agora é instalado como dois plugins: a versão gratuita, que exibe os preços, e a versão Pro, que libera os recursos da sua licença. Suas configurações são importadas automaticamente e nada é apagado."
+msgstr ""
+
+#: inc/Core/Assets.php:157
+#: inc/Migration/Controller.php:344
+msgid "Tudo pronto"
+msgstr ""
+
+#: inc/Core/Assets.php:158
+#: inc/Migration/Controller.php:345
+msgid "A versão nova está ativa e este plugin foi desativado. Suas configurações já estão lá."
+msgstr ""
+
+#: inc/Core/Assets.php:159
+#: inc/Migration/Controller.php:355
+msgid "Abrir as configurações"
+msgstr ""
+
+#: inc/Migration/Controller.php:357
+msgid "Ver os plugins instalados"
+msgstr ""
+
+#: inc/Migration/Controller.php:372
+msgid "Este servidor ainda não pode receber a versão nova"
+msgstr ""
+
+#: inc/Migration/Controller.php:374
+msgid "Nada foi alterado: sua loja continua funcionando com a versão atual do plugin."
+msgstr ""
+
+#: inc/Migration/Controller.php:377
+msgid "Verificar novamente"
+msgstr ""
+
+#: inc/Migration/Controller.php:417
+msgid "Fazer isso mais tarde"
+msgstr ""
+
+#: inc/Migration/Controller.php:437
+msgid "Tentar novamente"
+msgstr ""
+
+#: inc/Migration/Controller.php:438
+msgid "Começar"
+msgstr ""
+
+#: inc/Migration/Controller.php:469
+msgid "Verificando este servidor"
+msgstr ""
+
+#: inc/Migration/Controller.php:470
+msgid "Baixando a versão nova"
+msgstr ""
+
+#: inc/Migration/Controller.php:471
+msgid "Ativando a versão nova"
+msgstr ""
+
+#: inc/Migration/Controller.php:472
+msgid "Baixando a versão Pro"
+msgstr ""
+
+#: inc/Migration/Controller.php:473
+msgid "Ativando a versão Pro"
+msgstr ""
+
+#: inc/Migration/Controller.php:474
+msgid "Desativando a versão anterior"
+msgstr ""
+
+#: inc/Migration/Controller.php:207
+#: inc/Migration/Controller.php:228
+#: inc/Migration/Controller.php:255
+#: inc/Migration/Controller.php:309
+msgid "Você não tem permissão para instalar plugins neste site."
+msgstr ""
+
+#: inc/Migration/Notice.php:62
+msgid "O Parcelas Customizadas foi dividido em dois plugins, mas este servidor ainda não atende aos requisitos da versão nova."
+msgstr ""
+
+#: inc/Migration/Notice.php:64
+msgid "Ver o que falta"
+msgstr ""
+
+#: inc/Migration/Notice.php:73
+msgid "A atualização do Parcelas Customizadas não foi concluída."
+msgstr ""
+
+#: inc/Migration/Notice.php:75
+msgid "Continuar a atualização"
+msgstr ""
+
+#: inc/Migration/Notice.php:83
+msgid "O Parcelas Customizadas agora é instalado como dois plugins, e esta versão será substituída."
+msgstr ""
+
+#: inc/Migration/Notice.php:84
+msgid "A troca é automática, leva menos de um minuto e suas configurações são importadas. Nada é apagado."
+msgstr ""
+
+#: inc/Migration/Notice.php:85
+msgid "Atualizar agora"
+msgstr ""
+
+#: inc/Migration/Requirements.php:63
+msgid "A nova versão exige PHP %1$s ou superior, e este servidor está com o PHP %2$s. Peça à sua hospedagem para atualizar o PHP e volte aqui."
+msgstr ""
+
+#: inc/Migration/Requirements.php:75
+msgid "A nova versão exige o WordPress %1$s ou superior, e este site está com o %2$s. Atualize o WordPress e volte aqui."
+msgstr ""
+
+#: inc/Migration/Requirements.php:87
+msgid "A nova versão exige o WooCommerce %1$s ou superior, e este site está com o %2$s. Atualize o WooCommerce e volte aqui."
+msgstr ""
+
+#: inc/Migration/Requirements.php:89
+msgid "não instalado"
+msgstr ""
+
+#: inc/Migration/Requirements.php:101
+msgid "Este é um site em rede (multisite), onde a troca precisa ser feita manualmente, site por site. Fale com o suporte da MeuMouse para receber as instruções."
+msgstr ""
+
+#: inc/Migration/Requirements.php:108
+msgid "O WordPress não consegue gravar na pasta de plugins deste servidor, por isso a instalação automática não é possível. Instale os plugins novos manualmente ou fale com sua hospedagem."
+msgstr ""
+
+#: inc/Migration/Requirements.php:143
+msgid "A extensão sodium do PHP não está disponível neste servidor, e sem ela não é possível baixar a versão Pro com segurança. Peça à sua hospedagem para habilitá-la."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:116
+msgid "Nenhuma chave de licença está salva neste site, então a versão Pro não será instalada."
+msgstr ""
+
+#: inc/Migration/Runner.php:157
+msgid "Nenhuma chave de licença está salva neste site, então só a versão gratuita será instalada."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:129
+msgid "O componente que fala com o servidor de licenças não está disponível nesta instalação."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:301
+msgid "Sua licença expirou, por isso a versão Pro não pode ser baixada. Renove a licença e tente novamente."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:305
+msgid "Sua licença não está ativa, por isso a versão Pro não pode ser baixada. Fale com o suporte da MeuMouse."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:309
+msgid "Sua licença está ativa, mas não libera a versão Pro para este domínio. Ative o domínio na sua conta ou fale com o suporte da MeuMouse."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:312
+msgid "O servidor de licenças não liberou o download da versão Pro para este site. Confira sua licença na sua conta MeuMouse."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:325
+msgid "Não foi possível acessar o servidor de licenças. Verifique a conexão do servidor e tente novamente."
+msgstr ""
+
+#: inc/Migration/Package_Source.php:328
+msgid "O servidor de licenças respondeu com um erro ao liberar a versão Pro. Tente novamente em alguns minutos."
+msgstr ""
+
+#: inc/Migration/Installer.php:59
+msgid "O instalador de plugins do WordPress não está disponível nesta requisição."
+msgstr ""
+
+#: inc/Migration/Installer.php:81
+msgid "A instalação não foi concluída."
+msgstr ""
+
+#: inc/Migration/Installer.php:97
+msgid "O pacote foi instalado, mas não na pasta esperada (%s). Fale com o suporte da MeuMouse."
+msgstr ""
+
+#: inc/Migration/Installer.php:128
+msgid "O plugin %s não está instalado neste site."
+msgstr ""
+
+#: inc/Migration/Runner.php:134
+msgid "A migração parou em uma etapa desconhecida. Fale com o suporte da MeuMouse."
+msgstr ""
+
+#: inc/Migration/Runner.php:285
+msgid "A versão nova não está ativa, por isso o plugin antigo não foi desativado. Tente novamente."
+msgstr ""
+
+#: inc/Core/Assets.php:156
+msgid "Não foi possível concluir esta etapa. Tente novamente."
+msgstr ""

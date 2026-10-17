@@ -10,6 +10,17 @@ Versions before 3.2.5 — except 2.9.2 — were never tagged in Git, so they car
 
 ## [Unreleased]
 
+### Added
+
+- This plugin is replaced by two others, and this release is what moves a store across: **Parcelas Customizadas para WooCommerce** (`wc-custom-installments`), which is free and displays the prices, and **Parcelas Customizadas para WooCommerce Pro** (`wc-custom-installments-pro`), which unlocks what the license pays for. A screen of its own installs them, activates them and then switches this plugin off, one step per request
+- The settings come across on their own and **nothing is deleted**: the 5.x option, the license key and the product meta stay exactly where they are, so a store that needs to can go back to this version
+- The Pro add-on is only installed when a license key is stored, and the licensing service has the final word on whether it may be downloaded. A store whose license has expired keeps the free plugin, is told why, and stops being asked
+- Nothing is attempted on a host that cannot run the new plugins — PHP below 8.1, WordPress below 6.5, WooCommerce below 8.0, a plugins directory WordPress cannot write into, or a network install. The screen says what is missing, the store carries on with this version, and the check runs again whenever the store owner asks
+- A notice on the admin screens explaining the change, with a link that holds it back for a week
+- Option `woo_custom_installments_migration`, which records the step the migration is on, what refused and why
+- REST route `woo-custom-installments/v1/migration/step` (`POST`, capability `install_plugins`), which runs one step
+- Filter `Woo_Custom_Installments/Migration/Requirements` and action `Woo_Custom_Installments/Migration/Finished`
+
 ## [5.5.9] - 2026-08-28
 
 ### Added

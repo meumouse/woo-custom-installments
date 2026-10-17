@@ -5,6 +5,7 @@ namespace MeuMouse\Woo_Custom_Installments\Core;
 use MeuMouse\Woo_Custom_Installments\Admin\Admin_Options;
 use MeuMouse\Woo_Custom_Installments\API\License;
 use MeuMouse\Woo_Custom_Installments\API\Updater;
+use MeuMouse\Woo_Custom_Installments\Migration\Controller as Migration_Controller;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -13,7 +14,7 @@ defined('ABSPATH') || exit;
  * Load plugin assets and dependencies
  * 
  * @since 4.0.0
- * @version 5.5.9
+ * @version 6.0.0
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */
@@ -45,7 +46,7 @@ class Assets {
      * Enqueue admin scripts in page settings only
      *
      * @since 2.0.0
-     * @version 5.5.9
+     * @version 6.0.0
      * @param string $hook | Current admin page hook suffix
      * @return void
      */
@@ -53,6 +54,13 @@ class Assets {
         // manual update check on the plugins list
         if ( $hook === 'plugins.php' && Updater::is_active() ) {
             $this->check_updates_assets();
+        }
+
+        // migration screen, which loads nothing else
+        if ( Migration_Controller::is_current_page() ) {
+            $this->migration_assets();
+
+            return;
         }
 
         // check if is admin page settings
@@ -121,6 +129,39 @@ class Assets {
                 wp_enqueue_script( 'font-awesome-lib', $this->assets_url . 'vendor/font-awesome/font-awesome.min.js', array(), '6.4.0' );
             }
         }
+    }
+
+
+    /**
+     * Enqueue the migration screen assets
+     *
+     * The screen drives itself: the whole state it was rendered with is handed
+     * over here, so the script paints the steps before its first request and a
+     * reload resumes instead of starting over.
+     *
+     * @since 6.0.0
+     * @return void
+     */
+    public function migration_assets() {
+        wp_enqueue_style( 'woo-custom-installments-migration-styles', $this->assets_url . 'admin/css/migration'. $this->min .'.css', array(), $this->version );
+        wp_enqueue_script( 'woo-custom-installments-migration-scripts', $this->assets_url . 'admin/js/migration'. $this->min .'.js', array('jquery'), $this->version, true );
+
+        // set script params
+        wp_localize_script( 'woo-custom-installments-migration-scripts', 'wci_migration_params', array(
+            'rest_url' => rest_url( Updater::REST_NAMESPACE . Migration_Controller::REST_ROUTE ),
+            'settings_url' => Migration_Controller::settings_url(),
+            'debug_mode' => $this->debug_mode,
+            'state' => Migration_Controller::payload(),
+            'i18n' => array(
+                'request_error' => esc_html__( 'Não foi possível concluir esta etapa. Tente novamente.', 'woo-custom-installments' ),
+                'done_title' => esc_html__( 'Tudo pronto', 'woo-custom-installments' ),
+                'done_body' => esc_html__( 'A versão nova está ativa e este plugin foi desativado. Suas configurações já estão lá.', 'woo-custom-installments' ),
+                'open_settings' => esc_html__( 'Abrir as configurações', 'woo-custom-installments' ),
+            ),
+            'nonces' => array(
+                'wp_rest' => wp_create_nonce('wp_rest'),
+            ),
+        ));
     }
 
 
