@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
  * Initialize plugin classes.
  *
  * @since 1.0.0
- * @version 5.5.9
+ * @version 6.0.0
  * @package MeuMouse\Woo_Custom_Installments\Core
  * @author MeuMouse.com
  */

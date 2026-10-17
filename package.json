@@ -1,7 +1,7 @@
 {
     "name": "woo-custom-installments",
     "private": true,
-    "version": "5.5.9",
+    "version": "6.0.0",
     "description": "Parcelas Customizadas para WooCommerce - MeuMouse.com",
     "scripts": {
         "build": "node scripts/build.mjs",
